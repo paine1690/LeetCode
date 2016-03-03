@@ -545,7 +545,31 @@ public class Solution {
     	}	
     	return false; 
     }
-    
+    public static void moveZeroes(int[] nums) {
+        if(nums.length<2){
+        	System.out.println(Arrays.toString(nums));
+        	return;
+        }
+        int i=0;
+        while(i<nums.length){
+        	if(nums[i]==0){
+        		int count=1;
+        		for(int j=i+1; j<nums.length; j++){
+        			if(nums[j]==0){
+        				count++;
+        			}else{
+        				nums[j-count]=nums[j];
+        			}
+        		}
+        		for(int k=nums.length-count; k<nums.length; k++){
+        			nums[k]=0;
+        		}
+        		System.out.println(Arrays.toString(nums));
+        		return;
+        	}
+        	i++;
+        }
+    }
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -554,7 +578,7 @@ public class Solution {
 		String[] ss=new String[]{"foo","bar"};
 		int a=19;
 		int[] nums={0,1,0,3,12};
-		//moveZeroes(nums);
+		moveZeroes(nums);
 
 		
 		
