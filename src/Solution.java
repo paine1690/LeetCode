@@ -26,11 +26,6 @@ public class Solution {
 		}
 		return re;
 	}
-	public class ListNode {
-	    int val;
-	    ListNode next;
-		ListNode(int x) { val = x; }
-	}
 	
 	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 		int flag = 0;
@@ -570,6 +565,45 @@ public class Solution {
         	i++;
         }
     }
+    public static class ListNode {
+    	 int val;
+    	 ListNode next;
+    	 ListNode(int x) { val = x; }
+    }
+    
+    public static ListNode reverseList_iterator(ListNode head) {
+    	if(head==null||head.next==null){
+            return head;
+        }
+    	ListNode nNode=head;
+    	ListNode re=null;
+    	while(nNode!=null){
+    		ListNode pNode=new ListNode(nNode.val);
+    		pNode.next=re;
+    		re=pNode;
+    		nNode=nNode.next;
+
+    	}
+    	
+    	return re;
+    }
+    
+    public static ListNode reverseList_recursion(ListNode head) {
+    	/**
+    	 * 迭代法
+    	 * */
+    	if(head==null||head.next==null){
+            return head;
+        }
+    	
+    	ListNode nNode=head.next;
+    	ListNode re=reverseList_recursion(nNode);
+    	
+    	head.next=null;
+    	nNode.next=head;
+    	
+    	return re;
+    }
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -579,7 +613,7 @@ public class Solution {
 		int a=19;
 		int[] nums={0,1,0,3,12};
 		moveZeroes(nums);
-
+		
 		
 		
 	}
