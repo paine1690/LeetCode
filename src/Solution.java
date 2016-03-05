@@ -663,6 +663,26 @@ public class Solution {
         lNode.next=lNode.next.next;
         return re.next;
     }
+    
+    public ListNode deleteDuplicates(ListNode head) {
+    	if(head==null||head.next==null){
+    		return head;
+    	}
+    	ListNode lNode, rNode;
+    	lNode=head;
+    	rNode=head.next;
+    	
+    	while(rNode!=null){
+    		if(lNode.val==rNode.val){
+    			rNode=rNode.next;
+    			lNode.next=rNode;
+    		}else{
+    			lNode=rNode;
+    			rNode=rNode.next;
+    		}
+    	}
+    	return head;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String p="abba";
