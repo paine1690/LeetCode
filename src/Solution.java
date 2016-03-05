@@ -627,15 +627,54 @@ public class Solution {
     	
     	return false;
     }
-    
+    public static ListNode removeElements(ListNode head, int val) {
+    	if(head==null){
+        	return head;
+        }
+    	ListNode lNode=head;
+    	
+        ListNode rNode=lNode.next;
+        if(rNode==null){
+        	if(head.val==val){
+        		return null;
+        	}
+        }
+        
+        
+        while(rNode!=null&&rNode.next!=null){        	
+        	if(rNode.val==val){
+        		rNode=rNode.next;
+        		lNode.next=rNode;
+        		System.out.println("2");
+        	}else{
+        		lNode=rNode;
+        		rNode=rNode.next;
+        		System.out.println("2");
+        	}
+        }
+        if(rNode!=null&&rNode.val==val){
+        	lNode.next=null;
+        	System.out.println("3");
+        }
+        
+        if(head.val==val){
+        	System.out.println("4");
+        	return head.next;
+        	
+        }
+        return head;
+        
+    	
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String p="abba";
 		String s="barfoothefoobarman";
 		String[] ss=new String[]{"foo","bar"};
 		int a=19;
-		int[] nums={0,1,0,3,12};
-		moveZeroes(nums);
+		ListNode list=new ListNode(1);
+		list.next=new ListNode(1);
+		removeElements(list, 1);
 		
 		
 		
