@@ -628,41 +628,22 @@ public class Solution {
     	return false;
     }
     public static ListNode removeElements(ListNode head, int val) {
-    	if(head==null){
-        	return head;
-        }
-    	ListNode lNode=head;
+    	ListNode re=new ListNode(0);
+    	re.next=head;
+    	ListNode lNode=re;
+    	ListNode rNode=head;
     	
-        ListNode rNode=lNode.next;
-        if(rNode==null){
-        	if(head.val==val){
-        		return null;
-        	}
-        }
-        
-        
-        while(rNode!=null&&rNode.next!=null){        	
-        	if(rNode.val==val){
-        		rNode=rNode.next;
-        		lNode.next=rNode;
-        		System.out.println("2");
-        	}else{
-        		lNode=rNode;
-        		rNode=rNode.next;
-        		System.out.println("2");
-        	}
-        }
-        if(rNode!=null&&rNode.val==val){
-        	lNode.next=null;
-        	System.out.println("3");
-        }
-        
-        if(head.val==val){
-        	System.out.println("4");
-        	return head.next;
-        	
-        }
-        return head;
+    	while(rNode!=null){
+    		if(rNode.val==val){
+    			rNode=rNode.next;
+    			lNode.next=rNode;
+    		}else{
+    			lNode=rNode;
+    			rNode=rNode.next;
+    		}
+    	}
+    	
+    	return re.next;
         
     	
     }
