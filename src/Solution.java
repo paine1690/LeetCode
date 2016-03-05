@@ -647,6 +647,22 @@ public class Solution {
         
     	
     }
+    
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
+    	ListNode re=new ListNode(0);
+        re.next=head;
+        ListNode rNode=head;
+        for(int i=1; i<n; i++){
+        	rNode=rNode.next;
+        }
+        ListNode lNode=re;
+        while(rNode.next!=null){
+        	rNode=rNode.next;
+        	lNode=lNode.next;
+        }
+        lNode.next=lNode.next.next;
+        return re.next;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String p="abba";
@@ -655,7 +671,7 @@ public class Solution {
 		int a=19;
 		ListNode list=new ListNode(1);
 		list.next=new ListNode(1);
-		removeElements(list, 1);
+		removeNthFromEnd(list, 1);
 		
 		
 		
