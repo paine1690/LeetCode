@@ -1,9 +1,13 @@
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
+
+
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 
 public class Solution {
@@ -683,15 +687,44 @@ public class Solution {
     	}
     	return head;
     }
+    public static ListNode partition(ListNode head, int x) {
+    	if(head==null||head.next==null){
+    		return head;
+    	}
+    	ListNode re=new ListNode(1);
+    	ListNode temp=new ListNode(1);
+    
+    	ListNode lNode=re;
+    	ListNode rNode=temp;
+    	while(head!=null){
+    		if(head.val<x){
+    			lNode.next=head;
+    			head=head.next;
+    			lNode=lNode.next;
+    			lNode.next=null;//为什么一定要null呢？？？
+    		} else{
+    			rNode.next=head;
+    			head=head.next;
+    			rNode=rNode.next;
+    			rNode.next=null;//
+    		}
+    	}
+    	lNode.next=temp.next;
+    	
+    	return re.next;
+    }
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String p="abba";
 		String s="barfoothefoobarman";
 		String[] ss=new String[]{"foo","bar"};
 		int a=19;
-		ListNode list=new ListNode(1);
+		ListNode list=new ListNode(2);
 		list.next=new ListNode(1);
-		removeNthFromEnd(list, 1);
+		partition(list, 1);
+		
+		
 		
 		
 		
