@@ -757,8 +757,12 @@ public class Solution {
 
         }
     }
-    public static void printlist(ListNode head){
+    /*
+     * 打印链表的方法
+     */
+    public static void printList(ListNode head){
     	if(head==null){
+    		System.out.println("null");
     		return;
     	}
     	System.out.print(head.val);
@@ -769,19 +773,52 @@ public class Solution {
     	}
     	System.out.println("");
     }
+    /*
+     * 随机生成链表的方法
+     */
+    public static ListNode listNodeGenerator(int n){
+    	if(n<1){
+    		return null;
+    	}
+    	Random rand=new Random(47);
+    	ListNode head=null;
+    	for(int i=0; i<n; i++){
+    		ListNode pNode=new ListNode(rand.nextInt(100));
+    		pNode.next=head;
+    		head=pNode;
+    	}
+    	
+    	return head;
+    }
+    /*
+     * 根据数组生成链表
+     */
+    
+    public static ListNode listNodeGenerator(int[] a){
+    	if(a.length==0){
+    		return null;
+    	}
+    	ListNode head=new ListNode(a[0]);
+    	ListNode pNode=head;
+    	for(int i=1; i<a.length; i++){
+    		ListNode newNode=new ListNode(a[i]);
+    		pNode.next=newNode;
+    		pNode=newNode;
+    	}
+    	
+    	return head;
+    }
+    
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String p="abba";
 		String s="barfoothefoobarman";
 		String[] ss=new String[]{"foo","bar"};
 		int a=19;
-		ListNode list=new ListNode(0);
-		for(int i=1; i<6; i++){
-			ListNode pNode=new ListNode(i);
-			pNode.next=list;
-			list=pNode;
-		}
-		printlist(list);
+		int[] aa={5,6,8,9,45,456};
+		ListNode list=listNodeGenerator(aa);
+		printList(list);
 		reorderList(list);
 		
 		
