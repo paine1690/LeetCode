@@ -714,15 +714,75 @@ public class Solution {
     	return re.next;
     }
     
+    public static void reorderList(ListNode head) {
+        if(head==null||head.next==null){
+        	return;
+        }
+        if(head.next.next==null){
+        	return;
+        }
+    	int i=0;
+    	ListNode pNode=head;
+        while(pNode!=null){
+        	i++;
+        	pNode=pNode.next;
+        }
+        i=i/2;
+
+        pNode=head;
+        for(int j=1; j<i; j++){
+        	pNode=pNode.next;
+        }
+        ListNode rNode=pNode.next;
+        pNode.next=null;
+        pNode=rNode.next;
+        rNode.next=null;
+        
+        while(pNode!=null){
+        	ListNode temp=pNode.next;
+        	pNode.next=rNode;
+        	rNode=pNode;
+        	pNode=temp;
+        }
+        ListNode lNode=head;
+        ListNode re=new ListNode(0);
+        pNode=re;
+        while(lNode!=null&&rNode!=null){
+        	pNode.next=lNode;
+        	pNode=rNode;
+        	ListNode temp=lNode.next;
+        	lNode.next=rNode;
+        	rNode=rNode.next;
+        	lNode=temp;
+
+        }
+    }
+    public static void printlist(ListNode head){
+    	if(head==null){
+    		return;
+    	}
+    	System.out.print(head.val);
+    	ListNode pNode=head.next;
+    	while(pNode!=null){
+    		System.out.print("->"+pNode.val);
+    		pNode=pNode.next;
+    	}
+    	System.out.println("");
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String p="abba";
 		String s="barfoothefoobarman";
 		String[] ss=new String[]{"foo","bar"};
 		int a=19;
-		ListNode list=new ListNode(2);
-		list.next=new ListNode(1);
-		partition(list, 1);
+		ListNode list=new ListNode(0);
+		for(int i=1; i<6; i++){
+			ListNode pNode=new ListNode(i);
+			pNode.next=list;
+			list=pNode;
+		}
+		printlist(list);
+		reorderList(list);
 		
 		
 		
