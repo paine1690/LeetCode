@@ -809,6 +809,57 @@ public class Solution {
     	return head;
     }
     
+    /*
+     * 按照网上的方法，修改分割两个数组的方法
+     * 快慢两个指针，如果是奇数，前面数组比后面的大一个，所以后面要再加一个判断
+     */
+    public static void reorderList2(ListNode head) {
+        if(head==null||head.next==null){
+        	return;
+        }
+        if(head.next.next==null){
+        	return;
+        }
+        
+        ListNode pNode=head, qNode=head;
+        while(qNode.next!=null){
+        	qNode=qNode.next;
+        	if(qNode.next==null){
+        		break;
+        	}
+        	pNode=pNode.next;
+        	qNode=qNode.next;
+        }
+        
+        
+        ListNode rNode=pNode.next;
+        pNode.next=null;
+        pNode=rNode.next;
+        rNode.next=null;
+        
+        while(pNode!=null){
+        	ListNode temp=pNode.next;
+        	pNode.next=rNode;
+        	rNode=pNode;
+        	pNode=temp;
+        }
+        ListNode lNode=head;
+        printList(rNode);
+        printList(lNode);
+        ListNode re=new ListNode(0);
+        pNode=re;
+        while(lNode!=null&&rNode!=null){
+        	pNode.next=lNode;
+        	pNode=rNode;
+        	ListNode temp=lNode.next;
+        	lNode.next=rNode;
+        	rNode=rNode.next;
+        	lNode=temp;
+        }
+        if(lNode!=null){
+        	pNode.next=lNode;
+        }
+    }
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -816,10 +867,11 @@ public class Solution {
 		String s="barfoothefoobarman";
 		String[] ss=new String[]{"foo","bar"};
 		int a=19;
-		int[] aa={5,6,8,9,45,456};
+		int[] aa={1,2,3};
 		ListNode list=listNodeGenerator(aa);
 		printList(list);
-		reorderList(list);
+		reorderList2(list);
+		printList(list);
 		
 		
 		
