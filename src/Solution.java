@@ -861,17 +861,43 @@ public class Solution {
         }
     }
     
+    public static ListNode reverseBetween(ListNode head, int m, int n) {
+        if(m==n){
+        	return head;
+        }
+        ListNode re=new ListNode(0);
+        re.next=head;
+        int i;
+        ListNode pNode=re;
+        for(i=1; i<m; i++){
+        	pNode=pNode.next;
+        }
+        ListNode lNode=pNode;
+        ListNode rNode=pNode.next;
+        ListNode qNode=rNode;
+        ListNode temp;
+        pNode=rNode.next;
+        for(i=m; i<n; i++){
+        	
+        	temp=pNode.next;
+        	pNode.next=rNode;
+        	rNode=pNode;
+        	pNode=temp;
+        }
+        qNode.next=pNode;
+        lNode.next=rNode;
+    	return re.next;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String p="abba";
 		String s="barfoothefoobarman";
 		String[] ss=new String[]{"foo","bar"};
 		int a=19;
-		int[] aa={1,2,3};
+		int[] aa={3,5};
 		ListNode list=listNodeGenerator(aa);
-		printList(list);
-		reorderList2(list);
-		printList(list);
+		printList(reverseBetween(list, 1,2));
+		
 		
 		
 		
