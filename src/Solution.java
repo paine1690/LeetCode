@@ -961,6 +961,30 @@ public class Solution {
     	return re.next;
     }
     
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    	ListNode re=new ListNode(0);
+    	ListNode pNode=re;
+    	while(l1!=null&&l2!=null){
+    		if(l1.val<l2.val){
+    			pNode.next=l1;
+    			pNode=pNode.next;
+    			l1=l1.next;
+    		}else{
+    			pNode.next=l2;
+    			pNode=pNode.next;
+    			l2=l2.next;
+    		}
+    	}
+    	if(l1!=null){
+    		pNode.next=l1;
+    	}
+    	if(l2!=null){
+    		pNode.next=l2;
+    	}
+    	
+    	return re.next;
+    }
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String p="abba";
@@ -971,7 +995,7 @@ public class Solution {
 		int[] bb={4,5,6,7};
 		ListNode list1=listNodeGenerator(aa);
 		ListNode list2=listNodeGenerator(bb);
-		printList(deleteDuplicates2(list1));
+		printList(mergeTwoLists(list1, list2));
 		
 		
 		
