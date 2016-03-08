@@ -1002,15 +1002,40 @@ public class Solution {
     	System.out.println(Arrays.toString(nums));
     	return re;
     }
+    
+    public static int removeDuplicates2(int[] nums) {
+        int len=nums.length;
+        if(len<2){
+        	return len;
+        }
+        int i=1, j=1;
+        for(; j<nums.length; j++){
+        	if(nums[j]==nums[j-1]){
+        		len--;
+        		j++;
+        		while(j<nums.length&&nums[j]==nums[j-1]){
+        			j++;
+        			len--;
+        		}
+        		if(j==nums.length)
+        			break;
+        		nums[i++]=nums[j];
+        	}else{
+        		nums[i++]=nums[j];
+        	}
+        }
+        
+        return len;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String p="abba";
 		String s="barfoothefoobarman";
 		String[] ss=new String[]{"foo","bar"};
 		int a=19;
-		int[] aa={1,1,1};
+		int[] aa={1,1,1,1,2,3};
 		int[] bb={4,5,6,7};
-		System.out.println(removeElement(aa,1));
+		System.out.println(removeDuplicates2(aa));
 		
 		
 		
