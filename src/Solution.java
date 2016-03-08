@@ -888,6 +888,53 @@ public class Solution {
         lNode.next=rNode;
     	return re.next;
     }
+    
+    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA==null||headB==null){
+        	return null;
+        }
+        if(headA==headB){
+        	return headA;
+        }
+        ListNode pNode=headA;
+        int i=1, j=1;
+        while(pNode.next!=null){
+        	pNode=pNode.next;
+        	i++;
+        }
+        pNode=headB;
+        while(pNode.next!=null){
+        	pNode=pNode.next;
+        	j++;
+        }
+        ListNode slow, fast;
+        if(i==j){
+        	slow=headA;
+        	fast=headB;
+        }else if(i<j){
+        	pNode=headB;
+        	for(int k=i; i<j; i++){
+        		pNode=pNode.next;
+        	}
+        	slow=headA;
+        	fast=pNode;
+        }else{
+        	pNode=headA;
+        	for(int k=j; k<i; k++){
+        		pNode=pNode.next;
+        	}
+        	slow=headB;
+        	fast=pNode;
+        }  
+    	while(fast!=null){
+    		if(fast==slow){
+    			return fast;
+    		}
+    		fast=fast.next;
+    		slow=slow.next;
+    	}
+    	return null;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String p="abba";
@@ -895,9 +942,11 @@ public class Solution {
 		String[] ss=new String[]{"foo","bar"};
 		int a=19;
 		int[] aa={3,5};
-		ListNode list=listNodeGenerator(aa);
-		printList(reverseBetween(list, 1,2));
+		int[] bb={4,5,6,7};
+		ListNode list1=listNodeGenerator(aa);
+		ListNode list2=listNodeGenerator(bb);
 		
+		getIntersectionNode(list1, list2);
 		
 		
 		
