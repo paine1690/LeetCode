@@ -935,18 +935,43 @@ public class Solution {
     	}
     	return null;
     }
+    
+    public static ListNode deleteDuplicates2(ListNode head) {
+        if(head==null||head.next==null){
+        	return head;
+        }
+        ListNode re=new ListNode(0);
+        re.next=head;
+        ListNode lNode=re, rNode=head;
+    	while(rNode!=null&&rNode.next!=null){
+    		int val=rNode.val;
+    		
+    		if(rNode.next.val==val){
+    			rNode=rNode.next;
+        		while(rNode!=null&&rNode.val==val){
+        			rNode=rNode.next;
+        		}
+        		lNode.next=rNode;
+    		}else{
+    			lNode=lNode.next;
+        		rNode=rNode.next;
+    		}
+    		
+    	}
+    	return re.next;
+    }
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String p="abba";
 		String s="barfoothefoobarman";
 		String[] ss=new String[]{"foo","bar"};
 		int a=19;
-		int[] aa={3,5};
+		int[] aa={1,2};
 		int[] bb={4,5,6,7};
 		ListNode list1=listNodeGenerator(aa);
 		ListNode list2=listNodeGenerator(bb);
-		
-		getIntersectionNode(list1, list2);
+		printList(deleteDuplicates2(list1));
 		
 		
 		
