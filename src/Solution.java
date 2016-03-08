@@ -985,17 +985,32 @@ public class Solution {
     	return re.next;
     }
     
+    public static int removeElement(int[] nums, int val) {
+    	int i=0, j=0;
+    	int re=nums.length;
+    	for(j=0; j<nums.length; j++){
+    		if(nums[j]==val){
+    			while(j<nums.length&&nums[j]==val){
+    				j++;
+    				re--;
+    			}
+    		}
+    		if(j>=nums.length)
+    			break;
+    		nums[i++]=nums[j];
+    	}
+    	System.out.println(Arrays.toString(nums));
+    	return re;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String p="abba";
 		String s="barfoothefoobarman";
 		String[] ss=new String[]{"foo","bar"};
 		int a=19;
-		int[] aa={1,2};
+		int[] aa={1,1,1};
 		int[] bb={4,5,6,7};
-		ListNode list1=listNodeGenerator(aa);
-		ListNode list2=listNodeGenerator(bb);
-		printList(mergeTwoLists(list1, list2));
+		System.out.println(removeElement(aa,1));
 		
 		
 		
