@@ -247,29 +247,6 @@ public class Solution {
            	    	  
     }
 	
-    public static int maxArea(int[] height) {
-        int re=0;
-        int n=height.length;
-        int l=0;
-        int r=n-1;
-        int temp=0;
-        while(l!=r){
-        	if(height[l]<height[r]){
-        		temp=height[l]*(r-l);
-        		l++;
-        	}
-        	else{
-        		temp=height[r]*(r-l);
-        		r--;
-        	}
-        	if(temp>re){
-    			re=temp;
-    		}
-        	System.out.println(String.valueOf(1));
-        }
-        
-        return re;
-    }
     
     public static String intToRoman(int num) {
         String re="";
@@ -438,126 +415,6 @@ public class Solution {
     }
     
     
-    public static boolean containsDuplicate(int[] nums) {
-        HashSet<Integer> set=new HashSet<Integer>();
-    	for(int i=0; i<nums.length; i++){
-    		if(set.contains(nums[i])){
-    			return true;
-    		}else{
-    			set.add(nums[i]);
-    		}
-    	}
-    	
-    	return false;
-    }
-    public static int removeDuplicates(int[] nums) {
-        int len=nums.length;
-        if(len<2){
-        	return len;
-        }
-        for(int i=1; i<nums.length; i++){
-        	if(nums[i]==nums[i-1]){
-        		len--;
-        	}
-        }
-        
-        return len;
-    }
-    
-  
-    public boolean containsNearbyDuplicate(int[] nums, int k) {
-    	int len=nums.length;
-    	if(len<2){
-    		return false;
-    	}
-    	HashMap<Integer,Integer> map=new HashMap<Integer,Integer>();
-    	for(int i=0; i<len; i++){
-    		if(!map.containsKey(nums[i])){
-    			map.put(nums[i], i);
-    		}else{
-    			if((i-map.get(nums[i])<=k)){
-    				return true;
-    			}
-    			map.put(nums[i], i);
-    		}
-    	}	
-    	return false; 
-    }
-    public static void moveZeroes(int[] nums) {
-        if(nums.length<2){
-        	System.out.println(Arrays.toString(nums));
-        	return;
-        }
-        int i=0;
-        while(i<nums.length){
-        	if(nums[i]==0){
-        		int count=1;
-        		for(int j=i+1; j<nums.length; j++){
-        			if(nums[j]==0){
-        				count++;
-        			}else{
-        				nums[j-count]=nums[j];
-        			}
-        		}
-        		for(int k=nums.length-count; k<nums.length; k++){
-        			nums[k]=0;
-        		}
-        		System.out.println(Arrays.toString(nums));
-        		return;
-        	}
-        	i++;
-        }
-    }
-  
-    
-    
-    
-    
-    
-    
-    
-    public static int removeElement(int[] nums, int val) {
-    	int i=0, j=0;
-    	int re=nums.length;
-    	for(j=0; j<nums.length; j++){
-    		if(nums[j]==val){
-    			while(j<nums.length&&nums[j]==val){
-    				j++;
-    				re--;
-    			}
-    		}
-    		if(j>=nums.length)
-    			break;
-    		nums[i++]=nums[j];
-    	}
-    	System.out.println(Arrays.toString(nums));
-    	return re;
-    }
-    
-    public static int removeDuplicates2(int[] nums) {
-        int len=nums.length;
-        if(len<2){
-        	return len;
-        }
-        int i=1, j=1;
-        for(; j<nums.length; j++){
-        	if(nums[j]==nums[j-1]){
-        		len--;
-        		j++;
-        		while(j<nums.length&&nums[j]==nums[j-1]){
-        			j++;
-        			len--;
-        		}
-        		if(j==nums.length)
-        			break;
-        		nums[i++]=nums[j];
-        	}else{
-        		nums[i++]=nums[j];
-        	}
-        }
-        
-        return len;
-    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String p="abba";
@@ -566,7 +423,7 @@ public class Solution {
 		int a=19;
 		int[] aa={1,1,1,1,2,3};
 		int[] bb={4,5,6,7};
-		System.out.println(removeDuplicates2(aa));
+		
 		
 		
 		
