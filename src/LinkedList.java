@@ -482,11 +482,44 @@ public class LinkedList {
     	return re.next;
     }
     
+    public static boolean isPalindrome(ListNode head) {
+        if(head==null||head.next==null){
+        	return true;
+        }
+    	ListNode lNode=head, rNode=head.next;
+    	while(rNode!=null){
+    		rNode=rNode.next;
+    		if(rNode!=null){
+    			rNode=rNode.next;
+    			lNode=lNode.next;
+    		}
+    	}
+        rNode=lNode.next;
+        lNode.next=null;
+        lNode=head;
+    	ListNode pNode=rNode.next;
+    	rNode.next=null;
+        while(pNode!=null){//反转链表
+        	ListNode temp=pNode.next;
+        	pNode.next=rNode;
+        	rNode=pNode;
+        	pNode=temp;
+        }
+        while(rNode!=null){
+        	if(rNode.val!=lNode.val){
+        		return false;
+        	}
+        	rNode=rNode.next;
+        	lNode=lNode.next;
+        }
+    	
+    	return true;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] aa={1,1,1,1,2,3};
+		int[] aa={1,1,1,1,2,3,4};
 		ListNode list=listNodeGenerator(aa);
-		printList(deleteDuplicates2(list));
+		System.out.println((isPalindrome(list)));
 		
 	}
 
