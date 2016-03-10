@@ -19,11 +19,39 @@ public class TwoPointers {
 		}
 		return true;
 	}
+	
+	
+	/*
+	 * 不用正则表达式
+	 */
+	public static boolean isPalindrome2(String s) {
+		if(s==null){
+			return true;
+		}
+		int i=0, j=s.length()-1;
+		char[] chars=s.toCharArray();
+		
+		while(i<j){
+			if(!Character.isLetterOrDigit(chars[i])){
+				i++;
+			} else if(!Character.isLetterOrDigit(chars[j])){
+				j--;
+			} else if(Character.toLowerCase(chars[i])!=Character.toLowerCase(chars[j])){
+				System.out.println(i);
+				System.out.println(j);
+				return false;
+			}else{
+				i++;
+				j--;
+			}
+		}
+		return true;
+	}
 	 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String s="race a car";
-		System.out.println(isPalindrome(s));
+		String s=".a";
+		System.out.println(isPalindrome2(s));
 	}
 
 }
