@@ -135,19 +135,12 @@ public class TwoPointers {
     }
     
     public static void sortColors(int[] nums) {
-    	if(nums.length<2){
+    	int len=nums.length;
+    	if(len<2){
     		return;
     	}
-    	if(nums.length==2){
-    		if(nums[0]>nums[1]){
-    			int temp=nums[1];
-    			nums[1]=nums[0];
-    			nums[0]=temp;
-    		}
-    		return;
-    	}
-        int i=0, j=nums.length-1, k=0;
-        while(i<j&&k<=j){
+        int i=0, j=0, k=0;
+        while(k<len-j){
         	if(nums[k]==0){
         		int temp=nums[k];
         		nums[k]=nums[i];
@@ -155,9 +148,9 @@ public class TwoPointers {
         		i++;
         	}else if(nums[k]==2){
         		int temp=nums[k];
-        		nums[k]=nums[j];
-        		nums[j]=temp;
-        		j--;
+        		nums[k]=nums[len-j-1];
+        		nums[len-j-1]=temp;
+        		j++;
         		continue;
         	}
         	k++;
