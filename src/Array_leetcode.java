@@ -5,20 +5,6 @@ import java.util.HashSet;
 public class Array_leetcode {
 
 	
-	
-    public static int removeDuplicates(int[] nums) {
-        int len=nums.length;
-        if(len<2){
-        	return len;
-        }
-        for(int i=1; i<nums.length; i++){
-        	if(nums[i]==nums[i-1]){
-        		len--;
-        	}
-        }
-        
-        return len;
-    }
     
     public static int removeElement(int[] nums, int val) {
     	int i=0, j=0;
@@ -165,34 +151,10 @@ public class Array_leetcode {
         return re;
     }
     
-    public static int removeDuplicates2(int[] nums) {
-        int len=nums.length;
-        if(len<2){
-        	return len;
-        }
-        int i=1, j=1;
-        for(; j<nums.length; j++){
-        	if(nums[j]==nums[j-1]){
-        		len--;
-        		j++;
-        		while(j<nums.length&&nums[j]==nums[j-1]){
-        			j++;
-        			len--;
-        		}
-        		if(j==nums.length)
-        			break;
-        		nums[i++]=nums[j];
-        	}else{
-        		nums[i++]=nums[j];
-        	}
-        }
-        
-        return len;
-    }
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] aa={1,1,1,1,2,3};
-		System.out.println(removeDuplicates2(aa));
 	}
 
 }

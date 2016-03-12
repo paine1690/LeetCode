@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class TwoPointers {
 	/*
@@ -86,12 +87,59 @@ public class TwoPointers {
         return -1;
     }
     
+    public static int removeDuplicates(int[] nums) {
+        int len=nums.length;
+        if(len<2){
+        	return len;
+        }
+        int i=1, j=1;
+        for(; j<nums.length; j++){
+        	if(nums[j]==nums[j-1]){
+        		while(j<nums.length&&nums[j]==nums[j-1]){
+        			j++;
+        			len--;
+        		}
+        		if(j==nums.length)
+        			break;
+        		nums[i++]=nums[j];
+        	}else{
+        		nums[i++]=nums[j];
+        	}
+        }
+        
+        return len;
+    }
+    
+    
+    public static int removeDuplicates2(int[] nums) {
+    	int len=nums.length;
+        if(len<2){
+        	return len;
+        }
+        int i=1, j=1;
+        for(; j<nums.length; j++){
+        	if(nums[j]==nums[j-1]){
+        		nums[i++]=nums[j++];
+        		while(j<nums.length&&nums[j]==nums[j-1]){
+        			j++;
+        			len--;
+        		}
+        		if(j==nums.length)
+        			break;
+        		nums[i++]=nums[j];
+        	}else{
+        		nums[i++]=nums[j];
+        	}
+        }
+        return len;
+    }
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String s1="asdf";
 		String s2="df";
-		System.out.println(strStr(s1, s2));
+		int[] nums={1,1,1,1,2,2,3};
+		System.out.println(removeDuplicates2(nums));
 	}
 
 }
