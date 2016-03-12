@@ -109,7 +109,7 @@ public class TwoPointers {
         
         return len;
     }
-    
+
     
     public static int removeDuplicates2(int[] nums) {
     	int len=nums.length;
@@ -134,12 +134,42 @@ public class TwoPointers {
         return len;
     }
     
+    public static void sortColors(int[] nums) {
+    	if(nums.length<2){
+    		return;
+    	}
+    	if(nums.length==2){
+    		if(nums[0]>nums[1]){
+    			int temp=nums[1];
+    			nums[1]=nums[0];
+    			nums[0]=temp;
+    		}
+    		return;
+    	}
+        int i=0, j=nums.length-1, k=0;
+        while(i<j&&k<=j){
+        	if(nums[k]==0){
+        		int temp=nums[k];
+        		nums[k]=nums[i];
+        		nums[i]=temp;
+        		i++;
+        	}else if(nums[k]==2){
+        		int temp=nums[k];
+        		nums[k]=nums[j];
+        		nums[j]=temp;
+        		j--;
+        		continue;
+        	}
+        	k++;
+        }
+        System.out.println(Arrays.toString(nums));
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String s1="asdf";
 		String s2="df";
-		int[] nums={1,1,1,1,2,2,3};
-		System.out.println(removeDuplicates2(nums));
+		int[] nums={1,1,2};
+		sortColors(nums);
 	}
 
 }
