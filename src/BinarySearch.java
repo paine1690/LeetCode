@@ -153,11 +153,31 @@ public class BinarySearch {
     	return nums[right];
     }
     
+    public static boolean searchMatrix2(int[][] matrix, int target) {
+        int i=0, j=matrix[0].length-1;
+        while(i<matrix.length&&j>0){
+        	int val=matrix[i][j];
+        	if(val>target){
+        		j--;
+        	}else if(val<target){
+        		i++;
+        	}else{
+        		return true;
+        	}
+        }
+    	return false;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] nums={1,3,3};
-		int[][] matrix={{1,3}};
-		System.out.println(findMin2(nums));
+		int[][] matrix={
+		                {1,   4,  7, 11, 15},
+		                {2,   5,  8, 12, 19},
+		                {3,   6,  9, 16, 22},
+		                {10, 13, 14, 17, 24},
+		                {18, 21, 23, 26, 30}
+		};
+		System.out.println(searchMatrix2(matrix, 20));
 
 	}
 
