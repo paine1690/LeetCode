@@ -117,26 +117,47 @@ public class BinarySearch {
     }
     
     public static int findMin(int[] nums) {
-        int mid, left=0, right=nums.length-1;
+    	int mid, left=0, right=nums.length-1;
         while(left<right){
         	mid=left+(right-left)/2;
-        	if(nums[mid]>=nums[right]){
+        	
+        	if(nums[mid]>nums[right]){
         		left=mid+1;
         	}else{
         		right=mid;
         	}
         }
-    	System.out.println(right);
     	if(right==-1){
     		return nums[0];
     	}
     	return nums[right];
     }
+    
+    public static int findMin2(int[] nums) {
+    	int mid, left=0, right=nums.length-1;
+        while(left<right){
+        	if(nums[left]==nums[right]){
+        		left++;
+        		continue;
+        	}
+        	mid=left+(right-left)/2;        	
+        	if(nums[mid]>nums[right]){
+        		left=mid+1;
+        	}else{
+        		right=mid;
+        	}
+        }
+    	if(right==-1){
+    		return nums[0];
+    	}
+    	return nums[right];
+    }
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] nums={3,1,2};
+		int[] nums={1,3,3};
 		int[][] matrix={{1,3}};
-		System.out.println(findMin(nums));
+		System.out.println(findMin2(nums));
 
 	}
 
