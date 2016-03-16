@@ -167,9 +167,23 @@ public class BinarySearch {
         }
     	return false;
     }
+    
+    public static int hIndex(int[] citations) {
+        int len=citations.length;
+    	int left=0, right=len-1;
+        while(left<=right){
+        	int mid=left+(right-left)/2;
+        	if(citations[mid]>=len-mid){
+        		right=mid-1;
+        	}else{
+        		left=mid+1;
+        	}
+        }    	
+    	return len-right-1;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] nums={1,3,3};
+		int[] nums={0,0,0,0,0,0,0,0,0,1,3,5,6,7,8,9};
 		int[][] matrix={
 		                {1,   4,  7, 11, 15},
 		                {2,   5,  8, 12, 19},
@@ -177,8 +191,7 @@ public class BinarySearch {
 		                {10, 13, 14, 17, 24},
 		                {18, 21, 23, 26, 30}
 		};
-		System.out.println(searchMatrix2(matrix, 20));
-
+		System.out.println(hIndex(nums));
 	}
 
 }
