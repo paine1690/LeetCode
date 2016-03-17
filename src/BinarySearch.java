@@ -202,12 +202,16 @@ public class BinarySearch {
         	if(nums[mid]==target){
         		return mid;
         	}else if(nums[mid]>target){
-        		if(nums[left]==target){
-        			return left;
-        		}else if(nums[left]<target){
+        		if(nums[mid]<nums[right]){
         			right=mid-1;
         		}else{
-        			left=mid+1;
+        			if(nums[left]==target){
+        				return left;
+        			}else if(nums[left]<target){
+        				right=mid-1;
+        			}else{
+        				left=mid+1;
+        			}
         		}
         	}else{//nums[mid]<target
         		if(nums[mid]>nums[left]){
@@ -225,10 +229,52 @@ public class BinarySearch {
         }
     	return -1;
     }
+    
+    public static boolean search2(int[] nums, int target) {
+    	int left=0, right=nums.length-1;
+        while(left<=right){
+        	if(nums[left]==nums[right]){
+        		left++;
+        		continue;
+        	}
+        	int mid=left+(right-left)/2;
+        	if(nums[mid]==target){
+        		return true;
+        	}else if(nums[mid]>target){
+        		if(nums[mid]<=nums[right]){
+        			right=mid-1;
+        		}else{
+        			if(nums[left]==target){
+        				return true;
+        			}else if(nums[left]<target){
+        				right=mid-1;
+        			}else{
+        				left=mid+1;
+        			}
+        		}
+        	}else{//nums[mid]<target
+        		if(nums[mid]>=nums[left]){
+        			left=mid+1;
+        		}else{
+        			if(nums[right]==target){
+            			return true;
+        			}else if(nums[right]>target){
+        				left=mid+1;
+        			}else{
+        				right=mid-1;
+        			}
+        		}
+        	}
+        }
+    	if(right>=0){
+        	return nums[right]==target;
+        }
+    	return false;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] nums={4,5,6,7,8,1,2,3};
 		
-		System.out.println(search(nums,8));
+		System.out.println(search2(nums,8));
 	}
 }
