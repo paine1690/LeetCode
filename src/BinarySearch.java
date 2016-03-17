@@ -181,9 +181,22 @@ public class BinarySearch {
         }    	
     	return len-right-1;
     }
+    
+    public static int findPeakElement(int[] nums) {
+        int left=0, right=nums.length-1;
+        while(left<right){
+        	int mid=left+(right-left)/2;
+        	if(nums[mid]<nums[mid+1]){
+        		left=mid+1;
+        	}else{
+        		right=mid;
+        	}
+        }
+    	return left;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] nums={0,0,0,0,0,0,0,0,0,1,3,5,6,7,8,9};
+		int[] nums={1,2,3,1};
 		int[][] matrix={
 		                {1,   4,  7, 11, 15},
 		                {2,   5,  8, 12, 19},
@@ -191,7 +204,6 @@ public class BinarySearch {
 		                {10, 13, 14, 17, 24},
 		                {18, 21, 23, 26, 30}
 		};
-		System.out.println(hIndex(nums));
+		System.out.println(findPeakElement(nums));
 	}
-
 }
