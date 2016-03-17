@@ -1,4 +1,4 @@
-import java.util.Arrays;
+
 
 public class BinarySearch {
 	//没有具体功能，为了确保编译没有错误。
@@ -194,16 +194,41 @@ public class BinarySearch {
         }
     	return left;
     }
+    
+    public static int search(int[] nums, int target) {
+        int left=0, right=nums.length-1;
+        while(left<=right){
+        	int mid=left+(right-left)/2;
+        	if(nums[mid]==target){
+        		return mid;
+        	}else if(nums[mid]>target){
+        		if(nums[left]==target){
+        			return left;
+        		}else if(nums[left]<target){
+        			right=mid-1;
+        		}else{
+        			left=mid+1;
+        		}
+        	}else{//nums[mid]<target
+        		if(nums[mid]>nums[left]){
+        			left=mid+1;
+        		}else{
+        			if(nums[right]==target){
+            			return right;
+        			}else if(nums[right]>target){
+        				left=mid+1;
+        			}else{
+        				right=mid-1;
+        			}
+        		}
+        	}
+        }
+    	return -1;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] nums={1,2,3,1};
-		int[][] matrix={
-		                {1,   4,  7, 11, 15},
-		                {2,   5,  8, 12, 19},
-		                {3,   6,  9, 16, 22},
-		                {10, 13, 14, 17, 24},
-		                {18, 21, 23, 26, 30}
-		};
-		System.out.println(findPeakElement(nums));
+		int[] nums={4,5,6,7,8,1,2,3};
+		
+		System.out.println(search(nums,8));
 	}
 }
