@@ -42,12 +42,35 @@ public class HashTable {
     	}
     	return true;
     }
+    
+    public static boolean isIsomorphic2(String s, String t) {
+    	if(s.length()<2){
+    		return true;
+    	}
+    	Map<Character, Character> map=new HashMap<Character, Character>();
+    	Set<Character> set=new HashSet<Character>();
+    	for(int i=0; i<s.length();i++){
+    		if(!map.containsKey(s.charAt(i))){
+    			if(set.contains(t.charAt(i))){
+    				return false;
+    			}else{
+    				map.put(s.charAt(i), t.charAt(i));
+    				set.add(t.charAt(i));
+    			}
+    		}else{
+    			if(t.charAt(i)!=map.get(s.charAt(i))){
+    				return false;
+    			}
+    		}
+    	}
+    	return true;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] nums={1,5,6,4,1,6,4};
 		String s="ab";
 		String t="aa";
-		System.out.println(isIsomorphic(s, t));
+		System.out.println(isIsomorphic2(s, t));
 		
 	}
 
