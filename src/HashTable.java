@@ -65,12 +65,33 @@ public class HashTable {
     	}
     	return true;
     }
+    
+    public static String getHint(String secret, String guess) {
+    	int bulls=0, cows=0;
+        int[] map=new int[10];
+        for(int i=0; i<secret.length(); i++){
+        	if(secret.charAt(i)==guess.charAt(i)){
+        		bulls++;
+        	}else{
+        		map[secret.charAt(i)-'0']++;
+        	}
+        }
+        for(int i=0; i<guess.length(); i++){
+        	if(guess.charAt(i)!=secret.charAt(i)){
+        		if(map[guess.charAt(i)-'0']!=0){
+        			cows++;
+        			map[guess.charAt(i)-'0']--;
+        		}
+        	}
+        }
+    	return bulls+"A"+cows+"B";
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] nums={1,5,6,4,1,6,4};
-		String s="ab";
-		String t="aa";
-		System.out.println(isIsomorphic2(s, t));
+		String s="1122";
+		String t="1222";
+		System.out.println(getHint(s, t));
 		
 	}
 
