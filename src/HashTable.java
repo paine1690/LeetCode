@@ -86,12 +86,36 @@ public class HashTable {
         }
     	return bulls+"A"+cows+"B";
     }
+    
+    public static List<String> findRepeatedDnaSequences(String s) {
+    	List<String> re=new ArrayList<String>();
+    	if(s.length()<=10){
+    		return re;
+    	}
+    	Map<String, Integer> map=new HashMap<String, Integer>();    	
+    	for(int i=10; i<=s.length(); i++){
+    		String k=s.substring(i-10, i);
+    		if(map.containsKey(k)){
+    			int val=map.get(k);
+    			if(val==1){
+    				re.add(k);
+    			}
+    			map.put(k, val+1);
+    		}else{
+    			map.put(k, 1);
+    		}
+    	}
+    	return re;
+    }
+    
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] nums={1,5,6,4,1,6,4};
-		String s="1122";
+		String[] strs={"eat", "tea", "tan", "ate", "nat", "bat"};
+		String s="0000000000000000";
 		String t="1222";
-		System.out.println(getHint(s, t));
+		System.out.println(findRepeatedDnaSequences(s));
 		
 	}
 
