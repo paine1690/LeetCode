@@ -515,6 +515,29 @@ public class LinkedList {
     	
     	return true;
     }
+    
+    public static ListNode mergeKLists(ListNode[] lists) {
+    	int len=lists.length;
+    	if(len==0){
+    		return null;
+    	}
+    	if(len==1){
+    		return lists[0];
+    	}
+    	int step=1;
+    	while(step<len){
+    		for(int i=0; i<len; i+=step*2){
+    			if(i+step<len){
+    				lists[i]=mergeTwoLists(lists[i], lists[i+step]);
+    			}
+    		}
+    		step=step*2;
+    	}    	
+    	return lists[0];
+    }
+
+    
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] aa={1,1,1,1,2,3,4};
