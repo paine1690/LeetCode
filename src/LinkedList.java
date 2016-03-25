@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -535,14 +536,17 @@ public class LinkedList {
     	}    	
     	return lists[0];
     }
-
+    
     
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] aa={1,1,1,1,2,3,4};
-		ListNode list=listNodeGenerator(aa);
-		System.out.println((isPalindrome(list)));
+		int[] aa={1};
+		int[] bb={0};
+		ListNode list1=listNodeGenerator(aa);
+		ListNode list2=listNodeGenerator(bb);
+		ListNode[] lists={list1, list2};
+		
 		
 	}
 
