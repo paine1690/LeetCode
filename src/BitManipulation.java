@@ -63,20 +63,21 @@ public class BitManipulation {
     }
     
     public static int majorityElement(int[] nums) {
-        int re=0;
-        int l=0, r=nums.length-1;
-        while(l<r){
-        	if(nums[l]!=nums[r]){
-        		nums[l++]=0;
-        		nums[r--]=0;
-        	}else{
-        		nums[l++]=0;
-        	}
-        }
-        for(int num: nums){
-        	re|=num;
-        }
-        return re;
+    	int re=0;
+    	int count=0;
+    	for(int i=0; i<nums.length; i++){
+    		if(count==0){
+    			re=nums[i];
+    			count=1;
+    		}else{
+    			if(nums[i]==re){
+    				count++;
+    			}else{
+    				count--;
+    			}
+    		}
+    	}
+    	return re;
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
