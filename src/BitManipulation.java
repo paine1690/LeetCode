@@ -44,10 +44,27 @@ public class BitManipulation {
         }
     	return re;
     }
+    
+    public static int[] singleNumber3(int[] nums) {
+        int[] re=new int[2];
+        int bit=0;
+        for(int num: nums){
+        	bit^=num;
+        }
+        bit=bit&(-bit);
+        for(int num:nums){
+        	if((bit&num)==0){
+        		re[0]^=num;
+        	}else{
+        		re[1]^=num;
+        	}
+        }
+        return re;    	
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] nums={1,1,1,2,4,4,4};
-		System.out.println(singleNumber2(nums));
+		int[] nums={1,1,2,2,3,3,4,4,5,6};
+		System.out.println(Arrays.toString(singleNumber3(nums)));
 	}
 
 }
