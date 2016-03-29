@@ -61,10 +61,28 @@ public class BitManipulation {
         }
         return re;    	
     }
+    
+    public static int majorityElement(int[] nums) {
+        int re=0;
+        int l=0, r=nums.length-1;
+        while(l<r){
+        	if(nums[l]!=nums[r]){
+        		nums[l++]=0;
+        		nums[r--]=0;
+        	}else{
+        		nums[l++]=0;
+        	}
+        }
+        for(int num: nums){
+        	re|=num;
+        }
+        return re;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] nums={1,1,2,2,3,3,4,4,5,6};
-		System.out.println(Arrays.toString(singleNumber3(nums)));
+		int[] nums={10,9,9,9,10};
+		System.out.println(majorityElement(nums));
+		
 	}
 
 }
