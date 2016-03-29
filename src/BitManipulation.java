@@ -28,11 +28,26 @@ public class BitManipulation {
 		
     }
 	
-	
+    public static int singleNumber2(int[] nums) {
+    	if(nums.length==1){
+    		return nums[0];
+    	}
+        int re=0;
+        
+        for(int i=0; i<32; i++){
+        	int temp=0;
+        	for(int num: nums){
+        		temp+=(num>>i)&1;
+        	}
+        	temp=temp%3;
+        	re|=(temp<<i);
+        }
+    	return re;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] nums={1,1,2,2,3,3,4,5,4};
-		System.out.println(singleNumber(nums));
+		int[] nums={1,1,1,2,4,4,4};
+		System.out.println(singleNumber2(nums));
 	}
 
 }
