@@ -8,12 +8,8 @@ public class BitManipulation {
 	public static int[] countBits(int num) {
         int[] re=new int[num+1];
         re[0]=0;
-        if(num==0){
-        	return re;
-        }
-        re[1]=1;
-        int step=2;
-        int i=2;
+        int step=1;
+        int i=1;
         while(i<=num){
         	for(int j=0; j<step&&i<=num; j++){
         		re[i++]=re[j]+1;
@@ -23,11 +19,20 @@ public class BitManipulation {
         return re;
     }
 	
+	public static int singleNumber(int[] nums) {
+        int re=0;
+		for(int num: nums){
+			re^=num;
+		}
+		return re;
+		
+    }
 	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println(Arrays.toString(countBits(10)));
+		int[] nums={1,1,2,2,3,3,4,5,4};
+		System.out.println(singleNumber(nums));
 	}
 
 }
