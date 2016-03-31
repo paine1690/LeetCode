@@ -79,7 +79,6 @@ public class BitManipulation {
     	return re;
     }
     
-    
     public static int missingNumber(int[] nums) {
     	int sum=0;
     	for(int num: nums){
