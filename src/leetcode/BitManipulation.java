@@ -97,19 +97,29 @@ public class BitManipulation {
         return re^nums.length;
     }
     
-   public static int hammingWeight(int n) {
-        int re=0;
-	   for(int i=0; i<32; i++){
-		   if(((n>>i)&1)==1){
-			   re++;
-		   }
-	   }
-	   return re;
-    }
+	public static int hammingWeight(int n) {
+		int re = 0;
+		for (int i = 0; i < 32; i++) {
+			if (((n >> i) & 1) == 1) {
+				re++;
+			}
+		}
+		return re;
+	}
+	
+	public static int hammingWeight2(int n) {
+		int re = 0;
+		while(n!=0){
+			re++;
+			n&=(n-1);
+		}
+		return re;
+	}
+	
 	public static void main(String[] args) {
 		int[] nums={1,2,3,4,5,6,7};
 		
-		System.out.println(hammingWeight(11));
+		System.out.println(hammingWeight2(11));
 		
 	}
 
