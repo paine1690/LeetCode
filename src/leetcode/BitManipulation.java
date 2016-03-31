@@ -80,8 +80,16 @@ public class BitManipulation {
     }
     
     
-    
     public static int missingNumber(int[] nums) {
+    	int sum=0;
+    	for(int num: nums){
+    		sum+=num;
+    	}
+    	int re=((1+nums.length)*nums.length>>>1)-sum;
+        return re;
+    }
+    
+    public static int missingNumber2(int[] nums) {
     	int re=0;
     	for(int i=0; i<nums.length; i++){
     		re^=(nums[i]^i);
@@ -89,8 +97,9 @@ public class BitManipulation {
         return re^nums.length;
     }
 	public static void main(String[] args) {
-		int[] nums={10,9,9,9,10};
-		System.out.println(majorityElement(nums));
+		int[] nums={1,2,3,4,5,6,7};
+		
+		System.out.println(missingNumber(nums));
 		
 	}
 
