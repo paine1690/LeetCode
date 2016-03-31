@@ -1,10 +1,17 @@
 package leetcode;
+
+import java.util.Arrays;
+
 /*
  *                 总结
  *    二分查找
  * 主要用于带查找数组有序的情况，每次缩小一半的范围，复杂度可以到达log(n)
  * 对于反转一次的有序数组，同样适用，有很多类似的题，可以在判断的时时候适当的加上边界条件
  * 掌握主体思想以后，主要就是根据题意来分析进行具体的判断，修改一些判断条件
+ * 
+ * 注意：求mid时，如果直接mid=(keft+right)/2,有可能会导致溢出
+ * 		所以，要用mid=left+(right-left)/2
+ * 		学习位操作以后，发现可以直接mid=(left+right)>>>1
  */
 
 public class BinarySearch {
@@ -279,10 +286,37 @@ public class BinarySearch {
         }
     	return false;
     }
+    
+    public static int missingNumber(int[] nums) {
+        if(nums.length==1){
+        	return nums[0]==0? 1:0;
+        }
+        Arrays.sort(nums);
+        int left=0, right=nums.length-1;
+        while(left<right){
+        	int mid=(left+right)>>>1;
+        	if(nums[mid]>mid){
+        		
+        		right=mid-1;
+        	}else{
+        		if(nums[mid]+1==nums[mid+1]){
+        			left=mid+1;
+        		}else{
+        			return nums[mid]+1;
+        		}
+        	}
+        
+        }
+        if(left==right&&nums[right]>right){
+        	return right;
+        }
+    	return right+1;
+    }
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] nums={4,5,6,7,8,1,2,3};
+		int[] nums={1,2,3};
 		
-		System.out.println(search2(nums,8));
+		System.out.println(missingNumber(nums));
 	}
 }
