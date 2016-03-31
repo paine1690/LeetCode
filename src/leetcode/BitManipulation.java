@@ -79,18 +79,14 @@ public class BitManipulation {
     	return re;
     }
     
+    
+    
     public static int missingNumber(int[] nums) {
-    	if(nums.length==1){
-    		return nums[0]==1? 0:1;
+    	int re=0;
+    	for(int i=0; i<nums.length; i++){
+    		re^=(nums[i]^i);
     	}
-    	int re=nums[nums.length-1];
-        for(int i=1; i<nums.length; i++){
-        	if(nums[i]!=nums[i-1]+1){
-        		re=nums[i]-1;
-        		break;
-        	}
-        }
-        return re;
+        return re^nums.length;
     }
 	public static void main(String[] args) {
 		int[] nums={10,9,9,9,10};
