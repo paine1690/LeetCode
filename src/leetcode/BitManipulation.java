@@ -96,10 +96,20 @@ public class BitManipulation {
     	}
         return re^nums.length;
     }
+    
+   public static int hammingWeight(int n) {
+        int re=0;
+	   for(int i=0; i<32; i++){
+		   if(((n>>i)&1)==1){
+			   re++;
+		   }
+	   }
+	   return re;
+    }
 	public static void main(String[] args) {
 		int[] nums={1,2,3,4,5,6,7};
 		
-		System.out.println(missingNumber(nums));
+		System.out.println(hammingWeight(11));
 		
 	}
 
