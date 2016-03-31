@@ -1,9 +1,8 @@
+package leetcode;
 import java.util.Arrays;
 
 public class BitManipulation {
-	/*
-	 * 136.Single Number
-	 */
+	
 	
 	public static int[] countBits(int num) {
         int[] re=new int[num+1];
@@ -79,8 +78,21 @@ public class BitManipulation {
     	}
     	return re;
     }
+    
+    public static int missingNumber(int[] nums) {
+    	if(nums.length==1){
+    		return nums[0]==1? 0:1;
+    	}
+    	int re=nums[nums.length-1];
+        for(int i=1; i<nums.length; i++){
+        	if(nums[i]!=nums[i-1]+1){
+        		re=nums[i]-1;
+        		break;
+        	}
+        }
+        return re;
+    }
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int[] nums={10,9,9,9,10};
 		System.out.println(majorityElement(nums));
 		

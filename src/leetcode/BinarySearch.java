@@ -1,3 +1,4 @@
+package leetcode;
 /*
  *                 总结
  *    二分查找
