@@ -118,10 +118,19 @@ public class BitManipulation {
     public static boolean isPowerOfTwo(int n) {
     	return (n&(n-1))==0&&n!=0;
     }
+    
+    public static int reverseBits(int n) {
+    	int re=0;
+        for(int i=0; i<32; i++){
+        	re=(re<<1)|((n>>i)&1);
+        }
+    	return re;
+    }
+    
 	public static void main(String[] args) {
 		int[] nums={1,2,3,4,5,6,7};
 		
-		System.out.println(hammingWeight2(11));
+		System.out.println(reverseBits(43261596 ));
 		
 	}
 
