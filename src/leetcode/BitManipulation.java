@@ -127,10 +127,23 @@ public class BitManipulation {
     	return re;
     }
     
+    public static int reverseBits2(int n) {
+    	long re=0L;
+        long max=2147483648L;
+        long x=(long)n;
+        long bit=x&(-x);
+        while(bit!=0){
+        	re|=(max/bit);
+        	x=x&(x-1);
+        	bit=x&(-x);
+        }
+    	return (int)re;
+    }
+    
 	public static void main(String[] args) {
 		int[] nums={1,2,3,4,5,6,7};
 		
-		System.out.println(reverseBits(43261596 ));
+		System.out.println(reverseBits2(43261596));
 		
 	}
 
