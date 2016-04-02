@@ -1,6 +1,49 @@
 package leetcode;
 import java.util.Arrays;
 
+/*
+ *                 总结
+ *    位运算
+ * 常用的位运算，  ^ | ~ ^ >> <<
+ * 
+ * 与运算 ^
+ * 		1、判断int a奇偶  
+ * 			a&1==1 奇数
+ * 		2、判断int a是否为2的幂  
+ * 			return a&(a-1)==0&&a>0
+ * 
+ * 移位运算 <<
+ * 		3、取int a的第i位     
+ * 			(a>>i)&1
+ * 		4、求两数平均值            
+ * 			int mid=(left+right)>>>1//不会溢出
+ * 		5、将int a的第i位清零/置一         
+ * 			a=a&~(a<<i)   
+ * 			a=a|(a<<i)
+ * 异或 ^
+ * 		6、int a两次异或同一个数，还是a
+ * 			a^x^x==a
+ * 		7、交换两个数的值，不用额外的空间
+ * 		void swap(int a, int b){
+ * 			a^=b;
+ * 			b^=a;
+ * 			a^=b;
+ * 		}
+ * 		8、求绝对值
+ * 		int abs(int x){
+ * 			int y=x>>31;
+ * 			return (x^y)-y;
+ * 		}
+ * 		
+ * 补码:计算机中数值都是以补码的存储的.补码=反码+1
+ * 		1、-x=~+1=~(x-1)
+ * 		2、x的二进制中右边第一个不为0的位
+ * 			x&(-x)
+ * 		3、x的二进制中右边第一个不为0的位变为0
+ * 			x&(x-1)
+ *  
+ */
+
 public class BitManipulation {
 	
 	
