@@ -21,6 +21,7 @@ public class BinarySearch {
 		return true;
 	}
 	
+	//278. First Bad Version
 	public int firstBadVersion(int n) {
     	int left=1, right=n;
         while(left<=right){
@@ -34,6 +35,7 @@ public class BinarySearch {
     	return right+1;
     }
     
+	//69. Sqrt(x)
     public static int mySqrt(int x) {
     	if(x<2){
     		return x;
@@ -53,6 +55,7 @@ public class BinarySearch {
     	return right;
     }
     
+    //34. Search for a Range
     public static int[] searchRange(int[] nums, int target) {
         int[] re={-1,-1};
         if(nums[0]>target||nums[nums.length-1]<target){
@@ -81,7 +84,7 @@ public class BinarySearch {
         return re;
     }
     
-
+    //74. Search a 2D Matrix
     public static boolean searchMatrix(int[][] matrix, int target) {
         int m=matrix.length;
         int n=matrix[0].length;
@@ -114,7 +117,8 @@ public class BinarySearch {
     	}
     	return false;
     }
-   
+    
+    //35. Search Insert Position
     public static int searchInsert(int[] nums, int target) {
         int mid, left=0, right=nums.length-1;
         while(left<=right){
@@ -131,6 +135,7 @@ public class BinarySearch {
         return right+1;
     }
     
+    //153. Find Minimum in Rotated Sorted Array
     public static int findMin(int[] nums) {
     	int mid, left=0, right=nums.length-1;
         while(left<right){
@@ -148,6 +153,7 @@ public class BinarySearch {
     	return nums[right];
     }
     
+    //154. Find Minimum in Rotated Sorted Array II
     public static int findMin2(int[] nums) {
     	int mid, left=0, right=nums.length-1;
         while(left<right){
@@ -168,6 +174,7 @@ public class BinarySearch {
     	return nums[right];
     }
     
+    //240. Search a 2D Matrix II
     public static boolean searchMatrix2(int[][] matrix, int target) {
         int i=0, j=matrix[0].length-1;
         while(i<matrix.length&&j>0){
@@ -183,6 +190,7 @@ public class BinarySearch {
     	return false;
     }
     
+    //275. H-Index II
     public static int hIndex(int[] citations) {
         int len=citations.length;
     	int left=0, right=len-1;
@@ -197,6 +205,7 @@ public class BinarySearch {
     	return len-right-1;
     }
     
+    //162. Find Peak Element
     public static int findPeakElement(int[] nums) {
         int left=0, right=nums.length-1;
         while(left<right){
@@ -210,6 +219,7 @@ public class BinarySearch {
     	return left;
     }
     
+    //33. Search in Rotated Sorted Array
     public static int search(int[] nums, int target) {
         int left=0, right=nums.length-1;
         while(left<=right){
@@ -245,6 +255,7 @@ public class BinarySearch {
     	return -1;
     }
     
+    //81. Search in Rotated Sorted Array II
     public static boolean search2(int[] nums, int target) {
     	int left=0, right=nums.length-1;
         while(left<=right){
@@ -287,6 +298,7 @@ public class BinarySearch {
     	return false;
     }
     
+    //268. Missing Number
     public static int missingNumber(int[] nums) {
         if(nums.length==1){
         	return nums[0]==0? 1:0;
@@ -312,6 +324,14 @@ public class BinarySearch {
         }
     	return right+1;
     }
+    
+    //4. Median of Two Sorted Arrays
+    
+    
+    
+    
+    
+    
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
