@@ -63,6 +63,7 @@ public class LinkedList {
     	return head;
     }
 	
+    //24. Swap Nodes in Pairs
     public ListNode swapPairs(ListNode head) {
     	if(head==null||head.next==null){
         	return head;
@@ -93,6 +94,7 @@ public class LinkedList {
         return re.next;
     }
     
+    //2. Add Two Numbers
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 		int flag = 0;
 		int sum = l1.val+l2.val;
@@ -128,6 +130,7 @@ public class LinkedList {
 		return re;
     }
     
+    //206. Reverse Linked List
     public static ListNode reverseList_iterator(ListNode head) {
     	if(head==null||head.next==null){
             return head;
@@ -145,6 +148,7 @@ public class LinkedList {
     	return re;
     }
     
+    //206. Reverse Linked List
     public static ListNode reverseList_recursion(ListNode head) {
     	if(head==null||head.next==null){
             return head;
@@ -159,12 +163,13 @@ public class LinkedList {
     	return re;
     }
     
+    //237. Delete Node in a Linked List
     public void deleteNode(ListNode node) {
-    	
         node.val=node.next.val;
         node.next=node.next.next;
     }
     
+    //141. Linked List Cycle
     public boolean hasCycle(ListNode head) {
         if(head==null||head.next==null){
         	return false;
@@ -181,6 +186,8 @@ public class LinkedList {
     	
     	return false;
     }
+    
+    //203. Remove Linked List Elements
     public static ListNode removeElements(ListNode head, int val) {
     	ListNode re=new ListNode(0);
     	re.next=head;
@@ -219,6 +226,7 @@ public class LinkedList {
         return re.next;
     }
     
+    //83. Remove Duplicates from Sorted List
     public ListNode deleteDuplicates(ListNode head) {
     	if(head==null||head.next==null){
     		return head;
@@ -267,6 +275,7 @@ public class LinkedList {
     	return re.next;
     }
     
+    //143. Reorder List
     public static void reorderList(ListNode head) {
         if(head==null||head.next==null){
         	return;
@@ -315,6 +324,7 @@ public class LinkedList {
      * 按照网上的方法，修改分割两个数组的方法
      * 快慢两个指针，如果是奇数，前面数组比后面的大一个，所以后面要再加一个判断
      */
+    //143. Reorder List
     public static void reorderList2(ListNode head) {
         if(head==null||head.next==null){
         	return;
@@ -363,6 +373,7 @@ public class LinkedList {
         }
     }
     
+    //92. Reverse Linked List II
     public static ListNode reverseBetween(ListNode head, int m, int n) {
         if(m==n){
         	return head;
@@ -391,6 +402,7 @@ public class LinkedList {
     	return re.next;
     }
     
+    //160. Intersection of Two Linked Lists
     public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if(headA==null||headB==null){
         	return null;
@@ -438,6 +450,7 @@ public class LinkedList {
     	return null;
     }
     
+    //82. Remove Duplicates from Sorted List II
     public static ListNode deleteDuplicates2(ListNode head) {
         if(head==null||head.next==null){
         	return head;
@@ -463,6 +476,7 @@ public class LinkedList {
     	return re.next;
     }
     
+    //21. Merge Two Sorted Lists
     public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
     	ListNode re=new ListNode(0);
     	ListNode pNode=re;
@@ -522,6 +536,7 @@ public class LinkedList {
     	return true;
     }
     
+    //23. Merge k Sorted Lists
     public static ListNode mergeKLists(ListNode[] lists) {
     	int len=lists.length;
     	if(len==0){
@@ -542,7 +557,7 @@ public class LinkedList {
     	return lists[0];
     }
     
-    
+    //148. Sort List
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
