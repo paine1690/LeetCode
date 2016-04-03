@@ -202,6 +202,7 @@ public class LinkedList {
     	
     }
     
+    //19. Remove Nth Node From End of List
     public static ListNode removeNthFromEnd(ListNode head, int n) {
     	ListNode re=new ListNode(0);
         re.next=head;
@@ -237,6 +238,8 @@ public class LinkedList {
     	}
     	return head;
     }
+    
+    //86. Partition List
     public static ListNode partition(ListNode head, int x) {
     	if(head==null||head.next==null){
     		return head;
@@ -484,6 +487,7 @@ public class LinkedList {
     	return re.next;
     }
     
+    //234. Palindrome Linked List
     public static boolean isPalindrome(ListNode head) {
         if(head==null||head.next==null){
         	return true;

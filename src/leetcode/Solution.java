@@ -358,62 +358,7 @@ public class Solution {
     	return true;
     }
     
-    public static List<Integer> findSubstring(String s, String[] words) {
-        int step=words[0].length();
-        int times=words.length;
-    	int len=step*times;
-    	List<Integer> re=new ArrayList<Integer>();
-    	HashMap<String, Integer> map=new HashMap<String, Integer>();
-    	for(int i=0; i<words.length; i++){
-    		if(map.containsKey(words[i])){
-    			map.put(words[i], map.get(words[i])+1);
-    		}
-    		else{
-    			map.put(words[i],1);
-    		}
-    	}
-    	
-        int i=0;
-        while((i+len)<=s.length()){
-        	map.putAll(map);
-        	int count=0;
-        	for(int j=0; j<times; j++){
-        		String nstr="";
-        		int temp=i+j*step;
-        		nstr=s.substring(temp, temp+step);
-        		
-        		if(!map.containsKey(nstr)){
-        			break;
-        		}
-        		else{
-        			count++;
-        			if(map.get(nstr)>1){
-        				map.put(nstr, map.get(nstr)-1);
-        			}
-        			else{
-        				map.remove(nstr);
-        			}
-        		}
-        	}
-        	if(count==times){
-        		re.add(i);
-        	}
-        	if(count>0){
-        		map.clear();
-        		for(int l=0; l<words.length; l++){
-            		if(map.containsKey(words[l])){
-            			map.put(words[l], map.get(words[l])+1);
-            		}
-            		else{
-            			map.put(words[l],1);
-            		}
-            	}
-        	}
-        	i++;
-        }
-        
-        return re;
-    }
+    
     
     
 	public static void main(String[] args) {

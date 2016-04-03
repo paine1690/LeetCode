@@ -7,49 +7,6 @@ public class Array_leetcode {
 
 	
     
-    public static int removeElement(int[] nums, int val) {
-    	int i=0, j=0;
-    	int re=nums.length;
-    	for(j=0; j<nums.length; j++){
-    		if(nums[j]==val){
-    			while(j<nums.length&&nums[j]==val){
-    				j++;
-    				re--;
-    			}
-    		}
-    		if(j>=nums.length)
-    			break;
-    		nums[i++]=nums[j];
-    	}
-    	System.out.println(Arrays.toString(nums));
-    	return re;
-    }
-    
-    public void moveZeroes(int[] nums) {
-        if(nums.length<2){
-        	System.out.println(Arrays.toString(nums));
-        	return;
-        }
-        int i=0;
-        while(i<nums.length){
-        	if(nums[i]==0){
-        		int count=1;
-        		for(int j=i+1; j<nums.length; j++){
-        			if(nums[j]==0){
-        				count++;
-        			}else{
-        				nums[j-count]=nums[j];
-        			}
-        		}
-        		for(int k=nums.length-count; k<nums.length; k++){
-        			nums[k]=0;
-        		}
-        		return;
-        	}
-        	i++;
-        }
-    }
-    
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
     	int m=nums1.length;
     	int n=nums2.length;
@@ -128,29 +85,7 @@ public class Array_leetcode {
     	}	
     	return false; 
     }
-    public static int maxArea(int[] height) {
-        int re=0;
-        int n=height.length;
-        int l=0;
-        int r=n-1;
-        int temp=0;
-        while(l!=r){
-        	if(height[l]<height[r]){
-        		temp=height[l]*(r-l);
-        		l++;
-        	}
-        	else{
-        		temp=height[r]*(r-l);
-        		r--;
-        	}
-        	if(temp>re){
-    			re=temp;
-    		}
-        	System.out.println(String.valueOf(1));
-        }
-        
-        return re;
-    }
+    
     
     
 	public static void main(String[] args) {
