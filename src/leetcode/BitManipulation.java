@@ -46,7 +46,7 @@ import java.util.Arrays;
 
 public class BitManipulation {
 	
-	
+	//338. Counting Bits
 	public static int[] countBits(int num) {
         int[] re=new int[num+1];
         re[0]=0;
@@ -61,6 +61,7 @@ public class BitManipulation {
         return re;
     }
 	
+	//136. Single Number
 	public static int singleNumber(int[] nums) {
         int re=0;
 		for(int num: nums){
@@ -70,6 +71,7 @@ public class BitManipulation {
 		
     }
 	
+	//137. Single Number II
     public static int singleNumber2(int[] nums) {
     	if(nums.length==1){
     		return nums[0];
@@ -87,6 +89,7 @@ public class BitManipulation {
     	return re;
     }
     
+    //260. Single Number III
     public static int[] singleNumber3(int[] nums) {
         int[] re=new int[2];
         int bit=0;
@@ -104,6 +107,7 @@ public class BitManipulation {
         return re;    	
     }
     
+    //169. Majority Element
     public static int majorityElement(int[] nums) {
     	int re=0;
     	int count=0;
@@ -122,6 +126,7 @@ public class BitManipulation {
     	return re;
     }
     
+    //268. Missing Number
     public static int missingNumber(int[] nums) {
     	int sum=0;
     	for(int num: nums){
@@ -131,6 +136,7 @@ public class BitManipulation {
         return re;
     }
     
+    //268. Missing Number
     public static int missingNumber2(int[] nums) {
     	int re=0;
     	for(int i=0; i<nums.length; i++){
@@ -139,6 +145,7 @@ public class BitManipulation {
         return re^nums.length;
     }
     
+    //191. Number of 1 Bits
 	public static int hammingWeight(int n) {
 		int re = 0;
 		for (int i = 0; i < 32; i++) {
@@ -149,6 +156,7 @@ public class BitManipulation {
 		return re;
 	}
 	
+	//191. Number of 1 Bits
 	public static int hammingWeight2(int n) {
 		int re = 0;
 		while(n!=0){
@@ -158,10 +166,12 @@ public class BitManipulation {
 		return re;
 	}
 	
+	//231. Power of Two
     public static boolean isPowerOfTwo(int n) {
     	return (n&(n-1))==0&&n!=0;
     }
     
+    //190. Reverse Bits
     public static int reverseBits(int n) {
     	int re=0;
         for(int i=0; i<32; i++){
@@ -170,6 +180,7 @@ public class BitManipulation {
     	return re;
     }
     
+    //190. Reverse Bits
     public static int reverseBits2(int n) {
     	long re=0L;
         long max=2147483648L;
