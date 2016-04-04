@@ -1,5 +1,4 @@
 package leetcode;
-import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -92,42 +91,6 @@ public class LinkedList {
         }
 
         return re.next;
-    }
-    
-    //2. Add Two Numbers
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-		int flag = 0;
-		int sum = l1.val+l2.val;
-		if(sum>=10){
-			sum = sum%10;
-			flag = 1;
-		}
-		
-        ListNode re = new ListNode(sum);
-        ListNode tail = re;
-        
-		while(l1.next!=null && l2.next!=null){
-			int t1=l1.val;
-			int t2=l2.val;
-			ListNode nNode = new ListNode(t1+t2);
-			tail.next = nNode;
-			tail = nNode;
-			l1=l1.next;
-			l2=l2.next;
-		}
-		while(l1.next!=null){
-			ListNode nNode = new ListNode(l1.val);
-			tail.next = nNode;
-			tail = nNode;
-			l1=l1.next;
-		}
-		while(l2.next!=null){
-			ListNode nNode = new ListNode(l2.val);
-			tail.next = nNode;
-			tail = nNode;
-			l1=l2.next;
-		}
-		return re;
     }
     
     //206. Reverse Linked List
@@ -583,13 +546,61 @@ public class LinkedList {
     	return mergeTwoLists(head1, head2);
     }
     
+    //2. Add Two Numbers
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    	ListNode re=new ListNode(0);
+    	ListNode pNode=re;
+    	int flag=0;
+    	while(l1!=null&&l2!=null){
+    		int sum=l1.val+l2.val+flag;
+    		if(sum>=10){
+    			sum%=10;
+    			flag=1;
+    		}else{
+    			flag=0;
+    		}
+    		pNode.next=new ListNode(sum);
+    		pNode=pNode.next;
+    		l1=l1.next;
+    		l2=l2.next;
+    	}
+    	while(l1!=null){
+    		int sum=l1.val+flag;
+    		if(sum>=10){
+    			sum%=10;
+    			flag=1;
+    		}else{
+    			flag=0;
+    		}
+    		pNode.next=new ListNode(sum);
+    		pNode=pNode.next;
+    		l1=l1.next;
+    	}
+    	while(l2!=null){
+    		int sum=l2.val+flag;
+    		if(sum>=10){
+    			sum%=10;
+    			flag=1;
+    		}else{
+    			flag=0;
+    		}
+    		pNode.next=new ListNode(sum);
+    		pNode=pNode.next;
+    		l2=l2.next;
+    	}
+    	if(flag==1){
+    		pNode.next=new ListNode(1);
+    	}
+		return re.next;
+    }
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] aa={1};
-		int[] bb={0};
+		int[] aa={2,4,3};
+		int[] bb={5,6,4};
 		ListNode list1=listNodeGenerator(aa);
 		ListNode list2=listNodeGenerator(bb);
-		ListNode[] lists={list1, list2};
+		printList(addTwoNumbers(list1, list2));
 		
 		
 	}
