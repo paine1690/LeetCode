@@ -205,7 +205,13 @@ public class BitManipulation {
     	return m<<bit;
     }
     
-    
+  //201. Bitwise AND of Numbers Range
+    public static int rangeBitwiseAnd2(int m, int n) {
+        while(n>m){
+        	n=n&(n-1);
+        }
+    	return n;
+    }
     
 	public static void main(String[] args) {
 		int[] nums={1,2,3,4,5,6,7};
