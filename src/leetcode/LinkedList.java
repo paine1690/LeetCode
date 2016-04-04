@@ -427,7 +427,7 @@ public class LinkedList {
         	fast=headB;
         }else if(i<j){
         	pNode=headB;
-        	for(int k=i; i<j; i++){
+        	for(int k=i; k<j; k++){
         		pNode=pNode.next;
         	}
         	slow=headA;
@@ -476,31 +476,6 @@ public class LinkedList {
     	return re.next;
     }
     
-    //21. Merge Two Sorted Lists
-    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-    	ListNode re=new ListNode(0);
-    	ListNode pNode=re;
-    	while(l1!=null&&l2!=null){
-    		if(l1.val<l2.val){
-    			pNode.next=l1;
-    			pNode=pNode.next;
-    			l1=l1.next;
-    		}else{
-    			pNode.next=l2;
-    			pNode=pNode.next;
-    			l2=l2.next;
-    		}
-    	}
-    	if(l1!=null){
-    		pNode.next=l1;
-    	}
-    	if(l2!=null){
-    		pNode.next=l2;
-    	}
-    	
-    	return re.next;
-    }
-    
     //234. Palindrome Linked List
     public static boolean isPalindrome(ListNode head) {
         if(head==null||head.next==null){
@@ -536,6 +511,31 @@ public class LinkedList {
     	return true;
     }
     
+    //21. Merge Two Sorted Lists
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    	ListNode re=new ListNode(0);
+    	ListNode pNode=re;
+    	while(l1!=null&&l2!=null){
+    		if(l1.val<l2.val){
+    			pNode.next=l1;
+    			pNode=pNode.next;
+    			l1=l1.next;
+    		}else{
+    			pNode.next=l2;
+    			pNode=pNode.next;
+    			l2=l2.next;
+    		}
+    	}
+    	if(l1!=null){
+    		pNode.next=l1;
+    	}
+    	if(l2!=null){
+    		pNode.next=l2;
+    	}
+    	
+    	return re.next;
+    }
+    
     //23. Merge k Sorted Lists
     public static ListNode mergeKLists(ListNode[] lists) {
     	int len=lists.length;
@@ -558,6 +558,30 @@ public class LinkedList {
     }
     
     //148. Sort List
+    private static ListNode getMid(ListNode head){ 
+        ListNode pNode=head, qNode=head;
+        while(qNode.next!=null){
+        	qNode=qNode.next;
+        	if(qNode.next==null){
+        		break;
+        	}
+        	pNode=pNode.next;
+        	qNode=qNode.next;
+        }
+        qNode=pNode.next;
+        pNode.next=null;
+    	return qNode;
+    }
+    public ListNode sortList(ListNode head) {
+    	if(head==null||head.next==null){
+    		return head;
+    	}
+    	ListNode head1=head;
+    	ListNode head2=getMid(head);
+    	head1=sortList(head1);
+    	head2=sortList(head2);
+    	return mergeTwoLists(head1, head2);
+    }
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

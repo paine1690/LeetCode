@@ -65,53 +65,7 @@ public class Solution {
     }
 	
 	
-	public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-		int m=nums1.length;
-        int n=nums2.length;
-        int mid=(m+n)/2;
-        int[] temp=new int[m+n];
-        double re=0;
-        if(m==0){
-        	for(int i=0;i<n;i++){
-        		temp[i]=nums2[i];
-        	}
-        }
-        else if(n==0){
-        	for(int i=0;i<m;i++){
-        		temp[i]=nums1[i];
-        	}
-        }
-        
-        else{
-            int i=0;
-            int j=0;
-            int k=0;
-            while(i<m&&j<n){
-                if(nums1[i]<nums2[j]){
-                    temp[k++]=nums1[i++];
-                }
-                else{
-                    temp[k++]=nums2[j++];
-                }
-            }
-            while(i<m){
-                temp[k++]=nums1[i++];
-            }
-            while(j<n){
-                temp[k++]=nums2[j++];
-            }
-            
-        }
-        if((m+n)%2==1){
-        	re=temp[mid];
-        }
-        else{
-        	re=(temp[mid]+temp[mid-1])/2.0;
-        }
-        
-        return re;
-        
-    }
+	
 	
 	public static String longestPalindrome(String s) {
         char[] chars=s.toCharArray();
