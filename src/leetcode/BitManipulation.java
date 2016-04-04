@@ -194,10 +194,23 @@ public class BitManipulation {
     	return (int)re;
     }
     
+    //201. Bitwise AND of Numbers Range
+    public static int rangeBitwiseAnd(int m, int n) {
+        int bit=0;
+        while(m!=n){
+        	m>>=1;
+        	n>>=1;
+        	bit++;
+        }
+    	return m<<bit;
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		int[] nums={1,2,3,4,5,6,7};
 		
-		System.out.println(reverseBits2(43261596));
+		System.out.println(rangeBitwiseAnd(0, 1));
 		
 	}
 
