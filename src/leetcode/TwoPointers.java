@@ -290,9 +290,6 @@ public class TwoPointers {
         return re;
     }
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		String s1="asdf";
-		String s2="df";
 		int[] nums={1,1,2};
 		sortColors(nums);
 	}
