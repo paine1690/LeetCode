@@ -13,7 +13,7 @@ public class BackTracking {
 		nums[b]=temp;
 	}
 	
-	private static void perm(int[] nums, int start, List re) {
+	private static void perm(int[] nums, int start, List<List<Integer>> re) {
 		if(start==nums.length){
 			List<Integer> temp=new ArrayList<Integer>();
 			for(int i=0; i<nums.length; i++){
@@ -34,9 +34,42 @@ public class BackTracking {
 		perm(nums, 0, re);
 		return re;
     }
+	
+	//47. Permutations II
+	private static boolean isSwap(int[] nums, int i){
+		for(int k=i+1; k<nums.length; k++){
+			if(nums[i]==nums[k]){
+				return false;
+			}
+		}
+		return true;
+	}
+	private static void permUnique(int[] nums, int start, List<List<Integer>> re){
+		List<Integer> temp=new ArrayList<Integer>();
+		if(start==nums.length){
+			for(int i=0; i<nums.length; i++){
+				temp.add(nums[i]);
+			}
+			re.add(temp);
+		}else{
+			for(int i=start; i<nums.length; i++){
+				if(isSwap(nums, i)){
+					swap(nums, start, i);
+					permUnique(nums, start+1, re);
+					swap(nums, start, i);
+				}
+			}
+		}
+	}
+	public static List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        permUnique(nums, 0, re);
+		return re;
+    }
+	
 	public static void main(String[] args) {
-		int[] nums={1,2,3};
-		System.out.println(permute(nums));
+		int[] nums={1,1,2};
+		System.out.println(permuteUnique(nums));
 
 	}
 
