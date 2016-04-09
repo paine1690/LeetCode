@@ -5,25 +5,26 @@ public class Heap {
 
 	
 	
-	public static void heapBuild(int[] nums, int len){
-		for(int i=len/2-1; i>=0; i--){
-			int max=i;
-			int left=2*i+1;
+	private static void heapBuild(int[] nums,int len){
+		for(int i=len/2-1; i>=0; i--){//从length开始调整直至根节点
+			int j=i;
+			int max=j;
+			int left=2*j+1;
 			int right=left+1;
-			int temp;
-			while(left<len){
+			
+			while(left<len){//维护对的性质，O(h)树的高度
 				if(nums[left]>nums[max]){
 					max=left;
 				}
 				if(right<len&&nums[right]>nums[max]){
 					max=right;
 				}
-				if(max!=i){
-					temp=nums[i];
-					nums[i]=nums[max];
+				if(max!=j){
+					int temp=nums[j];
+					nums[j]=nums[max];
 					nums[max]=temp;
-					i=max;
-					left=2*i+1;
+					j=max;
+					left=2*j+1;
 					right=left+1;
 				}else{
 					break;
