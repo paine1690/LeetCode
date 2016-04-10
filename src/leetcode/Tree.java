@@ -165,7 +165,35 @@ public class Tree {
     	return re;
     }
     
-    
+    //257. Binary Tree Paths
+    private static List<String> add(int val, List<String> str){
+    	List<String> temp=new ArrayList<String>();
+    	for(String s:str){
+    		temp.add(String.valueOf(val)+"->"+s);
+    	}
+    	return temp;
+    }
+    private static List<String> treePath(TreeNode root){
+    	List<String> temp=new ArrayList<String>();
+    	if(root.left==null&&root.right==null){
+    		temp.add(String.valueOf(root.val));
+    		return temp;
+    	}
+    	if(root.left!=null){
+    		temp.addAll(add(root.val, treePath(root.left)));
+    	}
+    	if(root.right!=null){
+    		temp.addAll(add(root.val, treePath(root.right)));
+    	}
+    	return temp;
+    }
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> re=new ArrayList<String>();
+        if(root!=null){
+        	re=treePath(root);
+        }
+        return re;
+    }
     
     
 	public static void main(String[] args) {
