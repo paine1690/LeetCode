@@ -79,6 +79,20 @@ public class Tree {
         return re;
     }
     
+    //145. Binary Tree Postorder Traversal
+    private static void postOrder(TreeNode root, List<Integer> re){
+    	if(root!=null){
+    		postOrder(root.left, re);
+    		postOrder(root.right, re);
+    		re.add(root.val);
+    	}
+    }
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> re=new ArrayList<Integer>();
+        postOrder(root, re);
+        return re;
+    }
+    
     //112. Path Sum
     public boolean hasPathSum(TreeNode root, int sum) {
     	if(root==null){
