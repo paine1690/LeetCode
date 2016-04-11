@@ -175,8 +175,6 @@ public class Tree {
     /**
      * 上面的都是一些二叉树的基础操作
      */
-    
-    //111. Minimum Depth of Binary Tree
     //100. Same Tree
     public boolean isSameTree(TreeNode p, TreeNode q) {
     	if(p==null&&q==null){
@@ -248,7 +246,25 @@ public class Tree {
         
     }
     
+    //101. Symmetric Tree
+    private static boolean isSym(TreeNode l, TreeNode r){
+    	if(l==null&&r==null){
+    		return true;
+    	}
+    	if(l!=null&&r!=null){
+    		if(l.val==r.val){
+    			return isSym(l.right, r.left)&&isSym(l.left, r.right);
+    		}
+    	}
+    	return false;
+    }
     
+    public boolean isSymmetric(TreeNode root) {
+        if(root!=null){
+        	return isSym(root.left, root.right);
+        }
+    	return true;
+    }
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
