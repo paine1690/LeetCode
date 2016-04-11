@@ -264,8 +264,38 @@ public class BinaryTree {
     	return true;
     }
     
+    //124. Binary Tree Maximum Path Sum
+    private static int maxPathRe=0;
+    private static int maxPath(TreeNode root){
+    	if(root==null){
+    		return 0;
+    	}
+    	int l=maxPath(root.left);
+    	int r=maxPath(root.right);
+    	if(l>0||r>0){
+    		if((l+r+root.val)>maxPathRe){
+    			maxPathRe=l+r+root.val;
+    		}
+    		l+=root.val;
+    		r+=root.val;
+    		root.val=Math.max(l, r);
+    		
+    	}
+    	if(root.val>maxPathRe){
+    		maxPathRe=root.val;
+    	}
+    	return root.val;
+    }
+    
+    public int maxPathSum(TreeNode root) {
+    	maxPathRe=Integer.MIN_VALUE;
+        maxPath(root);
+        return maxPathRe;
+    }
+    
+   
+    
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 
