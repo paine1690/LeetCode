@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -64,7 +65,7 @@ public class Tree {
         return re;
     }
 	
-  //102. Binary Tree Level Order Traversal		层序遍历
+    //102. Binary Tree Level Order Traversal		层序遍历
     private static void level(List<List<Integer>> re, Queue<TreeNode> p, Queue<TreeNode> q){
     	List<Integer> level=new ArrayList<Integer>();
     	while(!p.isEmpty()){
@@ -90,6 +91,19 @@ public class Tree {
     	return re;
     }
 	
+    //107. Binary Tree Level Order Traversal II
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        if(root==null){
+    		return re;
+    	}
+    	Queue<TreeNode> p=new LinkedList<TreeNode>();
+    	Queue<TreeNode> q=new LinkedList<TreeNode>();
+    	p.offer(root);
+    	level(re, p, q);
+    	Collections.reverse(re);
+    	return re;
+    }
 	//104. Maximum Depth of Binary Tree		树的深度
     public static int maxDepth(TreeNode root) {
     	if(root==null){
