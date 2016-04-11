@@ -104,6 +104,7 @@ public class Tree {
     	Collections.reverse(re);
     	return re;
     }
+    
 	//104. Maximum Depth of Binary Tree		树的深度
     public static int maxDepth(TreeNode root) {
     	if(root==null){
@@ -230,6 +231,23 @@ public class Tree {
         }
         return re;
     }
+    
+    //111. Minimum Depth of Binary Tree
+    public int minDepth(TreeNode root) {
+        if(root==null){
+			return 0;
+		}else if(root.left==null&&root.right==null){
+        	return 1;
+        }else if(root.left==null){
+        	return minDepth(root.right)+1;
+        }else if(root.right==null){
+        	return minDepth(root.left)+1;
+        }else{
+        	return Math.min(minDepth(root.left)+1, minDepth(root.right)+1);
+        }
+        
+    }
+    
     
     
 	public static void main(String[] args) {
