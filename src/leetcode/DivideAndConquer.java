@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.Random;
+
 public class DivideAndConquer {
 	
 	//215. Kth Largest Element in an Array
@@ -20,7 +22,16 @@ public class DivideAndConquer {
 		nums[r]=temp;
 		return i+1;
 	}
-
+	
+    private static int randomPartition(int[] nums, int p, int r){
+		Random rand=new Random();
+		int i=rand.nextInt(r-p)+p;
+		int temp=nums[i];
+		nums[i]=nums[r];
+		nums[r]=temp;
+		return partition(nums, p, r);
+	}
+	
 	public static int findKthLargest(int[] nums, int k) {
 		int len=nums.length;
 		if(len==1){
@@ -28,7 +39,7 @@ public class DivideAndConquer {
 		}
 		int p=0, r=len-1,re=0;
 		while(p<r){
-			re=partition(nums, p, r);
+			re=randomPartition(nums, p, r);
 			if(len-re==k){
 				return nums[re];
 			}else if(len-re<k){
