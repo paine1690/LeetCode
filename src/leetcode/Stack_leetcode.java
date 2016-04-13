@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.util.Queue;
 import java.util.Stack;
 
 public class Stack_leetcode {
@@ -90,7 +91,42 @@ public class Stack_leetcode {
             return minStack.peek();
         }
     }
+    
+    //225. Implement Stack using Queues
+    class MyStack {
+        // Push element x onto stack.
+    	Queue<Integer> value=new java.util.LinkedList<Integer>();
+    	Queue<Integer> temp=new java.util.LinkedList<Integer>();
+    	
+        public void push(int x) {
+        	if(value.isEmpty()){
+        		value.offer(x);
+        	}else{
+        		temp.offer(x);
+        		while(!value.isEmpty()){
+        			temp.offer(value.poll());
+        		}
+        		while(!temp.isEmpty()){
+        			value.offer(temp.poll());
+        		}
+        	}
+        }
 
+        // Removes the element on top of the stack.
+        public void pop() {
+            value.poll();
+        }
+
+        // Get the top element.
+        public int top() {
+            return value.peek();
+        }
+
+        // Return whether the stack is empty.
+        public boolean empty() {
+            return value.isEmpty();
+        }
+    }
 	public static void main(String[] args) {
 		String s="(){}[]";
 		System.out.println(isValid(s));
