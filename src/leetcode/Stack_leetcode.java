@@ -61,10 +61,36 @@ public class Stack_leetcode {
     			}
     		}
     	}
-        return true;
+        return stack.isEmpty();
     }
     
-    
+    //155. Min Stack
+    class MinStack {
+    	Stack<Integer> stack=new Stack<Integer>();
+    	Stack<Integer> minStack=new Stack<Integer>();
+    	int min=0;
+        public void push(int x) {
+        	if(minStack.isEmpty()||x<=minStack.peek()){
+        		minStack.push(x);
+        	}
+            stack.push(x);
+        }
+
+        public void pop() {
+            if(minStack.peek().equals(stack.pop())){
+            	minStack.pop();
+            }
+        }
+
+        public int top() {
+            return stack.peek();
+        }
+
+        public int getMin() {
+            return minStack.peek();
+        }
+    }
+
 	public static void main(String[] args) {
 		String s="(){}[]";
 		System.out.println(isValid(s));
