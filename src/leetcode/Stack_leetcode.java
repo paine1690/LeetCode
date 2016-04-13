@@ -39,8 +39,35 @@ public class Stack_leetcode {
 	        return value.isEmpty();
 	    }
 	}
+	
+	//20. Valid Parentheses
+	private static boolean isEquel(char a, char b){
+		return (((a=='(')&&(b==')'))||((a=='{')&&(b=='}'))||((a=='[')&&(b==']')));
+	}
+	
+    public static boolean isValid(String s) {
+    	Stack<Character> stack=new Stack<Character>();
+    	for(int i=0; i<s.length(); i++){
+    		char temp=s.charAt(i);
+    		if(temp=='('||temp=='{'||temp=='['){
+    			stack.push(temp);
+    		}else{
+    			if(stack.isEmpty()){
+    				return false;
+    			}else{
+    				if(!isEquel(stack.pop(), temp)){
+    					return false;
+    				}
+    			}
+    		}
+    	}
+        return true;
+    }
+    
+    
 	public static void main(String[] args) {
-
+		String s="(){}[]";
+		System.out.println(isValid(s));
 	}
 
 }
