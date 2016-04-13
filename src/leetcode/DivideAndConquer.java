@@ -1,6 +1,19 @@
 package leetcode;
 
+
+
+
+import java.util.List;
 import java.util.Random;
+/**
+ * 
+ * 分治 
+ * 
+ * 求第k大元素，运用快排思想
+ * 两个有序数组的中值，运用求两个数组第k小元素
+ * @author Paine
+ *
+ */
 public class DivideAndConquer {
 	
 	//215. Kth Largest Element in an Array
@@ -76,15 +89,19 @@ public class DivideAndConquer {
 	public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
 		int k=nums1.length+nums2.length;
 		if((k&1)==1){
-			System.out.println("ji");
 			return findKth(nums1, 0, nums1.length, nums2, 0, nums2.length, k/2+1);
 		}else{
 			return (findKth(nums1, 0, nums1.length, nums2, 0, nums2.length, k/2)+findKth(nums1, 0, nums1.length, nums2, 0, nums2.length, k/2+1))/2;
 		}
 	}
 	
+	//241. Different Ways to Add Parentheses
+    public static List<Integer> diffWaysToCompute(String input) {
+        
+    	
+    	return null;
+    }
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int[] nums1={1,2};
 		int[] nums2={1,2};
 		System.out.println(findMedianSortedArrays(nums1, nums2));

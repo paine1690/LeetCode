@@ -111,11 +111,11 @@ public class HashTable {
     
     
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] nums={1,5,6,4,1,6,4};
-		String[] strs={"eat", "tea", "tan", "ate", "nat", "bat"};
+		
+		//int[] nums={1,5,6,4,1,6,4};
+		//String[] strs={"eat", "tea", "tan", "ate", "nat", "bat"};
 		String s="0000000000000000";
-		String t="1222";
+		//String t="1222";
 		System.out.println(findRepeatedDnaSequences(s));
 		
 	}
