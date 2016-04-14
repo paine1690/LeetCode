@@ -1,6 +1,7 @@
 package leetcode;
 
-public class Math {
+
+public class Math_leetcode {
 
 	//263. Ugly Number
     public boolean isUgly(int num) {
@@ -29,3 +30,4 @@ public class Math {
 	}
 
 }
+
