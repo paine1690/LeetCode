@@ -103,7 +103,39 @@ public class Tree {
     	return isBalanced(root.left)&&isBalanced(root.right);
     }
     
+  //110. Balanced Binary Tree
+    private static int getDeep(TreeNode root){
+    	if(root==null){
+    		return 0;
+    	}
+    	root.val=Math.max(getDeep(root.left)+1, getDeep(root.right)+1);
+    	return root.val;
+    }
     
+    private static boolean dfs(TreeNode root){
+    	if(root==null){
+        	return true;
+        }
+        if(root.left==null&&root.right==null){
+        	return true;
+        }
+        int l=0, r=0;
+        if(root.left!=null){
+        	l=root.left.val;
+        }
+        if(root.right!=null){
+        	r=root.right.val;
+        }
+    	if(Math.abs(l-r)>1){
+    		return false;
+    	}
+    	return dfs(root.left)&&dfs(root.right);
+    	
+    }
+    public boolean isBalanced2(TreeNode root) {
+       getDeep(root);
+       return dfs(root);
+    }
     
     
     
