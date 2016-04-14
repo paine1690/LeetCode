@@ -17,7 +17,16 @@ public class Tree {
 		return Math.max(maxDepth(root.left)+1, maxDepth(root.right)+1);
     }
     
-    
+    //226. Invert Binary Tree
+    public TreeNode invertTree(TreeNode root) {
+    	if(root==null){
+    		return root;
+    	}
+        TreeNode temp=invertTree(root.left);
+        root.left=invertTree(root.right);
+        root.right=temp;
+        return root;
+    }
     
     
 	public static void main(String[] args) {
