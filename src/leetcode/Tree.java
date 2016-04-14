@@ -1,5 +1,8 @@
 package leetcode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tree {
 	
 	public class TreeNode {
@@ -40,6 +43,23 @@ public class Tree {
         	return false;
         }
     }
+    
+    //144. Binary Tree Preorder Traversal
+    private static void preOrder(TreeNode root, List<Integer> re){
+    	if(root!=null){
+        	re.add(root.val);
+        	preOrder(root.left, re);
+        	preOrder(root.right, re);
+    	}
+    	
+    }
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> re=new ArrayList<Integer>();
+        preOrder(root, re);
+        return re;
+    }
+    
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
