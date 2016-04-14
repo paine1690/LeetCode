@@ -13,7 +13,7 @@ public class Tree {
 	}
 	
 	//104. Maximum Depth of Binary Tree
-    public int maxDepth(TreeNode root) {
+    public static int maxDepth(TreeNode root) {
     	if(root==null){
 			return 0;
 		}
@@ -88,6 +88,28 @@ public class Tree {
         	return (hasPathSum(root.left, sum-root.val))||(hasPathSum(root.right, sum-root.val));
         }    	
     }
+    
+    //110. Balanced Binary Tree
+    public boolean isBalanced(TreeNode root) {
+        if(root==null){
+        	return true;
+        }
+        if(root.left==null&&root.right==null){
+        	return true;
+        }
+    	if(Math.abs(maxDepth(root.left)-maxDepth(root.right))>1){
+    		return false;
+    	}
+    	return isBalanced(root.left)&&isBalanced(root.right);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
