@@ -1,7 +1,9 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Tree {
 	
@@ -137,7 +139,31 @@ public class Tree {
        return dfs(root);
     }
     
-    
+    //102. Binary Tree Level Order Traversal
+    private static void level(List<List<Integer>> re, Queue<TreeNode> p, Queue<TreeNode> q){
+    	List<Integer> level=new ArrayList<Integer>();
+    	while(!p.isEmpty()){
+    		TreeNode temp=p.poll();
+    		level.add(temp.val);
+    		if(temp.left!=null)		q.offer(temp.left);
+    		if(temp.right!=null)	q.offer(temp.right);
+    	}
+    	re.add(level);
+    	if(!q.isEmpty()){
+    		level(re, q, p);
+    	}
+    }
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        if(root==null){
+    		return re;
+    	}
+    	Queue<TreeNode> p=new LinkedList<TreeNode>();
+    	Queue<TreeNode> q=new LinkedList<TreeNode>();
+    	p.offer(root);
+    	level(re, p, q);
+    	return re;
+    }
     
     
     
