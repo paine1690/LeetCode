@@ -91,7 +91,7 @@ public class BinaryTree {
     	return re;
     }
 	
-    //107. Binary Tree Level Order Traversal II
+    //107. Binary Tree Level Order Traversal II		层序遍历
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         List<List<Integer>> re=new ArrayList<List<Integer>>();
         if(root==null){
@@ -286,13 +286,47 @@ public class BinaryTree {
     	}
     	return root.val;
     }
-    
     public int maxPathSum(TreeNode root) {
     	maxPathRe=Integer.MIN_VALUE;
         maxPath(root);
         return maxPathRe;
     }
     
+    //116. Populating Next Right Pointers in Each Node
+    public class TreeLinkNode {
+    	int val;
+    	TreeLinkNode left, right, next;
+    	TreeLinkNode(int x) { val = x; }
+    }
+    
+    private static void levelT(Queue<TreeLinkNode> p, Queue<TreeLinkNode> q){
+    	TreeLinkNode pNode=p.poll();
+    	System.out.println(pNode.val);
+    	if(pNode.left!=null){
+    		q.offer(pNode.left);
+    		q.offer(pNode.right);
+    	}
+    	while(!p.isEmpty()){
+    		TreeLinkNode qNode=p.poll();
+    		pNode.next=qNode;
+    		if(qNode.left!=null){
+    			q.offer(qNode.left);
+    			q.offer(qNode.right);
+    		}
+    		pNode=qNode;
+    	}
+    	if(!q.isEmpty()){
+    		levelT(q, p);
+    	}
+    }
+    public void connect(TreeLinkNode root) {
+    	Queue<TreeLinkNode> p=new LinkedList<TreeLinkNode>();
+    	Queue<TreeLinkNode> q=new LinkedList<TreeLinkNode>();
+    	if(root!=null){
+        	p.offer(root);
+        	levelT(p, q);        	
+        }
+    }
    
     
 	public static void main(String[] args) {
