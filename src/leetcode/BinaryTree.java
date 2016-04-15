@@ -328,7 +328,18 @@ public class BinaryTree {
         }
     }
    
-    
+    //116. Populating Next Right Pointers in Each Node
+    public void connect2(TreeLinkNode root) {
+    	if(root==null||root.left==null){
+    		return;
+    	}
+    	root.left.next=root.right;
+    	if(root.next!=null){
+    		root.right.next=root.next.left;
+    	}
+    	connect2(root.left);
+    	connect2(root.right);
+    }
 	public static void main(String[] args) {
 
 	}
