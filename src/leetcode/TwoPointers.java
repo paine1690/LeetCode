@@ -24,7 +24,6 @@ public class TwoPointers {
 		return true;
 	}
 	
-	
 	//125. Valid Palindrome 不用正则表达式
 	public static boolean isPalindrome2(String s) {
 		if(s==null){
@@ -289,6 +288,10 @@ public class TwoPointers {
         
         return re;
     }
+    
+    
+    
+    
 	public static void main(String[] args) {
 		int[] nums={1,1,2};
 		sortColors(nums);

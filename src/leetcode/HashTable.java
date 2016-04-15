@@ -25,7 +25,133 @@ public class HashTable {
 		return re;
 	}
 	
+	//242. Valid Anagram
+	public static boolean isAnagram(String s, String t) {
+    	if(s.length()!=t.length()){
+    		return false;
+    	}
+    	HashMap<Character, Integer> map=new HashMap<Character, Integer>();
+    	char[] c1=s.toCharArray();
+    	char[] c2=t.toCharArray();
+    	
+    	for(int i=0; i<c1.length; i++){
+    		if(map.containsKey(c1[i])){
+    			map.put(c1[i], map.get(c1[i])+1);
+    		}
+    		else{
+    			map.put(c1[i], 1);
+    		}
+    	}
+    	for(int i=0; i<c2.length; i++){
+    		if(!map.containsKey(c2[i])){
+    			return false;
+    		}
+    		else{
+    			if(map.get(c2[i])==1){
+    				map.remove(c2[i]);
+    			}
+    			else{
+    				map.put(c2[i], map.get(c2[i])-1);
+    			}
+    		}
+    	}
+    	return true;
+    }
 	
+	//290. Word Pattern
+	public boolean wordPattern(String pattern, String str) {
+        char[] chars=pattern.toCharArray();
+        String[] strs=str.split(" ");
+        if(chars.length!=strs.length){
+            return false;
+        }
+        HashMap<Character, String> map=new HashMap<Character, String>();
+        Set<String> set=new HashSet<String>();
+        
+    	for(int i=0;i<chars.length;i++){
+    		if(map.containsKey(chars[i])){
+    			if(!strs[i].equals(map.get(chars[i]))){
+    				return false;
+    			}
+    		}
+    		else{
+    			if(set.contains(strs[i])){
+    				return false;
+    			}
+    			map.put(chars[i], strs[i]);
+    			set.add(strs[i]);
+    		}
+    	}
+    	
+    	return true;
+    }
+	
+	//217. Contains Duplicate
+	public static boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> set=new HashSet<Integer>();
+    	for(int i=0; i<nums.length; i++){
+    		if(set.contains(nums[i])){
+    			return true;
+    		}else{
+    			set.add(nums[i]);
+    		}
+    	}
+    	
+    	return false;
+    }
+	
+	//219. Contains Duplicate II
+	public boolean containsNearbyDuplicate(int[] nums, int k) {
+    	int len=nums.length;
+    	if(len<2){
+    		return false;
+    	}
+    	HashMap<Integer,Integer> map=new HashMap<Integer,Integer>();
+    	for(int i=0; i<len; i++){
+    		if(!map.containsKey(nums[i])){
+    			map.put(nums[i], i);
+    		}else{
+    			if((i-map.get(nums[i])<=k)){
+    				return true;
+    			}
+    			map.put(nums[i], i);
+    		}
+    	}	
+    	return false; 
+    }
+	
+	//3. Longest Substring Without Repeating Characters
+	public static int lengthOfLongestSubstring(String s) {
+		char[] chars = s.toCharArray();
+        int x = 0;
+        int head = 0;
+        HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+        for(int i=0; i<chars.length; i++){
+        	if(!map.containsKey(chars[i])){
+        		map.put(chars[i], i);
+        		if(map.size()>x){
+        			x = map.size();
+        		}
+        	}
+        	else{
+        		if(map.size()>x){
+        			x = map.size();
+        		}
+        		
+        		int temp = map.get(chars[i]);
+        		
+        		for(int j=head; j<=temp; j++){
+        			map.remove(chars[j]);
+        		}
+        		
+        		head=temp+1;
+        		map.put(chars[i],i);
+        	}
+        }
+        return x;
+    }
+	
+	//136. Single Number   应该用位运算更快
     public static int singleNumber(int[] nums) {
     	Set<Integer> set=new HashSet<Integer>();
     	for(int i=0; i<nums.length; i++){
@@ -40,6 +166,7 @@ public class HashTable {
     	return it.next();
     }
 	
+    //205. Isomorphic Strings
     public static boolean isIsomorphic(String s, String t) {
     	if(s.length()<2){
     		return true;
@@ -64,6 +191,7 @@ public class HashTable {
     	return true;
     }
     
+    //205. Isomorphic Strings
     public static boolean isIsomorphic2(String s, String t) {
     	if(s.length()<2){
     		return true;
@@ -87,6 +215,7 @@ public class HashTable {
     	return true;
     }
     
+    //299. Bulls and Cows
     public static String getHint(String secret, String guess) {
     	int bulls=0, cows=0;
         int[] map=new int[10];
@@ -108,6 +237,7 @@ public class HashTable {
     	return bulls+"A"+cows+"B";
     }
     
+    //187. Repeated DNA Sequences
     public static List<String> findRepeatedDnaSequences(String s) {
     	List<String> re=new ArrayList<String>();
     	if(s.length()<=10){

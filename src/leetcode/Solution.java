@@ -1,49 +1,10 @@
 package leetcode;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 
 
 
-public class Solution {
-	
-	
-	
-	
-	public static int lengthOfLongestSubstring(String s) {
-		char[] chars = s.toCharArray();
-		String ss=String.valueOf(chars);
-        int x = 0;
-        int head = 0;
-        HashMap<Character, Integer> map = new HashMap<Character, Integer>();
-        for(int i=0; i<chars.length; i++){
-        	if(!map.containsKey(chars[i])){
-        		map.put(chars[i], i);
-        		if(map.size()>x){
-        			x = map.size();
-        		}
-        	}
-        	else{
-        		if(map.size()>x){
-        			x = map.size();
-        		}
-        		
-        		int temp = map.get(chars[i]);
-        		
-        		for(int j=head; j<=temp; j++){
-        			map.remove(chars[j]);
-        		}
-        		
-        		head=temp+1;
-        		map.put(chars[i],i);
-        	}
-        }
-        return x;
-    }
-	
-	
-	
+public class Solution {	
 	
 	public static String longestPalindrome(String s) {
         char[] chars=s.toCharArray();
@@ -223,84 +184,14 @@ public class Solution {
         return re;
     }
     
-    public static boolean wordPattern(String pattern, String str) {
-        char[] chars=pattern.toCharArray();
-        String[] strs=str.split(" ");
-        if(chars.length!=strs.length){
-            return false;
-        }
-        HashMap<Character, String> map=new HashMap<Character, String>();
-        Set set=new HashSet();
-    	for(int i=0;i<chars.length;i++){
-    		if(map.containsKey(chars[i])){
-    			if(!strs[i].equals(map.get(chars[i]))){
-    				return false;
-    			}
-    		}
-    		else{
-    			if(set.contains(strs[i])){
-    				return false;
-    			}
-    			map.put(chars[i], strs[i]);
-    			set.add(strs[i]);
-    		}
-    	}
-    	
-    	return true;
-    }
-    public static boolean isValidSudoku(char[][] board) {
-        Set<Character> set=new HashSet<Character>();
-    	char s='s';
-    	set.clear();
-       
-    	
-    	return true;
-    }
+   
     
-    public static boolean isAnagram(String s, String t) {
-    	if(s.length()!=t.length()){
-    		return false;
-    	}
-    	HashMap<Character, Integer> map=new HashMap<Character, Integer>();
-    	char[] c1=s.toCharArray();
-    	char[] c2=t.toCharArray();
-    	
-    	for(int i=0; i<c1.length; i++){
-    		if(map.containsKey(c1[i])){
-    			map.put(c1[i], map.get(c1[i])+1);
-    		}
-    		else{
-    			map.put(c1[i], 1);
-    		}
-    	}
-    	for(int i=0; i<c2.length; i++){
-    		if(!map.containsKey(c2[i])){
-    			return false;
-    		}
-    		else{
-    			if(map.get(c2[i])==1){
-    				map.remove(c2[i]);
-    			}
-    			else{
-    				map.put(c2[i], map.get(c2[i])-1);
-    			}
-    		}
-    	}
-    	return true;
-    }
     
     
     
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String p="abba";
-		String s="barfoothefoobarman";
-		String[] ss=new String[]{"foo","bar"};
-		int a=19;
-		int[] aa={1,1,1,1,2,3};
-		int[] bb={4,5,6,7};
-		
 		
 		
 		
