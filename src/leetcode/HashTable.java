@@ -6,6 +6,26 @@ public class HashTable {
 	 * 类名HashTable是按照leetcode上面的tag起的，实际用的是HashMap
 	 */
 	
+	//1. Two Sum
+	public static int[] twoSum(int[] nums, int target){
+		int[] re = new int[2];
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		for(int i=0;i<nums.length;i++){
+			map.put(nums[i], i+1);
+		}
+		for(int i=0; i<nums.length; i++){
+			if(map.containsKey(target-nums[i])){
+				if(map.get(target-nums[i]) != i+1){
+					re[0] = i+1;
+					re[1] = map.get(target-nums[i]);
+					break;
+				}
+			}
+		}
+		return re;
+	}
+	
+	
     public static int singleNumber(int[] nums) {
     	Set<Integer> set=new HashSet<Integer>();
     	for(int i=0; i<nums.length; i++){
