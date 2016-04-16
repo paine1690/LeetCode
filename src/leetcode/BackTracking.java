@@ -11,7 +11,6 @@ public class BackTracking {
 		nums[a]=nums[b];
 		nums[b]=temp;
 	}
-	
 	private static void perm(int[] nums, int start, List<List<Integer>> re) {
 		if(start==nums.length){
 			List<Integer> temp=new ArrayList<Integer>();
@@ -27,7 +26,6 @@ public class BackTracking {
 			}
 		}
 	}
-	
 	public static List<List<Integer>> permute(int[] nums) {    
 		List<List<Integer>> re=new ArrayList<List<Integer>>();
 		perm(nums, 0, re);
