@@ -81,7 +81,26 @@ public class BinarySearchTree {
         }
     }
     
-    
+    //108. Convert Sorted Array to Binary Search Tree
+    private static TreeNode arrayToBST(int[] nums, int start, int end){
+    	if(start==end){
+        	return new TreeNode(nums[start]);
+    	}
+    	if(start<end){
+    		int mid=(start+end)>>>1;
+    		TreeNode root=new TreeNode(nums[mid]);
+    		root.left=arrayToBST(nums, start, mid-1);
+    		root.right=arrayToBST(nums, mid+1, end);
+    		return root;
+    	}
+    	return null;
+    }
+    public TreeNode sortedArrayToBST(int[] nums) {
+    	if(nums.length==0){
+    		return null;
+    	}
+        return arrayToBST(nums, 0, nums.length-1);
+    }
     
     
 	public static void main(String[] args) {
