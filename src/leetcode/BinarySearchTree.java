@@ -9,7 +9,7 @@ package leetcode;
  */
 public class BinarySearchTree {
 
-	public class TreeNode {
+	public static class TreeNode {
 		int val;
 		TreeNode left;
 		TreeNode right;
@@ -25,8 +25,34 @@ public class BinarySearchTree {
     	}
     	return root;    	
     }
+    
+    //98. Validate Binary Search Tree   中序遍历
+    private static TreeNode pre=null;
+    private static boolean isValid(TreeNode root) {
+        if(root==null){
+        	return true;
+        }
+        if(isValid(root.left)){
+        	if(pre==null||root.val>pre.val){
+        		pre=root;
+        		return isValid(root.right);
+        	}else{
+        		return false;
+        	}
+        }else{
+        	return false;
+        }
+    }
+    public static boolean isValidBST(TreeNode root) {
+    	pre=null;
+    	return isValid(root);
+    }
+    
 	public static void main(String[] args) {
-
+		TreeNode root=new TreeNode(0);
+		TreeNode left=new TreeNode(-1);
+		root.right=left;
+		System.out.println(isValidBST(root));
 	}
 
 }
