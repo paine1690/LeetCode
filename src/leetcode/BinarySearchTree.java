@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.Stack;
+
 /**
  * 		二叉搜索树
  * 
@@ -48,11 +50,50 @@ public class BinarySearchTree {
     	return isValid(root);
     }
     
+    //173. Binary Search Tree Iterator
+    static class BSTIterator {
+    	Stack<TreeNode> stack=new Stack<TreeNode>();
+        public BSTIterator(TreeNode root) {
+            TreeNode temp=root;
+            while(temp!=null){
+            	stack.push(temp);
+            	temp=temp.left;
+            }
+        }
+
+        /** @return whether we have a next smallest number */
+        public boolean hasNext() {
+            return !(stack.isEmpty());
+        }
+        
+        /** @return the next smallest number */
+        public int next() {
+        	TreeNode temp=stack.pop();
+        	int re=temp.val;
+        	if(temp.right!=null){
+        		temp=temp.right;
+        		while(temp!=null){
+        			stack.push(temp);
+        			temp=temp.left;
+        		}
+        	}
+        	return re;
+        }
+    }
+    
+    
+    
+    
 	public static void main(String[] args) {
-		TreeNode root=new TreeNode(0);
-		TreeNode left=new TreeNode(-1);
-		root.right=left;
-		System.out.println(isValidBST(root));
+		TreeNode root=new TreeNode(2);
+		TreeNode left=new TreeNode(1);
+		TreeNode right=new TreeNode(3);
+		root.left=left;
+		root.right=right;
+		BSTIterator i = new BSTIterator(root);
+		while(i.hasNext()){
+			System.out.println(i.next());
+		}
 	}
 
 }
