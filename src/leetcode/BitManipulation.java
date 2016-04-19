@@ -204,17 +204,21 @@ public class BitManipulation {
     	return m<<bit;
     }
     
-  //201. Bitwise AND of Numbers Range
+    //201. Bitwise AND of Numbers Range
     public static int rangeBitwiseAnd2(int m, int n) {
         while(n>m){
         	n=n&(n-1);
         }
     	return n;
     }
+
+    //342. Power of Four
+    public static boolean isPowerOfFour(int num) {
+    	return num>0&&((num&(num-1))==0)&&((num&0x55555555)==num);
+    }
     
 	public static void main(String[] args) {
-		
-		System.out.println(rangeBitwiseAnd(0, 1));
+		System.out.println(isPowerOfFour(8));
 		
 	}
 
