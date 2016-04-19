@@ -358,6 +358,33 @@ public class BinaryTree {
         return l==null? r:l;
         
     }
+    
+    //114. Flatten Binary Tree to Linked List
+    TreeNode temp=null;
+    public void flatten(TreeNode root) {
+        if(root==null){
+        	return;
+        }
+    	temp=root;
+        flatten(root.left);
+        if(temp!=root&&temp!=null){
+        	temp.right=root.right;
+        	root.right=root.left;
+        	root.left=null;
+        	while(temp.right!=null){
+        		temp=temp.right;
+        	}
+        }
+        flatten(root.right);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 	public static void main(String[] args) {
 
 	}
