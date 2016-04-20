@@ -1,10 +1,12 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * 		树
@@ -449,7 +451,25 @@ public class BinaryTree {
     	return countNodes(root.left)+countNodes(root.right)+1;
     }
     
-    
+    //113. Path Sum II
+	private static void sum(TreeNode root, int sum, List<List<Integer>> re, Stack<Integer> stack){
+    	if(root==null){
+    		return;
+    	}
+    	stack.push(root.val);
+    	if(root.left==null&&root.right==null&&root.val==sum){
+    		re.add((List<Integer>) stack.clone());
+    	}
+    	sum(root.left, sum-root.val, re, stack);
+    	sum(root.right, sum-root.val, re, stack);
+    	stack.pop();
+    }
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        Stack<Integer> stack=new Stack<Integer>();
+        sum(root, sum, re, stack);
+        return re;
+    }
     
     
     
