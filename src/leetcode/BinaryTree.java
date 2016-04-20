@@ -90,6 +90,23 @@ public class BinaryTree {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         return build(inorder, 0, preorder.length-1, preorder, 0); 
     }
+    
+    //106. Construct Binary Tree from Inorder and Postorder Traversal 中序和后序 确定二叉树
+    private static TreeNode build2(int[] inorder, int start, int end, int[] postorder, int index){
+    	TreeNode root=null;
+    	if(start<=end){
+    		root=new TreeNode(postorder[index]);
+    		if(start!=end){
+    			int mid=getIndex(inorder, start, end, postorder[index]);
+    			root.right=build2(inorder, mid+1, end, postorder, index-1);
+    			root.left=build2(inorder, start, mid-1, postorder, index-1-end+mid);
+    		}
+    	}
+    	return root;
+    }
+    public TreeNode buildTree2(int[] inorder, int[] postorder) {
+        return build2(inorder, 0, inorder.length-1, postorder, postorder.length-1);
+    }
 	
     //102. Binary Tree Level Order Traversal		层序遍历
     private static void level(List<List<Integer>> re, Queue<TreeNode> p, Queue<TreeNode> q){
@@ -431,6 +448,8 @@ public class BinaryTree {
     	}
     	return countNodes(root.left)+countNodes(root.right)+1;
     }
+    
+    
     
     
     
