@@ -15,7 +15,7 @@ import java.util.Queue;
  */
 public class BinaryTree {
 	
-	public class TreeNode {
+	public static class TreeNode {
 		int val;
 		TreeNode left;
 		TreeNode right;
@@ -64,6 +64,31 @@ public class BinaryTree {
         List<Integer> re=new ArrayList<Integer>();
         postOrder(root, re);
         return re;
+    }
+    
+    //105. Construct Binary Tree from Preorder and Inorder Traversal 先序和中序 确定二叉树
+    private static int getIndex(int[] nums, int start, int end, int num){
+    	for(int i=start; i<=end; i++){
+    		if(nums[i]==num){
+    			return i;
+    		}
+    	}
+    	return -1;
+    }
+    private static TreeNode build(int[] inorder, int start, int end, int pre[], int index){
+    	TreeNode root=null;
+    	if(start<=end){
+    		root=new TreeNode(pre[index]);
+    		if(start!=end){
+    			int mid=getIndex(inorder, start, end, pre[index]);
+        		root.left=build(inorder, start, mid-1, pre, index+1);
+            	root.right=build(inorder, mid+1, end, pre, index+1+mid-start);
+    		}
+    	}
+    	return root;    	
+    }
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return build(inorder, 0, preorder.length-1, preorder, 0); 
     }
 	
     //102. Binary Tree Level Order Traversal		层序遍历
@@ -406,8 +431,6 @@ public class BinaryTree {
     	}
     	return countNodes(root.left)+countNodes(root.right)+1;
     }
-    
-    
     
     
     
