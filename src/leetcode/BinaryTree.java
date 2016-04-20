@@ -378,8 +378,34 @@ public class BinaryTree {
         flatten(root.right);
     }
     
-    
-    
+    //222. Count Complete Tree Nodes
+    private static int getLeft(TreeNode root){
+    	int re=0;
+    	while(root!=null){
+    		re++;
+    		root=root.left;
+    	}
+    	return re;
+    }
+    private static int getRight(TreeNode root){
+    	int re=0;
+    	while(root!=null){
+    		re++;
+    		root=root.right;
+    	}
+    	return re;
+    }
+    public int countNodes(TreeNode root) {
+    	if(root==null){
+    		return 0;
+    	}
+    	int l=getLeft(root.left);
+    	int r=getRight(root.right);
+    	if(r==l){
+    		return (1<<l+1)-1;
+    	}
+    	return countNodes(root.left)+countNodes(root.right)+1;
+    }
     
     
     
