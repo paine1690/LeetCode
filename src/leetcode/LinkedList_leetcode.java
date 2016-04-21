@@ -98,16 +98,14 @@ public class LinkedList_leetcode {
     	if(head==null||head.next==null){
             return head;
         }
-    	ListNode nNode=head;
+    	ListNode pNode=head;
     	ListNode re=null;
-    	while(nNode!=null){
-    		ListNode pNode=new ListNode(nNode.val);
+    	while(pNode!=null){
+    		ListNode temp=pNode.next;
     		pNode.next=re;
     		re=pNode;
-    		nNode=nNode.next;
-
+    		pNode=temp;
     	}
-    	
     	return re;
     }
     
