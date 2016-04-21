@@ -1,7 +1,6 @@
 package leetcode;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -452,6 +451,7 @@ public class BinaryTree {
     }
     
     //113. Path Sum II
+	@SuppressWarnings("unchecked")
 	private static void sum(TreeNode root, int sum, List<List<Integer>> re, Stack<Integer> stack){
     	if(root==null){
     		return;

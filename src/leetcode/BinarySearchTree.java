@@ -102,6 +102,24 @@ public class BinarySearchTree {
         return arrayToBST(nums, 0, nums.length-1);
     }
     
+    //230. Kth Smallest Element in a BST
+    private static int getCount(TreeNode root){
+    	if(root==null){
+    		return 0;
+    	}
+    	return 1+getCount(root.left)+getCount(root.right);
+    	
+    }
+    public int kthSmallest(TreeNode root, int k) {
+        int count=getCount(root);
+        if(count==k){
+        	return root.val;
+        }else if(count>k){
+        	return kthSmallest(root.left, k);
+        }else{
+        	return kthSmallest(root.right, k-count);
+        }
+    }
     
 	public static void main(String[] args) {
 		TreeNode root=new TreeNode(2);
