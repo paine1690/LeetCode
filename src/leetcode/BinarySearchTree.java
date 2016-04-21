@@ -103,6 +103,9 @@ public class BinarySearchTree {
     }
     
     //230. Kth Smallest Element in a BST
+    /*
+     * 优化，若插入删除操作频繁，可以给TreeNode增加一个leftCount属性，用来记录左子树中节点的个数
+     */
     private static int getCount(TreeNode root){
     	if(root==null){
     		return 0;
@@ -111,7 +114,7 @@ public class BinarySearchTree {
     	
     }
     public int kthSmallest(TreeNode root, int k) {
-        int count=getCount(root);
+        int count=getCount(root.left)+1;
         if(count==k){
         	return root.val;
         }else if(count>k){
