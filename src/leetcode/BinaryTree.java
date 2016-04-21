@@ -471,7 +471,42 @@ public class BinaryTree {
         return re;
     }
     
-    
+    //117. Populating Next Right Pointers in Each Node II
+    public void connect3(TreeLinkNode root) {
+    	TreeLinkNode head=root;
+    	TreeLinkNode nextHead=null;
+    	while(head!=null){
+			TreeLinkNode node=head;
+			TreeLinkNode last=null;
+			while(node!=null){
+				if(node.left!=null&&node.right!=null){
+					node.left.next=node.right;
+				}
+				TreeLinkNode temp;
+				if(node.left!=null){
+					temp=node.left;
+				}else if(node.right!=null){
+					temp=node.right;
+				}else{
+					temp=null;
+				} 
+				if(temp!=null){
+					if(nextHead==null){
+						nextHead=temp;
+						last=temp;
+					}else{
+						last.next=temp;
+					}
+					while(last.next!=null){
+						last=last.next;
+					}
+				}
+				node=node.next;
+			}
+			head=nextHead;
+			nextHead=null;
+    	}
+    }
     
 	public static void main(String[] args) {
 
