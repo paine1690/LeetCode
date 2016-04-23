@@ -286,7 +286,6 @@ public class BinaryTree {
         }else{
         	return Math.min(minDepth(root.left)+1, minDepth(root.right)+1);
         }
-        
     }
     
     //101. Symmetric Tree
@@ -506,6 +505,27 @@ public class BinaryTree {
 			head=nextHead;
 			nextHead=null;
     	}
+    }
+    
+    //129. Sum Root to Leaf Numbers
+    private static int getSums(TreeNode root, int re){
+    	int temp=re*10+root.val;
+    	if(root.left==null&&root.right==null){
+    		return temp;
+    	}else if(root.left!=null&&root.right!=null){
+    		return getSums(root.left, temp)+getSums(root.right, temp);
+    	}else if(root.left!=null){
+    		return getSums(root.left, temp);
+    	}else{
+    		return getSums(root.right, temp);
+    	}
+    }
+    public int sumNumbers(TreeNode root) {
+    	if(root==null){
+    		return 0;
+    	}
+    	int re=0;
+    	return getSums(root, re);
     }
     
 	public static void main(String[] args) {
