@@ -528,6 +528,36 @@ public class BinaryTree {
     	return getSums(root, re);
     }
     
+    //103. Binary Tree Zigzag Level Order Traversal
+    private static int flag;
+    private static void zigzag(Queue<TreeNode> p, Queue<TreeNode> q, List<List<Integer>> re){
+    	List<Integer> temp=new ArrayList<Integer>();
+    	TreeNode node;
+    	while(!p.isEmpty()){
+    		node=p.poll();
+    		temp.add(node.val);
+    		if(node.left!=null) q.offer(node.left);
+    		if(node.right!=null) q.offer(node.right);
+    	}
+    	if((flag++&1)==1){
+    		Collections.reverse(temp);
+    	}
+    	re.add(temp);
+    	if(!q.isEmpty()){
+    		zigzag(q, p, re);
+    	}
+    }
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        if(root!=null){
+        	flag=0;
+        	Queue<TreeNode> p=new LinkedList<TreeNode>();
+            Queue<TreeNode> q=new LinkedList<TreeNode>();
+            p.offer(root);
+            zigzag(p, q, re);
+        }        
+        return re;
+    }
 	public static void main(String[] args) {
 
 	}
