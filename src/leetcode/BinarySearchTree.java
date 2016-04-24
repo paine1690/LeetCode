@@ -2,6 +2,7 @@ package leetcode;
 
 import java.util.Stack;
 
+
 /**
  * 		二叉搜索树
  * 
@@ -124,16 +125,49 @@ public class BinarySearchTree {
         }
     }
     
+
+    //99. Recover Binary Search Tree
+    private static TreeNode preNode;
+    private static TreeNode mis1, mis2;
+    private static void pre(TreeNode root){
+    	if(root==null){
+    		return;
+    	}
+    	if(root.left!=null){
+    		pre(root.left);
+    	}
+    	if(preNode!=null&&root.val<preNode.val){
+    		if(mis1==null){
+    			mis1=preNode;
+    			mis2=root;
+    		}else{
+    			mis2=root;
+    		}
+    	}
+    	preNode=root;
+    	if(root.right!=null){
+    		pre(root.right);
+    	}
+    }
+    public static void recoverTree(TreeNode root) {
+        preNode=null;
+        mis1=null;
+        mis2=null;
+        pre(root);
+        int temp=mis1.val;
+        mis1.val=mis2.val;
+        mis2.val=temp;
+    }
+    
+    
 	public static void main(String[] args) {
-		TreeNode root=new TreeNode(2);
+		TreeNode root=new TreeNode(0);
 		TreeNode left=new TreeNode(1);
-		TreeNode right=new TreeNode(3);
+		TreeNode right=new TreeNode(1);
 		root.left=left;
 		root.right=right;
-		BSTIterator i = new BSTIterator(root);
-		while(i.hasNext()){
-			System.out.println(i.next());
-		}
+		recoverTree(root);
+		
 	}
 
 }
