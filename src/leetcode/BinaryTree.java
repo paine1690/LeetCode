@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
+import leetcode.BinarySearchTree.TreeNode;
+
 /**
  * 		树
  * 
@@ -557,6 +559,58 @@ public class BinaryTree {
             zigzag(p, q, re);
         }        
         return re;
+    }
+    
+    //199. Binary Tree Right Side View
+    private static void level(Queue<TreeNode>p, Queue<TreeNode> q, List<Integer> re){
+    	TreeNode temp=null;
+    	while(!p.isEmpty()){
+    		temp=p.poll();
+    		if(temp.left!=null) q.offer(temp.left);
+    		if(temp.right!=null) q.offer(temp.right);
+    	}
+    	re.add(temp.val);
+    	if(!q.isEmpty()){
+    		level(q, p, re);
+    	}
+    }
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> re=new ArrayList<Integer>();
+        if(root!=null){
+        	Queue<TreeNode> p=new LinkedList<TreeNode>();
+        	Queue<TreeNode> q=new LinkedList<TreeNode>();
+        	p.offer(root);
+        	level(p, q, re);
+        }
+        return re;
+    }
+    
+    //199. Binary Tree Right Side View
+    public List<Integer> rightSideView2(TreeNode root) {
+    	List<Integer> re=new ArrayList<Integer>();
+    	if(root!=null){
+    		Queue<TreeNode> q=new LinkedList<TreeNode>();
+    		q.offer(root);
+    		q.offer(null);
+    		TreeNode node;
+    		while(!q.isEmpty()){
+    			node=q.poll();
+    			if(node==null){
+    				if(q.isEmpty()){
+    					break;
+    				}else{
+    					q.offer(null);
+    				}
+    			}else{
+    				if(q.peek()==null){
+    					re.add(node.val);
+    				}
+    				if(node.left!=null) q.offer(node.left);
+    				if(node.right!=null) q.offer(node.right);
+    			}
+    		}
+    	}
+    	return re;
     }
 	public static void main(String[] args) {
 

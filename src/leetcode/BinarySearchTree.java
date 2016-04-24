@@ -163,29 +163,6 @@ public class BinarySearchTree {
         mis2.val=temp;
     }
     
-    //199. Binary Tree Right Side View
-    private static void level(Queue<TreeNode>p, Queue<TreeNode> q, List<Integer> re){
-    	TreeNode temp=null;
-    	while(!p.isEmpty()){
-    		temp=p.poll();
-    		if(temp.left!=null) q.offer(temp.left);
-    		if(temp.right!=null) q.offer(temp.right);
-    	}
-    	re.add(temp.val);
-    	if(!q.isEmpty()){
-    		level(q, p, re);
-    	}
-    }
-    public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> re=new ArrayList<Integer>();
-        if(root!=null){
-        	Queue<TreeNode> p=new LinkedList<TreeNode>();
-        	Queue<TreeNode> q=new LinkedList<TreeNode>();
-        	p.offer(root);
-        	level(p, q, re);
-        }
-        return re;
-    }
     
     
     
