@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
-import leetcode.BinarySearchTree.TreeNode;
-
 /**
  * 		树
  * 

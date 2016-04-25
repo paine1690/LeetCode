@@ -52,8 +52,18 @@ public class Math_leetcode {
 		}
 		return re;
     }
+    
+    //326. Power of Three
+    public static boolean isPowerOfThree(int n) {
+    	if(n==0){
+    		return false;
+    	}
+        double temp=Math.log(n)/Math.log(3);
+        return Math.abs(temp-Math.rint(temp))<0.0000000001; 
+    }
+    
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		System.out.println(isPowerOfThree(729));
 		
 
 	}
