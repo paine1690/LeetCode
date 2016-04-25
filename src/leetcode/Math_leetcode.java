@@ -108,8 +108,16 @@ public class Math_leetcode {
         return s;
     }
     
+    //171. Excel Sheet Column Number
+    public static int titleToNumber(String s) {
+        int re=0;
+        for(int i=0; i<s.length(); i++){
+        	re=re*26+s.charAt(i)-'A'+1;
+        }
+        return re;
+    }
 	public static void main(String[] args) {
-		System.out.println(convertToTitle(26));
+		System.out.println(titleToNumber("AA"));
 
 	}
 
