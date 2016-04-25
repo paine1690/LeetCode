@@ -97,11 +97,19 @@ public class Math_leetcode {
     	return digits;
     }
     
-    
+    //168. Excel Sheet Column Title
+    public static String convertToTitle(int n) {
+        String s="";
+        while(n>0){
+        	int a=(n-1)%26;
+        	s=(char)('A'+a)+s;
+        	n=(n-1)/26;
+        }        
+        return s;
+    }
     
 	public static void main(String[] args) {
-		System.out.println(isPowerOfThree(729));
-		
+		System.out.println(convertToTitle(26));
 
 	}
 
