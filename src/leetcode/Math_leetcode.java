@@ -62,6 +62,43 @@ public class Math_leetcode {
         return Math.abs(temp-Math.rint(temp))<0.0000000001; 
     }
     
+    //258. Add Digits
+    public int addDigits(int num) {
+        return (num-1)%9+1;
+    }
+    
+    //66. Plus One
+    public int[] plusOne(int[] digits) {
+    	int flag=0;
+    	if(++digits[digits.length-1]>9){
+    		digits[digits.length-1]%=10;
+    		flag=1;
+    	}
+        for(int i=digits.length-2; i>=0; i--){
+        	if(flag==1){
+        		if(++digits[i]>9){
+        			digits[i]%=10;
+        			flag=1;
+        		}else{
+        			flag=0;
+        		}
+        	}else{
+        		break;
+        	}
+        }
+    	if(flag==1){
+    		int[] re=new int[digits.length+1];
+    		re[0]=1;
+    		for(int i=0; i<digits.length; i++){
+    			re[i+1]=digits[i];
+    		}
+    		return re;
+    	}
+    	return digits;
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		System.out.println(isPowerOfThree(729));
 		
