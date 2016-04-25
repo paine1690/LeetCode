@@ -116,8 +116,30 @@ public class Math_leetcode {
         }
         return re;
     }
+    
+    //223. Rectangle Area  计算两个矩形的重叠面积
+    public static int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+        int re=(C-A)*(D-B)+(G-E)*(H-F);
+              
+        int a1=Math.max(A, E);
+        int a2=Math.min(C, G);
+        int a=0,b=0;
+        if(a2>a1){
+        	a=a2-a1;
+        }
+        int b1=Math.max(B, F);
+        int b2=Math.min(D, H);
+        if(b2>b1){
+        	b=b2-b1;
+        }
+        return re-a*b;
+    }
+    
+    
+    
+    
 	public static void main(String[] args) {
-		System.out.println(titleToNumber("AA"));
+		System.out.println(computeArea(-1500000001,0,-1500000000,1,1500000000,0,1500000001,1));
 
 	}
 
