@@ -157,6 +157,48 @@ public class Math_leetcode {
     	return true;
     }
     
+    //67. Add Binary
+    public static String addBinary(String a, String b) {
+        String s="";
+        int i=a.length()-1;
+        int j=b.length()-1;
+        int flag=0;
+        while(i>=0&&j>=0){
+        	int temp=a.charAt(i--)-'0'+b.charAt(j--)-'0'+flag;
+        	if(temp>1){
+        		temp-=2;
+        		flag=1;
+        	}else{
+        		flag=0;
+        	}
+        	s=temp+s;
+        }
+        while(i>=0){
+        	int temp=a.charAt(i--)-'0'+flag;
+        	if(temp>1){
+        		temp-=2;
+        		flag=1;
+        	}else{
+        		flag=0;
+        	}
+        	s=temp+s;
+        }
+        while(j>=0){
+        	int temp=b.charAt(j--)-'0'+flag;
+        	if(temp>1){
+        		temp-=2;
+        		flag=1;
+        	}else{
+        		flag=0;
+        	}
+        	s=temp+s;
+        }
+        if(flag==1){
+        	s=1+s;
+        }
+        return s;
+    }
+    
     
     
 	public static void main(String[] args) {
