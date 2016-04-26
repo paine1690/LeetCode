@@ -199,10 +199,18 @@ public class Math_leetcode {
         return s;
     }
     
-    
+    //172. Factorial Trailing Zeroes
+    public static int trailingZeroes(int n) {
+        int re=0;
+        while(n>0){
+        	re+=n/5;
+        	n/=5;
+        }
+        return re;
+    }
     
 	public static void main(String[] args) {
-		System.out.println(addBinary("11","1"));
+		System.out.println(trailingZeroes(5));
 
 	}
 
