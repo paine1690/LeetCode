@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.HashSet;
+import java.util.Set;
 
 public class Math_leetcode {
 
@@ -135,11 +137,30 @@ public class Math_leetcode {
         return re-a*b;
     }
     
+    //202. Happy Number
+    public static boolean isHappy(int n) {
+        Set<Integer> set=new HashSet<Integer>();
+        while(n!=1){
+        	if(set.contains(n)){
+        		return false;
+        	}else{
+        		set.add(n);
+        		int temp=0;
+        		while(n>0){
+        			int i=n%10;
+        			temp+=i*i;
+        			n/=10;
+        		}
+        		n=temp;
+        	}
+        }
+    	return true;
+    }
     
     
     
 	public static void main(String[] args) {
-		System.out.println(computeArea(-1500000001,0,-1500000000,1,1500000000,0,1500000001,1));
+		System.out.println(addBinary("11","1"));
 
 	}
 
