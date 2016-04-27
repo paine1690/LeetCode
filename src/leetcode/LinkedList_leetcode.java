@@ -593,13 +593,13 @@ public class LinkedList_leetcode {
     }
     
     
+    
+    
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-//		int[] aa={7,5,6};
+		//int[] aa={7,5,6,78,1,86,15,48,153,48,4};
 //		int[] bb={5,6,4};
-//		ListNode list1=listNodeGenerator(aa);
+		//ListNode list1=listNodeGenerator(aa);
 //		ListNode list2=listNodeGenerator(bb);
-		
 		
 		
 	}
