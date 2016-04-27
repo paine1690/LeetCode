@@ -592,32 +592,14 @@ public class LinkedList_leetcode {
 		return re.next;
     }
     
-    public static ListNode insertionSortList(ListNode head) {
-        ListNode node=head;
-        while(node!=null){
-        	ListNode lNode=head;
-        	int x=node.val;
-        	while(lNode!=node){
-        		if(lNode.val<=x){
-        			lNode=lNode.next;
-        		}else{
-        			int temp=x;
-        			x=lNode.val;
-        			lNode.val=temp;
-        		}  
-        	}
-        	node.val=x;        	
-        	node=node.next;
-        }
-    	return head;
-    }
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] aa={1,5,1,6};
-		int[] bb={5,6,4};
-		ListNode list1=listNodeGenerator(aa);
-		ListNode list2=listNodeGenerator(bb);
-		printList(insertionSortList(list1));
+//		int[] aa={7,5,6};
+//		int[] bb={5,6,4};
+//		ListNode list1=listNodeGenerator(aa);
+//		ListNode list2=listNodeGenerator(bb);
+		
 		
 		
 	}

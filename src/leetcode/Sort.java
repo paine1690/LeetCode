@@ -64,7 +64,31 @@ public class Sort {
     	return head;
     }
     
-    
+    //147. Insertion Sort List
+    public static ListNode insertionSortList2(ListNode head) {
+    	ListNode re=new ListNode(-1);
+    	ListNode node=head;
+    	while(node!=null){
+    		ListNode lNode=re;
+    		ListNode nextNode=node.next;
+    		node.next=null;
+    		while(lNode.next!=null){
+    			if(lNode.next.val<=node.val){
+    				lNode=lNode.next;
+    			}else{
+    				node.next=lNode.next;
+    				lNode.next=node;
+    				node=null;
+    				while(lNode.next!=null){
+    					lNode=lNode.next;
+    				}
+    			}
+    		}
+    		lNode.next=node;
+    		node=nextNode;	
+    	}
+    	return re.next;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] nums={3, 0, 6, 1, 5};
