@@ -2,6 +2,13 @@ package leetcode;
 import java.util.Arrays;
 
 public class Sort {
+	
+	public static class ListNode {
+		 int val;
+		 ListNode next;
+		 ListNode(int x) { val = x; }
+	}
+	
 	//O(logn)
 	public static int hIndex(int[] citations) {
         Arrays.sort(citations);
@@ -35,6 +42,29 @@ public class Sort {
 		}		
 		return 0;
 	}
+	
+	//147. Insertion Sort List
+    public ListNode insertionSortList(ListNode head) {
+    	ListNode node=head;
+        while(node!=null){
+        	ListNode lNode=head;
+        	int x=node.val;
+        	while(lNode!=node){
+        		if(lNode.val<=x){
+        			lNode=lNode.next;
+        		}else{
+        			int temp=x;
+        			x=lNode.val;
+        			lNode.val=temp;
+        		}  
+        	}
+        	node.val=x;        	
+        	node=node.next;
+        }
+    	return head;
+    }
+    
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] nums={3, 0, 6, 1, 5};
