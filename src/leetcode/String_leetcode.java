@@ -36,10 +36,35 @@ public class String_leetcode {
     	}
     }
     
-    
+    //165. Compare Version Numbers
+    public static int compareVersion(String version1, String version2) {
+        String[] s1=version1.split("\\.");
+        String[] s2=version2.split("\\.");
+        int n1=0, n2=0;
+        int i=0, j=0;
+        while(i<s1.length&&j<s2.length){
+        	n1=n1*10+Integer.valueOf(s1[i++]);
+        	n2=n2*10+Integer.valueOf(s2[j++]);
+        }
+        while(i<s1.length){
+        	n1=n1*10+Integer.valueOf(s1[i++]);
+        	n2=n2*10+0;
+        }
+        while(j<s2.length){
+        	n1=n1*10+0;
+        	n2=n2*10+Integer.valueOf(s2[j++]);
+        }        
+        if(n1>n2){
+        	return 1;
+        }else if(n1<n2){
+        	return -1;
+        }else{
+        	return 0;
+        }
+    }
     
 	public static void main(String[] args) {
-		System.out.println(reverseString("hello"));
+		System.out.println(compareVersion("01", "1"));
 	}
 
 }
