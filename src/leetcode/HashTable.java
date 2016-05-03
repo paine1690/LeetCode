@@ -283,12 +283,34 @@ public class HashTable {
         return re;
     }
     
+    //347. Top K Frequent Elements
+    public static List<Integer> topKFrequent(int[] nums, int k) {
+    	Map<Integer, Integer> map=new HashMap<Integer, Integer>();
+    	for(int i=0; i<nums.length; i++){
+    		if(!map.containsKey(nums[i])){
+    			map.put(nums[i], 1);
+    		}else{
+    			map.put(nums[i], 1+map.get(nums[i]));
+    		}
+    	}
+    	List<Map.Entry<Integer, Integer>> list=new ArrayList<Map.Entry<Integer, Integer>>(map.entrySet());
+    	Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>(){
+    		public int compare( Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2){
+    			return o2.getValue().compareTo(o1.getValue());
+    		}
+    	});
+    	List<Integer> re=new ArrayList<Integer>();
+    	for(int i=0; i<k; i++){
+    		re.add(list.get(i).getKey());
+    	}
+    	return re;
+    }
 	public static void main(String[] args) {
 		
-		//int[] nums={1,5,6,4,1,6,4};
-		String[] strs={"eat", "tea", "tan", "ate", "nat", "bat"};
+		int[] nums={-1, -1};
 		
-		System.out.println(groupAnagrams(strs));
+		
+		System.out.println(topKFrequent(nums, 1));
 		
 	}
 
