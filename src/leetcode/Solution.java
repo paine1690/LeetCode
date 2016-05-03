@@ -1,5 +1,5 @@
 package leetcode;
-import java.util.HashMap;
+
 
 
 
@@ -133,31 +133,7 @@ public class Solution {
     	return re;
     }
     
-    public static int romanToInt(String s) {
-    	int re=0;
-    	int o=0;
-        int[] step={1000, 500, 100, 50, 10, 5, 1};
-        char[] add ={'M','D','C','L','X','V','I'};
-        HashMap<Character, Integer> map=new HashMap<Character, Integer>();
-        for(int i=0;i<step.length;i++){
-        	map.put(add[i], step[i]);
-        }
-        char[] chars=s.toCharArray();
-        for(int i=chars.length-1; i>=0; i--){
-        	int n=map.get(chars[i]);
-        	System.out.println(n);
-        	if(n>o){
-        		re+=n;
-        	}
-        	else{
-        		re-=n;
-        	}
-        	o=n;
-        }
-        
-        
-        return re;
-    }
+    
     
    
     
