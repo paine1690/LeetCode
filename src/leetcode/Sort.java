@@ -1,13 +1,15 @@
 package leetcode;
 import java.util.Arrays;
 
+class ListNode {
+	 int val;
+	 ListNode next;
+	 ListNode(int x) { val = x; }
+}
+
 public class Sort {
 	
-	public static class ListNode {
-		 int val;
-		 ListNode next;
-		 ListNode(int x) { val = x; }
-	}
+	
 	
 	//O(logn)
 	public static int hIndex(int[] citations) {
@@ -87,5 +89,16 @@ public class Sort {
 		int[] nums={3, 0, 6, 1, 5};
 		System.out.println(hIndex2(nums));
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

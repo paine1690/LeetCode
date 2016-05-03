@@ -260,13 +260,35 @@ public class HashTable {
     }
     
     
+    //49. Group Anagrams
+    public static List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> re;
+        Map<String, List<String>> map=new HashMap<String, List<String>>();
+        for(int i=0; i<strs.length; i++){
+        	char[] chars=strs[i].toCharArray();
+        	Arrays.sort(chars);
+        	String temp=new String(chars);
+        	if(!map.containsKey(temp)){
+        		List<String> list=new ArrayList<String>();
+        		list.add(strs[i]);
+        		map.put(temp, list);
+        	}else{
+        		map.get(temp).add(strs[i]);
+        	}
+        }
+        re=new ArrayList<List<String>>(map.values());
+        for(List<String> list: re){
+        	Collections.sort(list);
+        }
+        return re;
+    }
+    
 	public static void main(String[] args) {
 		
 		//int[] nums={1,5,6,4,1,6,4};
-		//String[] strs={"eat", "tea", "tan", "ate", "nat", "bat"};
-		String s="0000000000000000";
-		//String t="1222";
-		System.out.println(findRepeatedDnaSequences(s));
+		String[] strs={"eat", "tea", "tan", "ate", "nat", "bat"};
+		
+		System.out.println(groupAnagrams(strs));
 		
 	}
 

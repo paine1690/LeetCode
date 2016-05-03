@@ -209,8 +209,50 @@ public class Math_leetcode {
         return re;
     }
     
+    //43. Multiply Strings
+    public static String multiply(String num1, String num2) {
+    	long re=0;
+    	int ji=0;
+    	int n1=num1.length()-1, n2=num2.length()-1;
+    	while(n1>0){
+    		if(num1.charAt(n1)=='0'){
+    			ji++;
+    			n1--;
+    			continue;
+    		}
+    		break;
+    	}
+    	while(n2>0){
+    		if(num2.charAt(n2)=='0'){
+    			ji++;
+    			n2--;
+    			continue;
+    		}
+    		break;
+    	}
+    	
+    	for(int i=0; i<=n1; i++){
+    		int nums1=num1.charAt(i)-'0';
+    		long temp=0;
+    		for(int j=0; j<=n2; j++){
+    			int nums2=num2.charAt(j)-'0';
+    			temp=temp*10+nums1*nums2;
+    		}
+    		re=re*10+temp;
+    	}
+    	StringBuilder s=new StringBuilder();
+    	for(int i=0; i<ji; i++){
+    		s.append("0");
+    	}
+    	String result=String.valueOf(re);
+    	System.out.println(result);
+    	if(re!=0){
+    		result+=s.toString();
+    	}    	
+    	return result;
+    }
 	public static void main(String[] args) {
-		System.out.println(trailingZeroes(5));
+		System.out.println(multiply("1", "1"));
 
 	}
 
