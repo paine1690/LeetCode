@@ -137,7 +137,7 @@ public class String_leetcode {
     public static String longestCommonPrefix(String[] strs) {
     	StringBuilder s=new StringBuilder();
     	if(strs.length==0){
-    		return s;
+    		return s.toString();
     	}
     	int len=Integer.MAX_VALUE;
         for(int i=0; i<strs.length; i++){
@@ -156,13 +156,38 @@ public class String_leetcode {
         return s.toString();
     }
     
+    //345. Reverse Vowels of a String
+    private static boolean isVowel(char c){
+    	return c=='a'||c=='e'||c=='i'||c=='o'||c=='u';
+    }
+    public static String reverseVowels(String s) {
+        StringBuilder re=new StringBuilder(s);
+        int i=0, j=s.length()-1;
+        while(i<j){
+        	if(!isVowel(s.charAt(i))){
+        		i++;
+        	}else if(!isVowel(s.charAt(j))){
+        		j--;
+        	}else{
+        		char temp=re.charAt(i);
+        		re.replace(i, i+1, String.valueOf(re.charAt(j)));
+        		re.replace(j, j+1, String.valueOf(temp));
+        		i++;
+        		j--;
+        	}
+        }
+        return re.toString();
+    }
+    
+    
+    
     
     //125. Valid Palindrome  TwoPointers  isPalindrome2
     //28. Implement strStr()   kmp
     
 	public static void main(String[] args) {
 		String[] strs={"qweqwe","qwe","qwe","qwe"};
-		System.out.println(longestCommonPrefix(strs));
+		System.out.println(reverseVowels("leetcode"));
 	}
 
 }
