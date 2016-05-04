@@ -115,11 +115,32 @@ public class String_leetcode {
         return re;
     }
     
+    //58. Length of Last Word
+    public static int lengthOfLastWord(String s) {
+        int re=0;
+        int i;
+        for(i=s.length()-1; i>=0; i--){
+        	if(s.charAt(i)!=' ')
+        		break;
+        }
+        for(; i>=0; i--){
+        	if(s.charAt(i)!=' '){
+        		re++;
+        	}else{
+        		return re;
+        	}
+        }
+        return re;
+    }
     
     
+    
+    
+    //125. Valid Palindrome  TwoPointers  isPalindrome2
+    //28. Implement strStr()   kmp
     
 	public static void main(String[] args) {
-		System.out.println(countAndSay(4));
+		System.out.println(lengthOfLastWord("a "));
 	}
 
 }
