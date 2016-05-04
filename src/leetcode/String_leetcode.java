@@ -133,14 +133,36 @@ public class String_leetcode {
         return re;
     }
     
-    
+    //14. Longest Common Prefix
+    public static String longestCommonPrefix(String[] strs) {
+    	StringBuilder s=new StringBuilder();
+    	if(strs.length==0){
+    		return s;
+    	}
+    	int len=Integer.MAX_VALUE;
+        for(int i=0; i<strs.length; i++){
+        	if(strs[i].length()<len)
+        		len=strs[i].length();
+        }
+        for(int i=0; i<len; i++){
+        	char temp=strs[0].charAt(i);
+        	for(int j=0; j<strs.length; j++){
+        		if(strs[j].charAt(i)!=temp){
+        			return s.toString();
+        		}
+        	}
+        	s.append(temp);
+        }
+        return s.toString();
+    }
     
     
     //125. Valid Palindrome  TwoPointers  isPalindrome2
     //28. Implement strStr()   kmp
     
 	public static void main(String[] args) {
-		System.out.println(lengthOfLastWord("a "));
+		String[] strs={"qweqwe","qwe","qwe","qwe"};
+		System.out.println(longestCommonPrefix(strs));
 	}
 
 }
