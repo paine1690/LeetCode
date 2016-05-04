@@ -89,9 +89,37 @@ public class String_leetcode {
         return re;
     }
     
+    //38. Count and Say
+    private static String countandsay(String str){
+    	StringBuilder s=new StringBuilder();
+        int count=1;
+        char value=' ';
+        for(int i=0; i<str.length(); i++){
+        	char temp=str.charAt(i);
+        	if(temp==value){
+        		count++;
+        	}else{
+        		s.append(count).append(value);
+        		value=temp;
+        		count=1;
+        	}
+        }
+        return s.append(count).append(value).substring(2, s.length());
+    }
+    
+    public static String countAndSay(int n) {
+        String re="1";
+        for(int i=1; i<n; i++){
+        	re=countandsay(re);
+        }
+        return re;
+    }
+    
+    
+    
     
 	public static void main(String[] args) {
-		System.out.println(compareVersion("01", "1"));
+		System.out.println(countAndSay(4));
 	}
 
 }
