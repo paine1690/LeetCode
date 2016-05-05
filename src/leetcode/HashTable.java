@@ -333,10 +333,9 @@ public class HashTable {
 	}
   	
   	
-  	
 	public static void main(String[] args) {
 		//int[] nums={-1, -1};
-		//System.out.println('y'-'a');
+		//System.out.println(simplifyPath("/..."));
 		
 	}
 

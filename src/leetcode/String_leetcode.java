@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.HashMap;
+import java.util.Stack;
 
 public class String_leetcode {
 	
@@ -179,7 +180,51 @@ public class String_leetcode {
         return re.toString();
     }
     
-    
+    //71. Simplify Path
+    public static String simplifyPath(String path) {
+    	StringBuilder s=new StringBuilder();
+    	Stack<String> stack =new Stack<String>();
+        for(int i=0; i<path.length(); i++){
+        	char c=path.charAt(i);
+        	if(c=='/'){
+        		if(s.length()>0&&!s.toString().equals(".")){
+        			if(s.toString().equals("..")){
+        				if(!stack.isEmpty())
+        					stack.pop();
+        					s.delete(0, s.length());
+        			}else {
+        				stack.push(s.toString());
+        				s.delete(0, s.length());
+        			}
+        		}else 
+        			s.delete(0, s.length());
+        	}else{
+        		s.append(c);
+        	}
+        }
+        
+        if(s.length()>0&&!s.toString().equals(".")){
+			if(s.toString().equals("..")){
+				if(!stack.isEmpty())
+					stack.pop();
+			}else {
+				stack.push(s.toString());
+				s.delete(0, s.length());
+			}
+		}else {
+			s.delete(0, s.length());
+		}
+        
+        if(stack.isEmpty()){
+        	return "/";
+        }
+        String re="";
+        while(!stack.isEmpty()){
+        	re="/"+stack.pop()+re;
+        }
+    	return re;
+    }
+  	
     
     
     //125. Valid Palindrome  TwoPointers  isPalindrome2
@@ -187,7 +232,7 @@ public class String_leetcode {
     
 	public static void main(String[] args) {
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
-		System.out.println(reverseVowels("leetcode"));
+		System.out.println(simplifyPath("/a/./b/../../c/"));
 	}
 
 }
