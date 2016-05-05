@@ -120,37 +120,6 @@ public class HashTable {
     	return false; 
     }
 	
-	//3. Longest Substring Without Repeating Characters
-	public static int lengthOfLongestSubstring(String s) {
-		char[] chars = s.toCharArray();
-        int x = 0;
-        int head = 0;
-        HashMap<Character, Integer> map = new HashMap<Character, Integer>();
-        for(int i=0; i<chars.length; i++){
-        	if(!map.containsKey(chars[i])){
-        		map.put(chars[i], i);
-        		if(map.size()>x){
-        			x = map.size();
-        		}
-        	}
-        	else{
-        		if(map.size()>x){
-        			x = map.size();
-        		}
-        		
-        		int temp = map.get(chars[i]);
-        		
-        		for(int j=head; j<=temp; j++){
-        			map.remove(chars[j]);
-        		}
-        		
-        		head=temp+1;
-        		map.put(chars[i],i);
-        	}
-        }
-        return x;
-    }
-	
 	//136. Single Number   应该用位运算更快
     public static int singleNumber(int[] nums) {
     	Set<Integer> set=new HashSet<Integer>();
@@ -305,12 +274,69 @@ public class HashTable {
     	}
     	return re;
     }
+    
+    //3. Longest Substring Without Repeating Characters
+	public static int lengthOfLongestSubstring(String s) {
+		char[] chars = s.toCharArray();
+		int x = 0;
+		int head = 0;
+		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+		for (int i = 0; i < chars.length; i++) {
+			if (!map.containsKey(chars[i])) {
+				map.put(chars[i], i);
+				if (map.size() > x) {
+					x = map.size();
+				}
+			} else {
+				if (map.size() > x) {
+					x = map.size();
+				}
+				int temp = map.get(chars[i]);
+
+				for (int j = head; j <= temp; j++) {
+					map.remove(chars[j]);
+				}
+				head = temp + 1;
+				map.put(chars[i], i);
+			}
+		}
+		return x;
+	}
+  	
+	//3. Longest Substring Without Repeating Characters
+	public static int lengthOfLongestSubstring2(String s) {
+		int[] pos=new int[256];
+		for(int i=0; i<pos.length; i++){
+			pos[i]=Integer.MAX_VALUE;
+		}
+		int re=0;
+		int count=0;
+		int start=0;
+		for(int i=0; i<s.length(); i++){
+			char chari=s.charAt(i);
+			int position=chari-' ';
+			if(i>pos[position]){//出现过
+				for(int j=start; j<pos[position]; j++){
+					pos[s.charAt(j)-' ']=Integer.MAX_VALUE;
+					count--;
+				}
+				start=pos[position]+1;
+				pos[position]=i;
+			}else{//没出现过
+				pos[position]=i;
+				count++;
+				if(count>re)
+					re=count;
+			}
+		}
+		return re;
+	}
+  	
+  	
+  	
 	public static void main(String[] args) {
-		
-		int[] nums={-1, -1};
-		
-		
-		System.out.println(topKFrequent(nums, 1));
+		//int[] nums={-1, -1};
+		//System.out.println('y'-'a');
 		
 	}
 

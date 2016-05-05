@@ -158,7 +158,7 @@ public class String_leetcode {
     
     //345. Reverse Vowels of a String
     private static boolean isVowel(char c){
-    	return c=='a'||c=='e'||c=='i'||c=='o'||c=='u';
+    	return c=='a'||c=='e'||c=='i'||c=='o'||c=='u'||c=='A'||c=='E'||c=='I'||c=='O'||c=='U';
     }
     public static String reverseVowels(String s) {
         StringBuilder re=new StringBuilder(s);
@@ -186,7 +186,7 @@ public class String_leetcode {
     //28. Implement strStr()   kmp
     
 	public static void main(String[] args) {
-		String[] strs={"qweqwe","qwe","qwe","qwe"};
+		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		System.out.println(reverseVowels("leetcode"));
 	}
 
