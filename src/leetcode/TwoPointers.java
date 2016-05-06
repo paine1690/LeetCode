@@ -24,31 +24,6 @@ public class TwoPointers {
 		return true;
 	}
 	
-	//125. Valid Palindrome 不用正则表达式
-	public static boolean isPalindrome2(String s) {
-		if(s==null){
-			return true;
-		}
-		int i=0, j=s.length()-1;
-		char[] chars=s.toCharArray();
-		
-		while(i<j){
-			if(!Character.isLetterOrDigit(chars[i])){
-				i++;
-			} else if(!Character.isLetterOrDigit(chars[j])){
-				j--;
-			} else if(Character.toLowerCase(chars[i])!=Character.toLowerCase(chars[j])){
-				System.out.println(i);
-				System.out.println(j);
-				return false;
-			}else{
-				i++;
-				j--;
-			}
-		}
-		return true;
-	}
-	
 	//88. Merge Sorted Array
     public void merge(int[] nums1, int m, int[] nums2, int n) {
     	if(n==0){

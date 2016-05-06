@@ -303,34 +303,7 @@ public class HashTable {
 		return x;
 	}
   	
-	//3. Longest Substring Without Repeating Characters
-	public static int lengthOfLongestSubstring2(String s) {
-		int[] pos=new int[256];
-		for(int i=0; i<pos.length; i++){
-			pos[i]=Integer.MAX_VALUE;
-		}
-		int re=0;
-		int count=0;
-		int start=0;
-		for(int i=0; i<s.length(); i++){
-			char chari=s.charAt(i);
-			int position=chari-' ';
-			if(i>pos[position]){//出现过
-				for(int j=start; j<pos[position]; j++){
-					pos[s.charAt(j)-' ']=Integer.MAX_VALUE;
-					count--;
-				}
-				start=pos[position]+1;
-				pos[position]=i;
-			}else{//没出现过
-				pos[position]=i;
-				count++;
-				if(count>re)
-					re=count;
-			}
-		}
-		return re;
-	}
+	
   	
   	
 	public static void main(String[] args) {

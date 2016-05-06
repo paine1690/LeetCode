@@ -14,6 +14,107 @@ public class String_leetcode {
     	return re.toString();
     }
     
+    //3. Longest Substring Without Repeating Characters 最长不重复子串
+  	public static int lengthOfLongestSubstring2(String s) {
+  		int[] pos=new int[256];
+  		for(int i=0; i<pos.length; i++){
+  			pos[i]=Integer.MAX_VALUE;
+  		}
+  		int re=0;
+  		int count=0;
+  		int start=0;
+  		for(int i=0; i<s.length(); i++){
+  			char chari=s.charAt(i);
+  			int position=chari-' ';
+  			if(i>pos[position]){//出现过
+  				for(int j=start; j<pos[position]; j++){
+  					pos[s.charAt(j)-' ']=Integer.MAX_VALUE;
+  					count--;
+  				}
+  				start=pos[position]+1;
+  				pos[position]=i;
+  			}else{//没出现过
+  				pos[position]=i;
+  				count++;
+  				if(count>re)
+  					re=count;
+  			}
+  		}
+  		return re;
+  	}
+  	
+  	//125. Valid Palindrome 		判断回文字符串
+  	public static boolean isPalindrome2(String s) {
+  		if(s==null){
+  			return true;
+  		}
+  		int i=0, j=s.length()-1;
+  		char[] chars=s.toCharArray();
+  		
+  		while(i<j){
+  			if(!Character.isLetterOrDigit(chars[i])){
+  				i++;
+  			} else if(!Character.isLetterOrDigit(chars[j])){
+  				j--;
+  			} else if(Character.toLowerCase(chars[i])!=Character.toLowerCase(chars[j])){
+  				System.out.println(i);
+  				System.out.println(j);
+  				return false;
+  			}else{
+  				i++;
+  				j--;
+  			}
+  		}
+  		return true;
+  	}
+  	
+    private static String preProcess(String str){
+    	int len=str.length();
+		if(len==0){
+			return "^$";
+		}
+		StringBuilder s=new StringBuilder("^");
+		for(int i=0; i<str.length(); i++){
+			s.append("#").append(str.charAt(i));
+		}
+		s.append("#$");
+		return s.toString();
+    }
+    
+    public static String longestPalindrome(String s) {
+    	String T=preProcess(s);
+    	int len=T.length();
+    	int[] P=new int[len];
+    	int C=0, R=0;
+    	
+    	for(int i=1; i<len-1; i++){
+    		int j=C-(i-C);
+    		int diff=R-i;
+    		
+    		if(diff>=0&&diff>P[j]){
+    			P[i]=P[j];
+    		}else{
+    			P[i]=diff>=0? diff:0;
+    			while(T.charAt(i+P[i]+1)==T.charAt(i-P[i]-1)){
+    				P[i]++;
+    			}
+    			C=i;
+    			R=i+P[i];
+    		}
+    	}
+    	
+    	int max=0;
+		C=0;
+		for(int i=1; i<len-1; i++){
+			if(P[i]>max){
+				max=P[i];
+				C=i;
+			}
+		}
+		int start=(C-max)/2;
+		return s.substring(start, start+max);
+    }
+
     //6. ZigZag Conversion
     public static String convert(String s, int numRows) {
     	int n=s.length();
@@ -226,13 +327,11 @@ public class String_leetcode {
     }
   	
     
-    
-    //125. Valid Palindrome  TwoPointers  isPalindrome2
     //28. Implement strStr()   kmp
     
 	public static void main(String[] args) {
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
-		System.out.println(simplifyPath("/a/./b/../../c/"));
+		//System.out.println(longestPalindrome("aba"));
 	}
 
 }
