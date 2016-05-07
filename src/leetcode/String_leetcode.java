@@ -68,6 +68,7 @@ public class String_leetcode {
   		return true;
   	}
   	
+  	//5. Longest Palindromic Substring	最长回文字串  Manacher算法
     private static String preProcess(String str){
     	int len=str.length();
 		if(len==0){
@@ -326,12 +327,43 @@ public class String_leetcode {
     	return re;
     }
   	
+    //151. Reverse Words in a String
+    public static String reverseWords(String s) {
+        StringBuilder re=new StringBuilder();
+        if(s.length()==0){
+        	return re.toString();
+        }
+        StringBuilder temp=new StringBuilder();
+        int i=0;
+        for(; i<s.length(); i++){
+        	if(s.charAt(i)!=' '){
+        		break;
+        	}
+        }
+        for(; i<s.length(); i++){
+        	if(s.charAt(i)==' '){
+        		if(temp.length()>0){
+        			re.insert(0, " "+temp);
+            		temp.delete(0, temp.length());
+        		}
+        	}else{
+        		temp.append(s.charAt(i));
+        	}
+        }
+        re.insert(0, temp);
+        if(re.length()>0&&re.charAt(0)==' '){
+        	re.delete(0, 1);
+        }
+        return re.toString();
+    }
+    
+    
     
     //28. Implement strStr()   kmp
     
 	public static void main(String[] args) {
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
-		//System.out.println(longestPalindrome("aba"));
+		System.out.println(reverseWords("hello world!"));
 	}
 
 }
