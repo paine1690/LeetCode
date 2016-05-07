@@ -1,6 +1,8 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 public class String_leetcode {
@@ -357,13 +359,34 @@ public class String_leetcode {
         return re.toString();
     }
     
-    
+    //118. Pascal's Triangle
+    public static List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        if(numRows==0){
+        	return re;
+        }
+        List<Integer> list=new ArrayList<Integer>();
+		list.add(1);
+		re.add(list);
+        for(int i=2; i<=numRows; i++){
+    		list=new ArrayList<Integer>(i);
+    		list.add(1);
+    		for(int j=1; j<i-1; j++){
+    			list.add(re.get(i-2).get(j-1)+re.get(i-2).get(j));
+    		}
+    		list.add(1);
+    		re.add(list);
+    	}
+    	return re;
+    }
     
     //28. Implement strStr()   kmp
     
 	public static void main(String[] args) {
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
-		System.out.println(reverseWords("hello world!"));
+		System.out.println(generate(1));
+		
+		
 	}
 
 }
