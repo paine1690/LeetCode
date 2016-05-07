@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
@@ -403,11 +404,33 @@ public class String_leetcode {
         
         return re;
     }
+    
+    //119. Pascal's Triangle II
+    public static List<Integer> getRow2(int rowIndex) {
+    	int[] nums=new int[rowIndex+1];
+    	List<Integer> re=new ArrayList<Integer>(rowIndex+1);
+    	for(int i=0; i<nums.length; i++){
+    		for(int j=i; j>=0; j--){
+    			if(j==i){
+    				nums[j]=1;
+    			}else if(j==0){
+    				nums[j]=1;
+    			}else{
+    				nums[j]=nums[j]+nums[j-1];
+    			}
+    		}
+    	}
+    	for(int i=0; i<nums.length; i++){
+    		re.add(nums[i]);
+    	}
+    	return re;
+    }
+    
     //28. Implement strStr()   kmp
     
 	public static void main(String[] args) {
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
-		System.out.println(getRow(3));
+		System.out.println(getRow2(3));
 		
 		
 	}
