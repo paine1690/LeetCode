@@ -380,11 +380,34 @@ public class String_leetcode {
     	return re;
     }
     
+    //119. Pascal's Triangle II
+    private static List<Integer> getNextRow(List<Integer> list, int n){
+    	List<Integer> re= new ArrayList<Integer>(n+1);
+    	re.add(1);
+    	for(int i=1; i<n; i++){
+    		re.add(list.get(i-1)+list.get(i));
+    	}
+    	re.add(1);
+    	return re;
+    }
+    public static List<Integer> getRow(int rowIndex) {
+        List<Integer> re=new ArrayList<Integer>();
+        re.add(1);
+        if(rowIndex==0){
+        	return re;
+        }
+        re.add(1);
+        for(int i=2; i<=rowIndex; i++){
+        	re=getNextRow(re, i);
+        }
+        
+        return re;
+    }
     //28. Implement strStr()   kmp
     
 	public static void main(String[] args) {
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
-		System.out.println(generate(1));
+		System.out.println(getRow(3));
 		
 		
 	}
