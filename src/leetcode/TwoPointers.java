@@ -264,12 +264,27 @@ public class TwoPointers {
         return re;
     }
     
-    
+    //209. Minimum Size Subarray Sum
+    public static int minSubArrayLen(int s, int[] nums) {
+    	int i=0, j=0;
+    	int sum=0;
+    	int re=Integer.MAX_VALUE;
+    	while(i<nums.length&&j<nums.length){
+    		while(sum<s&&j<nums.length){
+    			sum+=nums[j++];
+    		}
+    		while(i<=j&&sum>=s){
+    			re=Math.min(re, j-i);
+    			sum-=nums[i++];
+    		}
+    	}
+    	return re==Integer.MAX_VALUE? 0:re;
+    }
     
     
 	public static void main(String[] args) {
-		int[] nums={1,1,2};
-		sortColors(nums);
+		int[] nums={1,2,3,4,5};
+		System.out.println(minSubArrayLen(11, nums));
 	}
 
 }
