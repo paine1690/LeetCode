@@ -616,13 +616,42 @@ public class LinkedList_leetcode {
         return re.next;
     }
     
+    //61. Rotate List
+    public static ListNode rotateRight(ListNode head, int k) {
+    	if(head==null||head.next==null){
+    		return head;
+    	}
+        ListNode fast=head;
+        int i;
+        for(i=0; i<k&&fast!=null; i++){
+        	fast=fast.next;
+        }
+        if(fast==null){
+        	k=k%i;
+        	fast=head;
+        	for(i=0; i<k; i++){
+            	fast=fast.next;
+            }
+        }
+        
+        ListNode slow=head;
+        while(fast.next!=null){
+        	fast=fast.next;
+        	slow=slow.next;
+        }
+        fast.next=head;
+        fast=slow.next;
+        slow.next=null;
+        return fast;
+    }
+    
     
 	public static void main(String[] args) {
-		int[] aa={2,1,4,3,6,5,7,8};
+		int[] aa={1,2,3,4,5,6};
 //		int[] bb={5,6,4};
 		ListNode list1=listNodeGenerator(aa);
 //		ListNode list2=listNodeGenerator(bb);
-		printList(oddEvenList(list1));
+		printList(rotateRight(list1,8));
 		
 	}
 
