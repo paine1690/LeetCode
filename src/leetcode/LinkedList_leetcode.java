@@ -645,7 +645,25 @@ public class LinkedList_leetcode {
         return fast;
     }
     
-    
+    //142. Linked List Cycle II
+    public ListNode detectCycle(ListNode head) {
+        if(head==null||head.next==null){
+        	return null;
+        }
+        ListNode fast=head;
+        ListNode slow=head;
+        while(fast!=null&&fast.next!=null){
+        	slow=slow.next;
+        	fast=fast.next.next;
+        	if(slow==fast){
+        		fast=slow.next;
+        		slow.next=null;
+        		slow=head;
+        		return getIntersectionNode(fast, slow);
+        	}
+        }
+    	return null;
+    }
 	public static void main(String[] args) {
 		int[] aa={1,2,3,4,5,6};
 //		int[] bb={5,6,4};
