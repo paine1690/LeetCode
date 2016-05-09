@@ -592,15 +592,37 @@ public class LinkedList_leetcode {
 		return re.next;
     }
     
-    
+    //328. Odd Even Linked List
+    public static ListNode oddEvenList(ListNode head) {
+        ListNode re=new ListNode(-1);
+        ListNode odd=re;
+        ListNode evenHead=new ListNode(0);
+        ListNode even=evenHead;
+        ListNode pNode=head;
+        int i=1;
+        while(pNode!=null){
+        	ListNode next=pNode.next;
+        	pNode.next=null;
+        	if((i++&1)==1){
+        		odd.next=pNode;
+        		odd=pNode;
+        	}else{
+        		even.next=pNode;
+        		even=pNode;
+        	}        	
+        	pNode=next;
+        }
+        odd.next=evenHead.next;
+        return re.next;
+    }
     
     
 	public static void main(String[] args) {
-		//int[] aa={7,5,6,78,1,86,15,48,153,48,4};
+		int[] aa={2,1,4,3,6,5,7,8};
 //		int[] bb={5,6,4};
-		//ListNode list1=listNodeGenerator(aa);
+		ListNode list1=listNodeGenerator(aa);
 //		ListNode list2=listNodeGenerator(bb);
-		
+		printList(oddEvenList(list1));
 		
 	}
 
