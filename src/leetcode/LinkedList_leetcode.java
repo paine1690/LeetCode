@@ -363,54 +363,6 @@ public class LinkedList_leetcode {
     	return re.next;
     }
     
-    //160. Intersection of Two Linked Lists
-    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        if(headA==null||headB==null){
-        	return null;
-        }
-        if(headA==headB){
-        	return headA;
-        }
-        ListNode pNode=headA;
-        int i=1, j=1;
-        while(pNode.next!=null){
-        	pNode=pNode.next;
-        	i++;
-        }
-        pNode=headB;
-        while(pNode.next!=null){
-        	pNode=pNode.next;
-        	j++;
-        }
-        ListNode slow, fast;
-        if(i==j){
-        	slow=headA;
-        	fast=headB;
-        }else if(i<j){
-        	pNode=headB;
-        	for(int k=i; k<j; k++){
-        		pNode=pNode.next;
-        	}
-        	slow=headA;
-        	fast=pNode;
-        }else{
-        	pNode=headA;
-        	for(int k=j; k<i; k++){
-        		pNode=pNode.next;
-        	}
-        	slow=headB;
-        	fast=pNode;
-        }  
-    	while(fast!=null){
-    		if(fast==slow){
-    			return fast;
-    		}
-    		fast=fast.next;
-    		slow=slow.next;
-    	}
-    	return null;
-    }
-    
     //82. Remove Duplicates from Sorted List II
     public static ListNode deleteDuplicates2(ListNode head) {
         if(head==null||head.next==null){
@@ -664,6 +616,47 @@ public class LinkedList_leetcode {
         }
     	return null;
     }
+    
+    //160. Intersection of Two Linked Lists
+    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+    	if(headA==null||headB==null){
+        	return null;
+        }
+        if(headA==headB){
+        	return headA;
+        }
+        ListNode pNode=headA;
+        int i=1, j=1;
+        while(pNode.next!=null){
+        	pNode=pNode.next;
+        	i++;
+        }
+        pNode=headB;
+        while(pNode.next!=null){
+        	pNode=pNode.next;
+        	j++;
+        }
+        ListNode slow, fast;
+        if(i>j){
+        	fast=headB;
+        	slow=headA;
+        }else{
+        	fast=headA;
+        	slow=headB;
+        }
+        for(int k=0; k<Math.abs(i-j); k++){
+        	slow=slow.next;
+        }
+    	while(fast!=null){
+    		if(fast==slow){
+    			return fast;
+    		}
+    		fast=fast.next;
+    		slow=slow.next;
+    	}
+    	return null;
+    }
+    
 	public static void main(String[] args) {
 		int[] aa={1,2,3,4,5,6};
 //		int[] bb={5,6,4};
