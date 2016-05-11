@@ -43,11 +43,27 @@ public class DynamicProgramming {
     	return nums[nums.length-1];
     }
     
-    
+    //303. Range Sum Query - Immutable
+    class NumArray {
+    	private int[] re;
+        public NumArray(int[] nums) {
+        	if(nums.length>0){
+        		re=new int[nums.length];
+                re[0]=nums[0];
+                for(int i=1; i<nums.length; i++){
+                	re[i]=nums[i]+re[i-1];
+                }
+        	}
+        }
+        public int sumRange(int i, int j) {
+           return i==0? re[j]:(re[j]-re[i-1]);
+        }
+    }
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println(climbStairs(4));
+		
 	}
 
 }
+
