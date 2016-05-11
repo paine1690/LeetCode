@@ -106,6 +106,46 @@ public class DynamicProgramming {
     	return nums[m-1][n-1];
     }
     
+    //63. Unique Paths II
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        if(obstacleGrid.length==0||obstacleGrid[0].length==0||obstacleGrid[0][0]==1){
+        	return 0;
+        }
+    	int m=obstacleGrid.length;
+    	int n=obstacleGrid[0].length;
+    	int i=0;
+    	for(i=1; i<m; i++){
+    		if(obstacleGrid[i][0]==1){
+    			break;
+    		}else{
+    			obstacleGrid[i][0]=1;
+    		}
+    	}
+    	for(; i<m; i++){
+    		obstacleGrid[i][0]=0;
+    	}
+    	for(i=1; i<n; i++){
+    		if(obstacleGrid[0][i]==1){
+    			break;
+    		}else{
+    			obstacleGrid[0][i]=1;
+    		}
+    	}
+    	for(; i<n; i++){
+    		obstacleGrid[0][i]=0;
+    	}
+    	
+    	for(i=1; i<m; i++){
+    		for(int j=1; j<n; j++){
+    			if(obstacleGrid[i][j]==1){
+    				obstacleGrid[i][j]=0;
+    			}else{
+    				obstacleGrid[i][j]=obstacleGrid[i-1][j]+obstacleGrid[i][j-1];
+    			}
+    		}
+    	}
+    	return obstacleGrid[m-1][n-1];
+    }
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
