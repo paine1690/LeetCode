@@ -184,10 +184,26 @@ public class DynamicProgramming {
     	return obstacleGrid[m-1][n-1];
     }
     
-    
+    //53. Maximum Subarray
+    public static int maxSubArray(int[] nums) {
+    	if(nums.length==0){
+    		return 0;
+    	}
+    	int re=nums[0];
+        for(int i=1; i<nums.length; i++){
+        	if(nums[i-1]>0){
+        		nums[i]+=nums[i-1];
+        	}
+        	if(nums[i]>re){
+        		re=nums[i];
+        	}
+        }
+    	return re;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		int nums[]={-2,1,-3,4,-1,2,1,-5,4};
+		System.out.println(maxSubArray(nums));
 	}
 
 }
