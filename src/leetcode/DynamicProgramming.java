@@ -1,7 +1,5 @@
 package leetcode;
 
-import java.util.Arrays;
-
 public class DynamicProgramming {
 	
 	//70. Climbing Stairs		斐波那契数列
@@ -227,13 +225,47 @@ public class DynamicProgramming {
         		re=count[i];
         	}
         }
-        
         return re;
     }
+    
+    //300. Longest Increasing Subsequence
+    private static int binarySearch(int[] nums, int i, int j, int target){
+    	while(i<j){
+    		int mid=(i+j)>>>1;
+        	if(target>nums[mid]&&target<=nums[mid+1]){
+        		return mid;
+        	}else if(nums[mid]<target){
+        		i=mid+1;
+        	}else{
+        		j=mid-1;
+        	}
+    	}
+    	return 0;
+    }
+    
+    public static int lengthOfLIS2(int[] nums) {
+    	if(nums.length<2){
+    		return nums.length;
+    	}
+    	int len=1;
+    	int[] d=new int[nums.length+1];
+    	d[1]=nums[0];
+    	for(int i=1; i<nums.length; i++){
+    		if(nums[i]>d[len]){
+    			d[++len]=nums[i];
+    		}else{
+    			int j=binarySearch(d, 0, len, nums[i]);
+    			d[++j]=nums[i];
+    		}
+    	}
+    	return len;
+    }
+    
+    
+    
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int nums[]={10, 9, 2, 5, 3, 7, 101, 18};
-		System.out.println(lengthOfLIS(nums));
+		int nums[]={3,5,6,2,5,4,19,5,6,7,12};
+		System.out.println(lengthOfLIS2(nums));
 	}
 
 }
