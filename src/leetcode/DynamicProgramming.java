@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.Arrays;
+
 public class DynamicProgramming {
 	
 	//70. Climbing Stairs		斐波那契数列
@@ -257,15 +259,34 @@ public class DynamicProgramming {
     			int j=binarySearch(d, 0, len, nums[i]);
     			d[++j]=nums[i];
     		}
+    		System.out.println(Arrays.toString(d));
     	}
     	return len;
     }
     
-    
+    //91. Decode Ways
+    public static int numDecodings(String s) {
+        if(s.length()<1||s.charAt(0)-'0'==0){
+        	return 0;
+        }
+        int[] nums=new int[s.length()+1];
+        nums[0]=1;
+        nums[1]=1;
+        for(int i=2; i<nums.length; i++){
+        	if(Integer.valueOf(s.substring(i-2,  i))<=26&&Integer.valueOf(s.substring(i-2,  i))>=10){
+        		nums[i]+=nums[i-2];
+        	}
+        	if(Integer.valueOf(s.substring(i-1, i))!=0){
+        		nums[i]+=nums[i-1];
+        	}
+        }
+        return nums[nums.length-1];
+    }
     
 	public static void main(String[] args) {
-		int nums[]={3,5,6,2,5,4,19,5,6,7,12};
-		System.out.println(lengthOfLIS2(nums));
+		//int nums[]={10, 9, 2, 5, 3, 7, 101, 18};
+		String s="1";
+		System.out.println(numDecodings(s));
 	}
 
 }
