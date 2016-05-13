@@ -265,9 +265,30 @@ public class Math_leetcode {
         return re*n;
     }
     
+    //50. Pow(x, n) 
+    public static double myPow(double x, int n) {
+        if(n<0){
+        	if(n==Integer.MIN_VALUE){
+        		return 1.0/myPow(x,Integer.MAX_VALUE)*x;
+        	}else{
+        		return 1.0/myPow(x, -n);
+        	}
+        }
+        if(n==0){
+        	return 1.0;
+        }
+        double re=1.0;
+        for(; n>0; x*=x, n>>=1){
+        	if((n&1)==1){
+        		re*=x;
+        	}
+        }
+        return re;
+    }
+    
     
 	public static void main(String[] args) {
-		System.out.println(integerBreak(5));
+		System.out.println(myPow(5, -3));
 
 	}
 
