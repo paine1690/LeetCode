@@ -361,11 +361,30 @@ public class DynamicProgramming {
     	return max*max;
     }
     
+    //152. Maximum Product Subarray
+    public static int maxProduct(int[] nums) {
+        if(nums.length<2){
+        	return nums.length==0? 0:nums[0];
+        }
+        int max=nums[0];
+        int min=nums[0];
+        int re=nums[0];
+    	for(int i=1; i<nums.length; i++){
+    		int a=nums[i]*max;
+    		int b=nums[i]*min;
+    		max=Math.max(nums[i], Math.max(a, b));
+    		min=Math.min(nums[i], Math.min(a, b));
+    		re=Math.max(max, re);
+    	}
+    	return re;
+    }
+    
+    
     
 	public static void main(String[] args) {
-		int nums[]={1,2,1,1};
+		int nums[]={3,-2,-3,4,-2};
 		//String s="1";
-		System.out.println(rob2(nums));
+		System.out.println(maxProduct(nums));
 	}
 
 }
