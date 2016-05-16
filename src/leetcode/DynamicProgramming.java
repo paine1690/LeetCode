@@ -379,7 +379,19 @@ public class DynamicProgramming {
     	return re;
     }
     
-    
+    //122. Best Time to Buy and Sell Stock II
+    public int maxProfit2(int[] prices) {
+        if(prices.length<2){
+        	return 0;
+        }
+    	int max=0;
+    	for(int i=1; i<prices.length; i++){
+    		if(prices[i]>prices[i-1]){
+    			max+=prices[i]-prices[i-1];
+    		}
+    	}
+    	return max;
+    }
     
 	public static void main(String[] args) {
 		int nums[]={3,-2,-3,4,-2};
