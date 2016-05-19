@@ -408,10 +408,33 @@ public class DynamicProgramming {
     	return dp[n];
     }
     
+    //264. Ugly Number II
+    public static int nthUglyNumber(int n) {
+    	int[] ugly=new int[n];
+    	ugly[0]=1;
+    	int n1=0, n2=0, n3=0;
+    	int v1=ugly[n1]*2, v2=ugly[n2]*3, v3=ugly[n3]*5;
+    	for(int i=1; i<n; i++){
+    		ugly[i]=Math.min(v1, Math.min(v2, v3));
+    		if(ugly[i]==v1){
+    			n1++;
+    			v1=ugly[n1]*2;
+    		}
+    		if(ugly[i]==v2){
+    			n2++;
+    			v2=ugly[n2]*3;
+    		}
+    		if(ugly[i]==v3){
+    			n3++;
+    			v3=ugly[n3]*5;
+    		}
+    	}	
+    	return ugly[n-1];
+    }
 	public static void main(String[] args) {
 		//int nums[]={2};
 		//String s="1";
-		
+		System.out.println(nthUglyNumber(10));
 	}
 
 }
