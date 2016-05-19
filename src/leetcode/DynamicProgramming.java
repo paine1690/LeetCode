@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class DynamicProgramming {
 	
@@ -431,10 +432,35 @@ public class DynamicProgramming {
     	}	
     	return ugly[n-1];
     }
+    
+    //120. Triangle
+    public static int minimumTotal(List<List<Integer>> triangle) {
+    	int n=triangle.size();
+        int[] dp=new int[n];
+        int re=triangle.get(0).get(0);
+        dp[0]=re;
+        
+        for(int i=1; i<triangle.size(); i++){
+        	int m=triangle.get(i).size();
+        	dp[m-1]=dp[m-2]+triangle.get(i).get(m-1);
+        	re=dp[m-1];
+        	for(int j=m-2; j>0; j--){
+        		dp[j]=Math.min(dp[j-1], dp[j])+triangle.get(i).get(j);
+        		re=Math.min(re, dp[j]);
+        	}
+        	dp[0]+=triangle.get(i).get(0);
+        	re=Math.min(re, dp[0]);
+        	System.out.println(Arrays.toString(dp));
+        }    	
+    	return re;
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		//int nums[]={2};
 		//String s="1";
-		System.out.println(nthUglyNumber(10));
+		
 	}
 
 }
