@@ -1,6 +1,8 @@
 package leetcode;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 
@@ -160,16 +162,58 @@ public class BinarySearchTree {
         mis2.val=temp;
     }
     
-    
+    //95. Unique Binary Search Trees II
+    private static List<TreeNode> trees(int n, List<TreeNode> left, List<TreeNode> right){
+    	List<TreeNode> re=new ArrayList<TreeNode>();
+    	if(left==null&&right==null){
+    		TreeNode root=new TreeNode(n);
+    		re.add(root);
+    	}else if(left==null){
+    		for(int i=0; i<right.size(); i++){
+    			TreeNode root=new TreeNode(n);
+    			root.right=right.get(i);
+    			re.add(root);
+    		}
+    	}else if(right==null){
+    		for(int i=0; i<left.size(); i++){
+    			TreeNode root=new TreeNode(n);
+    			root.left=left.get(i);
+    			re.add(root);
+    		}
+    	}else{
+    		for(int i=0; i<left.size(); i++){
+    			for(int j=0; j<right.size(); j++){
+    				TreeNode root=new TreeNode(n);
+        			root.left=left.get(i);
+        			root.right=right.get(j);
+        			re.add(root);
+    			}    			
+    		}
+    	}
+    	return re;
+    }
+    private static List<TreeNode> generate(int start, int end){
+    	if(start>end){
+    		return null;
+    	}
+    	List<TreeNode> re=new ArrayList<TreeNode>();
+    	for(int i=start; i<=end; i++){
+    		List<TreeNode> temp=trees(i, generate(start, i-1), generate(i+1, end));
+    		re.addAll(temp);
+    	}
+
+    	return re;
+    }
+    public static List<TreeNode> generateTrees(int n) {
+    	if(n==0){
+    		return new ArrayList<TreeNode>();
+    	}
+        return generate(1, n);
+    }
     
     
 	public static void main(String[] args) {
-		TreeNode root=new TreeNode(0);
-		TreeNode left=new TreeNode(1);
-		TreeNode right=new TreeNode(1);
-		root.left=left;
-		root.right=right;
-		recoverTree(root);
+		System.out.println(generateTrees(3));
 		
 	}
 
