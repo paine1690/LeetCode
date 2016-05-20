@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Array_leetcode {
@@ -121,9 +122,34 @@ public class Array_leetcode {
     	reverse(nums, i+1, nums.length-1);
     }
       
+    //238. Product of Array Except Self
+    public static int[] productExceptSelf(int[] nums) {
+    	if(nums.length<2){
+    		return nums;
+    	}
+        int[] re=new int[nums.length];
+        int left[] =new int[nums.length];
+        int right[] =new int[nums.length];
+        int temp=1;
+        for(int i=0; i<nums.length; i++){
+        	temp*=nums[i];
+        	left[i]=temp;
+        }
+        temp=1;
+        for(int i=nums.length-1; i>=0; i--){
+        	temp*=nums[i];
+        	right[i]=temp;
+        }
+        re[0]=right[1];
+        for(int i=1; i<nums.length-1; i++){
+        	re[i]=left[i-1]*right[i+1];
+        }
+        re[nums.length-1]=left[nums.length-2];
+        return re;
+    }
 	public static void main(String[] args) {
-		int[] nums={3,2,2,3};
-		System.out.println(removeElement(nums, 3));
+		int[] nums={1};
+		System.out.println(Arrays.toString(productExceptSelf(nums)));
 		
 	}
 
