@@ -1,7 +1,5 @@
 package leetcode;
 
-import java.util.Arrays;
-
 public class Brainteaser {
 
 	//292. Nim Game
