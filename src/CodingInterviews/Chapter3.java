@@ -1,5 +1,7 @@
 package CodingInterviews;
 
+import java.util.Arrays;
+
 public class Chapter3 {
 	
 	/*
@@ -38,9 +40,35 @@ public class Chapter3 {
 		}
 	}
 	
+	/*
+	 * 14
+	 * 调整数组顺序使奇数位于偶数前面
+	 */
+	public static void adjust(int[] nums){
+		int i=0, j=nums.length-1;
+		while(i<=j){
+			if((nums[i]&1)==1){
+				i++;
+				continue;
+			}
+			if((nums[j]&1)!=1){
+				j--;
+				continue;
+			}
+			int temp=nums[i];
+			nums[i]=nums[j];
+			nums[j]=temp;
+			i++;
+			j--;
+		}
+		System.out.println(Arrays.toString(nums));
+	}
+	
+	
 	
 	public static void main(String[] args) {
-		printN(4);
+		int[] nums={1,2,3,4,5,6,7};
+		adjust(nums);
 	}
 
 }

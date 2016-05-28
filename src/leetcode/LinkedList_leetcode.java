@@ -62,6 +62,12 @@ public class LinkedList_leetcode {
     	return head;
     }
 	
+    //237. Delete Node in a Linked List
+    public void deleteNode(ListNode node) {
+        node.val=node.next.val;
+        node.next=node.next.next;
+    }
+    
     //24. Swap Nodes in Pairs
     public ListNode swapPairs(ListNode head) {
     	if(head==null||head.next==null){
@@ -122,12 +128,6 @@ public class LinkedList_leetcode {
     	nNode.next=head;
     	
     	return re;
-    }
-    
-    //237. Delete Node in a Linked List
-    public void deleteNode(ListNode node) {
-        node.val=node.next.val;
-        node.next=node.next.next;
     }
     
     //141. Linked List Cycle
