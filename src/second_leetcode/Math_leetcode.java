@@ -26,7 +26,22 @@ public class Math_leetcode {
     	return re;	    	
     }
     
-    
+    //169. Majority Element
+    public int majorityElement(int[] nums) {
+        int re=0;
+        int count=0;
+        for(int i=0; i<nums.length; i++){
+        	if(nums[i]==re){
+        		count++;
+        	}else if(count==0){
+        		re=nums[i];
+        		count=1;
+        	}else{
+        		count--;
+        	}
+        }
+        return re;
+    }
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
