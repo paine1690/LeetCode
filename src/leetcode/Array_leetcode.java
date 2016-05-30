@@ -2,7 +2,10 @@ package leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Array_leetcode {
     
@@ -147,10 +150,55 @@ public class Array_leetcode {
         re[nums.length-1]=left[nums.length-2];
         return re;
     }
+    
+    //229. Majority Element II
+    public static List<Integer> majorityElement(int[] nums) {
+    	List<Integer> re=new ArrayList<Integer>();
+    	int[] num=new int[2];
+    	int count0=0;
+    	int count1=0;
+    	
+    	for(int i=0; i<nums.length; i++){
+    		if(num[0]==nums[i]){
+    			count0++;
+    		}else if(num[1]==nums[i]){
+    			count1++;
+    		}else if(count0==0){
+    			count0=1;
+    			num[0]=nums[i];
+    		}else if(count1==0){
+    			count1=1;
+    			num[1]=nums[i];
+    		}else{
+    			count0--;
+    			count1--;
+    		}
+    	}
+    	count0=0;
+    	count1=0;
+    	for(int i=0; i<nums.length; i++){
+    		if(nums[i]==num[0]){
+    			count0++;
+    		}else if(nums[i]==num[1]){
+    			count1++;
+    		}
+    	}
+    	if(count0>nums.length/3){
+    		re.add(num[0]);
+    	}
+    	if(count1>nums.length/3){
+    		re.add(num[1]);
+    	}
+    	return re;
+    }
+    
+    
+    
+    
 	public static void main(String[] args) {
-		int[] nums={1};
-		System.out.println(Arrays.toString(productExceptSelf(nums)));
-		
+		int[] nums={1,2,3,4};
+		System.out.println(majorityElement(nums));
+
 	}
 
 }
