@@ -1,7 +1,5 @@
 package beautyofPrograming;
 
-import java.util.Arrays;
-
 public class BeautyOfMath {
 
 	//2.1 求二进制中1的个数 
@@ -49,6 +47,53 @@ public class BeautyOfMath {
 	
 	//2.5寻找最大的k个数
 
+	//2.7 寻找最大公约数
+	public static int gcd1(int x, int y){//辗转相除
+		int temp=0;
+		while(y!=0){
+			temp=x%y;
+			x=y;
+			y=temp;
+		}
+		return x;
+	}
+	
+	public static int gcd2(int x, int y){//相减，避免取模运算
+		if(x<y){
+			return gcd2(y, x);
+		}
+		if(y==0){
+			return x;
+		}
+		return gcd2(x-y, y);
+	}
+	
+	private static boolean isEven(int x){//判断是否为偶数
+		return (x&1)==0;
+	}
+	public static int gcd3(int x, int y){//前面两者结合，O(log(max(x, y)))
+		if(x<y){
+			return gcd3(y, x);
+		}
+		if(y==0){
+			return x;
+		}
+		
+		if(isEven(x)){
+			if(isEven(y)){
+				return gcd3(x>>1, y>>1)<<1;
+			}else{
+				return gcd3(x>>1, y);
+			}
+		}else{
+			if(isEven(y)){
+				return gcd3(x, y>>1);
+			}else{
+				return gcd3(x-y, y);
+			}
+		}
+	}
+	
 	//2.10 寻找数组中最大数和最小数
 	public static int[] findMaxMin(int[] nums){
 		int max=Integer.MIN_VALUE;
@@ -85,7 +130,7 @@ public class BeautyOfMath {
 	
 	public static void main(String[] args) {
 		int[] nums={5,6,8,3,7,9};
-		System.out.println(Arrays.toString(findMinMax(nums, 0, nums.length-1)));
+		System.out.println(gcd3(42, 30));
 	}
 
 	
