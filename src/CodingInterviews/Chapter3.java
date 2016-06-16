@@ -1,6 +1,9 @@
 package CodingInterviews;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Chapter3 {
 	
@@ -67,8 +70,29 @@ public class Chapter3 {
 	
 	
 	public static void main(String[] args) {
-		int[] nums={1,2,3,4,5,6,7};
-		adjust(nums);
+		Map<Integer, String> map=new HashMap<Integer, String>();
+		map.put(1, "1");
+		map.put(2, "2");
+		Set<Integer> keySet=map.keySet();
+		System.out.println(keySet.contains(1));//true
+		map.remove(1);
+		System.out.println(keySet.contains(1));//false
+		keySet.remove(2);
+		System.out.println(map.size());//0
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
