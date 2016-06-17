@@ -1,11 +1,17 @@
 package beautyofPrograming;
 
+import java.util.Arrays;
+
 public class BeautyOfMath {
 
-	//2.1 求二进制中1的个数 
+	/*
+	 * 求二进制中1的个数 
+	 */
 	//leetcode 191. Number of 1 Bits
 	
-	//2.2就n的阶乘中二进制最后一位1的位置
+	/*
+	 * 2.2就n的阶乘中二进制最后一位1的位置
+	 */
 	public static int jiechentg(int n){
 		int re=0;
 		while(n>0){
@@ -15,12 +21,15 @@ public class BeautyOfMath {
 		return re;
 	}
 	
-	//2.3频率最高的元素 
+	/*
+	 * 2.3频率最高的元素 
+	 */
 	//leetcode 169. Majority Element
 	//leetcode 229. Majority Element II
 	
-	//2.4
-	//1到n中1出现的次数
+	/*
+	 * 2.41到n中1出现的次数
+	 */
 	public static int count1(int n){
 		int re=0;
 		int factor=1;
@@ -45,10 +54,15 @@ public class BeautyOfMath {
 		return re;
 	}
 	
-	//2.5寻找最大的k个数
+	/*
+	 * 2.5寻找最大的k个数
+	 */
 
-	//2.7 寻找最大公约数
-	public static int gcd1(int x, int y){//辗转相除
+	/*
+	 * 2.7 寻找最大公约数
+	 */
+	//辗转相除
+	public static int gcd1(int x, int y){
 		int temp=0;
 		while(y!=0){
 			temp=x%y;
@@ -58,7 +72,8 @@ public class BeautyOfMath {
 		return x;
 	}
 	
-	public static int gcd2(int x, int y){//相减，避免取模运算
+	//相减，避免取模运算
+	public static int gcd2(int x, int y){
 		if(x<y){
 			return gcd2(y, x);
 		}
@@ -68,10 +83,11 @@ public class BeautyOfMath {
 		return gcd2(x-y, y);
 	}
 	
+	//前面两者结合，O(log(max(x, y)))
 	private static boolean isEven(int x){//判断是否为偶数
 		return (x&1)==0;
 	}
-	public static int gcd3(int x, int y){//前面两者结合，O(log(max(x, y)))
+	public static int gcd3(int x, int y){
 		if(x<y){
 			return gcd3(y, x);
 		}
@@ -94,7 +110,40 @@ public class BeautyOfMath {
 		}
 	}
 	
-	//2.10 寻找数组中最大数和最小数
+	/*
+	 * 2.9 斐波那契数列
+	 */
+	public static int fib(int n){
+		if(n==0){
+			return 0;
+		}
+		if(n==1){
+			return 1;
+		}
+		return fib(n-1)+fib(n-2);
+	}
+	
+	//时间空间都是O(n)
+	public static int fib2(int n){
+		if(n==0){
+			return 0;
+		}
+		if(n==1){
+			return 1;
+		}
+		int[] fib=new int[n+1];
+		fib[0]=0; fib[1]=1;
+		for(int i=2; i<=n; i++){
+			fib[i]=fib[i-1]+fib[i-2];
+		}
+		return fib[n];
+	}
+	
+	//通过矩阵的幂次，降到O(logn)矩阵的幂次与数的幂次求法相同
+	
+	/*
+	 * 2.10 寻找数组中最大数和最小数
+	 */
 	public static int[] findMaxMin(int[] nums){
 		int max=Integer.MIN_VALUE;
 		int min=Integer.MAX_VALUE;
@@ -113,7 +162,7 @@ public class BeautyOfMath {
 		return new int[]{min, max};
 	}
 	
-	//2.10  分治
+	//分治
 	public static int[] findMinMax(int[] nums, int begin, int end){
 		if(end-begin<=1){
 			return new int[]{Math.min(nums[begin], nums[end]), Math.max(nums[begin], nums[end])};
@@ -130,7 +179,8 @@ public class BeautyOfMath {
 	
 	public static void main(String[] args) {
 		int[] nums={5,6,8,3,7,9};
-		System.out.println(gcd3(42, 30));
+		System.out.println(Arrays.toString(nums));
+		System.out.println(fib2(1));
 	}
 
 	
