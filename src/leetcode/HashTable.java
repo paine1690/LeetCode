@@ -9,17 +9,16 @@ public class HashTable {
 	//1. Two Sum
 	public static int[] twoSum(int[] nums, int target){
 		int[] re = new int[2];
-		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-		for(int i=0;i<nums.length;i++){
-			map.put(nums[i], i+1);
-		}
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();		
 		for(int i=0; i<nums.length; i++){
 			if(map.containsKey(target-nums[i])){
-				if(map.get(target-nums[i]) != i+1){
-					re[0] = i+1;
+				if(map.get(target-nums[i]) != i){
+					re[0] = i;
 					re[1] = map.get(target-nums[i]);
 					break;
 				}
+			}else{
+				map.put(nums[i], i);
 			}
 		}
 		return re;

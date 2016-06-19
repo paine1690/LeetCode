@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Array_leetcode {
@@ -188,12 +189,52 @@ public class Array_leetcode {
     	return re;
     }
     
+    //15. 3Sum
+    private static List<List<Integer>> re=new ArrayList<List<Integer>>();    
+    private static List<Integer> twoSum(int[] nums, int start, int end, int target){
+    	
+    	while(start<end){
+    		int sum=nums[start]+nums[end];
+    		if(sum==target){
+    			re.add(new ArrayList<Integer>(Arrays.asList(0-target, nums[start], nums[end])));
+    			while(start<end&&nums[start]==nums[start+1]){
+    				start++;
+    			}
+    			while(start<end&&nums[end]==nums[end-1]){
+    				end--;
+    			}
+    			start++;
+    			end--;
+    		}else if(sum<target){
+    			start++;
+    		}else{
+    			end--;
+    		}
+    	}
+    	return null;
+    }
     
-    
+    public static List<List<Integer>> threeSum(int[] nums) {
+    	if(nums==null||nums.length<3){
+    		return re;
+    	}
+        Arrays.sort(nums);
+        
+        for(int i=0; i<nums.length; i++){
+        	if(i>0&&nums[i]==nums[i-1]){
+        		continue;
+        	}
+        	List<Integer> two=twoSum(nums, i+1, nums.length-1, 0-nums[i]);
+        	if(two!=null){
+        		re.add(two);
+        	}
+        }
+        return re;
+    }
     
 	public static void main(String[] args) {
-		int[] nums={1,2,3,4};
-		System.out.println(majorityElement(nums));
+		int[] nums={};
+		System.out.println(threeSum(nums));
 
 	}
 
