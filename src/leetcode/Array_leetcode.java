@@ -232,6 +232,45 @@ public class Array_leetcode {
         return re;
     }
     
+    //16. 3Sum Closest
+    public int threeSumClosest(int[] nums, int target) {
+        if(nums==null||nums.length<3){
+        	return 0;
+        }
+        Arrays.sort(nums);
+        int closest=Integer.MAX_VALUE;
+        int re=0;
+        for(int i=0; i<nums.length; i++){
+        	if(i>0&&nums[i]==nums[i-1]){
+        		continue;
+        	}
+        	
+        	int start=i+1;
+        	int end=nums.length-1;
+        	while(start<end){
+        		int sum=nums[i]+nums[start]+nums[end];
+        		if(sum==target){
+        			return sum;
+        		}else if(sum<target){
+        			if(target-sum<closest){
+        				closest=target-sum;
+        				re=sum;
+        			}
+        			start++;
+        		}else{
+        			if(sum-target<closest){
+        				closest=sum-target;
+        				re=sum;
+        			}
+        			end--;
+        		}
+        	}
+        }
+        return re;
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		int[] nums={};
 		System.out.println(threeSum(nums));
