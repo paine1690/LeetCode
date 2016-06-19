@@ -269,11 +269,50 @@ public class Array_leetcode {
         return re;
     }
     
-    
+    //18. 4Sum
+    public static List<List<Integer>> fourSum(int[] nums, int target) {
+    	List<List<Integer>> re=new ArrayList<List<Integer>>();
+        if(nums==null||nums.length<4){
+        	return re;
+        }        
+        Arrays.sort(nums);
+    	for(int i=0; i<nums.length-3; i++){
+    		if(i>0&&nums[i]==nums[i-1]){
+    			continue;
+    		}
+    		for(int j=nums.length-1; j>i+2; j--){
+    			if(j<nums.length-1&&nums[j]==nums[j+1]){
+    				continue;
+    			}    			
+    			int start=i+1;
+    			int end=j-1;
+    			
+    			while(start<end){
+    				int sum=nums[i]+nums[j]+nums[start]+nums[end];
+    				if(sum==target){
+    					re.add(new ArrayList<Integer>(Arrays.asList(nums[i], nums[start], nums[end], nums[j])));
+    					while(start<end&&nums[start]==nums[start+1]){
+    						start++;
+    					}
+    					while(start<end&&nums[end-1]==nums[end]){
+    						end--;
+    					}    					
+    					start++;
+    					end--;
+    				}else if(sum<target){
+    					start++;
+    				}else{
+    					end--;
+    				}
+    			}
+    		}
+    	}    	
+    	return re;
+    }
     
 	public static void main(String[] args) {
-		int[] nums={};
-		System.out.println(threeSum(nums));
+		int[] nums={1, 0, -1, 0, -2, 2};
+		System.out.println(fourSum(nums, 0));
 
 	}
 
