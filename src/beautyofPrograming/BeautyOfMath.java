@@ -177,10 +177,103 @@ public class BeautyOfMath {
 		return new int[]{min, max};
 	}
 	
+	/*
+	 * 2.12快速寻找满足条件的两个数
+	 */
+	//leetcode 1
+	
+	/*
+	 * 2.13 子数组最大乘积
+	 */
+	
+	//额外空间存储
+	public static int maxPro(int[] nums){
+		int len=nums.length;
+		int[] f=new int[len];
+		int[] b=new int[len];
+		int temp=1;
+		for(int i=0; i<len; i++){
+			temp*=nums[i];
+			f[i]=temp;
+		}
+		temp=1;
+		for(int i=len-1; i>=0; i--){
+			temp*=nums[i];
+			b[i]=temp;
+		}
+		int re=b[1];
+		for(int i=1; i<len-1; i++){
+			re=Math.max(re, f[i-1]*b[i+1]);
+		}
+		re=Math.max(re, f[len-2]);
+		return re;		
+	}
+	
+	//
+	private static int proExc(int[] nums, int n){
+		int i;
+		int re=1;
+		for(i=0; i<nums.length; i++){
+			if(nums[i]==n){
+				break;
+			}
+			re*=nums[i];
+		}
+		for(int j=i+1; j<nums.length; j++){
+			re*=nums[j];
+		}		
+		return re;
+	}
+	public static int maxPro2(int[] nums){
+		int zeroCount=0;
+		int pCount=0;
+		int nCount=0;
+		int pMin=Integer.MAX_VALUE;
+		int nMin=Integer.MIN_VALUE;
+		int nMax=0;
+		for(int i=0; i<nums.length; i++){
+			if(nums[i]==0){
+				zeroCount++;
+			}else if(nums[i]>0){
+				pCount++;
+				pMin=Math.min(nums[i], pMin);
+			}else{
+				nCount++;
+				nMin=Math.max(nums[i], nMin);
+				nMax=Math.min(nums[i], nMax);
+			}
+		}
+		
+		if(zeroCount>1){
+			return 0;
+		}else{
+			boolean p=isEven(nCount);
+			if(zeroCount==1){
+				if(p){
+					return proExc(nums, 0);
+				}else{
+					return 0;
+				}
+			}else{
+				if(p){
+					if(pCount>0){
+						return proExc(nums, pMin);
+					}else{
+						return proExc(nums, nMax);
+					}
+				}else{
+					return proExc(nums, nMin);
+				}
+			}
+		}
+	}
+	
+	
 	public static void main(String[] args) {
 		int[] nums={5,6,8,3,7,9};
+		int[] nums2={3,2,8,-5,-1,0};
 		System.out.println(Arrays.toString(nums));
-		System.out.println(fib2(1));
+		System.out.println(maxPro2(nums2));
 	}
 
 	

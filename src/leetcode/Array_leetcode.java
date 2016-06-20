@@ -2,7 +2,9 @@ package leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Array_leetcode {
     
@@ -190,7 +192,7 @@ public class Array_leetcode {
     }
     
     //15. 3Sum
-    private static List<List<Integer>> re=new ArrayList<List<Integer>>();    
+    private static List<List<Integer>> re;    
     private static List<Integer> twoSum(int[] nums, int start, int end, int target){
     	
     	while(start<end){
@@ -215,12 +217,13 @@ public class Array_leetcode {
     }
     
     public static List<List<Integer>> threeSum(int[] nums) {
+    	re=new ArrayList<List<Integer>>();
     	if(nums==null||nums.length<3){
     		return re;
     	}
         Arrays.sort(nums);
         
-        for(int i=0; i<nums.length; i++){
+        for(int i=0; i<nums.length-2; i++){
         	if(i>0&&nums[i]==nums[i-1]){
         		continue;
         	}
@@ -240,11 +243,10 @@ public class Array_leetcode {
         Arrays.sort(nums);
         int closest=Integer.MAX_VALUE;
         int re=0;
-        for(int i=0; i<nums.length; i++){
+        for(int i=0; i<nums.length-2; i++){
         	if(i>0&&nums[i]==nums[i-1]){
         		continue;
-        	}
-        	
+        	}        	
         	int start=i+1;
         	int end=nums.length-1;
         	while(start<end){
@@ -310,10 +312,50 @@ public class Array_leetcode {
     	return re;
     }
     
+    public static List<List<Integer>> fourSum2(int[] nums, int target) {//没通过 0000怎么办
+    	List<List<Integer>> re=new ArrayList<List<Integer>>();
+		if(nums==null||nums.length<4){
+			return re;
+		}
+		Arrays.sort(nums);
+		Map<Integer, List<List<Integer>>> map=new HashMap<Integer, List<List<Integer>>>(); 
+		List<Integer> temp;
+		for(int i=0; i<nums.length; i++){
+			if(i>0&&nums[i]==nums[i-1]){
+				continue;
+			}
+			for(int j=i+1; j<nums.length; j++){
+				if(j>i+1&&nums[j]==nums[j-1]){
+					continue;
+				}
+				int sum=nums[i]+nums[j];
+				temp=new ArrayList<Integer>(Arrays.asList(nums[i], nums[j]));	
+				if(map.containsKey(target-sum)){						
+					List<List<Integer>> diff=map.get(target-sum);
+					for(List<Integer> list: diff){
+						if(list.get(1)>nums[i]){
+							continue;
+						}
+						List<Integer> r=new ArrayList<Integer>(list);
+						r.addAll(temp);
+						re.add(r);
+					}
+				}			
+				if(map.containsKey(sum)){
+					map.get(sum).add(temp);
+				}else{											
+					map.put(sum, new ArrayList<List<Integer>>(Arrays.asList(temp)));
+				}				
+			}
+		}    	    	
+    	return re;
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		int[] nums={1, 0, -1, 0, -2, 2};
-		System.out.println(fourSum(nums, 0));
+		System.out.println(fourSum2(nums, 0));
 
 	}
-
 }
