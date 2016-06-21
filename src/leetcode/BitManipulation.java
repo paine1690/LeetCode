@@ -217,6 +217,19 @@ public class BitManipulation {
     	return num>0&&((num&(num-1))==0)&&((num&0x55555555)==num);
     }
     
+    //137. Single Number II
+    public int singleNumber4(int[] nums) {
+    	int one=0;
+    	int two=0;
+    	for(int i=0; i<nums.length; i++){
+    		two|=nums[i]&one;//先计算出现两次的
+    		one^=nums[i];//再更新出现一次的
+    		int three=one&two;//出现三次
+    		one&=~three;//出现三次就清零
+    		two&=~three;//出现三次就清零
+    	}
+    	return one;
+    }
 	public static void main(String[] args) {
 		System.out.println(isPowerOfFour(8));
 		

@@ -193,13 +193,11 @@ public class DynamicProgramming {
     		return 0;
     	}
     	int re=nums[0];
+    	int temp=re;
         for(int i=1; i<nums.length; i++){
-        	if(nums[i-1]>0){
-        		nums[i]+=nums[i-1];
-        	}
-        	if(nums[i]>re){
-        		re=nums[i];
-        	}
+        	temp=Math.max(temp, 0);
+        	temp+=nums[i];
+        	re=Math.max(re, temp);
         }
     	return re;
     }

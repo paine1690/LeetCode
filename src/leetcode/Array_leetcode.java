@@ -193,7 +193,7 @@ public class Array_leetcode {
     
     //15. 3Sum
     private static List<List<Integer>> re;    
-    private static List<Integer> twoSum(int[] nums, int start, int end, int target){
+    private static void twoSum(int[] nums, int start, int end, int target){
     	
     	while(start<end){
     		int sum=nums[start]+nums[end];
@@ -213,7 +213,6 @@ public class Array_leetcode {
     			end--;
     		}
     	}
-    	return null;
     }
     
     public static List<List<Integer>> threeSum(int[] nums) {
@@ -227,10 +226,8 @@ public class Array_leetcode {
         	if(i>0&&nums[i]==nums[i-1]){
         		continue;
         	}
-        	List<Integer> two=twoSum(nums, i+1, nums.length-1, 0-nums[i]);
-        	if(two!=null){
-        		re.add(two);
-        	}
+        	twoSum(nums, i+1, nums.length-1, 0-nums[i]);
+
         }
         return re;
     }

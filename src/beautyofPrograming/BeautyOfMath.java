@@ -242,8 +242,7 @@ public class BeautyOfMath {
 				nMin=Math.max(nums[i], nMin);
 				nMax=Math.min(nums[i], nMax);
 			}
-		}
-		
+		}		
 		if(zeroCount>1){
 			return 0;
 		}else{
@@ -268,6 +267,64 @@ public class BeautyOfMath {
 		}
 	}
 	
+	/*
+	 * 2.14 数组子数组之和最大值
+	 */
+	//leetcode 53. Maximum Subarray
+	
+	/*
+	 * 2.15 数组子数组之和最大值(二维)
+	 */
+	public static int[][] matrix;
+	public static void pre(){
+		int m=matrix.length;
+		int n=matrix[0].length;
+		for(int j=1; j<n; j++){
+			matrix[0][j]+=matrix[0][j-1];
+		}
+		
+		for(int i=1; i<m; i++){
+			matrix[i][0]+=matrix[i-1][0];
+			for(int j=1; j<n; j++){
+				matrix[i][j]+=matrix[i-1][j]+matrix[i][j-1]-matrix[i-1][j-1];
+			}
+		}
+	}
+	
+	public static int getSum(int ai, int aj, int bi, int bj){
+		if(ai==0&&aj==0){
+			return matrix[bi][bj];
+		}else if(ai==0){
+			return matrix[bi][bj]-matrix[bi][aj-1];
+		}else if(aj==0){
+			return matrix[bi][bj]-matrix[ai-1][bj];
+		}else{
+			return matrix[bi][bj]-matrix[bi][aj-1]-matrix[ai-1][bj]+matrix[ai-1][aj-1];
+		}
+	}
+	
+	public static int maxSum(int[][] A){
+		if(A.length==0||A[0].length==0){
+			return 0;
+		}
+		matrix=A;
+		pre();
+		int m=A.length;
+		int n=A[0].length;
+		int re=0;
+		
+		for(int ai=0; ai<m; ai++){
+			for(int bi=ai; bi<m; bi++){
+				int temp=getSum(ai, 0, bi, 0);
+				for(int j=1; j<n; j++){
+					temp=Math.max(0,  temp);
+					temp+=getSum(ai, j, bi, j);
+					re=Math.max(re,  temp);
+				}				
+			}
+		}
+		return re;
+	}
 	
 	public static void main(String[] args) {
 		int[] nums={5,6,8,3,7,9};
