@@ -326,11 +326,38 @@ public class BeautyOfMath {
 		return re;
 	}
 	
+	/*
+	 * 2.16 数组中最长升序子序列
+	 */
+	//leetcode 300. Longest Increasing Subsequence
+	
+	/*
+	 * 2.17 数组循环移位
+	 */
+	private static void reverse(int[] nums, int start, int end){
+		while(start<end){
+			int temp=nums[start];
+			nums[start]=nums[end];
+			nums[end]=temp;
+			start++;
+			end--;
+		}
+	}
+	public static void rightShift(int[] nums, int k){
+		int len=nums.length;
+		k%=len;
+		reverse(nums, 0, len-k-1);
+		reverse(nums, len-k, len-1);
+		reverse(nums, 0, len-1);
+		System.out.println(Arrays.toString(nums));
+		
+	}
+	
 	public static void main(String[] args) {
 		int[] nums={5,6,8,3,7,9};
 		int[] nums2={3,2,8,-5,-1,0};
 		System.out.println(Arrays.toString(nums));
-		System.out.println(maxPro2(nums2));
+		rightShift(nums2, 3);
 	}
 
 	

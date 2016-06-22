@@ -231,9 +231,9 @@ public class DynamicProgramming {
     
     //300. Longest Increasing Subsequence
     private static int binarySearch(int[] nums, int i, int j, int target){
-    	while(i<j){
+    	while(i<=j){
     		int mid=(i+j)>>>1;
-        	if(target>nums[mid]&&target<=nums[mid+1]){
+        	if(nums[mid]==target){
         		return mid;
         	}else if(nums[mid]<target){
         		i=mid+1;
@@ -241,22 +241,23 @@ public class DynamicProgramming {
         		j=mid-1;
         	}
     	}
-    	return 0;
+    	return ++j;
     }
     
     public static int lengthOfLIS2(int[] nums) {
     	if(nums.length<2){
     		return nums.length;
     	}
-    	int len=1;
+    	int len=0;
     	int[] d=new int[nums.length+1];
-    	d[1]=nums[0];
-    	for(int i=1; i<nums.length; i++){
+    	d[0]=Integer.MIN_VALUE;
+    	for(int i=0; i<nums.length; i++){
     		if(nums[i]>d[len]){
-    			d[++len]=nums[i];
+    			len++;
+    			d[len]=nums[i];
     		}else{
-    			int j=binarySearch(d, 0, len, nums[i]);
-    			d[++j]=nums[i];
+    			int j=binarySearch(d, 1, len, nums[i]);
+    			d[j]=nums[i];
     		}
     		System.out.println(Arrays.toString(d));
     	}
@@ -456,9 +457,9 @@ public class DynamicProgramming {
     
     
 	public static void main(String[] args) {
-		//int nums[]={2};
+		int nums[]={1,3,6,7,9,4,10,5,6};
 		//String s="1";
-		
+		System.out.println(lengthOfLIS2(nums));
 	}
 
 }
