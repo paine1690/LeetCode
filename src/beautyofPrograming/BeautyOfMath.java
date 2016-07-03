@@ -1,6 +1,7 @@
 package beautyofPrograming;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class BeautyOfMath {
 
@@ -330,7 +331,39 @@ public class BeautyOfMath {
 	 * 2.16 数组中最长升序子序列
 	 */
 	//leetcode 300. Longest Increasing Subsequence
-	
+    private static int binarySearch(int[] nums, int i, int j, int target){
+    	while(i<=j){
+    		int mid=(i+j)>>>1;
+        	if(nums[mid]==target){
+        		return mid;
+        	}else if(nums[mid]<target){
+        		i=mid+1;
+        	}else{
+        		j=mid-1;
+        	}
+    	}
+    	return ++j;
+    }
+    
+    public static int lengthOfLIS2(int[] nums) {
+    	if(nums.length<2){
+    		return nums.length;
+    	}
+    	int len=0;
+    	int[] d=new int[nums.length+1];
+    	d[0]=Integer.MIN_VALUE;
+    	for(int i=0; i<nums.length; i++){
+    		if(nums[i]>d[len]){
+    			len++;
+    			d[len]=nums[i];
+    		}else{
+    			int j=binarySearch(d, 1, len, nums[i]);
+    			d[j]=nums[i];
+    		}
+    		System.out.println(Arrays.toString(d));
+    	}
+    	return len;
+    }
 	/*
 	 * 2.17 数组循环移位
 	 */
@@ -353,11 +386,186 @@ public class BeautyOfMath {
 		
 	}
 	
+	/*
+	 * 2.19 区间重合判断
+	 */
+	static class numsComparator implements Comparator<int[]>{
+		@Override
+		public int compare(int[] arg0, int[] arg1) {
+			return (arg0[0]<arg1[0]? -1: (arg0[0]==arg1[0]? 0: 1));
+		}
+		
+	}
+
+	private static int lineMerge(int[][] nums){
+		int len=0;
+		int low=nums[0][0];
+		int high=nums[0][1];
+		for(int i=1; i<nums.length; i++){
+			if(nums[i][0]<=high){
+				high=Math.max(high, nums[i][1]);
+			}else{
+				nums[len][0]=low;
+				nums[len][1]=high;
+				len++;
+				low=nums[i][0];
+				high=nums[i][1];
+			}
+		}
+		nums[len][0]=low;
+		nums[len][1]=high;
+		return ++len;
+		
+	}
+	
+	private static int binarySearch(int[][] nums, int len, int target){
+		int i=0;
+		int j=len-1;
+		while(i<=j){
+			int mid=(i+j)>>>1;
+			if(nums[mid][0]<=target&&nums[mid][1]>=target){
+				return mid;
+			}else if(nums[mid][1]<target){
+				i=mid+1;
+			}else{
+				j=mid-1;
+			}
+		}
+		return -1;		
+	}	
+	
+	public static boolean linesCover(int[][] nums, int[] target){
+		//step1: 按区间低位进行排序
+		Arrays.sort(nums, new numsComparator() );
+		System.out.println(Arrays.deepToString(nums));
+		//step2: 合并区间,新的区间个数为len
+		int len=lineMerge(nums);
+		for(int i=0; i<len; i++){
+			System.out.println(Arrays.toString(nums[i]));
+		}
+		//step3: 二分查找
+		int i=binarySearch(nums, len, target[0]);
+		int j=binarySearch(nums, len, target[1]);
+		//在同一区间且不为-1
+		return (i!=-1&&i==j);
+	}
+	 
+	/*
+	 * 3.1 字符串移位包含  
+	 */
+	private static int[] getNext(String P){
+		int m=P.length();
+		int[] next=new int[m+1];
+		next[0]=next[1]=0;
+		int j=0;
+		for(int i=1; i<m; i++){
+			while(j>0&&P.charAt(i)!=P.charAt(j)){
+				j=next[j];
+			}
+			if(P.charAt(i)==P.charAt(j)){
+				j++;
+			}
+			next[i+1]=j;
+		}		
+		return next;
+	}
+	private static boolean kmp(String T, String P){
+		int[] next=getNext(P);
+		int j=0;
+		for(int i=0; i<T.length(); i++){
+			while(j>0&&T.charAt(i)!=P.charAt(j)){
+				j=next[j];
+			}
+			if(T.charAt(i)==P.charAt(j)){
+				j++;
+			}
+			if(j==P.length()){
+				return true;
+			}
+		}
+		return false;
+	}
+	public static boolean isIn(String s1, String s2){
+		s1+=s1.substring(0, s2.length()-1);
+		System.out.println(s1);
+		return kmp(s1, s2);
+	}
+	
+	/*
+	 * 3.2 电话号码与对应英语单词
+	 */
+	static char[][] c={
+			{' '},               //0      
+			{' '},               //1
+			{'a', 'b', 'c'},     //2
+			{'d', 'e', 'f'},     //3
+			{'g', 'h', 'i'},     //4
+			{'j', 'k', 'l'},     //5		
+			{'m', 'n', 'o'},     //6
+			{'p', 'q', 'r', 's'},//7
+			{'t', 'u', 'v'},     //8
+			{'w', 'x', 'y', 'z'},//9	
+	//index:  0    1    2    3
+	};
+	static int[] total={0, 0, 3, 3, 3, 3, 3, 4, 3, 4};
+	//非递归实现
+	public static void printNum(int[] nums){
+		
+		
+		int len=nums.length;
+		int[] index=new int[len];
+		while(true){
+			StringBuilder s=new StringBuilder();
+			for(int i=0; i<len; i++){
+				s.append(c[nums[i]][index[i]]);
+			}
+			System.out.println(s);	
+			int k=len-1;//
+			while(k>=0){
+				if(index[k]<total[nums[k]]-1){
+					index[k]++;
+					break;
+				}else{
+					index[k]=0;
+					k--;
+				}
+			}
+			if(k<0){
+				break;
+			}
+		}
+	}
+	//递归实现
+	private static void printRec(int[] nums, int[] index, int k, int len){
+		if(k>0){
+			StringBuilder s=new StringBuilder();
+			for(int i=0; i<len; i++){
+				s.append(c[nums[i]][index[i]]);
+			}
+			System.out.println(s);	
+			if(index[k]<total[k]){
+				index[k]++;
+				printRec(nums, index, k, len);
+			}else{
+				
+			}
+			
+			
+		}
+	
+		
+	}
+
+	public static void printNums(int[] nums){
+		int[] index=new int[nums.length];
+		printRec(nums, index, nums.length-1, nums.length);
+	}
 	public static void main(String[] args) {
 		int[] nums={5,6,8,3,7,9};
-		int[] nums2={3,2,8,-5,-1,0};
-		System.out.println(Arrays.toString(nums));
-		rightShift(nums2, 3);
+		System.out.println(Arrays.toString(nums));		
+		System.out.println(isIn("abcd", "cdab"));
+		int[] nums2={2, 3, 4};
+		printNums(nums2);
 	}
 
 	
