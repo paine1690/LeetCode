@@ -1,4 +1,4 @@
-package CodingInterviews;
+package codingInterviews;
 
 import java.util.Arrays;
 import java.util.HashMap;

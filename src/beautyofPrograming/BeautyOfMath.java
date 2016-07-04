@@ -3,15 +3,20 @@ package beautyofPrograming;
 import java.util.Arrays;
 import java.util.Comparator;
 
+/**
+ * 		第二章 数学之美 -数字中的技巧
+ * @author Paine
+ *
+ */
 public class BeautyOfMath {
 
 	/*
-	 * 求二进制中1的个数 
+	 * 2.1 求二进制中1的个数 
 	 */
 	//leetcode 191. Number of 1 Bits
 	
 	/*
-	 * 2.2就n的阶乘中二进制最后一位1的位置
+	 * 2.2 求n的阶乘中二进制最后一位1的位置
 	 */
 	public static int jiechentg(int n){
 		int re=0;
@@ -23,13 +28,13 @@ public class BeautyOfMath {
 	}
 	
 	/*
-	 * 2.3频率最高的元素 
+	 * 2.3 频率最高的元素 
 	 */
 	//leetcode 169. Majority Element
 	//leetcode 229. Majority Element II
 	
 	/*
-	 * 2.41到n中1出现的次数
+	 * 2.4 1到n中1出现的次数
 	 */
 	public static int count1(int n){
 		int re=0;
@@ -56,7 +61,7 @@ public class BeautyOfMath {
 	}
 	
 	/*
-	 * 2.5寻找最大的k个数
+	 * 2.5 寻找最大的k个数
 	 */
 
 	/*
@@ -179,7 +184,7 @@ public class BeautyOfMath {
 	}
 	
 	/*
-	 * 2.12快速寻找满足条件的两个数
+	 * 2.12 快速寻找满足条件的两个数
 	 */
 	//leetcode 1
 	
@@ -450,122 +455,13 @@ public class BeautyOfMath {
 		return (i!=-1&&i==j);
 	}
 	 
-	/*
-	 * 3.1 字符串移位包含  
-	 */
-	private static int[] getNext(String P){
-		int m=P.length();
-		int[] next=new int[m+1];
-		next[0]=next[1]=0;
-		int j=0;
-		for(int i=1; i<m; i++){
-			while(j>0&&P.charAt(i)!=P.charAt(j)){
-				j=next[j];
-			}
-			if(P.charAt(i)==P.charAt(j)){
-				j++;
-			}
-			next[i+1]=j;
-		}		
-		return next;
-	}
-	private static boolean kmp(String T, String P){
-		int[] next=getNext(P);
-		int j=0;
-		for(int i=0; i<T.length(); i++){
-			while(j>0&&T.charAt(i)!=P.charAt(j)){
-				j=next[j];
-			}
-			if(T.charAt(i)==P.charAt(j)){
-				j++;
-			}
-			if(j==P.length()){
-				return true;
-			}
-		}
-		return false;
-	}
-	public static boolean isIn(String s1, String s2){
-		s1+=s1.substring(0, s2.length()-1);
-		System.out.println(s1);
-		return kmp(s1, s2);
-	}
-	
-	/*
-	 * 3.2 电话号码与对应英语单词
-	 */
-	static char[][] c={
-			{' '},               //0      
-			{' '},               //1
-			{'a', 'b', 'c'},     //2
-			{'d', 'e', 'f'},     //3
-			{'g', 'h', 'i'},     //4
-			{'j', 'k', 'l'},     //5		
-			{'m', 'n', 'o'},     //6
-			{'p', 'q', 'r', 's'},//7
-			{'t', 'u', 'v'},     //8
-			{'w', 'x', 'y', 'z'},//9	
-	//index:  0    1    2    3
-	};
-	static int[] total={0, 0, 3, 3, 3, 3, 3, 4, 3, 4};
-	//非递归实现
-	public static void printNum(int[] nums){
-		
-		
-		int len=nums.length;
-		int[] index=new int[len];
-		while(true){
-			StringBuilder s=new StringBuilder();
-			for(int i=0; i<len; i++){
-				s.append(c[nums[i]][index[i]]);
-			}
-			System.out.println(s);	
-			int k=len-1;//
-			while(k>=0){
-				if(index[k]<total[nums[k]]-1){
-					index[k]++;
-					break;
-				}else{
-					index[k]=0;
-					k--;
-				}
-			}
-			if(k<0){
-				break;
-			}
-		}
-	}
-	//递归实现
-	private static void printRec(int[] nums, int[] index, int k, int len){
-		if(k>0){
-			StringBuilder s=new StringBuilder();
-			for(int i=0; i<len; i++){
-				s.append(c[nums[i]][index[i]]);
-			}
-			System.out.println(s);	
-			if(index[k]<total[k]){
-				index[k]++;
-				printRec(nums, index, k, len);
-			}else{
-				
-			}
-			
-			
-		}
-	
-		
-	}
 
-	public static void printNums(int[] nums){
-		int[] index=new int[nums.length];
-		printRec(nums, index, nums.length-1, nums.length);
-	}
+
 	public static void main(String[] args) {
 		int[] nums={5,6,8,3,7,9};
 		System.out.println(Arrays.toString(nums));		
-		System.out.println(isIn("abcd", "cdab"));
-		int[] nums2={2, 3, 4};
-		printNums(nums2);
+
+
 	}
 
 	

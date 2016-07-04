@@ -1,4 +1,4 @@
-package CodingInterviews;
+package codingInterviews;
 
 public class solution {
 
