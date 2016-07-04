@@ -1,6 +1,8 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 public class String_leetcode {
@@ -361,10 +363,58 @@ public class String_leetcode {
     
     //28. Implement strStr()   kmp
     
+    //17. Letter Combinations of a Phone Number
+    static String[] number=new String[]{
+    		"",
+    		"",
+    		"abc",
+    		"def",
+    		"ghi",
+    		"jkl",
+    		"mno",
+    		"pqrs",
+    		"tuv",
+    		"wxyz",
+    };
+    static int[] total=new int[]{0, 0, 3, 3, 3, 3, 3, 4, 3, 4};
+    
+    public static List<String> letterCombinations(String digits) {
+    	List<String> re=new ArrayList<String>();
+        int len=digits.length();
+        if(len==0){
+        	return re;
+        }
+        int[] answer=new int[len];     
+        
+        
+        while(true){
+        	StringBuilder s=new StringBuilder();
+        	for(int i=0; i<len; i++){
+        		s.append(number[digits.charAt(i)-'0'].charAt(answer[i]));
+        	}
+        	re.add(s.toString());
+        	int k=len-1;
+        	while(k>=0){
+        		if(answer[k]<total[digits.charAt(k)-'0']-1){
+        			answer[k]++;
+        			break;
+        		}else{
+        			answer[k]=0;
+        			k--;
+        		}
+        	}      	
+        	if(k<0){
+        		break;
+        	}
+        }    
+    	
+    	
+    	return re;
+    }
 	public static void main(String[] args) {
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
-		
+		System.out.println(letterCombinations("23"));
 		
 		
 	}

@@ -1,6 +1,5 @@
 package leetcode;
 
-import java.util.Collection;
 import java.util.HashMap;
 
 public class Design {
@@ -155,7 +154,7 @@ public class Design {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Design d=new Design();
+		
 	}
 
 }
