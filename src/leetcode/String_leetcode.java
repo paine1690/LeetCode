@@ -378,6 +378,7 @@ public class String_leetcode {
     };
     static int[] total=new int[]{0, 0, 3, 3, 3, 3, 3, 4, 3, 4};
     
+    //循环求法
     public static List<String> letterCombinations(String digits) {
     	List<String> re=new ArrayList<String>();
         int len=digits.length();
@@ -407,14 +408,35 @@ public class String_leetcode {
         		break;
         	}
         }    
-    	
-    	
     	return re;
+    }
+    
+    //递归求法
+    public static List<String> letterCombinations2(String digits) {
+    	int len=digits.length();
+    	List<String> re=new ArrayList<String>();
+    	if(len==0){
+    		return re;
+    	}    	
+    	char[] chars=new char[len];
+    	dfsGet(digits, 0, chars, re);
+    	return re;    	
+    }
+    private static void dfsGet(String dig, int index, char[] chars, List<String> re){
+    	if(index==dig.length()){
+    		re.add(new String(chars));
+    		return;
+    	}
+    	int num=dig.charAt(index)-'0';
+    	for(int i=0; i<total[num]; i++){
+    		chars[index]=number[num].charAt(i);
+    		dfsGet(dig, index+1, chars, re);
+    	}
     }
 	public static void main(String[] args) {
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
-		System.out.println(letterCombinations("23"));
+		System.out.println(letterCombinations2(""));
 		
 		
 	}
