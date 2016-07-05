@@ -188,6 +188,41 @@ public class BeautyOfStruct {
     /*
      * 3.4 从无头链表删除节点
      */
+	public void deledeNode(ListNode node){
+		node.val=node.next.val;
+		node.next=node.next.next;
+	}
+	//反转链表 206. Reverse Linked List
+    public static ListNode reverseList_iterator(ListNode head) {
+    	if(head==null||head.next==null){
+            return head;
+        }
+    	ListNode pNode=head;
+    	ListNode re=null;
+    	while(pNode!=null){
+    		ListNode temp=pNode.next;
+    		pNode.next=re;
+    		re=pNode;
+    		pNode=temp;
+    	}
+    	return re;
+    }
+    
+    public static ListNode reverseList_recursion(ListNode head) {
+    	if(head==null||head.next==null){
+            return head;
+        }
+    	
+    	ListNode nNode=head.next;
+    	ListNode re=reverseList_recursion(nNode);
+    	
+    	head.next=null;
+    	nNode.next=head;
+    	
+    	return re;
+    }
+	
+	
 	public static void main(String[] args) {
 		System.out.println(calDis2("SNOWY", "SUNNY"));
 		System.out.println(calDis2("a", "b"));
@@ -195,5 +230,12 @@ public class BeautyOfStruct {
 		System.out.println(calDis2("travelling", "traveling"));
 
 	}
+}
 
+class ListNode{
+	int val;
+	ListNode next;
+	public ListNode(int val){
+		this.val=val;
+	}
 }
