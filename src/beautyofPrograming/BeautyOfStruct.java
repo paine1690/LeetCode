@@ -128,9 +128,71 @@ public class BeautyOfStruct {
     	}
     }	
 	
+    /*
+     * 3.3 计算字符串相似度
+     */
+    //递归实现
+    public static int calDis(String a, String b){
+    	return calStringDistance(a, 0, a.length()-1, b, 0, b.length()-1);
+    }
+	private static int calStringDistance(String a, int aStart, int aEnd, String b, int bStart, int bEnd){
+		if(aStart>aEnd){
+			if(bStart>bEnd){
+				return 0;
+			}else{
+				return bEnd-bStart+1;
+			}
+		}
+		if(bStart>bEnd){
+			if(aStart>aEnd){
+				return 0;
+			}else{
+				return aEnd-aStart+1;
+			}
+		}
+		
+		if(a.charAt(aStart)==b.charAt(bStart)){
+			return calStringDistance(a, aStart+1, aEnd, b, bStart+1, bEnd);
+		}else{
+			int t1=calStringDistance(a, aStart+1, aEnd, b, bStart, bEnd);
+			int t2=calStringDistance(a, aStart, aEnd, b, bStart+1, bEnd);
+			int t3=calStringDistance(a, aStart+1, aEnd, b, bStart+1, bEnd);
+			return Math.min(t1, Math.min(t2, t3))+1;
+		}
+	}
+    //非递归实现-动态规划
+	public static int calDis2(String a, String b){
+		int m=a.length();
+		int n=b.length();
+		int[][] dp=new int[m+1][n+1];
+		for(int j=1; j<n+1; j++){
+			dp[0][j]=j;
+		}
+		for(int i=1; i<m+1; i++){
+			dp[i][0]=i;
+		}
+		for(int i=1; i<m+1; i++){
+			for(int j=1; j<n+1; j++){
+				if(a.charAt(i-1)==b.charAt(j-1)){
+					dp[i][j]=dp[i-1][j-1];
+				}else{
+					dp[i][j]=Math.min(dp[i-1][j-1], Math.min(dp[i-1][j], dp[i][j-1]))+1;
+				}				
+			}
+		}
+		return dp[m][n];
+	}
 	
+	
+    
+    /*
+     * 3.4 从无头链表删除节点
+     */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		System.out.println(calDis2("SNOWY", "SUNNY"));
+		System.out.println(calDis2("a", "b"));
+		System.out.println(calDis2("abdd", "aebdd"));
+		System.out.println(calDis2("travelling", "traveling"));
 
 	}
 
