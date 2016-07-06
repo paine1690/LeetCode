@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * 		第三章 结构之法 -字符串及链表的探索
@@ -326,13 +327,81 @@ public class BeautyOfStruct {
     	return null;
     }
     
-    
+    /*
+     * 3.7 队列中去最大值问题
+     */
     
 	public static void main(String[] args) {
 		String description="hello software hello test world spring sun flower hello";
         String[] keywords = {"hello","world"};
 		System.out.println(extract(description, keywords));
+		maxQueue q=new maxQueue();
+		int data[] = {7, 4, 15, 9, 5, 10, 13, 3, 20, 17, 19};  
+	    for (int i=0; i<data.length; i++) {
+	    	q.enQueue(data[i]); 
+		    System.out.println(i+" "+q.max());
+	    }	        
+	    for (int i=0; i<data.length; i++)  {
+	    	q.deQueue();
+	    	System.out.println(i+" "+q.max());
+	    }
+	        
 
+	}
+}
+
+/*
+ * 3.7 队列中去最大值问题
+ */
+class maxStack{
+	private Stack<Integer> stack=new Stack<Integer>();
+	private Stack<Integer> maxStack=new Stack<Integer>();
+	
+	boolean isEmpty(){
+		return stack.isEmpty()&&maxStack.isEmpty();
+	}
+	
+	void push(int x){
+		if(maxStack.isEmpty()||x>=maxStack.peek()){
+			maxStack.push(x);
+		}
+		stack.push(x);
+	}
+	
+	int pop(){
+		int x=stack.pop();
+		if(maxStack.peek()==x){
+			maxStack.pop();
+		}
+		return x;
+	}
+	
+	int getMax(){
+		return maxStack.peek();
+	}
+}
+
+class maxQueue{
+	private maxStack stackA=new maxStack();
+	private maxStack stackB=new maxStack();
+	
+	void enQueue(int x){
+		stackB.push(x);
+	}
+	
+	int deQueue(){
+		if(stackA.isEmpty()){
+			while(!stackB.isEmpty()){
+				stackA.push(stackB.pop());
+			}
+		}		
+		return stackA.pop();
+	}
+	
+	int max(){
+		int a=stackA.isEmpty()? Integer.MIN_VALUE:stackA.getMax();
+		int b=stackB.isEmpty()? Integer.MIN_VALUE:stackB.getMax();
+		return Math.max(a, b);
 	}
 }
 
