@@ -1,7 +1,10 @@
 package beautyofPrograming;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 		第三章 结构之法 -字符串及链表的探索
@@ -222,12 +225,70 @@ public class BeautyOfStruct {
     	return re;
     }
 	
-	
+	/*
+	 * 3.5 最短摘要的生成
+	 */
+    private static Map<String, Integer> map;
+    private static int start=0;
+    private static int end=0;
+    private static int reStart=0;
+    private static int reEnd=0;
+    
+    
+    private static boolean isAllExisted(){
+    	Collection<Integer> c=map.values();
+    	for(int i: c){
+    		if(i==0){
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    
+    
+    public static String extract(String description, String[] keyWords){
+    	String[] descriptions=description.split(" ");
+    	int len=descriptions.length;
+    	int tLen=len+1;
+    	map=new HashMap<String, Integer>();
+    	for(String s:keyWords){
+    		map.put(s, 0);
+    	}
+    	while(true){
+    		while(!isAllExisted()&&end<len){
+    			if(map.containsKey(descriptions[end])){
+    				map.put(descriptions[end], map.get(descriptions[end])+1);
+    			}
+    			end++;
+    		}
+    		while(isAllExisted()){
+    			if(end-start<tLen){
+    				tLen=end-start;
+    				reStart=start;
+    				reEnd=end-1;
+    			}
+    			
+    			if(map.containsKey(descriptions[start])){
+    				map.put(descriptions[start], map.get(descriptions[start])-1);
+    			}
+    			start++;   			
+    		}
+    		if(end>=len){
+    			break;
+    		}
+    	}
+    	StringBuilder s=new StringBuilder();
+    	for(int i=reStart; i<reEnd; i++){
+    		s.append(descriptions[i]).append(" ");
+    	}
+    	return s.append(descriptions[reEnd]).toString();
+    }
+    
+    
 	public static void main(String[] args) {
-		System.out.println(calDis2("SNOWY", "SUNNY"));
-		System.out.println(calDis2("a", "b"));
-		System.out.println(calDis2("abdd", "aebdd"));
-		System.out.println(calDis2("travelling", "traveling"));
+		String description="hello software hello test world spring sun flower hello";
+        String[] keywords = {"hello","world"};
+		System.out.println(extract(description, keywords));
 
 	}
 }
