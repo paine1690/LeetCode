@@ -234,7 +234,6 @@ public class BeautyOfStruct {
     private static int reStart=0;
     private static int reEnd=0;
     
-    
     private static boolean isAllExisted(){
     	Collection<Integer> c=map.values();
     	for(int i: c){
@@ -243,8 +242,7 @@ public class BeautyOfStruct {
     		}
     	}
     	return true;
-    }
-    
+    }    
     
     public static String extract(String description, String[] keyWords){
     	String[] descriptions=description.split(" ");
@@ -283,6 +281,51 @@ public class BeautyOfStruct {
     	}
     	return s.append(descriptions[reEnd]).toString();
     }
+    
+    /*
+     * 3.6 判断两个链表是否相交
+     */
+    //160. Intersection of Two Linked Lists
+    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+    	if(headA==null||headB==null){
+    		return null;
+    	}
+    	int m=0, n=0;
+    	ListNode pNode=headA;
+    	while(pNode!=null){
+    		m++;
+    		pNode=pNode.next;
+    	}
+    	pNode=headB;
+    	while(pNode!=null){
+    		n++;
+    		pNode=pNode.next;
+    	}
+    	int t=0;
+    	ListNode aNode, bNode;
+    	if(m>=n){
+    		t=m-n;
+    		aNode=headA;
+    		bNode=headB;
+    	}else{
+    		t=n-m;
+    		aNode=headB;
+    		bNode=headA;
+    	}
+    	while(t>0){
+    		aNode=aNode.next;
+    		t--;
+    	}
+    	while(aNode!=null&&bNode!=null){
+    		if(aNode==bNode){
+    			return aNode;
+    		}
+    		aNode=aNode.next;
+    		bNode=bNode.next;
+    	}
+    	return null;
+    }
+    
     
     
 	public static void main(String[] args) {
