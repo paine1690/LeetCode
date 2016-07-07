@@ -353,6 +353,38 @@ public class BeautyOfStruct {
     	return Math.max(maxDistance, right+left);
     }
     
+    /*
+     * 3.9 重建二叉树
+     */
+    //105. Construct Binary Tree from Preorder and Inorder Traversal
+    private static int getIndex(int[] nums, int start, int end, int x){
+    	for(int i=start; i<=end; i++){
+    		if(nums[i]==x){
+    			return i;
+    		}
+    	}
+    	return -1;
+    }
+    
+    private static TreeNode buildTree(int[] preOrder, int index, int[] inOrder, int start, int end){
+    	TreeNode root=null;
+    	if(start<=end){
+    		root=new TreeNode(preOrder[index]);
+    		if(start!=end){
+    			int mid=getIndex(inOrder, start, end, preOrder[index]);
+    			root.left=buildTree(preOrder, index+1, inOrder, 0, mid-1);
+    			root.right=buildTree(preOrder, index+mid-start+1, inOrder, mid+1, end);
+    		}
+    	} 	
+    	return root;
+    }
+    
+    public static TreeNode reBuild(int[] preOrder, int[] inOrder){
+    	return buildTree(preOrder, 0, inOrder, 0, inOrder.length-1);
+    }
+    
+    
+    
     
 	public static void main(String[] args) {
 		String description="hello software hello test world spring sun flower hello";
@@ -437,6 +469,9 @@ class ListNode{
 }
 
 class TreeNode{
+	public TreeNode(int i) {
+		// TODO Auto-generated constructor stub
+	}
 	int val;
 	TreeNode left;
 	TreeNode right;
