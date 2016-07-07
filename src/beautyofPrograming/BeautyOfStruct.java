@@ -230,10 +230,6 @@ public class BeautyOfStruct {
 	 * 3.5 最短摘要的生成
 	 */
     private static Map<String, Integer> map;
-    private static int start=0;
-    private static int end=0;
-    private static int reStart=0;
-    private static int reEnd=0;
     
     private static boolean isAllExisted(){
     	Collection<Integer> c=map.values();
@@ -249,6 +245,11 @@ public class BeautyOfStruct {
     	String[] descriptions=description.split(" ");
     	int len=descriptions.length;
     	int tLen=len+1;
+        int start=0;
+        int end=0;
+        int reStart=0;
+        int reEnd=0;
+        
     	map=new HashMap<String, Integer>();
     	for(String s:keyWords){
     		map.put(s, 0);
@@ -331,6 +332,28 @@ public class BeautyOfStruct {
      * 3.7 队列中去最大值问题
      */
     
+    /*
+     * 3.8 求二叉树中节点的最大距离
+     */
+    private static int maxDistance;
+    
+    private static int maxDeep(TreeNode node){
+    	if(node==null){
+    		return 0;
+    	}
+    	int left=maxDeep(node.left);
+    	int right=maxDeep(node.right);
+    	maxDistance=Math.max(maxDistance, right+left);
+    	return Math.max(left, right)+1;
+    }
+    public static int maxDis(TreeNode root){
+    	maxDistance=0;
+    	int left=maxDeep(root.left);
+    	int right=maxDeep(root.right);
+    	return Math.max(maxDistance, right+left);
+    }
+    
+    
 	public static void main(String[] args) {
 		String description="hello software hello test world spring sun flower hello";
         String[] keywords = {"hello","world"};
@@ -411,4 +434,10 @@ class ListNode{
 	public ListNode(int val){
 		this.val=val;
 	}
+}
+
+class TreeNode{
+	int val;
+	TreeNode left;
+	TreeNode right;
 }
