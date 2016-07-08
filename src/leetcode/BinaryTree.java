@@ -134,7 +134,38 @@ public class BinaryTree {
     	level(re, p, q);
     	return re;
     }
-	
+    
+	//102. Binary Tree Level Order Traversal		层序遍历    非递归实现
+    public List<List<Integer>> levelOrder2(TreeNode root) {
+    	List<List<Integer>> re=new ArrayList<List<Integer>>();
+    	if(root==null){
+    		return re;
+    	}
+    	List<TreeNode> list=new ArrayList<TreeNode>();
+    	list.add(root);
+    	int cur=0;
+    	int last=1;
+    	while(cur<list.size()){
+    		last=list.size();
+    		List<Integer> temp=new ArrayList<Integer>();
+    		while(cur<last){
+    			TreeNode tempNode=list.get(cur);
+    			temp.add(tempNode.val);
+    			if(tempNode.left!=null){
+    				list.add(tempNode.left);
+    			}
+    			if(tempNode.right!=null){
+    				list.add(tempNode.right);
+    			}
+    			cur++;
+    		}
+    		re.add(temp);
+    	}    	
+    	return re;
+    }
+    
+    
+    
     //107. Binary Tree Level Order Traversal II		层序遍历
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         List<List<Integer>> re=new ArrayList<List<Integer>>();

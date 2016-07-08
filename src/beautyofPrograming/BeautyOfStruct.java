@@ -329,7 +329,7 @@ public class BeautyOfStruct {
     }
     
     /*
-     * 3.7 队列中去最大值问题
+     * 3.7 队列中取最大值问题
      */
     
     /*
@@ -383,6 +383,54 @@ public class BeautyOfStruct {
     	return buildTree(preOrder, 0, inOrder, 0, inOrder.length-1);
     }
     
+    /*
+     * 3.10 分层遍历二叉树
+     */
+    
+    //1、打印第i层
+    int printNodeLevel(TreeNode node, int level){
+    	if(node==null||level<0){
+    		return 0;
+    	}
+    	if(level==0){
+    		System.out.print(node.left.val+" "+node.right.val);
+    		return 1;
+    	}
+    	return printNodeLevel(node.left, level-1)+printNodeLevel(node.right, level-1);
+    	
+    }    
+    
+	//102. Binary Tree Level Order Traversal		层序遍历    非递归实现
+    public List<List<Integer>> levelOrder2(TreeNode root) {
+    	List<List<Integer>> re=new ArrayList<List<Integer>>();
+    	if(root==null){
+    		return re;
+    	}
+    	List<TreeNode> list=new ArrayList<TreeNode>();
+    	list.add(root);
+    	int cur=0;
+    	int last=1;
+    	while(cur<list.size()){
+    		last=list.size();
+    		List<Integer> temp=new ArrayList<Integer>();
+    		while(cur<last){
+    			TreeNode tempNode=list.get(cur);
+    			temp.add(tempNode.val);
+    			if(tempNode.left!=null){
+    				list.add(tempNode.left);
+    			}
+    			if(tempNode.right!=null){
+    				list.add(tempNode.right);
+    			}
+    			cur++;
+    		}
+    		re.add(temp);
+    	}    	
+    	return re;
+    }
+
+    
+    
     
     
     
@@ -406,7 +454,7 @@ public class BeautyOfStruct {
 }
 
 /*
- * 3.7 队列中去最大值问题
+ * 3.7 队列中取最大值问题
  */
 class maxStack{
 	private Stack<Integer> stack=new Stack<Integer>();
