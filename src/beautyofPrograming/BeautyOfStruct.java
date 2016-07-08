@@ -429,12 +429,29 @@ public class BeautyOfStruct {
     	return re;
     }
 
-    
-    
-    
-    
+    /*
+     * 3.11 程序改错 二分查找
+     */
+    //找到等于target的数，不存在返回-1，存在则返回最大位置
+    public static int binarySearch(int[] nums, int target){
+    	int l=0, r=nums.length-1;
+    	while(l<=r){
+    		int mid=l+(r-l)/2;
+    		if(nums[mid]<=target){
+    			l=mid+1;
+    		}else{
+    			r=mid-1;
+    		}
+    	}
+    	if(nums[l-1]==target){
+    		return l-1;
+    	}else{
+    		return -1;
+    	}
+    }
     
 	public static void main(String[] args) {
+		System.out.println(binarySearch(new int[]{1}, 6));
 		String description="hello software hello test world spring sun flower hello";
         String[] keywords = {"hello","world"};
 		System.out.println(extract(description, keywords));
