@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 /**
- * 		第二章 数学之美 -数字中的技巧
+ * 		第二章 数字之魅 -数字中的技巧
  * @author Paine
  *
  */
-public class BeautyOfMath {
+public class Chapter2 {
 
 	/*
 	 * 2.1 求二进制中1的个数 

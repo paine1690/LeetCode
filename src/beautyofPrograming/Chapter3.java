@@ -14,7 +14,7 @@ import java.util.Stack;
  */
  
  
-public class BeautyOfStruct {
+public class Chapter3 {
 
 	/*
 	 * 3.1 字符串移位包含  
