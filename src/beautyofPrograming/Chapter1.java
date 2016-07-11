@@ -56,6 +56,55 @@ public class Chapter1 {
 		sort.print();
 	}
 	
+	/*
+	 * 1.4 买书问题
+	 */
+	
+	/*
+	 * 1.5 快速找出故障机器
+	 */
+	
+	// leetcode 136. Single Number 出现两次，只有一个出现一次
+	public static int sigleNUmber(int[] nums){
+		int re=0;
+		for(int num:nums){
+			re^=num;
+		}
+		return re;
+	}
+	
+	// leetcode 260. Single Number III 出现两次，有两个数出现一次
+	public static int[] sigleNumber3(int[] nums){
+		int x=0;
+		for(int num:nums){
+			x^=num;
+		}
+		x=x&(-x);
+		int a=0, b=0;
+		for(int num:nums){
+			if((num&x)==0){
+				a^=num;
+			}else{
+				b^=num;
+			}
+		}			
+		return new int[]{a, b};
+	}
+	
+	// leetcode 137. Single Number II 出现三次，有一个坏的
+	public static int sigleNumber2(int[] nums){
+		int one=0;
+		int two=0;
+		for(int num: nums){
+			two|=one&num;
+			one^=num;
+			int three=one&two;
+			one&=~three;
+			two&=~three;
+		}		
+		return one;
+	}
+	
 	public static void main(String[] args){
 		laobing(new int[]{0,1,3,4,2,5});
 		laobing(new int[]{3,2,1,6,5,4,9,8,7,0});
