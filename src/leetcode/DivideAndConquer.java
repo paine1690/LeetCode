@@ -3,6 +3,7 @@ package leetcode;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 /**
@@ -101,6 +102,23 @@ public class DivideAndConquer {
     	
     	return null;
     }
+    
+    
+    //315. Count of Smaller Numbers After Self
+    public List<Integer> countSmaller(int[] nums) {
+    	List<Integer> re=new ArrayList<Integer>();
+    	if(nums==null||nums.length==0){
+    		return re;
+    	}
+    	
+    	
+    	
+    	return re;
+    }
+    
+    
+    
+    
 	public static void main(String[] args) {
 		int[] nums1={1,2};
 		int[] nums2={1,2};

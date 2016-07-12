@@ -21,7 +21,7 @@ public class Chapter1 {
 			if((i/9%3)==(i%9%3)){
 				continue;
 			}
-			System.out.println("a"+(i%9+1)+"b"+(i/9+1));
+			System.out.println("a"+(i/9+1)+"b"+(i%9+1));
 		}
 	}
 	
@@ -40,12 +40,10 @@ public class Chapter1 {
 	
 	public static void n2(){
 		int var=5*4*3;
-		int counter=0;
-		int temp=0;
-		while(temp++<var){
-			System.out.println("counter="+counter+"i="+(temp%3)+", j="+(temp/3)+", k="+(temp/(3*4)));
-		    counter++;
-		}		
+		int counter;
+		for(counter=0; counter<var; counter++){
+			System.out.println("counter="+counter+"i="+((counter/(3*4))%5)+", j="+((counter/3)%4)+", k="+(counter%3));
+		}	
 	}
 	
 	/*
@@ -105,9 +103,60 @@ public class Chapter1 {
 		return one;
 	}
 	
+	/*
+	 * 1.7 光影切割问题
+	 */
+	static int[] nums;
+	static int[] copy;
+	
+	private static int merge(int s1, int e1, int s2, int e2){
+		int i=s1, j=s2, k=0;
+		int re=0;
+		
+		while(i<=e1&&j<=e2){
+			if(nums[i]<=nums[j]){
+				copy[k++]=nums[i++];
+			}else{
+				copy[k++]=nums[j++];
+				re+=e1-i+1;
+			}
+		}		
+		while(i<=e1){
+			copy[k++]=nums[i++];
+		}
+		
+		while(j<=e2){
+			copy[k++]=nums[j++];
+		}		
+		for(i=0; i<k; i++){
+			nums[s1+i]=copy[i];
+		}
+		System.out.println(re);
+		return re;
+	}
+	
+	private static int reverse(int start, int end){
+		if(start==end){
+			return 0;
+		}
+		int mid=start+(end-start)/2;
+		return reverse(start, mid)+reverse(mid+1, end)+merge(start, mid, mid+1, end);
+	}
+	
+	
+	public static int shadow(int[] nums_, int start, int end){
+		nums=nums_;
+		copy=new int[nums.length];
+		return reverse(0, nums.length-1);
+	}
+	
+	
 	public static void main(String[] args){
-		laobing(new int[]{0,1,3,4,2,5});
-		laobing(new int[]{3,2,1,6,5,4,9,8,7,0});
+		int[] nums={5,2,6,1};
+		System.out.println(shadow(nums, 0, nums.length-1));
+//		laobing(new int[]{0,1,3,4,2,5});
+//		laobing(new int[]{3,2,1,6,5,4,9,8,7,0});
+//		chess();
 	}
 }
 
