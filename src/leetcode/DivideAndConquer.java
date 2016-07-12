@@ -105,24 +105,58 @@ public class DivideAndConquer {
     
     
     //315. Count of Smaller Numbers After Self
-    public List<Integer> countSmaller(int[] nums) {
+    private static void reverse(int[] nums, int[] smaller, int[] pos, int start, int end){
+    	if(start>=end){
+    		return ;
+    	}
+    	int mid=start+(end-start)/2;
+    	reverse(nums, smaller, pos, start, mid);
+    	reverse(nums, smaller, pos, mid+1, end);
+    	int[] temp=new int[end-start+1];
+    	int i=start, j=mid+1, k=0;
+    	int count=0;
+    	while(i<=mid||j<=end){
+    		if(i>mid){
+    			temp[k++]=pos[j++];
+    		}else if(j>end){
+    			smaller[pos[i]]+=count;
+    			temp[k++]=pos[i++];
+    		}else if(nums[pos[i]]<=nums[pos[j]]){
+    			smaller[pos[i]]+=count;
+    			temp[k++]=pos[i++];
+    		}else{
+    			count++;
+    			temp[k++]=pos[j++];
+    		}
+    		
+    	}    	
+    	for(i=0; i<k; i++){
+    		pos[start+i]=temp[i];
+    	}    	
+    }
+    
+    public static List<Integer> countSmaller(int[] nums) {
     	List<Integer> re=new ArrayList<Integer>();
     	if(nums==null||nums.length==0){
     		return re;
     	}
-    	
-    	
-    	
+    	int[] smaller=new int[nums.length];
+    	int[] pos=new int[nums.length];
+    	for(int i=0; i<pos.length; i++){
+    		pos[i]=i;
+    	}
+    	reverse(nums, smaller, pos, 0, nums.length-1);
+    	for(int i=0; i<smaller.length; i++){
+    		re.add(smaller[i]);
+    	}
     	return re;
     }
     
-    
-    
-    
 	public static void main(String[] args) {
-		int[] nums1={1,2};
-		int[] nums2={1,2};
-		System.out.println(findMedianSortedArrays(nums1, nums2));
+		System.out.println(countSmaller(new int[]{5,2,6,1}));
+//		int[] nums1={1,2};
+//		int[] nums2={1,2};
+//		System.out.println(findMedianSortedArrays(nums1, nums2));
 	}
 
 }
