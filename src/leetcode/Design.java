@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Design {
@@ -143,17 +144,68 @@ public class Design {
 	    }
 	}
 	
-	public Design(){
-		System.out.println("fsd");
-		WordDictionary dic=new WordDictionary();
-		dic.addWord("a");
-		dic.addWord("ab");
-		//System.out.println(dic.root.nexts.get('a').nexts.get('b').isWord);
-		System.out.println(dic.search("ab"));
+	//307. Range Sum Query - Mutable
+	class NumArray {
+		private int[] nums;
+		private int[] tree;
+		private int len;
+		
+	    public NumArray(int[] nums) {
+	    	this.nums=nums;
+	    	len=nums.length;
+	    	tree=new int[len+1];
+	    	for(int i=0; i<nums.length; i++){
+	    		put(i+1, nums[i]);
+	    	}	    	
+	    }
+	    private int getSum(int index){
+	    	int sum=0;
+	    	while(index>0){
+	    		sum+=tree[index];
+	    		index-=lowBit(index);
+	    	}	    	
+	    	return sum;
+	    }
+	    
+	    void update(int i, int val) {
+	    	int diff=val-nums[i];
+	    	nums[i]=val;
+	    	put(i+1, diff);
+	    }
+	    
+	    private void put(int index, int val){
+	    	while(index<=len){
+	        	tree[index]+=val;
+	        	index+=lowBit(index);
+	        }
+	    }
+	    
+	    public int sumRange(int i, int j) {
+	        return getSum(j+1)-getSum(i);
+	    }
+	    
+	    private int lowBit(int index){
+	    	return index&(-index);
+	    }
 	}
 	
+	
+	public Design(){
+		System.out.println("fsd");
+		NumArray n=new NumArray(new int[]{1,3,5});
+		System.out.println(n.sumRange(0, 2));
+		System.out.println(Arrays.toString(n.tree));
+		n.update(1, 2);
+		System.out.println(Arrays.toString(n.tree));
+		System.out.println(n.sumRange(0, 2));
+//		WordDictionary dic=new WordDictionary();
+//		dic.addWord("a");
+//		dic.addWord("ab");
+		//System.out.println(dic.root.nexts.get('a').nexts.get('b').isWord);
+			}
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		Design s=new Design();
 		
 	}
 
