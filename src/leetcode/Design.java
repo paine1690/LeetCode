@@ -1,6 +1,5 @@
 package leetcode;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Design {
@@ -155,10 +154,21 @@ public class Design {
 	    	len=nums.length;
 	    	tree=new int[len+1];
 	    	for(int i=0; i<nums.length; i++){
-	    		put(i+1, nums[i]);
+	    		add(i+1, nums[i]);
 	    	}	    	
 	    }
-	    private int getSum(int index){
+	    
+	    public void update(int i, int val) {
+	    	int diff=val-nums[i];
+	    	nums[i]=val;
+	    	add(i+1, diff);
+	    }
+	    
+	    public int sumRange(int i, int j) {
+	        return sumRange(j+1)-sumRange(i);
+	    }	    
+	    
+	    private int sumRange(int index){
 	    	int sum=0;
 	    	while(index>0){
 	    		sum+=tree[index];
@@ -167,27 +177,18 @@ public class Design {
 	    	return sum;
 	    }
 	    
-	    public void update(int i, int val) {
-	    	int diff=val-nums[i];
-	    	nums[i]=val;
-	    	put(i+1, diff);
-	    }
-	    
-	    private void put(int index, int val){
+	    private void add(int index, int val){
 	    	while(index<=len){
 	        	tree[index]+=val;
 	        	index+=lowBit(index);
 	        }
 	    }
 	    
-	    public int sumRange(int i, int j) {
-	        return getSum(j+1)-getSum(i);
-	    }
-	    
 	    private int lowBit(int index){
 	    	return index&(-index);
 	    }
 	}
+	
 	//307. Range Sum Query - Mutable 线段树
 	class NumArray {
 		private class TreeNode{
@@ -219,23 +220,22 @@ public class Design {
 		}
 		
 		
-		private int sumRange(TreeNode node, int start, int end){
+		private int sumRange(TreeNode root, int start, int end){
 			if(start>end){
 				return 0;
 			}
-			
-			if(node.start==start&&node.end==end){
-				return node.sum;
+			if(root.start==start&&root.end==end){
+				return root.sum;
 			}
-			int mid=node.start+(node.end-node.start)/2;
+			int mid=root.start+(root.end-root.start)/2;
 			if(end<=mid){
-				return sumRange(node.left, start, end);
+				return sumRange(root.left, start, end);
 			}else if(start>mid){
-				return sumRange(node.right, start, end);
+				return sumRange(root.right, start, end);
 			}else{
-				return sumRange(node.left, start, mid)+sumRange(node.right, mid+1, end);
-			}		
-		}	
+				return sumRange(root.left, start, mid)+sumRange(root.right, mid+1, end);
+			}			
+		}
 		
 		private void update(TreeNode root, int pos, int val){
 			if(root==null){
@@ -244,7 +244,7 @@ public class Design {
 			if(root.start==pos&&root.end==pos){
 				root.sum=val;
 				nums[pos]=val;
-				return;
+				return ;
 			}
 			int mid=root.start+(root.end-root.start)/2;
 			if(pos<=mid){
@@ -252,7 +252,7 @@ public class Design {
 			}else{
 				update(root.right, pos, val);
 			}
-			root.sum=root.left.sum+root.right.sum;			
+			root.sum=root.left.sum+root.right.sum;		
 		}
 		
 		private TreeNode buildTree(int start, int end){
@@ -268,13 +268,12 @@ public class Design {
 				root.right=buildTree(mid+1, end);
 				root.sum=root.left.sum+root.right.sum;
 			}
-			return root;			
-		}
-		
+			return root;
+		}		
 	}
 	
-	
-	public Design(){
+
+	public void run(){
 		System.out.println("fsd");
 		NumArray n=new NumArray(new int[]{1,3,5});
 		System.out.println(n.sumRange(0, 2));
@@ -284,11 +283,11 @@ public class Design {
 //		dic.addWord("a");
 //		dic.addWord("ab");
 		//System.out.println(dic.root.nexts.get('a').nexts.get('b').isWord);
-			}
+	}
 	
 	public static void main(String[] args) {
 		Design s=new Design();
-		
+		s.run();
 	}
 
 }

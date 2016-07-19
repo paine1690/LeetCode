@@ -105,6 +105,10 @@ public class Chapter1 {
 	
 	/*
 	 * 1.7 光影切割问题
+	 * 
+	 * 1、求逆序数
+	 * 2、leetcode 315
+	 * 
 	 */
 	static int[] nums;
 	static int[] copy;
@@ -150,7 +154,8 @@ public class Chapter1 {
 		return reverse(0, nums.length-1);
 	}
 	
-	
+   
+    
 	public static void main(String[] args){
 		int[] nums={5,2,6,1};
 		System.out.println(shadow(nums, 0, nums.length-1));

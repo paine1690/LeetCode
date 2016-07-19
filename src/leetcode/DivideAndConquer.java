@@ -104,7 +104,7 @@ public class DivideAndConquer {
     }
     
     
-    //315. Count of Smaller Numbers After Self
+    //315. Count of Smaller Numbers After Self   11ms
     private static void reverse(int[] nums, int[] smaller, int[] pos, int start, int end){
     	if(start>=end){
     		return ;
