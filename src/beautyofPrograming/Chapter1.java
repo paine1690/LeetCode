@@ -154,13 +154,36 @@ public class Chapter1 {
 		return reverse(0, nums.length-1);
 	}
 	
-   
+   /*
+    * 1.8 小飞的电梯调度算法
+    */
+    public static int[] nPerson(int[] nums){
+    	int minFloor=0, targetFloor=1;
+    	int n1=0, n2=nums[1], n3=0;
+    	for(int i=2; i<nums.length; i++){
+    		n3+=nums[i];
+    		minFloor+=nums[i]*(i-1);
+    	}
+    	
+    	for(int i=2; i<nums.length; i++){
+    		if(n1+n2-n3<0){
+    			minFloor+=n1+n2-n3;
+    			targetFloor=i;
+    			n1+=n2;
+    			n2=nums[i];
+    			n3-=nums[i];
+    		}else{
+    			break;
+    		}
+    	}
+    	return new int[]{minFloor, targetFloor};
+    }   
     
 	public static void main(String[] args){
-		int[] nums={5,2,6,1};
-		System.out.println(shadow(nums, 0, nums.length-1));
-//		laobing(new int[]{0,1,3,4,2,5});
-//		laobing(new int[]{3,2,1,6,5,4,9,8,7,0});
+//		int[] nums={5,2,6,1};
+//		System.out.println(shadow(nums, 0, nums.length-1));
+		laobing(new int[]{0,1,3,4,2,5});
+		laobing(new int[]{3,2,1,6,5,4,9,8,7,0});
 //		chess();
 	}
 }
@@ -171,9 +194,7 @@ public class Chapter1 {
  * 1.3 一摞烙饼的排序
  */
 class CPrefixSort{
-	private int[] cakeArray;//烙饼信息数组
-	private int[] reverseCakeArray;//当前翻转信息
-	
+	private int[] cakeArray;//烙饼信息数组	
 	private int[] swapArray;//交换结果数组	
 	private int[] reverseCakeArraySwap;//当前翻转交换结果
 	
@@ -191,11 +212,7 @@ class CPrefixSort{
 	}
 	public CPrefixSort(int[] nums){
 		
-		cakeArray=nums;
-		reverseCakeArray=new int[cakeArray.length];
-		for(int i=0; i<cakeArray.length; i++){
-			reverseCakeArray[i]=cakeArray[i];
-		}			
+		cakeArray=nums.clone();		
 		
 		maxSwap=cakeArray.length*2-3;//初始化上界
 		swapArray=new int[maxSwap];
@@ -206,12 +223,12 @@ class CPrefixSort{
 	
 	private void search(int step){
 		search++;
-		int lower=lowerBound(reverseCakeArray);
+		int lower=lowerBound(cakeArray);
 		if(step+lower>=maxSwap||step>=maxSwap){
 			return;
 		}
 		
-		if(isSorted(reverseCakeArray)){
+		if(isSorted(cakeArray)){
 			if(step<maxSwap){
 				maxSwap=step;
 				for(int i=0; i<maxSwap; i++){
@@ -221,11 +238,11 @@ class CPrefixSort{
 			return;
 		}
 		
-		for(int i=1; i<reverseCakeArray.length; i++){
-			reverse(reverseCakeArray, 0, i);
+		for(int i=1; i<cakeArray.length; i++){
+			reverse(cakeArray, 0, i);
 			reverseCakeArraySwap[step]=i;
 			search(step+1);
-			reverse(reverseCakeArray, 0, i);
+			reverse(cakeArray, 0, i);
 		}		
 	}	
 	
