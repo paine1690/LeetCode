@@ -11,7 +11,6 @@ import java.util.Arrays;
  * 
  * 注意：求mid时，如果直接mid=(keft+right)/2,有可能会导致溢出
  * 		所以，要用mid=left+(right-left)/2
- * 		学习位操作以后，发现可以直接mid=(left+right)>>>1
  */
 
 public class BinarySearch {

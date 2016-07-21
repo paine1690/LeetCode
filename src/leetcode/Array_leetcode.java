@@ -386,6 +386,43 @@ public class Array_leetcode {
     	return re;
     }
     
+    //57. Insert Interval
+    private int binarySearch(List<Interval> nums, int target){
+    	int i=0, j=nums.size()-1;
+    	while(i<=j){
+    		int mid=i+(j-i)/2;
+    		if(nums.get(mid).start<=target){
+    			i=mid+1;
+    		}else{
+    			j=mid-1;
+    		}
+    	}
+    	return j;
+    }
+    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+    	List<Interval> re=new ArrayList<Interval>();
+    	if(intervals.size()<1){
+    		intervals.add(newInterval);
+    	}else{
+            int index=binarySearch(intervals, newInterval.start);
+            intervals.add(index+1, newInterval);
+    	}
+    	
+        int temp=0;
+        for(int i=1; i<intervals.size(); i++){
+        	if(intervals.get(i).start<=intervals.get(temp).end){
+        		intervals.get(temp).end=Math.max(intervals.get(temp).end, intervals.get(i).end);
+        	}else{
+        		re.add(intervals.get(temp));
+        		temp=i;
+        	}
+        }       
+        re.add(intervals.get(temp));        
+    	return re;
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		int[] nums={1, 0, -1, 0, -2, 2};
 		System.out.println(fourSum2(nums, 0));
