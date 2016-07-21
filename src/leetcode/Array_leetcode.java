@@ -2,6 +2,8 @@ package leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -348,7 +350,41 @@ public class Array_leetcode {
     	return re;
     }
     
+    //56. Merge Intervals
+    class Interval {
+    	      int start;
+    	      int end;
+    	      Interval() { start = 0; end = 0; }
+    	      Interval(int s, int e) { start = s; end = e; }
+    	 }
     
+    static class myComparator implements Comparator<Interval>{
+
+		@Override
+		public int compare(Interval o1, Interval o2) {
+			return o1.start<o2.start? -1:(o1.start==o2.start? 0: 1);
+		}
+    	
+    }
+    
+    public List<Interval> merge(List<Interval> intervals) {
+        List<Interval> re=new ArrayList<Interval>();
+        if(intervals==null||intervals.size()<1){
+        	return re;
+        }
+        Collections.sort(intervals, new myComparator());
+        int temp=0;
+        for(int i=1; i<intervals.size(); i++){
+        	if(intervals.get(i).start<=intervals.get(temp).end){
+        		intervals.get(temp).end=Math.max(intervals.get(temp).end, intervals.get(i).end);
+        	}else{
+        		re.add(intervals.get(temp));
+        		temp=i;
+        	}
+        }       
+        re.add(intervals.get(temp));        
+    	return re;
+    }
     
 	public static void main(String[] args) {
 		int[] nums={1, 0, -1, 0, -2, 2};
