@@ -1,5 +1,7 @@
 package beautyofPrograming;
 
+import java.util.Arrays;
+
 /**
  * 		第一章 游戏之乐 -游戏中碰到的题目
  * @author Paine
@@ -178,6 +180,44 @@ public class Chapter1 {
     	}
     	return new int[]{minFloor, targetFloor};
     }   
+    
+    /*
+     * 1.15 构造数独
+     */
+    //回溯法
+    private boolean isValid(int[][] sodu, int i, int j){
+    	
+    	
+    	
+    	
+    	
+    	return true;
+    }
+    public static void sodukuCreate(){
+    	int[][] sodu=new int[9][9];
+    	int k=0;
+    	while(true){
+    		int i=k/9;
+    		int j=k%9;
+    		while(true){
+    			sodu[i][j]++;
+    			if(sodu[i][j]==10){
+    				sodu[i][j]=0;
+    				k--;
+    				break;
+    			}else if()
+    		}
+    		
+    		
+    		
+    	}
+    	
+    	
+    	
+    	System.out.println(Arrays.deepToString(sodu));
+    }
+    
+    
     
 	public static void main(String[] args){
 //		int[] nums={5,2,6,1};

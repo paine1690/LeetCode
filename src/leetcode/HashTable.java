@@ -302,7 +302,33 @@ public class HashTable {
 		return x;
 	}
   	
-	
+	//36. Valid Sudoku
+	public boolean isValidSudoku(char[][] board) {
+		List<Set<Character>> l=new ArrayList<Set<Character>>();
+		List<Set<Character>> r=new ArrayList<Set<Character>>();
+		List<Set<Character>> s=new ArrayList<Set<Character>>();
+		for(int i=0; i<9; i++){
+			l.add(new HashSet<Character>());
+			r.add(new HashSet<Character>());
+			s.add(new HashSet<Character>());
+		}
+		
+		for(int i=0; i<9; i++){
+			for(int j=0; j<9; j++){
+				char c=board[i][j];
+				if(c=='.'){
+					continue;
+				}else if(l.get(i).contains(c)||r.get(j).contains(c)||s.get(i/3*3+j/3).contains(c)){
+					return false;
+				}else{
+					l.get(i).add(c);
+					r.get(j).add(c);
+					s.get(i/3*3+j/3).add(c);
+				}
+			}
+		}
+		return true;
+	}
   	
   	
 	public static void main(String[] args) {

@@ -401,10 +401,11 @@ public class Array_leetcode {
     }
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
     	List<Interval> re=new ArrayList<Interval>();
+    	int index=0;
     	if(intervals.size()<1){
     		intervals.add(newInterval);
     	}else{
-            int index=binarySearch(intervals, newInterval.start);
+            index=binarySearch(intervals, newInterval.start);
             intervals.add(index+1, newInterval);
     	}
     	
