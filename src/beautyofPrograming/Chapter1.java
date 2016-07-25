@@ -1,6 +1,9 @@
 package beautyofPrograming;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 /**
  * 		第一章 游戏之乐 -游戏中碰到的题目
@@ -185,17 +188,37 @@ public class Chapter1 {
      * 1.15 构造数独
      */
     //回溯法
-    private boolean isValid(int[][] sodu, int i, int j){
-    	
-    	
-    	
-    	
-    	
+    private static boolean isValid(int[][] sodu, int m, int n){
+    	int val=sodu[m][n];
+    	for(int i=0; i<9; i++){
+    		if(i!=m&&sodu[i][n]==val){
+    			return false;
+    		}
+    	}
+    	for(int j=0; j<9; j++){
+    		if(j!=n&&sodu[m][j]==val){
+    			return false;
+    		}
+    	}
+    	for(int i=m/3*3; i<m/3*3+3; i++){
+    		for(int j=n/3*3; j<n/3*3+3; j++){
+    			if(i!=m&&j!=n&&sodu[i][j]==val){
+    				return false;
+    			}
+    		}
+    	}    	
     	return true;
     }
+    
     public static void sodukuCreate(){
     	int[][] sodu=new int[9][9];
     	int k=0;
+    	Random ra=new Random(); 
+    	for(int i=1; i<9; i++){
+    		int temp=ra.nextInt(80)+1;
+    		sodu[temp/9][temp%9]=i+1;
+    	}
+    	
     	while(true){
     		int i=k/9;
     		int j=k%9;
@@ -205,25 +228,71 @@ public class Chapter1 {
     				sodu[i][j]=0;
     				k--;
     				break;
-    			}else if()
+    			}else if(isValid(sodu, i, j)){
+    				k++;
+    				break;
+    			}
     		}
-    		
-    		
-    		
+    		if(k==81){
+    			break;
+    		}
     	}
     	
-    	
-    	
-    	System.out.println(Arrays.deepToString(sodu));
+    	for(int i=0; i<9; i++){
+    		System.out.println(Arrays.toString(sodu[i]));
+    	}
+    }
+    
+    //置换法
+    private static void lrSwitch(int[][] sodu, int starti, int startj){
+    	for(int i=starti; i<starti+3; i++){
+    		int lefti=starti+(i+1)%3;
+    		int righti=starti+(i+2)%3;
+    		for(int j=startj; j<startj+3; j++){
+    			sodu[lefti][j-3]=sodu[i][j];
+    			sodu[righti][j+3]=sodu[i][j];
+    		}
+    	}
+    }
+    
+    private static void udSwitch(int[][] sodu, int starti, int startj){
+    	for(int j=startj; j<startj+3; j++){
+    		int upj=startj+(j+1)%3;
+    		int downj=startj+(j+2)%3;
+    		for(int i=starti; i<starti+3; i++){
+    			sodu[i-3][upj]=sodu[i][j];
+    			sodu[i+3][downj]=sodu[i][j];
+    		}
+    	}
     }
     
     
+    public static void soduCreate(){
+    	int[][] sodu=new int[9][9];
+    	List<Integer> list=new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9));
+    	Random r=new Random();
+    	for(int i=3; i<6; i++){//先随机生成中间的3*3
+    		for(int j=3; j<6; j++){
+    			int index=r.nextInt(list.size());
+    			sodu[i][j]=list.get(index);
+    			list.remove(index);
+    		}
+    	}
+    	lrSwitch(sodu, 3, 3);
+    	udSwitch(sodu, 3, 3);
+    	udSwitch(sodu, 3, 0);
+    	udSwitch(sodu, 3, 6);
+    	for(int i=0; i<9; i++){
+    		System.out.println(Arrays.toString(sodu[i]));
+    	}
+    }
     
 	public static void main(String[] args){
+		soduCreate();
 //		int[] nums={5,2,6,1};
 //		System.out.println(shadow(nums, 0, nums.length-1));
-		laobing(new int[]{0,1,3,4,2,5});
-		laobing(new int[]{3,2,1,6,5,4,9,8,7,0});
+//		laobing(new int[]{0,1,3,4,2,5});
+//		laobing(new int[]{3,2,1,6,5,4,9,8,7,0});
 //		chess();
 	}
 }
