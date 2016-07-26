@@ -2,8 +2,10 @@ package beautyofPrograming;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * 		第一章 游戏之乐 -游戏中碰到的题目
@@ -287,8 +289,24 @@ public class Chapter1 {
     	}
     }
     
+    /*
+     * 1.16 24点游戏
+     */
+    public static void pointGame(){
+    	new Point2(new int[]{1,4,5,6});
+    	new Point2(new int[]{5,5,5,1});
+    	new Point2(new int[]{3,3,7,7});
+    	new Point2(new int[]{3,8,8,10});
+    	new Point2(new int[]{4,4,10,10});
+    	new Point2(new int[]{9,9,6,2});
+    }
+  
+    
+    
+    
 	public static void main(String[] args){
-		soduCreate();
+		pointGame();
+//		soduCreate();
 //		int[] nums={5,2,6,1};
 //		System.out.println(shadow(nums, 0, nums.length-1));
 //		laobing(new int[]{0,1,3,4,2,5});
@@ -297,7 +315,194 @@ public class Chapter1 {
 	}
 }
 
+/*
+ * 1.16 24点游戏
+ */
+//记忆化搜索
+//参考：http://bylijinnan.iteye.com/blog/1606892
+class Point2{
+	private int len;
+	private List<Node>[] S;
+	
+	@SuppressWarnings("unchecked")
+	public Point2(int[] nums){
+		this.len=nums.length;
+		int m=(1<<len)-1;//2^n-1
+		S=new ArrayList[m+1];
+		
+		//只有一个元素，不用计算
+		for(int i=0; i<len; i++){
+			int num=nums[i];
+			Node node=new Node(num, ""+num);
+			List<Node> list=new ArrayList<Node>();
+			list.add(node);
+			S[(1<<i)]=list;
+		}
+		
+		for(int i=1; i<=m; i++){
+			S[i]=f(i);
+		}
+		
+		List<Node> Sm=S[m];
+		for(Node node: Sm){
+			if(Math.abs(node.val-24)<0.0000001){
+				System.out.println(""+node.exp);
+				return;
+			}
+		}		
+	}
+	
+	private List<Node> f(int i){
+		List<Node> Si=S[i];
+		
+		if(Si!=null&&!Si.isEmpty()){
+			return Si;
+		}
+		List<Node> re=new ArrayList<Node>();
+		
+		for(int x=1; x<i; x++){
+			if((x&i)==x){
+				re.addAll(fork(f(x),f(i-x)));
+			}
+		}		
+		return re;
+	}
+	
+	private List<Node> fork(List<Node> a, List<Node> b){
+		Set<Node> set=new HashSet<Node>();
+		for(int i=0; i<a.size(); i++){
+			for(int j=0; j<b.size(); j++){
+				Node ai=a.get(i);
+				Node bj=b.get(j);
+				set.add(new Node(ai.val+bj.val, "("+ai.exp+"+"+bj.exp+")"));
+				set.add(new Node(ai.val-bj.val, "("+ai.exp+"-"+bj.exp+")"));
+				set.add(new Node(bj.val+ai.val, "("+bj.exp+"-"+ai.exp+")"));
+				set.add(new Node(ai.val*bj.val, "("+ai.exp+"*"+bj.exp+")"));
+				if(ai.val!=0){
+					set.add(new Node(bj.val/ai.val, "("+bj.exp+"/"+ai.exp+")"));
+				}
+				if(bj.val!=0){
+					set.add(new Node(ai.val/bj.val, "("+ai.exp+"/"+bj.exp+")"));
+				}
+			}
+		}
+		return new ArrayList<Node>(set);
+	}
+	
+	
+}
 
+class Node{
+	double val;
+	public String exp;
+	
+	public Node(double val, String exp){
+		this.val=val;
+		this.exp=exp;
+	}
+	
+	public boolean equals(Object o){//重写equals方法，防止重复
+		if(!(o instanceof Node)){
+			return false;
+		}
+		Node node=(Node)o;
+		return Double.doubleToLongBits(this.val)==Double.doubleToLongBits(node.val);
+	}
+	
+	public int hashCode(){//重写equals必须重写hashCode，因为要保证相同的对象有相同的hashCode
+		int re=17;
+		long toLong=Double.doubleToLongBits(val);
+		re=37*re+(int)(toLong^(toLong>>>32));
+		return re;
+	}
+}
+
+
+//穷举 深搜
+class Point{
+	private double[] nums=new double[4];
+    private String[] result=new String[4];
+    
+    public Point(int[] nums){
+    	for(int i=0; i<nums.length; i++){
+    		result[i]=String.valueOf(nums[i]);
+    		this.nums[i]=nums[i];
+    	}
+    	if(point(4)){
+    		System.out.println("success");
+    	}
+    }
+    
+    
+    private boolean point(int n){
+    	if(n==1){
+    		if(Math.abs(nums[0]-24)<0.00000001){
+    			System.out.println(nums[0]+"  "+result[0]);
+    			return true;
+    		}else{
+    			return false;
+    		}
+    	}
+    	for(int i=0; i<n; i++){
+    		for(int j=i+1; j<n; j++){
+    			double a=nums[i];
+    			double b=nums[j];
+    			nums[j]=nums[n-1];
+    			
+    			String sa=result[i];
+    			String sb=result[j];
+    			result[j]=result[n-1];
+    			
+    			nums[i]=a+b;
+    			result[i]="("+sa+"+"+sb+")";
+    			if(point(n-1)){
+    				return true;
+    			}
+    			
+    			nums[i]=a-b;
+    			result[i]="("+sa+"-"+sb+")";
+    			if(point(n-1)){
+    				return true;
+    			}
+    			
+    			nums[i]=b-a;
+    			result[i]="("+sb+"-"+sa+")";
+    			if(point(n-1)){
+    				return true;
+    			}
+    			
+    			nums[i]=a*b;
+    			result[i]="("+sa+"*"+sb+")";
+    			if(point(n-1)){
+    				return true;
+    			}
+    			
+    			if(b!=0){
+    				nums[i]=a/b;
+        			result[i]="("+sa+"/"+sb+")";
+        			if(point(n-1)){
+        				return true;
+        			}
+    			}    			
+    			
+    			if(a!=0){
+    				nums[i]=b/a;
+        			result[i]="("+sb+"/"+sa+")";
+        			if(point(n-1)){
+        				return true;
+        			}
+    			}
+    			
+    			
+    			nums[i]=a;
+    			nums[j]=b;
+    			result[i]=sa;
+    			result[j]=sb;
+    		}
+    	}
+    	return false;
+    }
+}
 
 /*
  * 1.3 一摞烙饼的排序
