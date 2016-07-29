@@ -422,11 +422,30 @@ public class Array_leetcode {
     	return re;
     }
     
+    //189. Rotate Array
+    private static void rotateArray(int[] nums, int i, int j){
+    	while(i<j){
+    		int temp=nums[i];
+    		nums[i]=nums[j];
+    		nums[j]=temp;
+    		i++;
+    		j--;
+    	}
+    }
     
+    public static void rotate(int[] nums, int k) {
+    	int len=nums.length;
+    	k%=len;
+    	rotateArray(nums, 0, len-k-1);
+    	rotateArray(nums, len-k, len-1);
+    	rotateArray(nums, 0, len-1);
+    	System.out.println(Arrays.toString(nums));
+    }
     
 	public static void main(String[] args) {
-		int[] nums={1, 0, -1, 0, -2, 2};
-		System.out.println(fourSum2(nums, 0));
+		rotate(new int[]{1,2}, 0);
+//		int[] nums={1, 0, -1, 0, -2, 2};
+//		System.out.println(fourSum2(nums, 0));
 
 	}
 }

@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -209,49 +210,6 @@ public class Math_leetcode {
         return re;
     }
     
-    //43. Multiply Strings
-    public static String multiply(String num1, String num2) {
-    	long re=0;
-    	int ji=0;
-    	int n1=num1.length()-1, n2=num2.length()-1;
-    	while(n1>0){
-    		if(num1.charAt(n1)=='0'){
-    			ji++;
-    			n1--;
-    			continue;
-    		}
-    		break;
-    	}
-    	while(n2>0){
-    		if(num2.charAt(n2)=='0'){
-    			ji++;
-    			n2--;
-    			continue;
-    		}
-    		break;
-    	}
-    	
-    	for(int i=0; i<=n1; i++){
-    		int nums1=num1.charAt(i)-'0';
-    		long temp=0;
-    		for(int j=0; j<=n2; j++){
-    			int nums2=num2.charAt(j)-'0';
-    			temp=temp*10+nums1*nums2;
-    		}
-    		re=re*10+temp;
-    	}
-    	StringBuilder s=new StringBuilder();
-    	for(int i=0; i<ji; i++){
-    		s.append("0");
-    	}
-    	String result=String.valueOf(re);
-    	System.out.println(result);
-    	if(re!=0){
-    		result+=s.toString();
-    	}    	
-    	return result;
-    }
-    
     //343. Integer Break
     public static int integerBreak(int n) {
         if(n<4){
@@ -284,11 +242,48 @@ public class Math_leetcode {
         	}
         }
         return re;
+    }    
+    
+    //43. Multiply Strings
+    public static String multiply(String num1, String num2) {
+    	if(num1==null||num2==null||num1.length()==0||num2.length()==0){
+    		return "0";
+    	}
+    	if(num1.equals("0")||num2.equals("0")){
+    		return "0";
+    	}
+    	int[] re=new int[num1.length()+num2.length()];    	
+    	
+    	String s1=new StringBuilder(num1).reverse().toString();
+    	String s2=new StringBuilder(num2).reverse().toString();
+    	int flag=0;
+    	
+    	for(int i=0; i<s1.length(); i++){
+    		int j=0;
+    		for(; j<s2.length(); j++){
+    			int val=(s1.charAt(i)-'0')*(s2.charAt(j)-'0')+flag+re[i+j];
+    			re[i+j]=val%10;
+    			flag=val/10;
+    		}
+    		if(flag>0){
+    			re[i+j]=flag;
+    			flag=0;
+    		}
+    	}
+    	int i=0;
+    	for(i=re.length-1; i>=0; i--){
+    		if(re[i]!=0){
+    			break;
+    		}
+    	}
+    	StringBuilder s=new StringBuilder();
+    	for(; i>=0; i--){
+    		s.append(re[i]);
+    	}
+    	return s.toString();
     }
-    
-    
 	public static void main(String[] args) {
-		System.out.println(myPow(5, -3));
+		System.out.println(multiply("498828660196","840477629533"));
 
 	}
 

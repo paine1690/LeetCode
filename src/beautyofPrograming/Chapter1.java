@@ -361,7 +361,7 @@ class Point2{
 		List<Node> re=new ArrayList<Node>();
 		
 		for(int x=1; x<i; x++){
-			if((x&i)==x){
+			if((x&i)==x){//x是i的真子集
 				re.addAll(fork(f(x),f(i-x)));
 			}
 		}		
