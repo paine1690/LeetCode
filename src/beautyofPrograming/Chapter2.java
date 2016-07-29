@@ -1,7 +1,9 @@
 package beautyofPrograming;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * 		第二章 数字之魅 -数字中的技巧
@@ -455,9 +457,29 @@ public class Chapter2 {
 		return (i!=-1&&i==j);
 	}
 	 
-
+	/*
+	 * 2.21 只考加法的面试题
+	 */
+	public static void getSum(long num){
+		List<String> re=new ArrayList<String>();
+		int len=(int) Math.sqrt(2*num);
+		for(int k=2; k<=len; k++){
+			long temp=num-(k*(k-1))/2;
+			if(temp%k==0){
+				int i=(int) (temp/k);
+				StringBuilder s=new StringBuilder();
+				int j=0;
+				for(; j<k-1; j++){
+					s.append(i+j).append("+");
+				}
+				re.add(s.append(i+j).toString());
+			}
+		}
+		System.out.println(re);
+	}
 
 	public static void main(String[] args) {
+		getSum(65341);
 		int[] nums={5,6,8,3,7,9};
 		System.out.println(Arrays.toString(nums));		
 
