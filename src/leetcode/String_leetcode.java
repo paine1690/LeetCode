@@ -433,10 +433,32 @@ public class String_leetcode {
     		dfsGet(dig, index+1, chars, re);
     	}
     }
+    
+    //22. Generate Parentheses
+    private static void generate(List<String> re, int left, int right, StringBuilder s){
+    	if(left==0&&right==0){
+    		re.add(s.toString());
+    		return;
+    	}
+    	if(left>0){
+    		generate(re, left-1, right, new StringBuilder(s.toString()).append("("));
+    	}
+    	if(right>0&&left<right){
+    		generate(re, left, right-1, new StringBuilder(s.toString()).append(")"));
+    	}
+    }
+    public static List<String> generateParenthesis(int n) {
+        List<String> re=new ArrayList<String>();
+        generate(re, n, n, new StringBuilder(""));
+    	return re;
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
-		System.out.println(letterCombinations2(""));
+		System.out.println(generateParenthesis(3));
 		
 		
 	}
