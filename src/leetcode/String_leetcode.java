@@ -450,6 +450,7 @@ public class String_leetcode {
     public static List<String> generateParenthesis(int n) {
         List<String> re=new ArrayList<String>();
         generate(re, n, n, new StringBuilder(""));
+        System.out.println(re.size());
     	return re;
     }
     
@@ -458,7 +459,7 @@ public class String_leetcode {
 	public static void main(String[] args) {
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
-		System.out.println(generateParenthesis(3));
+		System.out.println(generateParenthesis(4));
 		
 		
 	}
