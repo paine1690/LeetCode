@@ -1,7 +1,6 @@
 package beautyofPrograming;
 
 import java.util.Arrays;
-import java.util.Scanner;
 
 /**
  * 		第四章 数学之趣 -数学游戏的乐趣
@@ -104,34 +103,38 @@ public class Chapter4 {
 		return pos;
 	}
 	
-	public static void test(int[] nums, int n, int k){
-		if(k==0){
-			System.out.println(Arrays.toString(nums));
-			return;
+	/*
+	 * 4.10 数字哑谜和回文
+	 */
+	public static void huiwen(){
+		boolean[] isUsed=new boolean[10];
+		boolean flag;
+		for(int num=1234; num<100000; num++){
+			Arrays.fill(isUsed, false);
+			flag=false;
+			int number=num, re_number=0;
+			for(int i=0; i<5; i++){
+				int temp=number%10;
+				if(isUsed[temp]){
+					flag=true;
+					break;
+				}
+				isUsed[temp]=true;
+				number/=10;
+				re_number=re_number*10+temp;
+			}
+			if(!flag&&re_number%num==0){
+				int x=re_number/num;
+				if(x<10&&!isUsed[x]){
+					System.out.println(num+"*"+x+"="+re_number);
+				}
+			}
 		}
-		int i=0, j=n, c=0;
-		int[] re=new int[2*n];
-		while(i<n){
-			re[c++]=nums[i++];
-			re[c++]=nums[j++];
-		}	
-		test(re, n, k-1);
 	}
 	
+	
 	public static void main(String[] args) {
-		Scanner s=new Scanner(System.in);
-		int c=s.nextInt();
-		for(int i=0; i<c; i++){
-			int n=s.nextInt();
-			int k=s.nextInt();
-			int[] nums=new int[2*n];
-			for(int j=0; j<nums.length; j++){
-				nums[j]=s.nextInt();
-			}
-			test(nums, n, k);
-		}
-		s.close();
-		
+		huiwen();
 		System.out.println(Arrays.toString(getBest(new double[]{0.6, 0.4, 0.7, 0.4, 0.5, 0.4}, new int[]{60, 10, 6, 45, 1, 4})));
 //		Point3 A=new Point3(0,3);
 //		Point3 B=new Point3(0,0);
