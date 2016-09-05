@@ -134,8 +134,8 @@ public class Chapter4 {
 	
 	
 	public static void main(String[] args) {
-		huiwen();
-		System.out.println(Arrays.toString(getBest(new double[]{0.6, 0.4, 0.7, 0.4, 0.5, 0.4}, new int[]{60, 10, 6, 45, 1, 4})));
+//		huiwen();
+//		System.out.println(Arrays.toString(getBest(new double[]{0.6, 0.4, 0.7, 0.4, 0.5, 0.4}, new int[]{60, 10, 6, 45, 1, 4})));
 //		Point3 A=new Point3(0,3);
 //		Point3 B=new Point3(0,0);
 //		Point3 C=new Point3(4,0);

@@ -158,10 +158,97 @@ public class Stack_leetcode {
         return re;
     }
     
+    public static int largestRectangleArea2(int[] heights) {
+    	Stack<Integer> stack=new Stack<Integer>();
+    	int re=0;
+    	for(int i=0; i<heights.length; i++){
+    		if(stack.isEmpty()||heights[i]>=heights[stack.peek()]){
+    			stack.push(i);
+    		}else{
+    			while(!stack.isEmpty()&&heights[i]<heights[stack.peek()]){
+    				int pop=stack.pop();
+    				int width=stack.isEmpty()? i: i-stack.peek()-1;
+    				re=Math.max(re, width*heights[pop]);
+    			}
+    			stack.push(i);
+    		}
+    	}
+    	while(!stack.isEmpty()){
+    		int pop=stack.pop();
+    		int width=stack.isEmpty()? heights.length: heights.length-stack.peek()-1;
+    		re=Math.max(re, width*heights[pop]);
+    	}
+    	return re;
+    }
+    
+    //85. Maximal Rectangle
+    private static int[][] pre(char[][] matrix){
+    	int m=matrix.length;
+    	int n=matrix[0].length;
+    	int[][] re=new int[m][n];
+    	for(int j=0; j<n; j++){
+    		re[0][j]=matrix[0][j]-'0';
+    	}
+    	for(int i=1; i<m; i++){
+    		for(int j=0; j<n; j++){
+    			if(matrix[i][j]=='1'){
+    				re[i][j]=re[i-1][j]+1;
+    			}else{
+    				re[i][j]=0;
+    			}
+    		}
+    	}    	
+    	return re;
+    }
+    
+    public static int maximalRectangle(char[][] matrix) {
+    	if(matrix.length==0||matrix[0].length==0){
+    		return 0;
+    	}
+    	int re=0, count=0;
+        int[][] nums=pre(matrix);
+    	Stack<Integer> stack=new Stack<Integer>();
+    	for(int i=0; i<nums.length; i++){
+    		int[] heights=nums[i];
+    		for(int j=0; j<heights.length; j++){
+    			int num=heights[j];
+    			count=0;
+    			if(stack.isEmpty()||num>=stack.peek()){
+    				stack.push(num);
+    			}else{
+    				while(!stack.isEmpty()&&num<stack.peek()){
+    					count++;
+    					re=Math.max(re, count*stack.pop());
+    				}
+    				while(count>=0){
+    					stack.push(num);
+    					count--;
+    				}
+    			}
+    		}
+    		count=0;
+    		while(!stack.isEmpty()){
+    			count++;
+    			re=Math.max(re, count*stack.pop());
+    		}
+    		
+    	}
+    	return re;
+    }
+    
+    
+    
 	public static void main(String[] args) {
-		System.out.println(largestRectangleArea(new int[]{2,1,2}));
-		String s="(){}[]";
-		System.out.println(isValid(s));
+		char[][] matrix=new char[][]{
+			{'1','0','1','0','0'},
+			{'1','0','1','1','1'},
+			{'1','1','1','1','1'},
+			{'1','0','0','1','0'}
+		};
+		System.out.println(maximalRectangle(matrix));
+//		System.out.println(largestRectangleArea2(new int[]{4,2,0,3,2,5}));
+//		String s="(){}[]";
+//		System.out.println(isValid(s));
 	}
 
 }
