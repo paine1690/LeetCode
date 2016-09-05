@@ -128,9 +128,38 @@ public class Stack_leetcode {
         }
     }
     
-
+    //84. Largest Rectangle in Histogram
+    public static int largestRectangleArea(int[] heights) {
+        Stack<Integer> stack=new Stack<Integer>();
+    	int re=0;
+        
+    	for(int i=0; i<heights.length; i++){
+    		int num=heights[i];
+    		if(stack.isEmpty()||num>=stack.peek()){
+    			stack.push(num);
+    		}else{
+    			int count=0;
+    			while(!stack.isEmpty()&&num<stack.peek()){
+    				count++;
+    				re=Math.max(re, stack.pop()*count);
+    			}
+    			while(count>0){
+    				stack.push(num);
+    				count--;
+    			}
+    			stack.push(num);
+    		}
+    	}
+    	int count=0;
+        while(!stack.isEmpty()){
+        	count++;
+        	re=Math.max(re, stack.pop()*count);
+        }
+        return re;
+    }
+    
 	public static void main(String[] args) {
-		//System.out.println(largestRectangleArea(new int[]{2,1,2}));
+		System.out.println(largestRectangleArea(new int[]{2,1,2}));
 		String s="(){}[]";
 		System.out.println(isValid(s));
 	}
