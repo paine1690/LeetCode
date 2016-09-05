@@ -1,5 +1,8 @@
 package beautyofPrograming;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 /**
  * 		第四章 数学之趣 -数学游戏的乐趣
  * @author Paine
@@ -23,7 +26,7 @@ public class Chapter4 {
 	/*
 	 * 4.4 点是否在三角形内
 	 */
-	//面积法
+	//面积法 海伦公示
 	private static double Area(Point3 A, Point3 B, Point3 C){
 		double[] abc=compute(A, B, C);
 		double a=abc[0], b=abc[1], c=abc[2];
@@ -57,13 +60,84 @@ public class Chapter4 {
 		return product(A, B, D)>=0&&product(B, C, D)>=0&&product(C, A, D)>=0;
 	}
 	
+	/*
+	 * 4.5 磁带文件存放优化
+	 */
+	private static void mergeSort(double[] nums, int[] pos, int start, int end){
+		if(start>=end){
+			return;
+		}
+		int mid=start+(end-start)/2;
+		mergeSort(nums, pos, start, mid);
+		mergeSort(nums, pos, mid+1, end);
+		int[] temp=new int[end-start+1];
+		
+		int i=start, j=mid+1, k=0;
+		while(i<=mid&&j<=end){
+			if(nums[pos[j]]>nums[pos[i]]){
+				temp[k++]=pos[j++];
+			}else{
+				temp[k++]=pos[i++];
+			}
+		}
+		while(i<=mid){
+			temp[k++]=pos[i++];
+		}
+		while(j<=end){
+			temp[k++]=pos[j++];
+		}
+		for(k=0; k<temp.length; k++){
+			pos[start+k]=temp[k];
+		}				
+	}
+	
+	public static int[] getBest(double[] p, int[] l){
+		for(int i=0; i<p.length; i++){
+			p[i]*=l[i];
+		}
+		int[] pos=new int[p.length];
+		for(int i=0; i<pos.length; i++){
+			pos[i]=i;
+		}
+		System.out.println(Arrays.toString(p));
+		mergeSort(p, pos, 0, p.length-1);
+		return pos;
+	}
+	
+	public static void test(int[] nums, int n, int k){
+		if(k==0){
+			System.out.println(Arrays.toString(nums));
+			return;
+		}
+		int i=0, j=n, c=0;
+		int[] re=new int[2*n];
+		while(i<n){
+			re[c++]=nums[i++];
+			re[c++]=nums[j++];
+		}	
+		test(re, n, k-1);
+	}
+	
 	public static void main(String[] args) {
-		Point3 A=new Point3(0,3);
-		Point3 B=new Point3(0,0);
-		Point3 C=new Point3(4,0);
-		Point3 D=new Point3(1,1);
-		System.out.println(isIn2(A, B, C, D));
-
+		Scanner s=new Scanner(System.in);
+		int c=s.nextInt();
+		for(int i=0; i<c; i++){
+			int n=s.nextInt();
+			int k=s.nextInt();
+			int[] nums=new int[2*n];
+			for(int j=0; j<nums.length; j++){
+				nums[j]=s.nextInt();
+			}
+			test(nums, n, k);
+		}
+		s.close();
+		
+		System.out.println(Arrays.toString(getBest(new double[]{0.6, 0.4, 0.7, 0.4, 0.5, 0.4}, new int[]{60, 10, 6, 45, 1, 4})));
+//		Point3 A=new Point3(0,3);
+//		Point3 B=new Point3(0,0);
+//		Point3 C=new Point3(4,0);
+//		Point3 D=new Point3(1,1);
+//		System.out.println(isIn2(A, B, C, D));
 	}
 
 }

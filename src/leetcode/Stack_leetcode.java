@@ -127,7 +127,10 @@ public class Stack_leetcode {
             return value.isEmpty();
         }
     }
+    
+
 	public static void main(String[] args) {
+		//System.out.println(largestRectangleArea(new int[]{2,1,2}));
 		String s="(){}[]";
 		System.out.println(isValid(s));
 	}
