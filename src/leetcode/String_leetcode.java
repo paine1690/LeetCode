@@ -359,81 +359,6 @@ public class String_leetcode {
         return re.toString();
     }
     
-    
-    
-    //28. Implement strStr()   kmp
-    
-    //17. Letter Combinations of a Phone Number
-    static String[] number=new String[]{
-    		"",
-    		"",
-    		"abc",
-    		"def",
-    		"ghi",
-    		"jkl",
-    		"mno",
-    		"pqrs",
-    		"tuv",
-    		"wxyz",
-    };
-    static int[] total=new int[]{0, 0, 3, 3, 3, 3, 3, 4, 3, 4};
-    
-    //循环求法
-    public static List<String> letterCombinations(String digits) {
-    	List<String> re=new ArrayList<String>();
-        int len=digits.length();
-        if(len==0){
-        	return re;
-        }
-        int[] answer=new int[len];     
-        
-        
-        while(true){
-        	StringBuilder s=new StringBuilder();
-        	for(int i=0; i<len; i++){
-        		s.append(number[digits.charAt(i)-'0'].charAt(answer[i]));
-        	}
-        	re.add(s.toString());
-        	int k=len-1;
-        	while(k>=0){
-        		if(answer[k]<total[digits.charAt(k)-'0']-1){
-        			answer[k]++;
-        			break;
-        		}else{
-        			answer[k]=0;
-        			k--;
-        		}
-        	}      	
-        	if(k<0){
-        		break;
-        	}
-        }    
-    	return re;
-    }
-    
-    //递归求法
-    public static List<String> letterCombinations2(String digits) {
-    	int len=digits.length();
-    	List<String> re=new ArrayList<String>();
-    	if(len==0){
-    		return re;
-    	}    	
-    	char[] chars=new char[len];
-    	dfsGet(digits, 0, chars, re);
-    	return re;    	
-    }
-    private static void dfsGet(String dig, int index, char[] chars, List<String> re){
-    	if(index==dig.length()){
-    		re.add(new String(chars));
-    		return;
-    	}
-    	int num=dig.charAt(index)-'0';
-    	for(int i=0; i<total[num]; i++){
-    		chars[index]=number[num].charAt(i);
-    		dfsGet(dig, index+1, chars, re);
-    	}
-    }
-    
     //22. Generate Parentheses
     private static void generate(List<String> re, int left, int right, StringBuilder s){
     	if(left==0&&right==0){
@@ -456,10 +381,50 @@ public class String_leetcode {
     
     
     
+    //28. Implement strStr()   kmp
+    private static int[] getNext(String p){
+    	int[] next=new int[p.length()+1];
+    	int j=0;
+    	for(int i=1; i<p.length(); i++){
+    		while(j>0&&p.charAt(i)!=p.charAt(j)){
+    			j=next[j];
+    		}
+    		if(p.charAt(i)==p.charAt(j)){
+    			j++;    			
+    		}
+    		next[i+1]=j;
+    	}
+    	
+    	return next;
+    }
+    public static int strStr(String haystack, String needle) {
+    	if(haystack.length()<1){
+    		return 0;
+    	}
+    	if(needle.length()<1){
+    		return -1;
+    	}
+    	int[] next=getNext(needle);
+    	int j=0;
+    	for(int i=0; i<haystack.length(); i++){
+    		while(j>0&&needle.charAt(j)!=haystack.charAt(i)){
+    			j=next[j];
+    		}
+    		if(needle.charAt(j)==haystack.charAt(i)){
+    			j++;
+    		}
+    		if(j==needle.length()){
+    			return i-j+1;
+    		}
+    	}    	
+        return -1;
+    }
+    
 	public static void main(String[] args) {
+		System.out.println(strStr("sababaca","ababaca"));
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
-		System.out.println(generateParenthesis(4));
+		//System.out.println(generateParenthesis(4));
 		
 		
 	}
