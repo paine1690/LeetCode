@@ -1,7 +1,11 @@
 package interview;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class NetEase {
 
@@ -65,9 +69,77 @@ public class NetEase {
 	}
 	
 	
+	public static int rev(int x){
+		int re=0;
+		while(x>0){
+			int temp=x%10;
+			re=re*10+temp;
+			x/=10;
+		}
+		return re;
+		
+	}
+	
+	public static boolean isBlack(char[] s){
+		if(s.length<3){
+			return true;
+		}
+		Map<Character, Integer> map=new HashMap<Character, Integer>();
+		map.put(s[0], 1);
+		if(map.containsKey(s[1])){
+			map.put(s[1], map.get(s[1])+1);
+		}else{
+			map.put(s[1], 1);
+		}
+		for(int i=2; i<s.length; i++){
+			char c=s[i];
+			
+			if(map.containsKey(c)){
+				map.put(c, map.get(c)+1);
+			}else{
+				map.put(c, 1);
+			}
+			if(map.size()==3){
+				return false;
+			}else{
+				char cc=s[i-2];
+				if(map.get(cc)==1){
+					map.remove(cc);
+				}else{
+					map.put(cc, map.get(cc)-1);
+				}
+			}
+		}
+		return true;
+	}
+	
 	public static void main(String[] args) {
-		xipai();
-
+		Scanner in = new Scanner(System.in);
+        int len=in.nextInt();
+        char[] chars=new char[len];
+        Arrays.fill(chars, 'a');
+        int count=0, re=0;
+        
+        while(true){
+        	chars[count]++;
+        	System.out.println(Arrays.toString(chars));
+        	int k=count++-1;
+        	System.out.println(k);
+            while(k>=0){
+            	if(chars[k]<='b'){
+            		chars[k]++;
+            	}else{
+            		chars[k]='a';
+            		k--;
+            	}
+            	System.out.println(Arrays.toString(chars));
+            }
+            if(count>chars.length-1){
+            	break;
+            }
+            
+        }
+        
 	}
 
 }

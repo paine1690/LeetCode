@@ -1,6 +1,10 @@
 package leetcode;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 
 public class Stack_leetcode {
@@ -237,15 +241,59 @@ public class Stack_leetcode {
     }
     
     
+    public static int getLuckyPrice(int price, List<Integer> unluckNumbers) {
+        Set<Integer> set=new HashSet<Integer>(unluckNumbers);
+    	int re=0;
+    	while(price!=0){
+    		int temp=price%10;
+    		System.out.println(temp);
+    		while(temp==0||set.contains(temp)){
+    			temp++;
+    		}
+    		System.out.println("temp"+temp);
+    		re=re*10+temp;
+    		price/=10;
+    	}
+    	return re;
+    }
+    
+    
+    public static int getLongestLength(List<Integer> array) {
+        int len=array.size();
+        int[] dp=new int[len];
+        for(int i=1; i<array.size(); i++){
+        	for(int k=dp[i-1]; k>=0; k--){
+        		int j=i-dp[i-k]*2-1;
+        		if(j>=0&&array.get(i)+array.get(j)==0){
+        			dp[i]=dp[i-k]+1;
+        			break;
+        		}
+        	}
+        }
+        int re=0; 
+        System.out.println(Arrays.toString(dp));
+        for(int i=dp.length-1; i>=0; i--){
+        	dp[i]+=dp[i-dp[i]];
+        }
+        System.out.println(Arrays.toString(dp));
+        for(int i=0; i<dp.length; i++){
+        	re=Math.max(re, dp[i]);
+        }
+        return re*2;
+    }
     
 	public static void main(String[] args) {
-		char[][] matrix=new char[][]{
-			{'1','0','1','0','0'},
-			{'1','0','1','1','1'},
-			{'1','1','1','1','1'},
-			{'1','0','0','1','0'}
-		};
-		System.out.println(maximalRectangle(matrix));
+		List<Integer> list=Arrays.asList(1,-1,1,-1,1,1,-1,-1);
+		System.out.println(getLongestLength(list));
+		
+		
+//		char[][] matrix=new char[][]{
+//			{'1','0','1','0','0'},
+//			{'1','0','1','1','1'},
+//			{'1','1','1','1','1'},
+//			{'1','0','0','1','0'}
+//		};
+//		System.out.println(maximalRectangle(matrix));
 //		System.out.println(largestRectangleArea2(new int[]{4,2,0,3,2,5}));
 //		String s="(){}[]";
 //		System.out.println(isValid(s));

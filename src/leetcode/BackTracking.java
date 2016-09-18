@@ -64,9 +64,52 @@ public class BackTracking {
 		return re;
     }
 	
+	
+	//131. Palindrome Partitioning
+	private static boolean isPalindrome(String s, int i, int j){
+		while(i<j){
+			if(s.charAt(i)!=s.charAt(j)){
+				return false;
+			}
+			i++;
+			j--;
+		}
+		return true;
+	}
+	
+	static List<List<String>> re;
+	
+	private static void parti(String s, int start, int end, List<String> list){
+		if(start>=end){
+			System.out.println("re:"+list);
+			re.add(new ArrayList<String>(list));
+			return;
+		}
+		
+		for(int i=start; i<end; i++){
+			if(isPalindrome(s, start, i)){
+				list.add(s.substring(start, i+1));
+				System.out.println("add "+start+" "+i+" "+list);
+				parti(s, i+1, end, list);
+				list.remove(list.size()-1);
+				System.out.println(list);
+			}
+		}
+	}
+	
+    public static List<List<String>> partition(String s) {
+        re=new ArrayList<List<String>>();
+    	List<String> list=new ArrayList<String>();
+    	parti(s, 0, s.length(), list);  
+    	return re;
+    }
+	
+
 	public static void main(String[] args) {
-		int[] nums={1,1,2};
-		System.out.println(permuteUnique(nums));
+		String s="aaba";
+		System.out.println(partition(s));
+//		int[] nums={1,1,2};
+//		System.out.println(permuteUnique(nums));
 
 	}
 

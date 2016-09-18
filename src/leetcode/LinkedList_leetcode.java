@@ -8,6 +8,16 @@ public class LinkedList_leetcode {
 		int val;
    	 	ListNode next;
    	 	ListNode(int x) { val = x; }
+   	 	
+   	 	
+   	 	
+   	 	ListNode a=new ListNode(val);
+   	 	ListNode b=new ListNode(val);
+   	 	
+   	 	
+   	 	
+   	 	
+   	 	
 	}
 	
 	/*
