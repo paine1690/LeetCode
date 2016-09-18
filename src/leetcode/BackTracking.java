@@ -171,9 +171,41 @@ public class BackTracking {
     	return re;    	
     }
     
+    //93. Restore IP Addresses
+    private static void dfsGet(List<String> re, String s, String[] strs, int index, int start){
+    	if(index>=strs.length){
+    		if(start>=s.length()){
+    			StringBuilder temp=new StringBuilder(strs[0]);
+        		for(int i=1; i<strs.length; i++){
+        			temp.append(".").append(strs[i]);
+        		}
+        		re.add(temp.toString());
+        		
+    		}
+    		return;
+    	}
+    	
+    	for(int i=1; i<=3&&start+i<=s.length(); i++){
+    		String temp=s.substring(start, start+i);
+    		if(temp.length()==1||(Integer.valueOf(temp)<=255&&temp.charAt(0)!='0')){
+    			strs[index]=temp;
+        		dfsGet(re, s, strs, index+1, start+i);
+    			
+    		}    		
+    	}    	
+    	
+    }
+    
+    public static List<String> restoreIpAddresses(String s) {
+        List<String> re=new ArrayList<String>();
+        String[] strs=new String[4];
+        dfsGet(re, s, strs, 0, 0);
+        return re;
+    }
+    
 	public static void main(String[] args) {
-		String s="2";
-		System.out.println(letterCombinations2(s));
+		String s="010010";
+		System.out.println(restoreIpAddresses(s));
 //		int[] nums={1,1,2};
 //		System.out.println(permuteUnique(nums));
 
