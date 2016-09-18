@@ -81,7 +81,6 @@ public class BackTracking {
 	
 	private static void parti(String s, int start, int end, List<String> list){
 		if(start>=end){
-			System.out.println("re:"+list);
 			re.add(new ArrayList<String>(list));
 			return;
 		}
@@ -89,10 +88,8 @@ public class BackTracking {
 		for(int i=start; i<end; i++){
 			if(isPalindrome(s, start, i)){
 				list.add(s.substring(start, i+1));
-				System.out.println("add "+start+" "+i+" "+list);
 				parti(s, i+1, end, list);
 				list.remove(list.size()-1);
-				System.out.println(list);
 			}
 		}
 	}
@@ -104,10 +101,79 @@ public class BackTracking {
     	return re;
     }
 	
-
+    //17. Letter Combinations of a Phone Number
+    static String[] number=new String[]{
+    		"",
+    		"",
+    		"abc",
+    		"def",
+    		"ghi",
+    		"jkl",
+    		"mno",
+    		"pqrs",
+    		"tuv",
+    		"wxyz",
+    };
+    static int[] total=new int[]{0, 0, 3, 3, 3, 3, 3, 4, 3, 4};
+    
+    public List<String> letterCombinations(String digits) {
+        List<String> re=new ArrayList<String>();
+        if(digits.length()<1){
+        	return re;
+        }
+        int[] answer=new int[digits.length()];
+        
+        while(true){
+        	StringBuilder s=new StringBuilder();
+        	for(int i=0; i<digits.length(); i++){
+        		s.append(number[digits.charAt(i)-'0'].charAt(answer[i]));
+        	}
+        	re.add(s.toString());
+        	int k=digits.length()-1;
+        	while(k>=0){
+        		if(answer[k]<total[digits.charAt(k)-'0']-1){
+        			answer[k]++;
+        			break;
+        		}else{
+        			answer[k]=0;
+        			k--;
+        		}
+        	}
+        	if(k<0){
+        		break;
+        	}
+        }
+        return re;
+    }
+    
+    //17. Letter Combinations of a Phone Number
+    public static void dfsGet(List<String> re, String s, char[] chars, int start){
+    	if(start>=s.length()){
+    		re.add(new String(chars));
+    		return;
+    	}
+    	System.out.println(start+""+s.length());
+    	for(int i=0; i<total[s.charAt(start)-'0']; i++){
+    		chars[start]=number[s.charAt(start)-'0'].charAt(i);
+    		dfsGet(re, s, chars, start+1);
+    	}    	
+    	
+    }
+    
+    public static List<String> letterCombinations2(String digits) {
+    	List<String> re=new ArrayList<String>();
+    	if(digits.length()<1){
+    		return re;
+    	}
+    	char[] chars=new char[digits.length()];
+    	dfsGet(re, digits, chars, 0);    	
+    	
+    	return re;    	
+    }
+    
 	public static void main(String[] args) {
-		String s="aaba";
-		System.out.println(partition(s));
+		String s="2";
+		System.out.println(letterCombinations2(s));
 //		int[] nums={1,1,2};
 //		System.out.println(permuteUnique(nums));
 
