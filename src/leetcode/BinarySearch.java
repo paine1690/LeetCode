@@ -326,16 +326,9 @@ public class BinarySearch {
     
     //4. Median of Two Sorted Arrays
     
-    
-    
-    
-    
-    
-    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] nums={1,2,3};
-		
-		System.out.println(missingNumber(nums));
+		//int[] nums={3,24,50,79,88,150,345};		
+		//System.out.println(Arrays.toString(twoSum(nums,200)));
 	}
 }
