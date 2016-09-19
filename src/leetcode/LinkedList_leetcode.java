@@ -7,16 +7,7 @@ public class LinkedList_leetcode {
 	public static class ListNode {
 		int val;
    	 	ListNode next;
-   	 	ListNode(int x) { val = x; }
-   	 	
-   	 	
-   	 	
-   	 	ListNode a=new ListNode(val);
-   	 	ListNode b=new ListNode(val);
-   	 	
-   	 	
-   	 	
-   	 	
+   	 	ListNode(int x) { val = x; } 	 	
    	 	
 	}
 	
@@ -667,12 +658,45 @@ public class LinkedList_leetcode {
     	return null;
     }
     
+    //25. Reverse Nodes in k-Group
+    private static ListNode reverse(ListNode head){
+    	ListNode p=head,re=null,next;
+    	while(p!=null){
+    		next=p.next;
+    		p.next=re;
+    		re=p;
+    		p=next;
+    	}
+    	return re;
+    }
+    public static ListNode reverseKGroup(ListNode head, int k) {
+        ListNode re=new ListNode(-1);
+        re.next=head;
+        ListNode pre=re, p=head, q, next;
+        while(p!=null){
+        	q=p;
+        	for(int i=1; i<k; i++){
+        		q=q.next;
+        		if(q==null){
+        			pre.next=p;
+        			return re.next;
+        		}		
+        	}
+        	next=q.next;
+        	q.next=null;
+        	pre.next=reverse(p);
+        	pre=p;
+        	p=next;
+        }        
+        return re.next;
+    }
+    
 	public static void main(String[] args) {
-		int[] aa={1,2,3,4,5,6};
+		int[] aa={1,2,3,4,5};
 //		int[] bb={5,6,4};
 		ListNode list1=listNodeGenerator(aa);
 //		ListNode list2=listNodeGenerator(bb);
-		printList(rotateRight(list1,8));
+		printList(reverseKGroup(list1,4));
 		
 	}
 

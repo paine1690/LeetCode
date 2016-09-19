@@ -324,7 +324,6 @@ public class BinarySearch {
     	return right+1;
     }
     
-    //4. Median of Two Sorted Arrays
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
