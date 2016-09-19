@@ -203,6 +203,52 @@ public class BackTracking {
         return re;
     }
     
+    //79. Word Search
+    static char[][] matrix;
+    static int m, n;
+    private static boolean dfsSearch(String s, int index, int i, int j){
+    	if(index>=s.length()){
+    		return true;
+    	}
+    	
+    	char temp=matrix[i][j];
+    	matrix[i][j]='0';
+    	
+    	if(i-1>=0&&matrix[i-1][j]==s.charAt(index)&&dfsSearch(s, index+1, i-1, j)){
+    		return true;
+    	}
+    	if(j-1>=0&&matrix[i][j-1]==s.charAt(index)&&dfsSearch(s, index+1, i, j-1)){
+    		return true;
+    	}
+    	if(i+1<m&&matrix[i+1][j]==s.charAt(index)&&dfsSearch(s, index+1, i+1, j)){
+    		return true;
+    	}
+    	if(j+1<n&&matrix[i][j+1]==s.charAt(index)&&dfsSearch(s, index+1, i, j+1)){
+    		return true;
+    	}    
+    	matrix[i][j]=temp;
+    	return false;
+    }
+    
+    public static boolean exist(char[][] board, String word) {
+        if(board.length==0||board[0].length==0||word.length()==0){
+        	return false;
+        }
+        m=board.length;
+        n=board[0].length;
+    	for(int i=0; i<m; i++){
+    		for(int j=0; j<n; j++){
+    			if(word.charAt(0)==board[i][j]){
+    				matrix=board.clone();
+    				if(dfsSearch(word, 1, i, j)){
+    					return true;
+    				}
+    			}
+    		}
+    	}
+    	return false;
+    }
+    
 	public static void main(String[] args) {
 		String s="010010";
 		System.out.println(restoreIpAddresses(s));
