@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -248,6 +249,52 @@ public class BackTracking {
     	}
     	return false;
     }
+    
+    //401. Binary Watch
+    private static void printTime(List<String> re, boolean[] b){
+    	int min=0, hour=0, temp=1;
+    	for(int i=3; i>=0; i--){
+    		hour+=b[i]? temp: 0;
+    		temp*=2;
+    	}
+    	if(hour>11){
+    		return;
+    	}
+    	
+		temp=1;
+		for(int i=9; i>=4; i--){
+			min+=b[i]? temp: 0;
+    		temp*=2;
+		}	
+    	if(min>=60){
+    		return;
+    	}
+    	DecimalFormat df = new DecimalFormat("00"); 
+    	String s=hour+":"+df.format(min);
+    	re.add(s);
+    	
+    }
+    
+    private static void permute(List<String> re, boolean[] b, int index, int count, int num){
+    	if(index>=b.length){
+    		if(count==num){
+    			printTime(re, b);
+    		}
+    		return;
+    	}
+    	b[index]=false;
+    	permute(re, b, index+1, count, num);
+    	b[index]=true;
+    	permute(re, b, index+1, count+1, num);
+    }
+    
+    public static List<String> readBinaryWatch(int num) {
+        List<String> re=new ArrayList<String>();
+    	boolean[] b=new boolean[10];
+    	permute(re,b, 0, 0, num);    	
+    	return re;
+    }
+    
     
 	public static void main(String[] args) {
 		String s="010010";
