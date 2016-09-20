@@ -2,6 +2,7 @@ package leetcode;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BackTracking {
@@ -295,10 +296,46 @@ public class BackTracking {
     	return re;
     }
     
+    //357. Count Numbers with Unique Digits
+    static int count;
+    private static void dfsCount(int[] nums, boolean[] isUsed, int index, int n){
+    	if(index>=n){
+    		count++;
+    		//System.out.println(Arrays.toString(nums));
+    		return;
+    	}
+    	
+    	for(int i=0; i<10; i++){
+    		if(!isUsed[i]){
+    			nums[index]=i;
+    			boolean flag=true;
+    			if(i==0){
+    				flag=false;
+    				for(int j=1; j<10; j++){
+    					flag|=isUsed[j];
+    				}
+    			}    			
+    			if(flag){
+    				isUsed[i]=true;
+    			}
+        		dfsCount(nums, isUsed, index+1, n);
+        		isUsed[i]=false;
+    		}
+    	}
+    }
     
+    public static int countNumbersWithUniqueDigits(int n) {
+    	count=0;
+    	int[] nums=new int[n];
+    	boolean[] isUsed=new boolean[10];
+    	dfsCount(nums, isUsed, 0, n);
+    	
+    	return count;
+    }
 	public static void main(String[] args) {
-		String s="010010";
-		System.out.println(restoreIpAddresses(s));
+		System.out.println(countNumbersWithUniqueDigits(0));
+//		String s="010010";
+//		System.out.println(restoreIpAddresses(s));
 //		int[] nums={1,1,2};
 //		System.out.println(permuteUnique(nums));
 
