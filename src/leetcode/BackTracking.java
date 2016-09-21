@@ -2,6 +2,7 @@ package leetcode;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BackTracking {
@@ -357,8 +358,32 @@ public class BackTracking {
     	return re;
     }
     
+    //39. Combination Sum
+    private static void dfsSum(List<List<Integer>> re, List<Integer> list, int start, int target, int[] nums){
+    	if(target==0){
+    		re.add(new ArrayList<Integer>(list));
+    		return;
+    	}else if(target<0){
+    		return;
+    	}else{
+    		for(int i=start; i<nums.length; i++){
+    			list.add(nums[i]);
+    			dfsSum(re, list, i, target-nums[i], nums);
+    			list.remove(list.size()-1);
+    		}
+    	}  	
+    }
+    
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        List<Integer> list=new ArrayList<Integer>();
+        Arrays.sort(candidates);
+        dfsSum(re, list, 0, target, candidates);
+        return re;
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(combine(4,2));
+		System.out.println(combinationSum(new int[]{2,3,6,7},7));
 //		System.out.println(countNumbersWithUniqueDigits(0));
 //		String s="010010";
 //		System.out.println(restoreIpAddresses(s));
