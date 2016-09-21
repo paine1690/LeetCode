@@ -3,9 +3,7 @@ package leetcode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class BackTracking {
 	
@@ -385,16 +383,15 @@ public class BackTracking {
     }
     
     //40. Combination Sum II
-    private static void dfsSum2(Set<List<Integer>> re, List<Integer> list, int start, int target, int[] nums){
+    private static void dfsSum2(List<List<Integer>> re, List<Integer> list, int start, int target, int[] nums){
     	if(target==0){
     		re.add(new ArrayList<Integer>(list));
     		return;
     	}else if(target<0){
     		return;
     	}else{
-
     		for(int i=start; i<nums.length; i++){    
-        		if(list.isEmpty()&&i>0&&nums[i]==nums[i-1]){
+        		if(start!=i&&nums[i]==nums[i-1]){
         			continue;
         		}
     			list.add(nums[i]);
@@ -403,12 +400,13 @@ public class BackTracking {
     		}
     	}  	
     }
+    
     public static List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        Set<List<Integer>> re=new HashSet<List<Integer>>();
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
         List<Integer> list=new ArrayList<Integer>();
         Arrays.sort(candidates);
         dfsSum2(re, list, 0, target, candidates);
-        return new ArrayList<List<Integer>>(re);
+        return re;
     }
     
     
