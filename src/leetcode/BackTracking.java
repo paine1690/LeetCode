@@ -2,7 +2,6 @@ package leetcode;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class BackTracking {
@@ -332,8 +331,35 @@ public class BackTracking {
     	
     	return count;
     }
+    
+    //77. Combinations
+    private static void dfsCombine(List<List<Integer>> re, List<Integer> list, int index, int k, int n){
+    	if(list.size()>=k){
+    		re.add(new ArrayList<Integer>(list));
+    		return;
+    	}
+    	
+    	for(int i=index; i<=n; i++){
+    		list.add(i);    		
+    		if(list.size()+n-index>=k){
+        		dfsCombine(re, list, i+1, k, n);
+    		}    		
+    		list.remove(list.size()-1);
+    	}    	
+    }
+    
+    public static List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        if(n<=0 || n<k)  
+            return re;
+        List<Integer> list=new ArrayList<Integer>();
+    	dfsCombine(re, list, 1, k, n);    	
+    	return re;
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(countNumbersWithUniqueDigits(0));
+		System.out.println(combine(4,2));
+//		System.out.println(countNumbersWithUniqueDigits(0));
 //		String s="010010";
 //		System.out.println(restoreIpAddresses(s));
 //		int[] nums={1,1,2};
