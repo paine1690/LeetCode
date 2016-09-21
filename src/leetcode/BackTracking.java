@@ -409,9 +409,38 @@ public class BackTracking {
         return re;
     }
     
+    //216. Combination Sum III
+    private static void dfsSum3(List<List<Integer>> re, List<Integer> list, int start, int k, int target){
+    	if(list.size()>=k){
+    		if(target==0){
+    			re.add(new ArrayList<Integer>(list));
+    		}
+    		return;
+    	}
+    	if(target<=0){
+    		return;
+    	}else{
+    		for(int i=start; i<10; i++){
+				list.add(i);
+				dfsSum3(re, list, i+1, k, target-i);
+				list.remove(list.size()-1);    			
+    		}
+    	}    	
+    }
+    
+    public static List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        List<Integer> list=new ArrayList<Integer>();
+        dfsSum3(re, list, 1, k, n);        
+        return re;
+    }
+    
     
 	public static void main(String[] args) {
-		System.out.println(combinationSum2(new int[]{2,2,2}, 4));
+		
+		
+		
+		System.out.println(combinationSum3(3, 9));
 //		System.out.println(countNumbersWithUniqueDigits(0));
 //		String s="010010";
 //		System.out.println(restoreIpAddresses(s));
