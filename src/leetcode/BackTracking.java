@@ -435,12 +435,27 @@ public class BackTracking {
         return re;
     }
     
+    //78. Subsets
+    private static void dfsSub(List<List<Integer>> re, List<Integer> list, int[] nums, int start){
+   		re.add(new ArrayList<Integer>(list));
+    	for(int i=start; i<nums.length; i++){
+    		list.add(nums[i]);
+    		dfsSub(re, list, nums, i+1);
+    		list.remove(list.size()-1);
+    	}    	
+    }
     
-	public static void main(String[] args) {
-		
-		
-		
-		System.out.println(combinationSum3(3, 9));
+    public static List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        List<Integer> list=new ArrayList<Integer>();
+        Arrays.sort(nums);
+        dfsSub(re, list, nums, 0);
+        return re;
+    }
+    
+    
+	public static void main(String[] args) {	
+		System.out.println(subsets(new int[]{1,2,3}));
 //		System.out.println(countNumbersWithUniqueDigits(0));
 //		String s="010010";
 //		System.out.println(restoreIpAddresses(s));
