@@ -474,8 +474,21 @@ public class BackTracking {
         return re;
     }
     
+    //89. Gray Code
+    public static List<Integer> grayCode(int n) {
+        List<Integer> re=new ArrayList<Integer>();
+        re.add(0);
+        for(int i=0; i<n; i++){
+        	int len=re.size()-1;
+        	int temp=re.size();
+        	while(len>=0){
+        		re.add(re.get(len--)+temp);
+        	}
+        }         
+        return re;
+    }
 	public static void main(String[] args) {	
-		System.out.println(subsets(new int[]{1,2,3}));
+		System.out.println(grayCode(1));
 //		System.out.println(countNumbersWithUniqueDigits(0));
 //		String s="010010";
 //		System.out.println(restoreIpAddresses(s));
