@@ -453,6 +453,26 @@ public class BackTracking {
         return re;
     }
     
+    //90. Subsets II
+    private static void dfsSub2(List<List<Integer>> re, List<Integer> list, int[] nums, int start){
+   		re.add(new ArrayList<Integer>(list));
+    	for(int i=start; i<nums.length; i++){
+    		if(start!=i&&nums[i]==nums[i-1]){
+    			continue;
+    		}
+    		list.add(nums[i]);
+    		dfsSub2(re, list, nums, i+1);
+    		list.remove(list.size()-1);
+    	}    	
+    }
+    
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        List<Integer> list=new ArrayList<Integer>();
+        Arrays.sort(nums);
+        dfsSub2(re, list, nums, 0);
+        return re;
+    }
     
 	public static void main(String[] args) {	
 		System.out.println(subsets(new int[]{1,2,3}));
