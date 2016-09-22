@@ -487,8 +487,81 @@ public class BackTracking {
         }         
         return re;
     }
+    
+    //37. Sudoku Solver
+    static boolean flag;
+    
+    private static boolean isValid(char[][] sodu, int m, int n){
+    	char val=sodu[m][n];
+    	for(int i=0; i<9; i++){
+    		if(i!=m&&sodu[i][n]==val){
+    			return false;
+    		}
+    	}
+    	for(int j=0; j<9; j++){
+    		if(j!=n&&sodu[m][j]==val){
+    			return false;
+    		}
+    	}
+    	for(int i=m/3*3; i<m/3*3+3; i++){
+    		for(int j=n/3*3; j<n/3*3+3; j++){
+    			if(i!=m&&j!=n&&sodu[i][j]==val){
+    				return false;
+    			}
+    		}
+    	}    	
+    	return true;
+    }
+    
+    private static void dfsSudoku(List<Integer> list, char[][] board, int index){
+    	if(index>=list.size()){
+    		flag=false;
+    		return;
+    	}
+    	
+    	int k=list.get(index);
+    	int i=k/9, j=k%9;
+    	
+    	for(char c='1'; c<='9'; c++){
+    		board[i][j]=c;
+    		if(isValid(board, i, j)){
+    			dfsSudoku(list, board, index+1);
+        		if(!flag){
+        			break;
+        		}
+    		}
+    		board[i][j]='.';
+    	}       	
+    }
+    
+    public static void solveSudoku(char[][] board) {
+    	List<Integer> list=new ArrayList<Integer>();
+        for(int k=0; k<81; k++){
+        	int i=k/9, j=k%9;
+        	if(board[i][j]=='.'){
+        		list.add(k);        		
+        	}
+        }
+        flag=true;
+        dfsSudoku(list, board, 0); 
+        for(int i=0; i<board.length; i++){
+        	System.out.println(Arrays.toString(board[i]));
+        }
+    }
+    
 	public static void main(String[] args) {	
-		System.out.println(grayCode(1));
+		char[][] c={
+				"..9748...".toCharArray(),//		"519748632",
+				"7........".toCharArray(),//		"783652419",
+				".2.1.9...".toCharArray(),//		"426139875",
+				"..7...24.".toCharArray(),//		"357986241",
+				".64.1.59.".toCharArray(),//		"264317598",
+				".98...3..".toCharArray(),//		"198524367",
+				"...8.3.2.".toCharArray(),//		"975863124",
+				"........6".toCharArray(),//		"832491756",
+				"...2759..".toCharArray()//			"641275983"
+		};
+		solveSudoku(c);
 //		System.out.println(countNumbersWithUniqueDigits(0));
 //		String s="010010";
 //		System.out.println(restoreIpAddresses(s));
