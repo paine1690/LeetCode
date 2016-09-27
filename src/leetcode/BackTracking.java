@@ -549,19 +549,36 @@ public class BackTracking {
         }
     }
     
-	public static void main(String[] args) {	
-		char[][] c={
-				"..9748...".toCharArray(),//		"519748632",
-				"7........".toCharArray(),//		"783652419",
-				".2.1.9...".toCharArray(),//		"426139875",
-				"..7...24.".toCharArray(),//		"357986241",
-				".64.1.59.".toCharArray(),//		"264317598",
-				".98...3..".toCharArray(),//		"198524367",
-				"...8.3.2.".toCharArray(),//		"975863124",
-				"........6".toCharArray(),//		"832491756",
-				"...2759..".toCharArray()//			"641275983"
-		};
-		solveSudoku(c);
+    //51. N-Queens
+    public static List<List<String>> solveNQueens(int n) {
+        List<List<String>> re=new ArrayList<List<String>>();
+        char[][] chars=new char[n][n];
+        for(int i=0; i<chars.length; i++){
+        	Arrays.fill(chars[i], '.');
+        	System.out.println(Arrays.toString(chars[i]));
+        }
+        
+        return re;
+    }
+    
+    
+	public static void main(String[] args) {
+
+		
+		
+		
+//		char[][] c={
+//				"..9748...".toCharArray(),//		"519748632",
+//				"7........".toCharArray(),//		"783652419",
+//				".2.1.9...".toCharArray(),//		"426139875",
+//				"..7...24.".toCharArray(),//		"357986241",
+//				".64.1.59.".toCharArray(),//		"264317598",
+//				".98...3..".toCharArray(),//		"198524367",
+//				"...8.3.2.".toCharArray(),//		"975863124",
+//				"........6".toCharArray(),//		"832491756",
+//				"...2759..".toCharArray()//			"641275983"
+//		};
+//		solveSudoku(c);
 //		System.out.println(countNumbersWithUniqueDigits(0));
 //		String s="010010";
 //		System.out.println(restoreIpAddresses(s));

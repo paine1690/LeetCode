@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Design {
 	//208. Implement Trie (Prefix Tree)
@@ -272,13 +273,110 @@ public class Design {
 		}		
 	}
 	
-
+	
+	
+	
+	//146. LRU Cache
+	class Node{
+		int key, val;
+		Node before, after;	
+		
+		public Node(int key, int v){
+			this.key=key;
+			this.val=v;
+		}	
+	}
+	
+	class LRUCache {		
+		Map<Integer, Node> map;
+		int cap;
+		Node head, tail;
+		
+	    public LRUCache(int capacity) {
+	       map=new HashMap<Integer, Node>();
+	       this.cap=capacity;
+	       head=null;
+	       tail=null;
+	    }
+	    
+	    public int get(int key) {
+	        Node node=map.get(key);
+	        if(node==null){
+	        	return -1;
+	        }else{
+	        	afterAccess(node);
+	        	return node.val;
+	        }
+	    }
+	    
+	    public void set(int key, int value) {
+	        Node node=map.get(key);
+	        if(node==null){  //put
+	        	node=new Node(key, value);
+	        	Node temp=tail;
+	        	tail=node;
+	        	if(temp==null){
+	        		head=node;
+	        	}else{
+	        		node.before=temp;
+	        		temp.after=node;
+	        	}
+	        	map.put(key, node);  
+	        	afterInsert();
+	        }else{
+	        	node.val=value;
+	        	afterAccess(node);
+	        }
+	    }
+	    
+	    private void afterInsert(){
+        	if(map.size()>cap){
+        		Node node=head;
+        		map.remove(head.key);
+        		Node after=node.after;
+        		after.before=null;
+        		node.after=null;
+        		head=after;
+        	}
+	    }
+	    
+	    private void afterAccess(Node node){
+        	if(tail!=node){
+        		Node before=node.before;
+        		Node after=node.after;
+        		
+        		if(node==head){
+        			head=after;
+        			head.before=null;
+        		}else{
+        			before.after=after;
+        			after.before=before;
+        		}
+        		
+        		node.before=tail;
+        		node.after=null;
+        		tail.after=node;
+        		tail=node;	        		
+        	}
+	    }
+	}
+	
+	
+	
+	
+	
 	public void run(){
-		System.out.println("fsd");
-		NumArray n=new NumArray(new int[]{1,3,5});
-		System.out.println(n.sumRange(0, 2));
-		n.update(1, 2);
-		System.out.println(n.sumRange(0, 2));
+		LRUCache l=new LRUCache(1);
+		l.set(2, 1);
+		System.out.println(l.get(2));
+		l.set(3, 2);
+		System.out.println(l.get(2));
+		System.out.println(l.get(3));
+//		System.out.println("fsd");
+//		NumArray n=new NumArray(new int[]{1,3,5});
+//		System.out.println(n.sumRange(0, 2));
+//		n.update(1, 2);
+//		System.out.println(n.sumRange(0, 2));
 //		WordDictionary dic=new WordDictionary();
 //		dic.addWord("a");
 //		dic.addWord("ab");
