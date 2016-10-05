@@ -1,51 +1,82 @@
 package codingInterviews;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 public class Chapter3 {
 	
+	
+	
+	
+	
 	/*
-	 * 12
-	 * 打印从1到最大的n位数
-	 * 注意数字溢出
+	 * 11、数值的整数次方
 	 */
 	
-	private static void print(int[] nums){
-		//System.out.println(Arrays.toString(nums));
+	public static double pow(double x, int n){
+		if(n<0){
+			if(n==Integer.MIN_VALUE){
+				return 1/pow(x, Integer.MAX_VALUE)*x;
+			}else{
+				return 1/pow(x, -n);
+			}
+		}
+		if(n==0){
+			return 1.0;
+		}
+		double re=1.0;
+		while(n!=0){
+			if((n&1)==1){
+				re*=x;
+			}
+			x*=x;
+			n>>=1;
+		}
+		return re;		
+	}
+	
+	
+	/*
+	 * 12、 打印从1到最大的n位数
+	 * 注意数字溢出  数组 回溯
+	 */
+	private static void printNums(int[] nums){
 		int i=0;
 		while(i<nums.length&&nums[i]==0){
 			i++;
 		}
+		StringBuilder s=new StringBuilder();
 		for(; i<nums.length; i++){
-			System.out.print(nums[i]);
-		}
-		System.out.println("");
+			s.append(nums[i]);
+		}		
+		System.out.println(s.toString());
 	}
-	private static void printNum(int[] nums, int n, int index){
-		if(n==0){
-			print(nums);
+	
+	private static void dfsNums(int[] nums, int index){
+		if(index==nums.length){
+			printNums(nums);
 			return;
 		}
 		for(int i=0; i<10; i++){
 			nums[index]=i;
-			printNum(nums, n-1, index+1);
-		}	
+			dfsNums(nums, index+1);
+		}		
 	}
 	
-	public static void printN(int n){
+	public static void printNums(int n){
 		int[] nums=new int[n];
-		for(int i=0; i<10; i++){
-			nums[0]=i;
-			printNum(nums, n-1, 1);
-		}
+		dfsNums(nums, 0);
+		
 	}
 	
 	/*
-	 * 14
-	 * 调整数组顺序使奇数位于偶数前面
+	 * 13、O(1)时间删除链表结点
+	 * 
+	 * leetcode 237. Delete Node in a Linked List
+	 */
+	
+	
+	/*
+	 * 14、 调整数组顺序使奇数位于偶数前面
 	 */
 	public static void adjust(int[] nums){
 		int i=0, j=nums.length-1;
@@ -70,15 +101,8 @@ public class Chapter3 {
 	
 	
 	public static void main(String[] args) {
-		Map<Integer, String> map=new HashMap<Integer, String>();
-		map.put(1, "1");
-		map.put(2, "2");
-		Set<Integer> keySet=map.keySet();
-		System.out.println(keySet.contains(1));//true
-		map.remove(1);
-		System.out.println(keySet.contains(1));//false
-		keySet.remove(2);
-		System.out.println(map.size());//0
+		printNums(3);
+		//System.out.println(pow(0, -5));
 	}
 
 }
