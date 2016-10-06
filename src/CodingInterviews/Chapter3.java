@@ -2,12 +2,16 @@ package codingInterviews;
 
 import java.util.Arrays;
 
-public class Chapter3 {
-	
-	
-	
-	
-	
+/**
+ * 		第三章 高质量的代码
+ * 
+ * 规范性
+ * 完整性    测试样例：功能测试，边界测试，负面测试
+ * 鲁棒性    链表或指针  多考虑null
+ * @author Paine
+ *
+ */
+public class Chapter3 {	
 	/*
 	 * 11、数值的整数次方
 	 */	
@@ -113,7 +117,6 @@ public class Chapter3 {
 			}
 		}
 		
-		
 		ListNode re=head;
 		while(pNode.next!=null){
 			pNode=pNode.next;
@@ -165,6 +168,34 @@ public class Chapter3 {
 		
 		return re.next;
 	}
+	
+	/*
+	 * 18、树的子结构
+	 */
+	private static boolean isSame(TreeNode root1, TreeNode root2){
+		if(root2==null){
+			return true;
+		}
+		if(root1==null){
+			return false;
+		}
+		if(root1.val==root2.val){
+			return isSame(root1.left, root2.left)&&isSame(root1.right, root2.right);
+		}
+		return false;		
+	}
+	
+	public static boolean subTree(TreeNode root1, TreeNode root2){
+		if(root1==null||root2==null){
+			return false;
+		}
+		if(root1.val==root2.val&&isSame(root1, root2)){
+			return true;
+		}
+		return subTree(root1.left, root2)||subTree(root1.right, root2);
+	}
+	
+	
 	
 	public static void main(String[] args) {
 		printNums(3);
