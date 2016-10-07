@@ -118,8 +118,70 @@ public class Chapter4 {
     	return re;
     }
     
+    /*
+     * 24、二叉搜索树的后续遍历序列
+     */
+    private static boolean isBST(int[] nums, int start, int end){
+    	if(start>=end){
+    		return true;
+    	}
+    	int mid=start;
+    	while(nums[mid]<nums[end]){
+    		mid++;
+    	}
+    	for(int i=mid; i<end; i++){
+    		if(nums[i]<nums[end]){
+    			return false;
+    		}
+    	}
+    	return isBST(nums, start, mid-1)&&isBST(nums, mid, end-1);    	
+    }
+    
+    
+    public static boolean verifySquenceOfBST(int [] sequence) {
+        if(sequence.length==0){
+        	return false;
+        }    
+    	return isBST(sequence, 0, sequence.length-1);
+    }
+    
+    /*
+     * 25、二叉树中和为某一值的路径
+     */
+    private static void find(ArrayList<ArrayList<Integer>> re, ArrayList<Integer> list, int target, TreeNode root, List<TreeNode> temp){
+    	temp.add(root);
+    	list.add(root.val);
+    	if(root.left==null&&root.right==null){
+    		if(target==root.val){
+    			re.add(new ArrayList<Integer>(list));
+    		}
+    		return;
+    	}    	
+    	if(root.left!=null){
+    		find(re, list, target-root.val, root.left, temp);
+    		temp.remove(temp.size()-1);
+    		list.remove(list.size()-1);
+    	}
+    	if(root.right!=null){
+    		find(re, list, target-root.val, root.right, temp);
+    		temp.remove(temp.size()-1);
+    		list.remove(list.size()-1);
+    	}
+    }
+    
+    public static ArrayList<ArrayList<Integer>> findPath(TreeNode root,int target) {
+    	ArrayList<ArrayList<Integer>> re=new ArrayList<ArrayList<Integer>>();
+    	if(root==null){
+    		return re; 
+    	}
+    	ArrayList<Integer> list=new ArrayList<Integer>();
+    	List<TreeNode> temp=new ArrayList<TreeNode>();
+    	find(re, list, target, root, temp);
+    	return re;
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(isPopOrder(new int[]{}, new int[]{}));
+		System.out.println(verifySquenceOfBST(new int[]{1}));
 //		int[][] matrix=new int[][]{
 //			{1,2,3,4},
 //			{5,6,7,8},

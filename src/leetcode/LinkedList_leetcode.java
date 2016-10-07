@@ -691,6 +691,41 @@ public class LinkedList_leetcode {
         return re.next;
     }
     
+    //138. Copy List with Random Pointer
+    public static RandomListNode copyRandomList(RandomListNode head) {
+        if(head==null){
+        	return null;
+        }
+        RandomListNode pNode=head;
+        while(pNode!=null){
+        	RandomListNode next=pNode.next;
+        	RandomListNode copyNode=new RandomListNode(pNode.label);
+        	pNode.next=copyNode;
+        	copyNode.next=next;
+        	pNode=next;
+        }
+        
+        pNode =head;
+        RandomListNode copyNode;
+        while(pNode!=null){
+        	copyNode=pNode.next;
+        	if(pNode.random!=null){
+        		copyNode.random=pNode.random.next;
+        	}
+        	pNode=copyNode.next;
+        }
+        
+        RandomListNode re=head.next;
+        pNode=head;
+        while(pNode.next!=null){
+        	copyNode=pNode.next;
+        	pNode.next=copyNode.next;
+        	pNode=copyNode;
+        }        
+        
+        return re;
+    }
+    
 	public static void main(String[] args) {
 		int[] aa={1,2,3,4,5};
 //		int[] bb={5,6,4};
@@ -699,5 +734,9 @@ public class LinkedList_leetcode {
 		printList(reverseKGroup(list1,4));
 		
 	}
-
 }
+class RandomListNode {
+    int label;
+    RandomListNode next, random;
+    RandomListNode(int x) { this.label = x; }
+};
