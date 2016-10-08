@@ -1,8 +1,11 @@
 package codingInterviews;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
+
 
 /**
  * 		第四章 解决面试题的思路
@@ -180,8 +183,105 @@ public class Chapter4 {
     	return re;
     }
     
+    /*
+     * 26、复杂链表的复制
+     */
+    public RandomListNode Clone(RandomListNode pHead){
+        if(pHead==null){
+        	return null;
+        }
+        RandomListNode pNode=pHead;
+        while(pNode!=null){
+        	RandomListNode next=pNode.next;
+        	RandomListNode copyNode=new RandomListNode(pNode.label);
+        	pNode.next=copyNode;
+        	copyNode.next=next;
+        	pNode=next;
+        }
+        
+        pNode =pHead;
+        RandomListNode copyNode;
+        while(pNode!=null){
+        	copyNode=pNode.next;
+        	if(pNode.random!=null){
+        		copyNode.random=pNode.random.next;
+        	}
+        	pNode=copyNode.next;
+        }
+        
+        RandomListNode re=pHead.next;
+        pNode=pHead;
+        while(pNode.next!=null){
+        	copyNode=pNode.next;
+        	pNode.next=copyNode.next;
+        	pNode=copyNode;
+        }
+        return re;
+    }
+    
+    /*
+     * 27、二叉搜索树与双向链表
+     */
+    TreeNode last=null;
+    private void dfs(TreeNode root){
+    	if(root==null){
+    		return;
+    	}
+    	
+    	dfs(root.left);    	
+    	root.left=last;
+    	if(last!=null){
+    		last.right=root;
+    	}
+    	last=root;
+    	dfs(root.right);
+    }
+    
+    public TreeNode Convert(TreeNode pRootOfTree) {
+    	dfs(pRootOfTree);   
+    	while(last!=null&&last.left!=null){
+    		last=last.left;
+    	}
+    	return last;
+    }
+    
+    /*
+     * 28、字符串的排列
+     */
+    private static void swap(char[] chars, int i, int j){
+    	if(i!=j){
+    		char temp=chars[i];
+    		chars[i]=chars[j];
+    		chars[j]=temp;
+    	}
+    }
+    
+    private static void dfsGet(ArrayList<String> re, char[] chars, int start, int end){
+    	if(start==end){
+    		re.add(new String(chars));
+    	}
+    	
+    	for(int i=start; i<=end; i++){
+    		if(i!=start&&chars[i]==chars[start]){
+    			continue;
+    		}
+    		swap(chars, start, i);
+    		dfsGet(re, chars, start+1, end);
+    		swap(chars, start, i);
+    	}
+    }
+    
+    public static ArrayList<String> Permutation(String str) {
+        ArrayList<String> re=new ArrayList<String>();
+        char[] chars=str.toCharArray();
+        Arrays.sort(chars);
+        dfsGet(re, chars, 0, chars.length-1);
+        Collections.sort(re);
+        return re;
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(verifySquenceOfBST(new int[]{1}));
+		System.out.println(Permutation("aabc"));
 //		int[][] matrix=new int[][]{
 //			{1,2,3,4},
 //			{5,6,7,8},
@@ -220,3 +320,12 @@ class minStack{
 	}
 }
 
+class RandomListNode {
+    int label;
+    RandomListNode next = null;
+    RandomListNode random = null;
+
+    RandomListNode(int label) {
+        this.label = label;
+    }
+}
