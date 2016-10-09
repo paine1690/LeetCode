@@ -549,21 +549,52 @@ public class BackTracking {
         }
     }
     
-    //51. N-Queens
+    //51. N-Queens   
+    private static boolean isQueue(int[] nums, int j){
+    	for(int i=0; i<j; i++){
+    		if(nums[i]==nums[j]||nums[j]-nums[i]==j-i||nums[i]-nums[j]==j-i){
+				return false;
+			}
+    	}    	
+    	return true;
+    }
+    
+    private static void dfsQueue(List<List<String>> re, int[] nums, int start, char[][] chars){
+    	if(start>=nums.length){
+			List<String> list=new ArrayList<String>();
+			for(int i=0; i<nums.length; i++){
+				chars[i][nums[i]]='Q';
+				list.add(new String(chars[i]));
+				chars[i][nums[i]]='.';
+			}
+			re.add(list);
+			//System.out.println(Arrays.toString(nums));    		
+    		return;
+    	}
+    	
+    	for(int i=0; i<nums.length; i++){
+    		nums[start]=i;
+    		if(isQueue(nums, start)){
+    			dfsQueue(re, nums, start+1, chars);
+    		}
+    	}
+    }
+    
     public static List<List<String>> solveNQueens(int n) {
         List<List<String>> re=new ArrayList<List<String>>();
         char[][] chars=new char[n][n];
         for(int i=0; i<chars.length; i++){
         	Arrays.fill(chars[i], '.');
-        	System.out.println(Arrays.toString(chars[i]));
+        	//System.out.println(Arrays.toString(chars[i]));
         }
-        
+        int[] nums=new int[n];
+        dfsQueue(re, nums, 0, chars);
         return re;
     }
     
     
 	public static void main(String[] args) {
-
+		System.out.println(solveNQueens(9));
 		
 		
 		
