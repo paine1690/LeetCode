@@ -594,10 +594,14 @@ public class BackTracking {
     
     
 	public static void main(String[] args) {
-		System.out.println(solveNQueens(9));
-		
-		
-		
+		//System.out.println(solveNQueens(9));
+		List<Integer> list=new ArrayList<Integer>();
+		list.add(1);
+		list.add(2);
+		list.add(5);
+		System.out.println(list);
+		list.remove(new Integer(5));
+		System.out.println(list);
 //		char[][] c={
 //				"..9748...".toCharArray(),//		"519748632",
 //				"7........".toCharArray(),//		"783652419",

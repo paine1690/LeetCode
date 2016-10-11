@@ -454,13 +454,42 @@ public class DynamicProgramming {
     	return re;
     }
     
+
     
+    //392. Is Subseque
+    public static boolean isSubsequence(String s, String t) {
+    	if(s.length()==0){
+    		return true;
+    	}
+    	if(t.length()==0){
+    		return false;
+    	}
+        char[] ss=s.toCharArray();
+        char[] ts=t.toCharArray();
+        int i=0, j=0;
+        for(j=0; j<ts.length; j++){
+        	if(ts[j]==ss[i]){
+        		if(++i>=ss.length){
+        			return true;
+        		}
+        	}
+        }    	
+    	return false;
+    }
+    
+    //322. Coin Change
     
 	public static void main(String[] args) {
-		int nums[]={1,3,6,7,9,4,10,5,6};
-		//String s="1";
-		System.out.println(lengthOfLIS2(nums));
+		System.out.println(isSubsequence("ac", "ajibjic"));
+//		int nums[]={1,3,6,7,9,4,10,5,6};
+//		//String s="1";
+//		System.out.println(lengthOfLIS2(nums));
 	}
 
 }
-
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) { val = x; }
+}
