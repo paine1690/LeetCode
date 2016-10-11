@@ -495,6 +495,27 @@ public class DynamicProgramming {
     }
     
     //322. Coin Change
+    public static int coinChange(int[] coins, int amount) {
+    	if(coins==null||coins.length==0){
+    		return -1;
+    	}
+        int[] dp=new int[amount+1];
+        Arrays.sort(coins);
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0]=0;
+        
+        for(int am=1; am<=amount; am+=coins[0]){
+        	for(int j=0; j<coins.length; j++){
+        		int diff=am-coins[j];
+        		if(diff>=0){
+        			if(dp[diff]!=Integer.MAX_VALUE){
+        				dp[am]=Math.min(dp[diff]+1, dp[am]);
+        			}
+        		}
+        	}
+        }
+    	return dp[amount]==Integer.MAX_VALUE? -1:dp[amount]; 
+    }
     
 	public static void main(String[] args) {
 		System.out.println(isSubsequence("ac", "ajibjic"));
