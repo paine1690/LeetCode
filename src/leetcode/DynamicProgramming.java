@@ -517,6 +517,26 @@ public class DynamicProgramming {
     	return dp[amount]==Integer.MAX_VALUE? -1:dp[amount]; 
     }
     
+    //377. Combination Sum IV
+    public int combinationSum4(int[] nums, int target) {
+        if(nums.length==0){
+        	return 0;
+        }
+        Arrays.sort(nums);
+        int[] dp=new int[target+1];
+        dp[0]=1;
+        for(int i=1; i<=target; i++){
+        	for(int j=0; j<nums.length; j++){
+        		int diff=i-nums[j];
+        		if(diff>=0){
+        			dp[i]+=dp[diff];
+        		}else{
+        			break;
+        		}
+        	}
+        }
+        return dp[target+1];
+    }
 	public static void main(String[] args) {
 		System.out.println(isSubsequence("ac", "ajibjic"));
 //		int nums[]={1,3,6,7,9,4,10,5,6};
