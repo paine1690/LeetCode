@@ -454,8 +454,6 @@ public class DynamicProgramming {
     	return re;
     }
     
-
-    
     //392. Is Subseque
     public static boolean isSubsequence(String s, String t) {
     	if(s.length()==0){
@@ -475,6 +473,25 @@ public class DynamicProgramming {
         	}
         }    	
     	return false;
+    }
+    
+    //337. House Robber III
+    private static int[] dfs(TreeNode root){
+    	int[] re={0, 0};
+    	if(root!=null){
+    		int[] left=dfs(root.left);
+        	int[] right=dfs(root.right);
+        	re[0]=left[1]+right[1];//不抢root
+        	re[1]=Math.max(re[0], root.val+left[0]+right[0]);//抢root，保存最大值
+    	}
+    	return re;    	
+    }
+    
+    public static int rob(TreeNode root) {
+        if(root==null){
+        	return 0;
+        }
+    	return dfs(root)[1];
     }
     
     //322. Coin Change
