@@ -537,8 +537,37 @@ public class DynamicProgramming {
         }
         return dp[target+1];
     }
+    
+    //416. Partition Equal Subset Sum
+
+    
+    //376. Wiggle Subsequence
+    public static int wiggleMaxLength(int[] nums) {
+        if(nums.length==0){
+        	return 0;
+        }
+        int[][] dp=new int[nums.length][2];
+        dp[0][0]=1;
+        dp[0][1]=1;
+        for(int i=1; i<nums.length; i++){
+        	int a=0;
+        	int b=0;
+        	for(int j=i-1; j>=0; j--){
+        		if(nums[j]<nums[i]){
+        			a=Math.max(a, dp[j][1]);
+        		}else if(nums[j]>nums[i]){
+        			b=Math.max(b, dp[j][0]);
+        		}        		
+        	}
+        	dp[i][0]=a>0? a+1:1;
+        	dp[i][1]=b>0? b+1:1;
+        }
+        return Math.max(dp[nums.length-1][0], dp[nums.length-1][1]);
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(isSubsequence("ac", "ajibjic"));
+		System.out.println(wiggleMaxLength(new int[]{1,2,3}));
+		//System.out.println(isSubsequence("ac", "ajibjic"));
 //		int nums[]={1,3,6,7,9,4,10,5,6};
 //		//String s="1";
 //		System.out.println(lengthOfLIS2(nums));
