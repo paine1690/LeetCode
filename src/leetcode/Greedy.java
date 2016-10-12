@@ -20,8 +20,31 @@ public class Greedy {
     	return re;
     }
 	
-	
-	
+  //376. Wiggle Subsequence
+    public static int wiggleMaxLength(int[] nums) {
+    	if(nums.length<=1){
+    		return nums.length;
+    	}
+    	int re=nums.length, flag=0;
+    	for(int i=1; i<nums.length; i++){
+    		if(nums[i]==nums[i-1]){
+    			re--;
+    		}else if(nums[i]>nums[i-1]){
+    			if(flag==1){
+    				re--;
+    			}
+    			flag=1;
+    		}else{
+    			if(flag==-1){
+    				re--;
+    			}
+    			flag=-1;
+    		}
+    	}
+    	return re;
+    }
+    
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
