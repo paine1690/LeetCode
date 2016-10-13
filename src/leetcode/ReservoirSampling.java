@@ -1,6 +1,8 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -73,11 +75,37 @@ public class ReservoirSampling {
 	    }
 	}
 
-    
+	//398. Random Pick Index
+	static class Solution3 {
+		int[] nums;
+		Map<Integer, List<Integer>> map=new HashMap<Integer, List<Integer>>();
+		Random r=new Random();
+		
+	    public Solution3(int[] nums) {
+	    	for(int i=0; i<nums.length; i++){
+	    		if(map.containsKey(nums[i])){
+	    			map.get(nums[i]).add(i);
+	    		}else{
+	    			List<Integer> list=new ArrayList<Integer>();
+	    			list.add(i);
+	    			map.put(nums[i], list);
+	    		}
+	    	}
+	    }
+	    
+	    public int pick(int target) {
+	        List<Integer> list=map.get(target);
+	        int len=list.size();
+	        int m=r.nextInt(len);
+	        return list.get(m);
+	    }
+	}
     
     
 	public static void main(String[] args) {		
-
+		Solution3 s=new Solution3(new int[]{1});
+		s.pick(1);
+		
 	}
 
 }
