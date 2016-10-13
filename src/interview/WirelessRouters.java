@@ -113,5 +113,4 @@ class Room{
 	public Room(int point){
 		sPoint=point;
 	}
-	
 }

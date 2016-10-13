@@ -642,7 +642,8 @@ public class BinaryTree {
     	return re;
     }
 	public static void main(String[] args) {
-
+		int[][] test=new int[][]{};
+		System.out.println(test[0]);
 	}
 
 }
