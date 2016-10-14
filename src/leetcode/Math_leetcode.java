@@ -281,8 +281,64 @@ public class Math_leetcode {
     	}
     	return s.toString();
     }
+    
+    //8. String to Integer (atoi)
+    public static int myAtoi(String str) {
+        long re=0;
+        int i=0, flag=0;
+        boolean con=true;
+        
+        
+        while(i<str.length()){
+        	char c=str.charAt(i);
+        	if(c>='0'&&c<='9'){
+        		re=c-'0';
+        		break;
+        	}
+        	
+        	if(flag==0){
+        		if(c==' '){
+        			i++;
+            		continue;
+            	}else if(c=='-'||c=='+'){
+            		flag=c=='+'? 1: -1;
+            	}else{
+            		return 0;
+            	}
+        		
+        	}else{
+        		return 0;
+        	}
+        	i++;
+        }
+        if(con){
+	        for(i++; i<str.length(); i++){
+	        	char c=str.charAt(i);
+	        	int num=c-'0';
+	        	if(num>=0&&num<=9){
+	        		re=re*10+num;
+	        		if(re>Integer.MAX_VALUE){	        			
+	        			break;
+	        		}
+	        	}else{
+	        		break;
+	        	}
+	        }
+        }
+    	if(flag==-1&&re>Integer.MAX_VALUE){
+    		return Integer.MIN_VALUE;
+    	}
+    	
+    	if(re>Integer.MAX_VALUE){
+    		return Integer.MAX_VALUE;
+    	}
+    	
+    	return flag==-1? -(int)re: (int)re;
+    }
+    
+    
 	public static void main(String[] args) {
-		System.out.println(multiply("498828660196","840477629533"));
+		System.out.println(myAtoi("18446744073709551617"));
 
 	}
 
