@@ -420,8 +420,80 @@ public class String_leetcode {
         return -1;
     }
     
+    //43. Multiply Strings
+    public static String multiply(String num1, String num2) {
+        if(num1.length()==0||num2.length()==0){
+        	return null;
+        }
+    	if(num1.equals("0")||num2.equals("0")){
+    		return "0";
+    	}
+    	int[] re=new int[num1.length()+num2.length()+1];
+    	String s1=new StringBuilder(num1).reverse().toString();
+    	String s2=new StringBuilder(num2).reverse().toString();
+    	
+    	for(int i=0; i<s1.length(); i++){
+    		int j,add=0;;
+    		for(j=0; j<s2.length(); j++){
+    			int mul=(s1.charAt(i)-'0')*(s2.charAt(j)-'0')+re[i+j]+add;
+    			add=mul/10;
+    			re[i+j]=mul%10;
+    		}
+    		re[i+j]=add;
+    	}
+    	
+    	int i=re.length-1;
+    	while(re[i]==0){
+    		i--;
+    	}
+    	
+    	StringBuilder s=new StringBuilder();
+    	while(i>=0){
+    		s.append(re[i]);
+    		i--;
+    	}
+    	
+    	return s.toString();
+    }
+    
+    //29. Divide Two Integers
+    public static int divide(int dividend, int divisor) {
+        if(divisor==0){
+        	return Integer.MAX_VALUE;
+        }
+        long a=Math.abs((long)dividend);
+        long b=Math.abs((long)divisor);
+        
+        int sign=1;
+        if(dividend<0){
+        	sign=-sign;
+        }
+        if(divisor<0){
+        	sign=-sign;
+        }
+        long re=0;
+        while(a>=b){
+        	long c=b;
+        	int cnt=1;
+        	while(a>=c){
+        		re+=cnt;
+        		a-=c;
+        		cnt<<=1;
+        		c<<=1;
+        	}
+        }
+        
+        if(re>Integer.MAX_VALUE&&sign==1){
+        	return Integer.MAX_VALUE;
+        }
+        
+        return sign==1? (int)re:-(int)re;
+    }
+    
+    
 	public static void main(String[] args) {
-		System.out.println(strStr("sababaca","ababaca"));
+		
+		System.out.println(divide(-2147483648, 1));
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
 		//System.out.println(generateParenthesis(4));

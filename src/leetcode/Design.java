@@ -313,13 +313,13 @@ public class Design {
 	        Node node=map.get(key);
 	        if(node==null){  //put
 	        	node=new Node(key, value);
-	        	Node temp=tail;
-	        	tail=node;
-	        	if(temp==null){
-	        		head=node;
+	        	if(tail==null){
+	        	    head=node;
+	        	    tail=node;
 	        	}else{
-	        		node.before=temp;
-	        		temp.after=node;
+	        	    tail.after=node;
+	        	    node.before=tail;
+	        	    tail=node;
 	        	}
 	        	map.put(key, node);  
 	        	afterInsert();
@@ -345,18 +345,16 @@ public class Design {
         		Node before=node.before;
         		Node after=node.after;
         		
-        		if(node==head){
-        			head=after;
-        			head.before=null;
-        		}else{
+        		after.before=before;
+        		if(before!=null){
         			before.after=after;
-        			after.before=before;
+        		}else{
+        			head=after;
         		}
-        		
         		node.before=tail;
         		node.after=null;
         		tail.after=node;
-        		tail=node;	        		
+        		tail=node;        		
         	}
 	    }
 	}
