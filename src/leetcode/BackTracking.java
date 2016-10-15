@@ -592,16 +592,42 @@ public class BackTracking {
         return re;
     }
     
+    //22. Generate Parentheses
+    private static void dfsCreate(List<String> re, int n, int left, int right, StringBuilder s){
+    	if(left>=n&&right>=n){
+    		re.add(new String(s));
+    		return;
+    	}
+    	
+    	if(left<n){
+    		s.append("(");
+    		dfsCreate(re, n, left+1, right, s);
+    		s.deleteCharAt(s.length()-1);
+    	}
+    	if(right<left){
+	    	s.append(")");
+	    	dfsCreate(re, n, left, right+1, s);
+	    	s.deleteCharAt(s.length()-1);
+    	}
+    	
+    }
+    
+    public static List<String> generateParenthesis(int n) {
+        List<String> re=new ArrayList<String>();
+        if(n==0){
+        	return re;
+        }
+        StringBuilder s=new StringBuilder();
+        s.append("(");
+        dfsCreate(re, n, 1, 0, s);
+        return re;
+    }
     
 	public static void main(String[] args) {
+		System.out.println(generateParenthesis(3));
+		
+		
 		//System.out.println(solveNQueens(9));
-		List<Integer> list=new ArrayList<Integer>();
-		list.add(1);
-		list.add(2);
-		list.add(5);
-		System.out.println(list);
-		list.remove(new Integer(5));
-		System.out.println(list);
 //		char[][] c={
 //				"..9748...".toCharArray(),//		"519748632",
 //				"7........".toCharArray(),//		"783652419",

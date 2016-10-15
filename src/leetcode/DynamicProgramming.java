@@ -565,6 +565,27 @@ public class DynamicProgramming {
         return Math.max(dp[nums.length-1][0], dp[nums.length-1][1]);
     }
     
+    //32. Longest Valid Parentheses
+    private static boolean isV(String s, int i, int j){
+    	return i>=0&&s.charAt(i)=='('&&s.charAt(j)==')';
+    }
+    
+    public static int longestValidParentheses(String s) {
+        int re=0;
+    	int[] dp=new int[s.length()];
+        for(int j=1; j<s.length(); j++){
+        	int i=j-dp[j-1]-1;
+        	if(isV(s, i, j)){
+        		dp[j]=dp[j-1]+2;
+        		if(i>0){
+        			dp[j]+=dp[i-1];
+        		}
+        		re=Math.max(re,  dp[j]);
+        	}        	
+        }        
+    	return re;
+    }
+    
 	public static void main(String[] args) {
 		System.out.println(wiggleMaxLength(new int[]{1,2,3}));
 		//System.out.println(isSubsequence("ac", "ajibjic"));
