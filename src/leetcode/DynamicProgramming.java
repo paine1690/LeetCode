@@ -273,10 +273,11 @@ public class DynamicProgramming {
         nums[0]=1;
         nums[1]=1;
         for(int i=2; i<nums.length; i++){
-        	if(Integer.valueOf(s.substring(i-2,  i))<=26&&Integer.valueOf(s.substring(i-2,  i))>=10){
+        	int num=Integer.valueOf(s.substring(i-2,  i));
+        	if(num<=26&&num>=10){
         		nums[i]+=nums[i-2];
         	}
-        	if(Integer.valueOf(s.substring(i-1, i))!=0){
+        	if(s.charAt(i-1)!='0'){
         		nums[i]+=nums[i-1];
         	}
         }

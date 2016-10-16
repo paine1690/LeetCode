@@ -143,33 +143,6 @@ public class String_leetcode {
     	}
     }
     
-    //165. Compare Version Numbers
-    public static int compareVersion(String version1, String version2) {
-        String[] s1=version1.split("\\.");
-        String[] s2=version2.split("\\.");
-        int n1=0, n2=0;
-        int i=0, j=0;
-        while(i<s1.length&&j<s2.length){
-        	n1=n1*10+Integer.valueOf(s1[i++]);
-        	n2=n2*10+Integer.valueOf(s2[j++]);
-        }
-        while(i<s1.length){
-        	n1=n1*10+Integer.valueOf(s1[i++]);
-        	n2=n2*10+0;
-        }
-        while(j<s2.length){
-        	n1=n1*10+0;
-        	n2=n2*10+Integer.valueOf(s2[j++]);
-        }        
-        if(n1>n2){
-        	return 1;
-        }else if(n1<n2){
-        	return -1;
-        }else{
-        	return 0;
-        }
-    }
-    
     //13. Roman to Integer
     public static int romanToInt(String s) {
     	int re=0;
@@ -490,10 +463,51 @@ public class String_leetcode {
         return sign==1? (int)re:-(int)re;
     }
     
-    
+    //165. Compare Version Numbers
+    public static int compareVersion(String version1, String version2) {
+        String[] s1=version1.split("\\.");
+        String[] s2=version2.split("\\.");
+        int n1=0, n2=0;
+        int i=0, j=0;
+        while(i<s1.length&&j<s2.length){
+        	int sum=10;
+        	int a=Integer.valueOf(s1[i++]);
+        	int b=Integer.valueOf(s2[j++]);
+        	while(sum<Math.max(a, b)){
+        		sum*=10;
+        	}
+        	n1=n1*sum+a;
+        	n2=n2*sum+b;
+        }
+        while(i<s1.length){
+        	int sum=10;
+        	int a=Integer.valueOf(s1[i++]);
+        	while(sum<a){
+        		sum*=10;
+        	}
+        	n1=n1*sum+a;
+        	n2=n2*sum+0;
+        }
+        while(j<s2.length){
+        	int sum=10;
+        	int b=Integer.valueOf(Integer.valueOf(s2[j++]));
+        	while(sum<b){
+        		sum*=10;
+        	}
+        	n1=n1*sum+0;
+        	n2=n2*sum+b;
+        }        
+        if(n1>n2){
+        	return 1;
+        }else if(n1<n2){
+        	return -1;
+        }else{
+        	return 0;
+        }
+    }
 	public static void main(String[] args) {
-		
-		System.out.println(divide(-2147483648, 1));
+		System.out.println(compareVersion("14.2", "13.67"));
+		//System.out.println(divide(-2147483648, 1));
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
 		//System.out.println(generateParenthesis(4));

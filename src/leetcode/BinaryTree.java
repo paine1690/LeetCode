@@ -136,7 +136,7 @@ public class BinaryTree {
     }
     
 	//102. Binary Tree Level Order Traversal		层序遍历    非递归实现
-    public List<List<Integer>> levelOrder2(TreeNode root) {
+    public static List<List<Integer>> levelOrder2(TreeNode root) {
     	List<List<Integer>> re=new ArrayList<List<Integer>>();
     	if(root==null){
     		return re;
@@ -641,9 +641,72 @@ public class BinaryTree {
     	}
     	return re;
     }
+    
+    
+    //wap
+    public static TreeNode cxrea(String[] strs){
+    	if(strs.length==0||strs[0].equals("null")){
+    		return null;
+    	}
+    	Queue<TreeNode> q=new LinkedList<TreeNode>();
+    	String s=strs[0];
+    	TreeNode root=new TreeNode(Integer.valueOf(s));
+    	q.offer(root);
+    	int i=1;
+    	while(i<strs.length){
+    		TreeNode node=q.poll();
+    		while(node==null){
+    			node=q.poll();
+    		}   		
+    		
+    		s=strs[i];
+    		if(s.equals("null")){
+    			node.left=null;
+    			q.offer(null);
+    		}else{
+    			TreeNode nNode=new TreeNode(Integer.valueOf(s));
+    			node.left=nNode;
+    			q.offer(nNode);
+    		}
+    		if(++i>=strs.length){
+    			break;
+    		}
+    		
+    		s=strs[i];
+    		if(s.equals("null")){
+    			node.right=null;
+    			q.offer(null);
+    		}else{
+    			TreeNode nNode=new TreeNode(Integer.valueOf(s));
+    			node.right=nNode;
+    			q.offer(nNode);
+    		}
+    		i++;
+    	}
+    	
+    	return root;
+    }
+    
 	public static void main(String[] args) {
-		int[][] test=new int[][]{};
-		System.out.println(test[0]);
+		String[] strs={
+			"1",
+			"2",
+			"3",
+			"null",
+			"4",
+			"null",
+			"null",
+			
+			"5",
+			"6",
+			"7",
+			"8"
+		};
+		TreeNode root=cxrea(strs);
+		System.out.println(levelOrder2(root));
+		
+//		int[][] test=new int[][]{};
+//		System.out.println(test[0]);
 	}
 
 }

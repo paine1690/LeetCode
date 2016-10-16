@@ -336,6 +336,49 @@ public class Math_leetcode {
     	return flag==-1? -(int)re: (int)re;
     }
     
+    //423. Reconstruct Original Digits from English
+    public static String originalDigits(String s) {
+        StringBuilder re=new StringBuilder();
+        
+        int[] nums=new int[10];
+        for(int i=0; i<s.length(); i++){
+        	char c=s.charAt(i);        	
+        	if(c=='z'){//   0
+        		nums[0]++;
+        	}else if(c=='w'){// 2
+        		nums[2]++;
+        	}else if(c=='u'){// 4
+        		nums[4]++;
+        	}else if(c=='x'){// 6
+        		nums[6]++; 
+        	}else if(c=='g'){// 8
+        		nums[8]++;
+        	}else if(c=='s'){// 6/7
+        		nums[7]++;
+        	}else if(c=='f'){// 4/5
+        		nums[5]++; 
+        	}else if(c=='h'){// 3/8
+        		nums[3]++;
+        	}else if(c=='i'){// 5/6/8/9
+        		nums[9]++;
+        	}else if(c=='o'){// 0/1/2/4
+        		nums[1]++;
+        	}        	
+        }
+        
+        nums[7]-=nums[6];
+        nums[5]-=nums[4];
+        nums[3]-=nums[8];
+        nums[9]-=(nums[5]+nums[6]+nums[8]);
+        nums[1]-=(nums[0]+nums[2]+nums[4]);
+       
+        for(int i=0; i<10; i++){
+        	for(int j=0; j<nums[i]; j++){
+        		re.append(i);
+        	}
+        }        
+        return re.toString();
+    }
     
 	public static void main(String[] args) {
 		System.out.println(myAtoi("18446744073709551617"));
