@@ -380,8 +380,59 @@ public class Math_leetcode {
         return re.toString();
     }
     
+    //415. Add Strings
+    public static String addStrings(String num1, String num2) {
+    	int len1=num1.length(), len2=num2.length();
+    	
+        StringBuilder s1=new StringBuilder(num1).reverse();
+        StringBuilder s2=new StringBuilder(num2).reverse();
+        int[] nums=new int[Math.max(len1, len2)+1];
+    	int flag=0;
+    	int i=0;
+    	for(i=0; i<len1&&i<len2; i++){
+    		int n1=s1.charAt(i)-'0';
+    		int n2=s2.charAt(i)-'0';
+    		int sum=n1+n2+flag;
+    		nums[i]=sum%10;
+    		flag=sum/10;
+    	}
+    	nums[i]=flag;
+        
+    	
+    	while(i<len1){
+    		int n1=s1.charAt(i)-'0';
+    		int sum=nums[i]+n1;
+    		nums[i]=sum%10;
+    		flag=sum/10;
+    		i++;
+    		nums[i]=flag;
+    	}
+    	
+    	while(i<len2){
+    		int n2=s2.charAt(i)-'0';
+    		int sum=nums[i]+n2;
+    		nums[i]=sum%10;
+    		flag=sum/10;
+    		i++;
+    		nums[i]=flag;
+    	}
+        
+        
+        
+        StringBuilder re=new StringBuilder();
+        if(nums[nums.length-1]!=0){
+        	re.append(nums[nums.length-1]);
+        }
+        
+        for(i=nums.length-2; i>=0; i--){
+        	re.append(nums[i]);
+        }
+    	return re.toString();
+    }
+    
+    
 	public static void main(String[] args) {
-		System.out.println(myAtoi("18446744073709551617"));
+		System.out.println(addStrings("95","16"));
 
 	}
 
