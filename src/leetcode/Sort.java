@@ -1,5 +1,6 @@
 package leetcode;
 import java.util.Arrays;
+import java.util.Comparator;
 
 class ListNode {
 	 int val;
@@ -86,13 +87,40 @@ public class Sort {
     
     //347. Top K Frequent Elements
     
-    
+    //179. Largest Number    
+    public static String largestNumber(int[] nums) {
+    	
+    	String[] strs=new String[nums.length];
+    	for(int i=0; i<nums.length; i++){
+    		strs[i]=String.valueOf(nums[i]);
+    	}
+    	
+    	Arrays.sort(strs, new Comparator<String>(){
+			public int compare(String a, String b) {
+				String left=a+b;
+				String right=b+a;
+				
+				return -left.compareTo(right);
+			}
+    	});
+    	
+    	StringBuilder s=new StringBuilder();
+    	for(int i=0; i<strs.length; i++){
+    		s.append(strs[i]);
+    	}
+    	
+    	while(s.charAt(0)=='0'&&s.length()>1){
+    		s.deleteCharAt(0);
+    	}
+    	
+    	return s.toString();
+    }
     
     
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] nums={3, 0, 6, 1, 5};
-		System.out.println(hIndex2(nums));
+		System.out.println(largestNumber(new int[]{1,2}));
+//		int[] nums={3, 0, 6, 1, 5};
+//		System.out.println(hIndex2(nums));
 	}
 	
 	

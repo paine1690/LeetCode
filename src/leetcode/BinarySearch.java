@@ -146,9 +146,6 @@ public class BinarySearch {
         		right=mid;
         	}
         }
-    	if(right==-1){
-    		return nums[0];
-    	}
     	return nums[right];
     }
     
