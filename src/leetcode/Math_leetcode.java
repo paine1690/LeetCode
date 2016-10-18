@@ -395,29 +395,21 @@ public class Math_leetcode {
     		int sum=n1+n2+flag;
     		nums[i]=sum%10;
     		flag=sum/10;
-    	}
-    	nums[i]=flag;
-        
+    	}       
     	
     	while(i<len1){
-    		int n1=s1.charAt(i)-'0';
-    		int sum=nums[i]+n1;
-    		nums[i]=sum%10;
+    		int sum=s1.charAt(i)-'0'+flag;
+    		nums[i++]=sum%10;
     		flag=sum/10;
-    		i++;
-    		nums[i]=flag;
     	}
     	
+    	
     	while(i<len2){
-    		int n2=s2.charAt(i)-'0';
-    		int sum=nums[i]+n2;
-    		nums[i]=sum%10;
+    		int sum=s2.charAt(i)-'0'+flag;
+    		nums[i++]=sum%10;
     		flag=sum/10;
-    		i++;
-    		nums[i]=flag;
     	}
-        
-        
+        nums[i]=flag;
         
         StringBuilder re=new StringBuilder();
         if(nums[nums.length-1]!=0){
@@ -430,9 +422,28 @@ public class Math_leetcode {
     	return re.toString();
     }
     
+    //400. Nth Digit
+    public static int findNthDigit(int n) {
+        long base=9, pow=1, nTh=0;
+        
+        while(n>base*pow){
+        	n-=base*pow;
+        	nTh+=base;
+        	base*=10;
+        	pow++;
+        }
+        System.out.println(n+" "+nTh+" "+base);
+        n--;
+        long num=nTh+n/pow+1;
+        int digit=(int) (n%pow);
+        System.out.println(num+" "+digit);
+        
+        return String.valueOf(num).charAt(digit)-'0';
+    }
     
 	public static void main(String[] args) {
-		System.out.println(addStrings("95","16"));
+		System.out.println(findNthDigit(1000));
+		//System.out.println(addStrings("95","16"));
 
 	}
 
