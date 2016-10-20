@@ -264,20 +264,16 @@ public class Math_leetcode {
     			re[i+j]=val%10;
     			flag=val/10;
     		}
-    		if(flag>0){
-    			re[i+j]=flag;
-    			flag=0;
-    		}
+    		re[i+j]=flag;
+    		flag=0;
     	}
-    	int i=0;
-    	for(i=re.length-1; i>=0; i--){
-    		if(re[i]!=0){
-    			break;
-    		}
+    	int i=re.length-1;
+    	while(re[i]==0){
+    		i--;
     	}
     	StringBuilder s=new StringBuilder();
-    	for(; i>=0; i--){
-    		s.append(re[i]);
+    	while(i>=0){
+    		s.append(re[i--]);
     	}
     	return s.toString();
     }
@@ -441,8 +437,9 @@ public class Math_leetcode {
         return String.valueOf(num).charAt(digit)-'0';
     }
     
+
 	public static void main(String[] args) {
-		System.out.println(findNthDigit(1000));
+		//System.out.println(findNthDigit(1000));
 		//System.out.println(addStrings("95","16"));
 
 	}
