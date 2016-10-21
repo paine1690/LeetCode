@@ -101,6 +101,24 @@ public class Chapter3 {
 		System.out.println(Arrays.toString(nums));
 	}
 	
+	public static void reOrderArray(int [] array) {
+		int[] nums=new int[array.length];
+		int c=0;
+		for(int i=0; i<array.length; i++){
+			if((array[i]&1)==1){
+				nums[c++]=array[i];
+			}
+		}
+		for(int i=0; i<array.length; i++){
+			if((array[i]&1)==0){
+				nums[c++]=array[i];
+			}
+		}
+		for(int i=0; i<nums.length; i++){
+			array[i]=nums[i];
+		}
+	}
+	
 	/*
 	 * 15、链表中倒数第k个结点
 	 * 注意边界条件
@@ -198,8 +216,9 @@ public class Chapter3 {
 	
 	
 	public static void main(String[] args) {
-		printNums(3);
-		//System.out.println(pow(0, -5));
+		
+//		reOrderArray(nums);
+//		System.out.println(Arrays.toString(nums));
 	}
 
 }
