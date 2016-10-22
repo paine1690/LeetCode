@@ -298,6 +298,9 @@ public class Chapter6 {
         return last;        
     }
     
+    /*
+     * 46、求1+2+。。。。+n
+     */
     
 	/*
 	 * 47、不用加减乘除做加法
