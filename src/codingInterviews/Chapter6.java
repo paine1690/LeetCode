@@ -1,6 +1,7 @@
 package codingInterviews;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Chapter6 {
 
@@ -195,8 +196,107 @@ public class Chapter6 {
         return new String(chars);
     }
     
+    /*
+     * 43、n个骰子的点数
+     */
+    public static void printProbability(int n){
+    	if(n==0){
+    		return;
+    	}
+    	
+    	int [][]nums=new int[2][6*n+1];
+    	int flag=0;
+    	
+    	for(int i=1; i<=6; i++){
+    		nums[flag][i]=1;
+    	}
+    	
+    	for(int i=2; i<=n; i++){
+    		for(int j=i; j<=i*6; j++){
+    			int sum=0;
+    			for(int k=Math.max(1, j-6); k<=j-1; k++){
+    				sum+=nums[flag][k];
+    			}
+    			nums[1-flag][j]=sum;
+    		}
+    		Arrays.fill(nums[flag], 0);
+    		flag=1-flag;
+    	}
+    	System.out.println(Arrays.toString(nums[flag]));
+    }
     
+    /*
+     * 44、扑克牌的顺子
+     */
+    public boolean isContinuous(int [] numbers) {
+    	if(numbers.length!=5){
+    		return false;
+    	}
+    	Arrays.sort(numbers);
+    	int cnt0=0;
+    	int i=0;
+    	while(numbers[i]==0){
+    		i++;
+    		cnt0++;
+    	}
+    	int diff=0;
+    	while(i<numbers.length-1){
+    		diff=numbers[i+1]-numbers[i];	
+    		if(diff==1){
+    			i++;
+    			continue;
+    		}else if(diff==0){
+    			return false;
+    		}else{
+    			i++;
+    			break;
+    		}   		
+    	}
+    	if(i>=numbers.length){
+    		return true;
+    	}
+    	
+    	cnt0-=(diff-1);
+    	if(cnt0<0){
+    		return false;
+    	}
+    	diff=0;
+    	while(i<numbers.length-1){
+    		diff=numbers[i+1]-numbers[i];	
+    		if(diff==1){
+    			i++;
+    			continue;
+    		}else if(diff==0){
+    			return false;
+    		}else{
+    			i++;
+    			break;
+    		}   		
+    	}
+    	if(i>numbers.length){
+    		return true;
+    	}
+    	
+    	cnt0-=(diff-1);
+    	if(cnt0<0){
+    		return false;
+    	}
+    	return true;
+    }
     
+    /*
+     * 45、圆圈中最后剩下的数字
+     */
+    public int LastRemaining_Solution(int n, int m) {
+        if(n<1){
+        	return -1;
+        }
+        int last=0;
+        for(int i=2; i<=n; i++){
+        	last=(last+m)%i;
+        }
+        return last;        
+    }
     
     
 	/*
@@ -214,6 +314,7 @@ public class Chapter6 {
 	
 	
 	public static void main(String[] args) {
+		printProbability(3);
 		System.out.println(ReverseSentence("i am a student "));
 
 	}
