@@ -83,6 +83,65 @@ public class Chapter8 {
     	}    	
     	return re;
     }
+    
+    /*
+     * 51、数组中重复的数字
+     */
+    private void swap(int[] nums, int i, int j){
+    	while(i<j){
+    		int temp=nums[i];
+    		nums[i]=nums[j];
+    		nums[j]=temp;
+    		i++;
+    		j--;
+    	}
+    }
+    
+    public boolean duplicate(int numbers[],int length,int [] duplication) {
+    	if(numbers==null||numbers.length==0){
+    		return false;
+    	}
+        for(int i=0; i<numbers.length; i++){
+        	while(numbers[i]!=i){
+        		int num=numbers[numbers[i]];
+        		if(num==numbers[i]){
+        			duplication[0]=num;
+        			return true;
+        		}else{
+        			swap(numbers, i, numbers[i]);
+        		}
+        	}        	
+        }   	
+    	return false;
+    }
+    
+    /*
+     * 52、构建乘积数组
+     */
+    public int[] multiply(int[] A) {
+    	
+    	int len=A.length;
+    	int[] a=new int[len];
+    	int[] b=new int[len];
+    	int[] re=new int[len];
+    	a[0]=A[0];
+    	for(int i=1; i<len; i++){
+    		a[i]=a[i-1]*A[i];
+    	}
+    	b[len-1]=A[len-1];
+    	for(int i=len-2; i>=0; i--){
+    		b[i]=b[i+1]*A[i];
+    	}
+    	
+    	re[0]=b[1];
+    	re[len-1]=a[len-2];
+    	for(int i=1; i<len-1; i++){
+    		re[i]=a[i-1]*b[i+1];
+    	}
+    	return re;
+    }
+    
+    
 	public static void main(String[] args) {
 		String s="1,2,$,5,6,$,$,7,$,$,3,$,$,";
 		TreeNode root=Deserialize(s);

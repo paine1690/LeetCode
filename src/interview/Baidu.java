@@ -1,5 +1,7 @@
 package interview;
 
+import java.util.Arrays;
+
 public class Baidu {
 
 	/*
@@ -8,6 +10,10 @@ public class Baidu {
 		B.   5005
 		C.  1005
 		D.  以上都不正确
+		
+		
+		
+		原来不是卡特兰数
 	 * 
 	 * 
 	 */
@@ -19,8 +25,26 @@ public class Baidu {
 		return Catlan(m-1, n)+Catlan(m, n-1);		
 	}
 	
-	
+	private static void test(){
+		int m=7, n=10;
+		int[][] nums=new int[m][n];
+		for(int i=0; i<n; i++){
+			nums[0][i]=1;
+		}
+		
+		for(int i=1; i<m; i++){
+			nums[i][0]=1;
+			for(int j=1; j<n; j++){
+				nums[i][j]=nums[i-1][j]+nums[i][j-1];
+			}
+		}
+		for(int i=0; i<m; i++){
+			System.out.println(Arrays.toString(nums[i]));
+		}
+		
+	}
 	public static void main(String[] args) {
+		test();
 		System.out.println(Catlan(6, 9));
 
 	}

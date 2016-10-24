@@ -429,40 +429,6 @@ public class String_leetcode {
     	return s.toString();
     }
     
-    //29. Divide Two Integers
-    public static int divide(int dividend, int divisor) {
-        if(divisor==0){
-        	return Integer.MAX_VALUE;
-        }
-        long a=Math.abs((long)dividend);
-        long b=Math.abs((long)divisor);
-        
-        int sign=1;
-        if(dividend<0){
-        	sign=-sign;
-        }
-        if(divisor<0){
-        	sign=-sign;
-        }
-        long re=0;
-        while(a>=b){
-        	long c=b;
-        	int cnt=1;
-        	while(a>=c){
-        		re+=cnt;
-        		a-=c;
-        		cnt<<=1;
-        		c<<=1;
-        	}
-        }
-        
-        if(re>Integer.MAX_VALUE&&sign==1){
-        	return Integer.MAX_VALUE;
-        }
-        
-        return sign==1? (int)re:-(int)re;
-    }
-    
     //165. Compare Version Numbers
     public static int compareVersion(String version1, String version2) {
         String[] s1=version1.split("\\.");
@@ -505,8 +471,40 @@ public class String_leetcode {
         	return 0;
         }
     }
+    
+    //10. Regular Expression Matching
+    private static boolean match(char[] charS, char[] charP, int s, int p){
+    	if(s>=charS.length&&p>=charP.length){
+    		return true;
+    	}
+    	if(p>=charP.length){
+    		return false;
+    	}
+    	
+    	if(p<charP.length-1&&charP[p+1]=='*'){
+    		if(s<charS.length&&(charS[s]==charP[p]||charP[p]=='.')){
+    			return match(charS, charP, s, p+2) //0
+    				||(s<charS.length&&match(charS, charP, s+1, p+2))//1
+    				||(s<charS.length&&match(charS, charP, s+1, p));//n
+    		}else{
+    			return match(charS, charP, s, p+2);
+    		}
+    	}
+    	if(s<charS.length&&(charS[s]==charP[p]||charP[p]=='.')){
+    		return match(charS, charP, s+1, p+1);
+    	}else{
+    		return false;
+    	}
+    }
+    
+    public static boolean isMatch(String s, String p) {
+        char[] s1=s.toCharArray();
+        char[] s2=p.toCharArray();
+    	return match(s1, s2, 0, 0);
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(compareVersion("14.2", "13.67"));
+		System.out.println(isMatch("aa", "a*"));
 		//System.out.println(divide(-2147483648, 1));
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};

@@ -437,6 +437,39 @@ public class Math_leetcode {
         return String.valueOf(num).charAt(digit)-'0';
     }
     
+    //29. Divide Two Integers
+    public static int divide(int dividend, int divisor) {
+        if(divisor==0){
+        	return Integer.MAX_VALUE;
+        }
+        long a=Math.abs((long)dividend);
+        long b=Math.abs((long)divisor);
+        
+        int sign=1;
+        if(dividend<0){
+        	sign=-sign;
+        }
+        if(divisor<0){
+        	sign=-sign;
+        }
+        long re=0;
+        while(a>=b){
+        	long c=b;
+        	int cnt=1;
+        	while(a>=c){
+        		re+=cnt;
+        		a-=c;
+        		cnt<<=1;
+        		c<<=1;
+        	}
+        }
+        
+        if(re>Integer.MAX_VALUE&&sign==1){
+        	return Integer.MAX_VALUE;
+        }
+        
+        return sign==1? (int)re:-(int)re;
+    }
 
 	public static void main(String[] args) {
 		//System.out.println(findNthDigit(1000));
