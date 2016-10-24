@@ -428,8 +428,54 @@ public class BinaryTree {
         if(l!=null&&r!=null){
         	return root;
         }
-        return l==null? r:l;
-        
+        return l==null? r:l;        
+    }
+    
+    //236. Lowest Common Ancestor of a Binary Tree  通过路径记录
+    private static boolean getPath(List<TreeNode> list, TreeNode root, TreeNode tar){
+    	 	
+    	if(root==null){
+    		return false;
+    	}    	
+    	list.add(root);   
+    	if(root==tar){
+    		return true;
+    	}
+    	
+    	if(root.left!=null){
+    		if(getPath(list, root.left, tar)){
+        		return true;
+        	}else{
+        		list.remove(list.size()-1);    	
+        	}
+    	}
+    	
+    	if(root.right!=null){
+    		if(getPath(list, root.right, tar)){
+        		return true;
+        	}else{
+        		list.remove(list.size()-1);
+        	}
+    	}
+    	return false;
+    }
+    
+    private static TreeNode getLow(List<TreeNode> l1, List<TreeNode> l2){
+    	int i=0;
+    	for(i=0; i<l1.size()&&i<l2.size(); i++){
+    		if(l1.get(i).val!=l2.get(i).val){
+    			break;
+    		}
+    	}
+    	return l1.get(i-1);  
+    }
+    
+    public static TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+    	List<TreeNode> l1=new LinkedList<TreeNode>();
+    	List<TreeNode> l2=new LinkedList<TreeNode>();
+    	getPath(l1, root, p);
+    	getPath(l2, root, q); 
+    	return getLow(l1, l2);
     }
     
     //114. Flatten Binary Tree to Linked List
@@ -688,22 +734,37 @@ public class BinaryTree {
     }
     
 	public static void main(String[] args) {
-		String[] strs={
-			"1",
-			"2",
-			"3",
-			"null",
-			"4",
-			"null",
-			"null",
-			
-			"5",
-			"6",
-			"7",
-			"8"
-		};
-		TreeNode root=cxrea(strs);
-		System.out.println(levelOrder2(root));
+		TreeNode n1=new TreeNode(3);
+		TreeNode n2=new TreeNode(5);
+		TreeNode n3=new TreeNode(6);
+		TreeNode n4=new TreeNode(2);
+		TreeNode n5=new TreeNode(7);
+		TreeNode n6=new TreeNode(4);
+		TreeNode n7=new TreeNode(1);
+		n1.left=n2;
+		n2.left=n3;
+		n2.right=n4;
+		n4.left=n5;
+		n4.right=n6;
+		n1.right=n7;
+		
+		lowestCommonAncestor2(n1, n5, n7);
+//		String[] strs={
+//			"1",
+//			"2",
+//			"3",
+//			"null",
+//			"4",
+//			"null",
+//			"null",
+//			
+//			"5",
+//			"6",
+//			"7",
+//			"8"
+//		};
+//		TreeNode root=cxrea(strs);
+//		System.out.println(levelOrder2(root));
 		
 //		int[][] test=new int[][]{};
 //		System.out.println(test[0]);

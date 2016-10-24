@@ -204,25 +204,22 @@ public class Chapter6 {
     		return;
     	}
     	
-    	int [][]nums=new int[2][6*n+1];
-    	int flag=0;
-    	
+    	int []nums=new int[6*n+1];    	
     	for(int i=1; i<=6; i++){
-    		nums[flag][i]=1;
+    		nums[i]=1;
     	}
     	
     	for(int i=2; i<=n; i++){
-    		for(int j=i; j<=i*6; j++){
+    		for(int j=i*6; j>=i; j--){
     			int sum=0;
-    			for(int k=Math.max(1, j-6); k<=j-1; k++){
-    				sum+=nums[flag][k];
+    			for(int k=Math.max(1, j-6); k<j; k++){
+    				sum+=nums[k];
     			}
-    			nums[1-flag][j]=sum;
-    		}
-    		Arrays.fill(nums[flag], 0);
-    		flag=1-flag;
+    			nums[j]=sum;    			
+    		}  
     	}
-    	System.out.println(Arrays.toString(nums[flag]));
+    	
+    	System.out.println(Arrays.toString(nums));
     }
     
     /*
@@ -317,7 +314,7 @@ public class Chapter6 {
 	
 	
 	public static void main(String[] args) {
-		printProbability(3);
+		printProbability(4);
 		System.out.println(ReverseSentence("i am a student "));
 
 	}
