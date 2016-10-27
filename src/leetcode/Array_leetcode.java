@@ -442,6 +442,31 @@ public class Array_leetcode {
     	System.out.println(Arrays.toString(nums));
     }
     
+    //48. Rotate Image
+    public void rotate(int[][] matrix) {
+        if(matrix==null||matrix.length==0){
+        	return;
+        }
+        int n=matrix.length;
+        int temp=0;
+        for(int i=0; i<n; i++){
+        	for(int j=i+1; j<n; j++){
+        		temp=matrix[i][j];
+        		matrix[i][j]=matrix[j][i];
+        		matrix[j][i]=temp;
+        	}
+        }        
+        for(int i=0; i<n; i++){
+        	int left=0, right=n-1;
+        	while(left<right){
+        		temp=matrix[i][left];
+        		matrix[i][left]=matrix[i][right];
+        		matrix[i][right]=temp;
+        		left++;
+        		right--;
+        	}
+        }
+    }
 	public static void main(String[] args) {
 		rotate(new int[]{1,2}, 0);
 //		int[] nums={1, 0, -1, 0, -2, 2};
