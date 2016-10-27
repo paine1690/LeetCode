@@ -628,12 +628,34 @@ public class DynamicProgramming {
     				dp[i][j]=(p.charAt(i-1)=='?'||p.charAt(i-1)==s.charAt(j-1))&&dp[i-1][j-1];
     			}
     		}
-    	}
-    	
+    	}    	
     	return dp[m][n];
     }
+    
+    //44. Wildcard Matching
+    public static boolean isMatch3(String s, String p) {
+    	boolean [][]dp=new boolean[2][s.length()+1];
+    	dp[0][0]=true;
+    	int cur=0, last=0;
+    	for(int i=1; i<=p.length(); i++){
+    		cur=i&1;
+    		last=1-cur;
+    		dp[cur][0]=dp[last][0]&&p.charAt(i-1)=='*';
+    		for(int j=1; j<=s.length(); j++){
+    			if(p.charAt(i-1)=='*'){
+    				dp[cur][j]=dp[cur][j-1]||dp[last][j]||dp[last][j-1];
+    			}else{
+    				dp[cur][j]=(p.charAt(i-1)=='?'||p.charAt(i-1)==s.charAt(j-1))&&dp[last][j-1];
+    			}
+    		}
+    	}
+    	return dp[cur][s.length()];
+    }
+    
+    
+    
 	public static void main(String[] args) {
-		System.out.println(isMatch2("","*"));
+		System.out.println(isMatch3("","*"));
 		//System.out.println(wiggleMaxLength(new int[]{1,2,3}));
 		//System.out.println(isSubsequence("ac", "ajibjic"));
 //		int nums[]={1,3,6,7,9,4,10,5,6};
