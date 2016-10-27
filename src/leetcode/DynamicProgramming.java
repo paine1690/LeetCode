@@ -587,8 +587,37 @@ public class DynamicProgramming {
     	return re;
     }
     
+    //10. Regular Expression Matching    
+    public static boolean isMatch(String s, String p) {
+    	int m=p.length(), n=s.length();
+    	boolean[][] dp=new boolean[m+1][n+1];    	
+    	dp[0][0]=true;
+    	for(int i=2; i<=m; i++){
+    		dp[i][0]=p.charAt(i-1)=='*'&&dp[i-2][0];
+    	}
+    	
+    	for(int i=1; i<=m; i++){
+    		for(int j=1; j<=n; j++){
+    			if(p.charAt(i-1)=='*'){
+    				dp[i][j]=dp[i-2][j]
+    					||(p.charAt(i-2)=='.'||p.charAt(i-2)==s.charAt(j-1))&&(dp[i][j-1]);
+    					
+    			}else{
+    				dp[i][j]=(p.charAt(i-1)=='.'||p.charAt(i-1)==s.charAt(j-1))&&dp[i-1][j-1];
+    			}
+    		}
+    	}
+    	
+    	for(int i=0; i<dp.length; i++){
+    		System.out.println(Arrays.toString(dp[i]));
+    	}
+    	return dp[m][n];
+    }
+    
+    
 	public static void main(String[] args) {
-		System.out.println(wiggleMaxLength(new int[]{1,2,3}));
+		System.out.println(isMatch("aab","c*a*b"));
+		//System.out.println(wiggleMaxLength(new int[]{1,2,3}));
 		//System.out.println(isSubsequence("ac", "ajibjic"));
 //		int nums[]={1,3,6,7,9,4,10,5,6};
 //		//String s="1";
