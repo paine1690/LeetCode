@@ -726,6 +726,40 @@ public class LinkedList_leetcode {
         return re;
     }
     
+    //109. Convert Sorted List to Binary Search Tree
+    private TreeNode toBST(ListNode[] nodes, int i, int j){
+    	TreeNode root=null;
+    	if(i<=j){
+    		if(i==j){
+    			root=new TreeNode(nodes[i].val);
+    		}else{
+    			int mid=i+(j-i)/2;
+    			root=new TreeNode(nodes[mid].val);
+    			root.left=toBST(nodes, i, mid-1);
+    			root.right=toBST(nodes, mid+1, j);
+    		}
+    	}    	
+    	return root;
+    }
+    
+    public TreeNode sortedListToBST(ListNode head) {
+        ListNode p=head;
+        int cnt=0;
+        while(p!=null){
+        	cnt++;
+        	p=p.next;
+        }
+    	ListNode[] nodes=new ListNode[cnt];
+    	p=head;
+    	for(int i=0; i<nodes.length; i++){
+    		nodes[i]=p;
+    		p=p.next;
+    	}    	
+    	return toBST(nodes, 0, nodes.length);
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		int[] aa={1,2,3,4,5};
 //		int[] bb={5,6,4};

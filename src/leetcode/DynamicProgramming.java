@@ -652,10 +652,88 @@ public class DynamicProgramming {
     	return dp[cur][s.length()];
     }
     
+    //416. Partition Equal Subset Sum
+    public boolean canPartition(int[] nums) {
+        int sum=0;
+        for(int num: nums){
+        	sum+=num;
+        }
+        if((sum&1)==1){
+        	return false;
+        }
+        
+        int n=nums.length;
+        sum/=2;
+        // dp[i][j] 表示 如果我们取前i个数字，且背包容量为j的情况下，最多能放入多少东西
+        int[][] dp=new int[n][sum+1];
+        for(int i=nums[0]; i<=sum; i++){
+        	dp[0][i]=nums[0];
+        }
+        for(int i=1; i<n; i++){
+        	for(int j=nums[i]; j<=sum; j++){
+        		dp[i][j]=Math.max(dp[i-1][j], dp[i-1][j-nums[i]]+nums[i]);
+        	}
+        }
+        
+        return dp[n-1][sum]==sum;
+    }
     
+    //123. Best Time to Buy and Sell Stock III
+    public int maxProfit3(int[] prices) {
+        if(prices.length<2){
+        	return 0;
+        }
+        int len=prices.length;
+        int[] pre=new int[len];
+        int[] post=new int[len];
+    	
+    	int min=prices[0];
+    	for(int i=1; i<len; i++){
+    		min=Math.min(min, prices[i]);
+    		pre[i]=Math.max(pre[i-1], prices[i]-min);
+    	}
+    	int max=prices[len-1];
+    	for(int i=len-2; i>=0; i--){
+    		max=Math.max(max, prices[i]);
+    		post[i]=Math.max(post[i+1], max-prices[i]);
+    	}
+    	
+    	int re=0;
+    	for(int i=0; i<len; i++){
+    		re=Math.max(re, pre[i]+post[i]);
+    	}
+    	
+    	return re;
+    }
+    
+    //188. Best Time to Buy and Sell Stock IV
+    public int maxProfit(int k, int[] prices) {
+        if(prices.length<2){
+        	return 0;
+        }
+        int len=prices.length;
+        if(k>=len){
+        	return maxProfit2(prices);
+        }
+        
+        int[][] local=new int[len][k+1];
+        int[][] global=new int[len][k+1];
+    	
+        for(int i=1; i<len; i++){
+        	int diff=prices[i]-prices[i-1];
+        	for(int j=1; j<=k; j++){
+        		local[i][j]=Math.max(local[i-1][j]+diff, global[i-1][j-1]);
+        		global[i][j]=Math.max(local[i][j], global[i-1][j]);
+        	}
+        }
+    	
+    	return global[len-1][k];
+    }
     
 	public static void main(String[] args) {
-		System.out.println(isMatch3("","*"));
+		
+		
+		//System.out.println(isMatch3("","*"));
 		//System.out.println(wiggleMaxLength(new int[]{1,2,3}));
 		//System.out.println(isSubsequence("ac", "ajibjic"));
 //		int nums[]={1,3,6,7,9,4,10,5,6};
