@@ -394,6 +394,38 @@ public class Chapter2 {
 	}
 	
 	/*
+	 * 2.18 数组分割
+	 */
+	public static int div(int[] nums){
+		int sum=0;
+		for(int num: nums){
+			sum+=num;
+		}
+		sum/=2;
+		int nn=nums.length;
+		int n=nn/2;
+		boolean[][] dp=new boolean[n+1][sum+1];
+		dp[0][0]=true;
+		for(int k=0; k<nums.length; k++){			
+			for(int i=Math.min(k+1, n); i>=1; i--){
+				for(int v=1; v<=sum; v++){		
+					dp[i][v]=v>=nums[k]&&dp[i-1][v-nums[k]]; 					
+				}
+			}
+		}
+		for(int i=0; i<dp.length; i++){
+			System.out.println(Arrays.toString(dp[i]));
+		}
+		
+		for(int s=sum; s>=0; s--){
+			if(dp[n][s]){
+				return (sum-s)*2;
+			}			
+		}
+		return 0;
+	}
+	
+	/*
 	 * 2.19 区间重合判断
 	 */
 	static class numsComparator implements Comparator<int[]>{
@@ -478,10 +510,14 @@ public class Chapter2 {
 		System.out.println(re);
 	}
 
+	
+
 	public static void main(String[] args) {
-		getSum(65341);
-		int[] nums={5,6,8,3,7,9};
-		System.out.println(Arrays.toString(nums));		
+		int[] nums={1,5,7,8,9,6,3,11,20,17};
+		System.out.println(div(nums));
+		
+//		getSum(65341);	
+//		System.out.println(Arrays.toString(nums));		
 
 
 	}

@@ -193,13 +193,11 @@ public class DynamicProgramming {
     		return 0;
     	}
     	int re=nums[0];
-    	int temp=re;
-        for(int i=1; i<nums.length; i++){
-        	temp=Math.max(temp, 0);
-        	temp+=nums[i];
-        	re=Math.max(re, temp);
-        }
-    	return re;
+    	for(int i=1; i<nums.length; i++){
+    		nums[i]=Math.max(nums[i], nums[i-1]+nums[i]);
+    		re=Math.max(re, nums[i]);
+    	}
+    	return nums[nums.length-1];
     }
     
     //300. Longest Increasing Subsequence

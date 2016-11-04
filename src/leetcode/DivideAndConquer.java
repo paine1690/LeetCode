@@ -4,6 +4,7 @@ package leetcode;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 /**
@@ -105,7 +106,7 @@ public class DivideAndConquer {
     
     
     //315. Count of Smaller Numbers After Self   11ms
-    private static void reverse(int[] nums, int[] smaller, int[] pos, int start, int end){
+    private static void reverse(int[] nums, Integer[] smaller, int[] pos, int start, int end){
     	if(start>=end){
     		return ;
     	}
@@ -119,7 +120,8 @@ public class DivideAndConquer {
     		if(i>mid){
     			temp[k++]=pos[j++];
     		}else if(j>end){
-    			smaller[pos[i]]+=count;
+    			int aaa=pos[i];
+    			smaller[aaa]+=count;
     			temp[k++]=pos[i++];
     		}else if(nums[pos[i]]<=nums[pos[j]]){
     			smaller[pos[i]]+=count;
@@ -140,20 +142,20 @@ public class DivideAndConquer {
     	if(nums==null||nums.length==0){
     		return re;
     	}
-    	int[] smaller=new int[nums.length];
+    	Integer[] smaller=new Integer[nums.length];
+    	Arrays.fill(smaller, 0);
     	int[] pos=new int[nums.length];
     	for(int i=0; i<pos.length; i++){
     		pos[i]=i;
     	}
     	reverse(nums, smaller, pos, 0, nums.length-1);
-    	for(int i=0; i<smaller.length; i++){
-    		re.add(smaller[i]);
-    	}
+    	re=new ArrayList<Integer>(Arrays.asList(smaller));
     	return re;
     }
     
 	public static void main(String[] args) {
 		System.out.println(countSmaller(new int[]{5,2,6,1}));
+	
 //		int[] nums1={1,2};
 //		int[] nums2={1,2};
 //		System.out.println(findMedianSortedArrays(nums1, nums2));
