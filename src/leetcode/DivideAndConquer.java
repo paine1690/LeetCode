@@ -95,15 +95,7 @@ public class DivideAndConquer {
 		}else{
 			return (findKth(nums1, 0, nums1.length, nums2, 0, nums2.length, k/2)+findKth(nums1, 0, nums1.length, nums2, 0, nums2.length, k/2+1))/2;
 		}
-	}
-	
-	//241. Different Ways to Add Parentheses
-    public static List<Integer> diffWaysToCompute(String input) {
-        
-    	
-    	return null;
-    }
-    
+	}    
     
     //315. Count of Smaller Numbers After Self   11ms
     private static void reverse(int[] nums, Integer[] smaller, int[] pos, int start, int end){
@@ -201,10 +193,37 @@ public class DivideAndConquer {
         return div(nums, 0, nums.length-1, k);
     }
     
+    //241. Different Ways to Add Parentheses    
+    public static List<Integer> diffWaysToCompute(String input) {
+    	List<Integer> re=new ArrayList<Integer>();    	
+    	for(int i=1; i<input.length(); i++){
+    		char c=input.charAt(i);
+    		if(c=='+'||c=='-'||c=='*'){
+    			List<Integer> l1=diffWaysToCompute(input.substring(0, i));
+        		List<Integer> l2=diffWaysToCompute(input.substring(i+1, input.length()));
+        		for(Integer a: l1){
+        			for(Integer b: l2){
+        				if(c=='+'){
+        					re.add(a+b);
+        				}else if(c=='-'){
+        					re.add(a-b);
+        				}else{
+        					re.add(a*b);
+        				}
+        			}
+        		}        		
+    		}    		
+    	}
+    	if(re.isEmpty()){
+    		re.add(Integer.valueOf(input));
+    	}
+    	return re;
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(findKthLargest2(new int[]{2,1}, 1));
-		
-		//System.out.println(countSmaller(new int[]{5,2,6,1}));	
+		System.out.println(diffWaysToCompute("2*3-4*5"));
+//		System.out.println(findKthLargest2(new int[]{2,1}, 1));
+//		System.out.println(countSmaller(new int[]{5,2,6,1}));	
 //		int[] nums1={1,2};
 //		int[] nums2={1,2};
 //		System.out.println(findMedianSortedArrays(nums1, nums2));
