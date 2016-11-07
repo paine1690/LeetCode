@@ -153,9 +153,58 @@ public class DivideAndConquer {
     	return re;
     }
     
+    //215. Kth Largest Element in an Array
+    private static int partition2(int[] nums, int start, int end){
+    	int x=nums[start];
+    	int i=start, j=end;
+    	while(i<j){
+    		while(i<j&&nums[j]>=x){
+    			j--;
+    		}
+    		if(i<j){
+    			nums[i++]=nums[j];
+    		}
+    		while(i<j&&nums[i]<x){
+    			i++;
+    		}
+    		if(i<j){
+    			nums[j--]=nums[i];
+    		}
+    	}
+    	nums[i]=x;
+    	return i;
+    }
+    
+    private static void random(int[] nums, int start, int end){
+    	Random random=new Random();
+    	int r=start+random.nextInt(end-start+1);
+    	int temp=nums[start];
+    	nums[start]=nums[r];
+    	nums[r]=temp;
+    }
+    
+    private static int div(int[] nums, int start, int end, int k){
+    	random(nums, start, end);
+    	int mid=partition2(nums, start, end);
+    	//System.out.println(start+" "+end+" "+mid+" "+k);
+    	int th=end-mid+1;
+    	if(th==k){
+    		return nums[mid];
+    	}else if(th>k){
+    		return div(nums, mid+1, end, k);
+    	}else{
+    		return div(nums, start, mid-1, k-th);
+    	}
+    }
+    
+    public static int findKthLargest2(int[] nums, int k) {
+        return div(nums, 0, nums.length-1, k);
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(countSmaller(new int[]{5,2,6,1}));
-	
+		System.out.println(findKthLargest2(new int[]{2,1}, 1));
+		
+		//System.out.println(countSmaller(new int[]{5,2,6,1}));	
 //		int[] nums1={1,2};
 //		int[] nums2={1,2};
 //		System.out.println(findMedianSortedArrays(nums1, nums2));
