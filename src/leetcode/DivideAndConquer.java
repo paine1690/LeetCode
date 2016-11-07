@@ -220,13 +220,51 @@ public class DivideAndConquer {
     	return re;
     }
     
+    //4. Median of Two Sorted Arrays
+    private static double kThofTwoArray(int[] nums1, int s1, int e1, int[] nums2, int s2, int e2, int k){
+    	System.out.println(s1+" "+e1+" "+s2+" "+e2+" "+k);
+    	int l1=e1-s1+1;
+    	int l2=e2-s2+1;
+    	if(l1>l2){
+    		return kThofTwoArray(nums2, s2, e2, nums1, s1, e1, k);
+    	}
+    	if(l1==0){
+    		return nums2[s2+k-1];
+    	}
+    	if(k==1){
+    		return Math.min(nums1[s1], nums2[s2]);
+    	}
+    	
+    	int m=Math.min(k/2, l1);
+    	int n=k-m;
+    	int num1=nums1[s1+m-1], num2=nums2[s2+n-1];
+    	if(num1<num2){
+    		return kThofTwoArray(nums1, s1+m, e1, nums2, s2, e2, k-m);
+    	}else if(num1>num2){
+    		return kThofTwoArray(nums1, s1, e1, nums2, s2+n, e2, k-n);
+    	}else{
+    		return nums1[s1+m-1];
+    	}
+    	
+    }
+    
+    public static double findMedianSortedArrays2(int[] nums1, int[] nums2) {
+        int len=nums1.length+nums2.length;
+        if((len&1)==1){
+        	return kThofTwoArray(nums1, 0, nums1.length-1, nums2, 0, nums2.length-1, len/2+1);
+        }else{
+        	return (kThofTwoArray(nums1, 0, nums1.length-1, nums2, 0, nums2.length-1, len/2)
+        			+kThofTwoArray(nums1, 0, nums1.length-1, nums2, 0, nums2.length-1, len/2+1))/2.0;
+        }
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(diffWaysToCompute("2*3-4*5"));
+//		System.out.println(diffWaysToCompute("2*3-4*5"));
 //		System.out.println(findKthLargest2(new int[]{2,1}, 1));
 //		System.out.println(countSmaller(new int[]{5,2,6,1}));	
-//		int[] nums1={1,2};
-//		int[] nums2={1,2};
-//		System.out.println(findMedianSortedArrays(nums1, nums2));
+		int[] nums1={2,4,6,7,8,9,10};
+		int[] nums2={1,3,5};
+		System.out.println(findMedianSortedArrays2(nums1, nums2));
 	}
 
 }
