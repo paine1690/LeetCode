@@ -321,9 +321,28 @@ public class BinarySearch {
     	return right+1;
     }
     
+    //441. Arranging Coins
+    private static long sum(long n){
+    	return (1+n)*n/2;
+    }
+    
+    public static int arrangeCoins(int n) {
+        long i=1, j=n;
+        while(i<=j){
+        	long mid=i+(j-i)/2;
+        	long sum=sum(mid);        	
+        	if(sum<=n){
+        		i=mid+1;
+        	}else{
+        		j=mid-1;
+        	}
+        }
+        return (int)i-1;    	
+    }
+    
     
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		System.out.println(arrangeCoins(1804289383));
 		//int[] nums={3,24,50,79,88,150,345};		
 		//System.out.println(Arrays.toString(twoSum(nums,200)));
 	}

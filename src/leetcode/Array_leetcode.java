@@ -467,8 +467,9 @@ public class Array_leetcode {
         	}
         }
     }
-	public static void main(String[] args) {
-		rotate(new int[]{1,2}, 0);
+	public static void main(String[] args) {		
+		
+		//rotate(new int[]{1,2}, 0);
 //		int[] nums={1, 0, -1, 0, -2, 2};
 //		System.out.println(fourSum2(nums, 0));
 
