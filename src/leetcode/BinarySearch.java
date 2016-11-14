@@ -340,7 +340,31 @@ public class BinarySearch {
         return (int)i-1;    	
     }
     
+    //374. Guess Number Higher or Lower
+    static class GuessGame{
+    	int guess(int num){
+    		return 0;
+    	}
+    }
     
+    static class Solution extends GuessGame {
+    	
+        public int guessNumber(int n) {
+            int i=1, j=n;
+        	while(i<=j){
+        		int mid=i+(j-i)/2;
+        		int num=guess(mid);
+        		if(num==0){
+        			return mid;
+        		}else if(num==1){
+        			i=mid+1;
+        		}else{
+        			j=mid-1;
+        		}
+        	}
+        	return 0;
+        }
+    }
 	public static void main(String[] args) {
 		System.out.println(arrangeCoins(1804289383));
 		//int[] nums={3,24,50,79,88,150,345};		
