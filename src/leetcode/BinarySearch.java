@@ -12,79 +12,226 @@ import java.util.Set;
  * 对于反转一次的有序数组，同样适用，有很多类似的题，可以在判断的时时候适当的加上边界条件
  * 掌握主体思想以后，主要就是根据题意来分析进行具体的判断，修改一些判断条件
  * 
+ * 分为4类，
+ * 查找符合条件的，不符合则返回-1
+ * 找第一个符合条件的数
+ * 找最后一个符合条件的数
+ * 数组由有序数组经过某种变换得到，不完全有序
+ * 
  * 注意：求mid时，如果直接mid=(keft+right)/2,有可能会导致溢出
  * 		所以，要用mid=left+(right-left)/2
  */
 
 public class BinarySearch {
 	
+	
+	/**
+	 * 1、查找符合条件的，不符合则返回-1
+	 */
+    //34. Search for a Range
+    public int[] searchRange(int[] nums, int target) {
+        int i=0, j=nums.length-1;
+        while(i<=j){
+        	int mid=i+(j-i)/2;
+        	if(nums[mid]==target){
+        		i=mid;
+        		j=mid;
+        		while(i>0&&nums[i-1]==target){
+        			i--;
+        		}
+        		while(j<nums.length-1&&nums[j+1]==target){
+        			j++;
+        		}       		
+        		return new int[]{i, j};   
+        	}else if(nums[mid]>target){
+        		j=mid-1;
+        	}else{
+        		i=mid+1;
+        	}
+        }
+    	return new int[]{-1, -1};
+    }	
+	
+    //367. Valid Perfect Square
+    public static boolean isPerfectSquare(int num) {
+    	if(num==1){
+    		return true;
+    	}
+        long i=1, j=num/2;
+        while(i<=j){
+        	long mid=i+(j-i)/2;
+        	long mul=mid*mid;
+        	if(mul==num){
+        		return true;
+        	}else if(mul>num){
+        		j=mid-1;
+        	}else{
+        		i=mid+1;
+        	}
+        }
+    	return false;
+    }
+	
+	/**
+	 * 2、找第一个符合条件的数
+	 */
 	//没有具体功能，为了确保编译没有错误。
 	static boolean  isBadVersion(int version){
 		return true;
 	}
 	
-	//278. First Bad Version
-	public int firstBadVersion(int n) {
-    	int left=1, right=n;
-        while(left<=right){
-        	int mid=left+(right-left)/2;
+	//278. First Bad Version   第一个isBadVersion()
+    public int firstBadVersion(int n) {
+        int i=1, j=n;
+        while(i<=j){
+        	int mid=i+(j-i)/2;
         	if(isBadVersion(mid)){
-        		right=mid-1;
+        		j=mid-1;
         	}else{
-        		left=mid+1;
+        		i=mid+1;
         	}
-        }    	
-    	return right+1;
-    }
-    
-	//69. Sqrt(x)
-    public static int mySqrt(int x) {
-    	if(x<2){
-    		return x;
-    	}
-        int left=1, right=x/2+1;
-    	while(left<=right){
-    		int mid=left+(right-left)/2;
-    		int temp=x/mid;
-    		if(temp==mid){
-    			return mid;
-    		}else if(temp<mid){
-    			right=mid-1;
+        }
+        return j+1;
+    }	
+	
+    //35. Search Insert Position  第一个>=n
+    public static int searchInsert(int[] nums, int target) {
+    	int i=0, j=nums.length-1;
+    	while(i<=j){
+    		int mid=i+(j-i)/2;
+    		if(nums[mid]>=target){
+    			j=mid-1;
     		}else{
-    			left=mid+1;
+    			i=mid+1;
     		}
     	}
-    	return right;
+    	return j+1;
+    }
+	
+	/**
+	 * 3、找最后一个符合条件的数
+	 */
+    //441. Arranging Coins  最后一个<=n
+    private static long sum(long n){
+    	return (1+n)*n/2;
     }
     
-    //34. Search for a Range
-    public static int[] searchRange(int[] nums, int target) {
-        int[] re={-1,-1};
-        if(nums[0]>target||nums[nums.length-1]<target){
-        	return re;
-        }
-        int left=0, right=nums.length-1;
-        while(left<=right){
-        	int mid=left+(right-left)/2;
-        	if(nums[mid]==target){
-                int i=mid, j=mid;
-                while(j<nums.length-1&&nums[j+1]==target){
-                	j++;
-                }
-                while(i>0&&nums[i-1]==target){
-                	i--;
-                }
-                re[0]=i;       	
-                re[1]=j;	
-        		break;
-        	}else if(nums[mid]<target){
-        		left=mid+1;
+    public static int arrangeCoins(int n) {
+        long i=1, j=n;
+        while(i<=j){
+        	long mid=i+(j-i)/2;
+        	long sum=sum(mid);        	
+        	if(sum<=n){
+        		i=mid+1;
         	}else{
-        		right=mid-1;
+        		j=mid-1;
         	}
         }
-        return re;
+        return (int)i-1;    	
     }
+    
+    //69. Sqrt(x) 最后一个 平方<=x的数
+    public static int mySqrt(int x) { 
+    	if(x==1){
+    		return 1;
+    	}
+        long i=0, j=x/2;
+        while(i<=j){
+        	long mid=i+(j-i)/2;
+        	long mul=mid*mid;
+        	if(mul<=x){
+        		i=mid+1;
+        	}else{
+        		j=mid-1;
+        	}
+        }
+        return (int) (i-1);
+    }
+    
+	
+	/**
+	 * 4、数组由有序数组经过某种变换得到，不完全有序
+	 */
+    //153. Find Minimum in Rotated Sorted Array
+    public int findMin(int[] nums) {
+        int i=0, j=nums.length-1;
+        while(i<j){
+        	int mid=i+(j-i)/2;
+        	if(nums[mid]<nums[j]){
+        		j=mid;
+        	}else{
+        		i=mid+1;
+        	}   
+        }    	
+    	return nums[j];
+    }
+    
+    //154. Find Minimum in Rotated Sorted Array II
+    public int findMin2(int[] nums) {
+        int i=0, j=nums.length-1;
+        while(j>0&&nums[j-1]==nums[j]){
+			j--;
+		}
+        while(i<nums.length-1&&nums[i+1]==nums[i]){
+			i++;
+		}
+        while(i<j){
+        	int mid=i+(j-i)/2;
+        	if(nums[mid]<nums[j]){
+        		j=mid;
+        		while(j>0&&nums[j-1]==nums[j]){
+        			j--;
+        		}
+        	}else{
+        		i=mid+1;
+        		while(i<nums.length-1&&nums[i+1]==nums[i]){
+        			i++;
+        		}
+        	}
+        }
+    	return nums[j];
+    }
+	
+    //162. Find Peak Element
+    public int findPeakElement(int[] nums) {
+        int i=0, j=nums.length-1;
+        while(i<j){
+        	int mid=i+(j-i)/2;
+        	if(nums[mid]<nums[mid+1]){
+        		i=mid+1;
+        	}else{
+        		j=mid;
+        	}
+        }
+        return j;
+    }    
+	
+	
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
     
     //74. Search a 2D Matrix
     public static boolean searchMatrix(int[][] matrix, int target) {
@@ -120,58 +267,9 @@ public class BinarySearch {
     	return false;
     }
     
-    //35. Search Insert Position
-    public static int searchInsert(int[] nums, int target) {
-        int mid, left=0, right=nums.length-1;
-        while(left<=right){
-        	mid=left+(right-left)/2;
-        	if(nums[mid]==target){
-        		return mid;
-        	}else if(nums[mid]>target){
-        		right=mid-1;
-        	}else{
-        		left=mid+1;
-        	}
-        }
-        
-        return right+1;
-    }
+
     
-    //153. Find Minimum in Rotated Sorted Array
-    public static int findMin(int[] nums) {
-    	int mid, left=0, right=nums.length-1;
-        while(left<right){
-        	mid=left+(right-left)/2;
-        	
-        	if(nums[mid]>nums[right]){
-        		left=mid+1;
-        	}else{
-        		right=mid;
-        	}
-        }
-    	return nums[right];
-    }
-    
-    //154. Find Minimum in Rotated Sorted Array II
-    public static int findMin2(int[] nums) {
-    	int mid, left=0, right=nums.length-1;
-        while(left<right){
-        	if(nums[left]==nums[right]){
-        		left++;
-        		continue;
-        	}
-        	mid=left+(right-left)/2;        	
-        	if(nums[mid]>nums[right]){
-        		left=mid+1;
-        	}else{
-        		right=mid;
-        	}
-        }
-    	if(right==-1){
-    		return nums[0];
-    	}
-    	return nums[right];
-    }
+
     
     //240. Search a 2D Matrix II
     public static boolean searchMatrix2(int[][] matrix, int target) {
@@ -204,19 +302,7 @@ public class BinarySearch {
     	return len-right-1;
     }
     
-    //162. Find Peak Element
-    public static int findPeakElement(int[] nums) {
-        int left=0, right=nums.length-1;
-        while(left<right){
-        	int mid=left+(right-left)/2;
-        	if(nums[mid]<nums[mid+1]){
-        		left=mid+1;
-        	}else{
-        		right=mid;
-        	}
-        }
-    	return left;
-    }
+
     
     //33. Search in Rotated Sorted Array
     public static int search(int[] nums, int target) {
@@ -324,24 +410,7 @@ public class BinarySearch {
     	return right+1;
     }
     
-    //441. Arranging Coins
-    private static long sum(long n){
-    	return (1+n)*n/2;
-    }
-    
-    public static int arrangeCoins(int n) {
-        long i=1, j=n;
-        while(i<=j){
-        	long mid=i+(j-i)/2;
-        	long sum=sum(mid);        	
-        	if(sum<=n){
-        		i=mid+1;
-        	}else{
-        		j=mid-1;
-        	}
-        }
-        return (int)i-1;    	
-    }
+
     
     //374. Guess Number Higher or Lower
     static class GuessGame{
