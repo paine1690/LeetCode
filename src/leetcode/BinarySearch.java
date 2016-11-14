@@ -1,6 +1,9 @@
 package leetcode;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /*
  *                 总结
@@ -347,8 +350,7 @@ public class BinarySearch {
     	}
     }
     
-    static class Solution extends GuessGame {
-    	
+    static class Solution extends GuessGame {    	
         public int guessNumber(int n) {
             int i=1, j=n;
         	while(i<=j){
@@ -365,8 +367,54 @@ public class BinarySearch {
         	return 0;
         }
     }
+    
+    //349. Intersection of Two Arrays
+    private static boolean search3(int[] nums, int tar){
+    	int i=0, j=nums.length-1;
+    	while(i<=j){
+    		int mid=i+(j-i)/2;
+    		if(nums[mid]==tar){
+    			return true;
+    		}else if(nums[mid]>tar){
+    			j=mid-1;
+    		}else{
+    			i=mid+1;
+    		}
+    	}    	
+    	return false;
+    }
+    
+    public static int[] intersection(int[] nums1, int[] nums2) {
+        Set<Integer> set=new HashSet<Integer>();
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        if(nums1.length<nums2.length){
+        	int[] temp=nums1;
+        	nums1=nums2;
+        	nums2=temp;
+        }
+        
+        for(int i=0; i<nums1.length; i++){
+        	if(i!=0&&nums1[i]==nums1[i-1]){
+        		continue;
+        	}        	
+    		if(search3(nums2, nums1[i])){
+    			set.add(nums1[i]);
+    		}
+        	
+        }
+    	int[] re=new int[set.size()];
+    	int cnt=0;
+    	Iterator<Integer> i=set.iterator();
+    	while(i.hasNext()){
+    		re[cnt++]=(int) i.next();
+    	} 	
+    	
+    	return re;
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(arrangeCoins(1804289383));
+		System.out.println(Arrays.toString(intersection(new int[]{1}, new int[]{1})));
 		//int[] nums={3,24,50,79,88,150,345};		
 		//System.out.println(Arrays.toString(twoSum(nums,200)));
 	}
