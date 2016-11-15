@@ -1,8 +1,10 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 /*
@@ -43,20 +45,7 @@ public class BinarySearch {
     	return false;
     }
     
-    //275. H-Index II
-    public static int hIndex(int[] citations) {
-        int len=citations.length;
-    	int left=0, right=len-1;
-        while(left<=right){
-        	int mid=left+(right-left)/2;
-        	if(citations[mid]>=len-mid){
-        		right=mid-1;
-        	}else{
-        		left=mid+1;
-        	}
-        }    	
-    	return len-right-1;
-    }
+
     
 
     
@@ -95,50 +84,7 @@ public class BinarySearch {
     
 
     
-    //349. Intersection of Two Arrays
-    private static boolean search3(int[] nums, int tar){
-    	int i=0, j=nums.length-1;
-    	while(i<=j){
-    		int mid=i+(j-i)/2;
-    		if(nums[mid]==tar){
-    			return true;
-    		}else if(nums[mid]>tar){
-    			j=mid-1;
-    		}else{
-    			i=mid+1;
-    		}
-    	}    	
-    	return false;
-    }
-    
-    public static int[] intersection(int[] nums1, int[] nums2) {
-        Set<Integer> set=new HashSet<Integer>();
-        Arrays.sort(nums1);
-        Arrays.sort(nums2);
-        if(nums1.length<nums2.length){
-        	int[] temp=nums1;
-        	nums1=nums2;
-        	nums2=temp;
-        }
-        
-        for(int i=0; i<nums1.length; i++){
-        	if(i!=0&&nums1[i]==nums1[i-1]){
-        		continue;
-        	}        	
-    		if(search3(nums2, nums1[i])){
-    			set.add(nums1[i]);
-    		}
-        	
-        }
-    	int[] re=new int[set.size()];
-    	int cnt=0;
-    	Iterator<Integer> i=set.iterator();
-    	while(i.hasNext()){
-    		re[cnt++]=(int) i.next();
-    	} 	
-    	
-    	return re;
-    }
+
 	/**
 	 * 1、查找符合条件的，不符合则返回-1
 	 */
@@ -211,6 +157,97 @@ public class BinarySearch {
         }
     }
 	
+    //349. Intersection of Two Arrays
+    private static boolean search3(int[] nums, int tar){
+    	int i=0, j=nums.length-1;
+    	while(i<=j){
+    		int mid=i+(j-i)/2;
+    		if(nums[mid]==tar){
+    			return true;
+    		}else if(nums[mid]>tar){
+    			j=mid-1;
+    		}else{
+    			i=mid+1;
+    		}
+    	}    	
+    	return false;
+    }
+    
+    public static int[] intersection(int[] nums1, int[] nums2) {
+        Set<Integer> set=new HashSet<Integer>();
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        if(nums1.length<nums2.length){
+        	int[] temp=nums1;
+        	nums1=nums2;
+        	nums2=temp;
+        }
+        
+        for(int i=0; i<nums1.length; i++){
+        	if(i!=0&&nums1[i]==nums1[i-1]){
+        		continue;
+        	}        	
+    		if(search3(nums2, nums1[i])){
+    			set.add(nums1[i]);
+    		}
+        	
+        }
+    	int[] re=new int[set.size()];
+    	int cnt=0;
+    	Iterator<Integer> i=set.iterator();
+    	while(i.hasNext()){
+    		re[cnt++]=(int) i.next();
+    	} 	
+    	
+    	return re;
+    }
+    
+    //350. Intersection of Two Arrays II
+    private static int binarySearch(int[] nums, int start, int tar){
+    	int i=start, j=nums.length-1;
+    	while(i<=j){
+    		int mid=i+(j-i)/2;
+    		if(nums[mid]==tar){
+    			while(mid>start&&nums[mid-1]==nums[mid]){
+    				mid--;
+    			}
+    			return mid;
+    		}else if(nums[mid]>tar){
+    			j=mid-1;
+    		}else{
+    			i=mid+1;
+    		}
+    	}    	
+    	return -1;
+    }    
+    
+    public static int[] intersect(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        if(nums1.length<nums2.length){
+        	int[] temp=nums1;
+        	nums1=nums2;
+        	nums2=temp;
+        }      
+        List<Integer> list=new ArrayList<Integer>();
+        int start=0;
+        for(int i=0; i<nums1.length; i++){
+        	int temp=binarySearch(nums2, start, nums1[i]);
+        	if(temp>=0){
+        		list.add(nums1[i]);
+        		start=temp+1;
+        	}
+        }
+        
+        int[] re=new int[list.size()];
+    	int cnt=0;
+    	Iterator<Integer> i=list.iterator();
+    	while(i.hasNext()){
+    		re[cnt++]=(int) i.next();
+    	} 	    	
+    	return re;        
+    }    
+    
 	/**
 	 * 2、找第一个符合条件的数
 	 */
@@ -245,7 +282,24 @@ public class BinarySearch {
     		}
     	}
     	return j+1;
-    }
+    }    
+    
+    //275. H-Index II       第一个 nums[i]>=len-i
+    public int hIndex(int[] citations) {
+        int[] nums=citations;
+        int len=nums.length;
+        int i=0, j=len-1;
+    	while(i<=j){
+    		int mid=i+(j-i)/2;
+    		if(nums[mid]>=len-mid){
+    			j=mid-1;
+    		}else{
+    			i=mid+1;
+    		}
+    	}    	
+    	return len-(j+1);
+    }   
+    
 	
 	/**
 	 * 3、找最后一个符合条件的数
@@ -318,6 +372,36 @@ public class BinarySearch {
     	return false;
     }
 	
+    //209. Minimum Size Subarray Sum  最后一个<=tar
+    public static int minSubArrayLen(int s, int[] nums) {
+        for(int i=1; i<nums.length; i++){
+        	if(nums[i]==s){
+        		return 1;
+        	}
+        	nums[i]+=nums[i-1];
+        }
+        int len=Integer.MAX_VALUE;
+        for(int c=0; c<nums.length; c++){
+        	int num=nums[c];
+        	if(num<s){
+        		continue;
+        	}else{
+        		
+        		int i=0, j=c-1, tar=num-s;
+        		while(i<=j){
+        			int mid=i+(j-i)/2;
+        			if(nums[mid]<=tar){
+        				i=mid+1;
+        			}else{
+        				j=mid-1;
+        			}
+        		}		
+        		int index=i-1;
+        		len=Math.min(len, c-index);       		
+        	}
+        }
+    	return len==Integer.MAX_VALUE? 0: len;
+    }
 	/**
 	 * 4、数组由有序数组经过某种变换得到，不完全有序
 	 */	
@@ -373,8 +457,7 @@ public class BinarySearch {
         	}
         }
     	return nums[j];
-    }
-     
+    }     
     
 	//33. Search in Rotated Sorted Array
     public static int search(int[] nums, int target) {
@@ -448,11 +531,10 @@ public class BinarySearch {
     }
     
     
-    
-    
 	public static void main(String[] args) {
 		//System.out.println(Arrays.toString(intersection(new int[]{1}, new int[]{1})));
-		int[] nums={4,5,6,7,0,1,2};		
-		System.out.println(search(nums,2));
+		int[] nums1={84, 84, 84, 84, 84};
+		int[] nums2={84, 84};
+		System.out.println(Arrays.toString(intersect(nums1, nums2)));
 	}
 }
