@@ -24,7 +24,121 @@ import java.util.Set;
 
 public class BinarySearch {
 	
-	
+   
+
+    
+    //240. Search a 2D Matrix II
+    public static boolean searchMatrix2(int[][] matrix, int target) {
+        int i=0, j=matrix[0].length-1;
+        while(i<matrix.length&&j>0){
+        	int val=matrix[i][j];
+        	if(val>target){
+        		j--;
+        	}else if(val<target){
+        		i++;
+        	}else{
+        		return true;
+        	}
+        }
+    	return false;
+    }
+    
+    //275. H-Index II
+    public static int hIndex(int[] citations) {
+        int len=citations.length;
+    	int left=0, right=len-1;
+        while(left<=right){
+        	int mid=left+(right-left)/2;
+        	if(citations[mid]>=len-mid){
+        		right=mid-1;
+        	}else{
+        		left=mid+1;
+        	}
+        }    	
+    	return len-right-1;
+    }
+    
+
+    
+
+    
+
+    
+    //268. Missing Number
+    public static int missingNumber(int[] nums) {
+        if(nums.length==1){
+        	return nums[0]==0? 1:0;
+        }
+        Arrays.sort(nums);
+        int left=0, right=nums.length-1;
+        while(left<right){
+        	int mid=(left+right)>>>1;
+        	if(nums[mid]>mid){
+        		
+        		right=mid-1;
+        	}else{
+        		if(nums[mid]+1==nums[mid+1]){
+        			left=mid+1;
+        		}else{
+        			return nums[mid]+1;
+        		}
+        	}
+        
+        }
+        if(left==right&&nums[right]>right){
+        	return right;
+        }
+    	return right+1;
+    }
+    
+
+    
+
+    
+    //349. Intersection of Two Arrays
+    private static boolean search3(int[] nums, int tar){
+    	int i=0, j=nums.length-1;
+    	while(i<=j){
+    		int mid=i+(j-i)/2;
+    		if(nums[mid]==tar){
+    			return true;
+    		}else if(nums[mid]>tar){
+    			j=mid-1;
+    		}else{
+    			i=mid+1;
+    		}
+    	}    	
+    	return false;
+    }
+    
+    public static int[] intersection(int[] nums1, int[] nums2) {
+        Set<Integer> set=new HashSet<Integer>();
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        if(nums1.length<nums2.length){
+        	int[] temp=nums1;
+        	nums1=nums2;
+        	nums2=temp;
+        }
+        
+        for(int i=0; i<nums1.length; i++){
+        	if(i!=0&&nums1[i]==nums1[i-1]){
+        		continue;
+        	}        	
+    		if(search3(nums2, nums1[i])){
+    			set.add(nums1[i]);
+    		}
+        	
+        }
+    	int[] re=new int[set.size()];
+    	int cnt=0;
+    	Iterator<Integer> i=set.iterator();
+    	while(i.hasNext()){
+    		re[cnt++]=(int) i.next();
+    	} 	
+    	
+    	return re;
+    }
 	/**
 	 * 1、查找符合条件的，不符合则返回-1
 	 */
@@ -70,6 +184,31 @@ public class BinarySearch {
         	}
         }
     	return false;
+    }
+    
+    //374. Guess Number Higher or Lower
+    static class GuessGame{
+    	int guess(int num){
+    		return 0;
+    	}
+    }
+    
+    static class Solution extends GuessGame {    	
+        public int guessNumber(int n) {
+            int i=1, j=n;
+        	while(i<=j){
+        		int mid=i+(j-i)/2;
+        		int num=guess(mid);
+        		if(num==0){
+        			return mid;
+        		}else if(num==1){
+        			i=mid+1;
+        		}else{
+        			j=mid-1;
+        		}
+        	}
+        	return 0;
+        }
     }
 	
 	/**
@@ -148,10 +287,54 @@ public class BinarySearch {
         return (int) (i-1);
     }
     
+    //74. Search a 2D Matrix
+    public boolean searchMatrix4(int[][] matrix, int target) {
+        int i=0, j=matrix.length-1;
+        while(i<=j){
+        	int mid=i+(j-i)/2;
+        	if(matrix[mid][0]<=target){
+        		i=mid+1;
+        	}else{
+        		j=mid-1;
+        	}
+        }        
+        int row=i-1;
+        if(row<0){
+        	return false;
+        }
+    	int[] nums=matrix[row];
+    	i=0;
+    	j=nums.length-1;
+    	while(i<=j){
+    		int mid=i+(j-i)/2;
+    		if(nums[mid]==target){
+    			return true;
+    		}else if(nums[mid]>target){
+    			j=mid-1;
+    		}else{
+    			i=mid+1;
+    		}
+    	}   	
+    	return false;
+    }
 	
 	/**
 	 * 4、数组由有序数组经过某种变换得到，不完全有序
-	 */
+	 */	
+    //162. Find Peak Element
+    public int findPeakElement(int[] nums) {
+        int i=0, j=nums.length-1;
+        while(i<j){
+        	int mid=i+(j-i)/2;
+        	if(nums[mid]<nums[mid+1]){
+        		i=mid+1;
+        	}else{
+        		j=mid;
+        	}
+        }
+        return j;
+    }   
+    
     //153. Find Minimum in Rotated Sorted Array
     public int findMin(int[] nums) {
         int i=0, j=nums.length-1;
@@ -191,300 +374,85 @@ public class BinarySearch {
         }
     	return nums[j];
     }
-	
-    //162. Find Peak Element
-    public int findPeakElement(int[] nums) {
-        int i=0, j=nums.length-1;
-        while(i<j){
-        	int mid=i+(j-i)/2;
-        	if(nums[mid]<nums[mid+1]){
-        		i=mid+1;
-        	}else{
-        		j=mid;
-        	}
-        }
-        return j;
-    }    
-	
-	
-
+     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-
-    
-    //74. Search a 2D Matrix
-    public static boolean searchMatrix(int[][] matrix, int target) {
-        int m=matrix.length;
-        int n=matrix[0].length;
-    	int mid = 0, left=0, right=m-1;
-    	while(left<=right){
-    		mid=left+(right-left)/2;
-    		if(matrix[mid][0]==target){
-    			return true;
-    		}else if(matrix[mid][0]>target){
-    			right=mid-1;
-    		}else{
-    			left=mid+1;
-    		}
-    	}
-    	if(right==-1){
-    		return false;
-    	}
-    	int temp=right;
-    	left=0; 
-    	right=n-1;
-    	while(left<=right){
-    		mid=left+(right-left)/2;
-    		if(matrix[temp][mid]==target){
-    			return true;
-    		}else if(matrix[temp][mid]<target){
-    			left=mid+1;
-    		}else{
-    			right=mid-1;
-    		}
-    	}
-    	return false;
-    }
-    
-
-    
-
-    
-    //240. Search a 2D Matrix II
-    public static boolean searchMatrix2(int[][] matrix, int target) {
-        int i=0, j=matrix[0].length-1;
-        while(i<matrix.length&&j>0){
-        	int val=matrix[i][j];
-        	if(val>target){
-        		j--;
-        	}else if(val<target){
-        		i++;
-        	}else{
-        		return true;
-        	}
-        }
-    	return false;
-    }
-    
-    //275. H-Index II
-    public static int hIndex(int[] citations) {
-        int len=citations.length;
-    	int left=0, right=len-1;
-        while(left<=right){
-        	int mid=left+(right-left)/2;
-        	if(citations[mid]>=len-mid){
-        		right=mid-1;
-        	}else{
-        		left=mid+1;
-        	}
-        }    	
-    	return len-right-1;
-    }
-    
-
-    
-    //33. Search in Rotated Sorted Array
+	//33. Search in Rotated Sorted Array
     public static int search(int[] nums, int target) {
-        int left=0, right=nums.length-1;
-        while(left<=right){
-        	int mid=left+(right-left)/2;
+        int i=0, j=nums.length-1;
+        while(i<=j){
+        	int mid=i+(j-i)/2;
         	if(nums[mid]==target){
         		return mid;
         	}else if(nums[mid]>target){
-        		if(nums[mid]<nums[right]){
-        			right=mid-1;
+        		if(nums[mid]<nums[i]){
+        			j=mid-1;
         		}else{
-        			if(nums[left]==target){
-        				return left;
-        			}else if(nums[left]<target){
-        				right=mid-1;
+        			if(target>=nums[i]){
+        				j=mid-1;
         			}else{
-        				left=mid+1;
+        				i=mid+1;
         			}
         		}
-        	}else{//nums[mid]<target
-        		if(nums[mid]>nums[left]){
-        			left=mid+1;
+        	}else{
+        		if(nums[mid]>=nums[i]){
+        			i=mid+1;
         		}else{
-        			if(nums[right]==target){
-            			return right;
-        			}else if(nums[right]>target){
-        				left=mid+1;
+        			if(target>=nums[i]){
+        				j=mid-1;
         			}else{
-        				right=mid-1;
+        				i=mid+1;
         			}
         		}
         	}
         }
-    	return -1;
-    }
+        return -1;
+    }   
     
     //81. Search in Rotated Sorted Array II
-    public static boolean search2(int[] nums, int target) {
-    	int left=0, right=nums.length-1;
-        while(left<=right){
-        	if(nums[left]==nums[right]){
-        		left++;
+    public boolean search2(int[] nums, int target) {
+        int i=0, j=nums.length-1;
+        while(i<=j){
+        	if(nums[i]==nums[j]){
+        		if(nums[i]==target){
+        			return true;
+        		}
+        		i++;
         		continue;
         	}
-        	int mid=left+(right-left)/2;
+        	int mid=i+(j-i)/2;
         	if(nums[mid]==target){
         		return true;
         	}else if(nums[mid]>target){
-        		if(nums[mid]<=nums[right]){
-        			right=mid-1;
+        		if(nums[mid]<nums[i]){
+        			j=mid-1;
         		}else{
-        			if(nums[left]==target){
-        				return true;
-        			}else if(nums[left]<target){
-        				right=mid-1;
+        			if(target>=nums[i]){
+        				j=mid-1;
         			}else{
-        				left=mid+1;
+        				i=mid+1;
         			}
         		}
-        	}else{//nums[mid]<target
-        		if(nums[mid]>=nums[left]){
-        			left=mid+1;
-        		}else{
-        			if(nums[right]==target){
-            			return true;
-        			}else if(nums[right]>target){
-        				left=mid+1;
-        			}else{
-        				right=mid-1;
-        			}
-        		}
-        	}
-        }
-    	if(right>=0){
-        	return nums[right]==target;
-        }
-    	return false;
-    }
-    
-    //268. Missing Number
-    public static int missingNumber(int[] nums) {
-        if(nums.length==1){
-        	return nums[0]==0? 1:0;
-        }
-        Arrays.sort(nums);
-        int left=0, right=nums.length-1;
-        while(left<right){
-        	int mid=(left+right)>>>1;
-        	if(nums[mid]>mid){
-        		
-        		right=mid-1;
         	}else{
-        		if(nums[mid]+1==nums[mid+1]){
-        			left=mid+1;
-        		}else{
-        			return nums[mid]+1;
-        		}
-        	}
-        
-        }
-        if(left==right&&nums[right]>right){
-        	return right;
-        }
-    	return right+1;
-    }
-    
-
-    
-    //374. Guess Number Higher or Lower
-    static class GuessGame{
-    	int guess(int num){
-    		return 0;
-    	}
-    }
-    
-    static class Solution extends GuessGame {    	
-        public int guessNumber(int n) {
-            int i=1, j=n;
-        	while(i<=j){
-        		int mid=i+(j-i)/2;
-        		int num=guess(mid);
-        		if(num==0){
-        			return mid;
-        		}else if(num==1){
+        		if(nums[mid]>=nums[i]){
         			i=mid+1;
         		}else{
-        			j=mid-1;
+        			if(target>=nums[i]){
+        				j=mid-1;
+        			}else{
+        				i=mid+1;
+        			}
         		}
         	}
-        	return 0;
         }
+        return false;
     }
     
-    //349. Intersection of Two Arrays
-    private static boolean search3(int[] nums, int tar){
-    	int i=0, j=nums.length-1;
-    	while(i<=j){
-    		int mid=i+(j-i)/2;
-    		if(nums[mid]==tar){
-    			return true;
-    		}else if(nums[mid]>tar){
-    			j=mid-1;
-    		}else{
-    			i=mid+1;
-    		}
-    	}    	
-    	return false;
-    }
     
-    public static int[] intersection(int[] nums1, int[] nums2) {
-        Set<Integer> set=new HashSet<Integer>();
-        Arrays.sort(nums1);
-        Arrays.sort(nums2);
-        if(nums1.length<nums2.length){
-        	int[] temp=nums1;
-        	nums1=nums2;
-        	nums2=temp;
-        }
-        
-        for(int i=0; i<nums1.length; i++){
-        	if(i!=0&&nums1[i]==nums1[i-1]){
-        		continue;
-        	}        	
-    		if(search3(nums2, nums1[i])){
-    			set.add(nums1[i]);
-    		}
-        	
-        }
-    	int[] re=new int[set.size()];
-    	int cnt=0;
-    	Iterator<Integer> i=set.iterator();
-    	while(i.hasNext()){
-    		re[cnt++]=(int) i.next();
-    	} 	
-    	
-    	return re;
-    }
+    
     
 	public static void main(String[] args) {
-		System.out.println(Arrays.toString(intersection(new int[]{1}, new int[]{1})));
-		//int[] nums={3,24,50,79,88,150,345};		
-		//System.out.println(Arrays.toString(twoSum(nums,200)));
+		//System.out.println(Arrays.toString(intersection(new int[]{1}, new int[]{1})));
+		int[] nums={4,5,6,7,0,1,2};		
+		System.out.println(search(nums,2));
 	}
 }

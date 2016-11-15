@@ -330,10 +330,34 @@ public class HashTable {
 		return true;
 	}
   	
-  	
+  	//274. H-Index
+    public static int hIndex(int[] citations) {
+    	int len=citations.length;
+        int[] d=new int[len+1];
+        for(int i=0; i<citations.length; i++){
+        	if(citations[i]>len){
+        		d[len]++;
+        	}else{
+        		d[citations[i]]++;
+        	}
+        }
+        
+        for(int i=len-1; i>0; i--){
+        	d[i]+=d[i+1];
+        }
+        for(int i=len; i>0; i--){
+        	if(d[i]>=i){
+        		return i;
+        	}
+        }       
+        return 0;
+    }
+	
+	
+	
 	public static void main(String[] args) {
-		//int[] nums={-1, -1};
-		//System.out.println(simplifyPath("/..."));
+		int[] nums={5};
+		System.out.println(hIndex(nums));
 		
 	}
 
