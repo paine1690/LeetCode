@@ -300,7 +300,74 @@ public class BinarySearch {
     	return len-(j+1);
     }   
     
-	
+    //436. Find Right Interval    先排序，然后找第一个>=tar的
+    static class Interval {
+    	int start;
+    	int end;
+    	Interval() { start = 0; end = 0; }
+    	Interval(int s, int e) { start = s; end = e; }
+    }
+    
+    private static void merge(int[] nums, int[] pos, int start, int mid, int end){
+    	int i=start, j=mid+1, k=0;
+    	int[] temp=new int[end-start+1];
+    	while(i<=mid&&j<=end){
+    		if(nums[pos[i]]<=nums[pos[j]]){
+    			temp[k++]=pos[i++];
+    		}else{
+    			temp[k++]=pos[j++];
+    		}
+    	}
+    	while(i<=mid){
+    		temp[k++]=pos[i++];
+    	}
+    	while(j<=end){
+    		temp[k++]=pos[j++];
+    	}
+    	for(k=0; k<temp.length; k++){
+    		pos[start+k]=temp[k];
+    	}
+    }
+    
+    private static void sort(int[] nums, int[] pos, int start, int end){
+    	if(start<end){
+    		int mid=start+(end-start)/2;
+    		sort(nums, pos, start, mid);
+    		sort(nums, pos, mid+1, end);
+    		merge(nums, pos, start, mid, end);
+    	}
+    }
+    
+    public static int[] findRightInterval(Interval[] intervals) {
+        int len=intervals.length;
+        int[] nums=new int[len];
+        int[] pos=new int[len];
+        int[] re=new int[len];
+    	for(int i=0; i<nums.length; i++){
+    		nums[i]=intervals[i].start;
+    		pos[i]=i;
+    	}
+    	sort(nums, pos, 0, len-1);
+    	System.out.println(Arrays.toString(pos));
+    	int i, j;
+    	for(int c=0; c<len; c++){
+    		int tar=intervals[c].end;
+    		
+    		i=0;
+    		j=len-1;
+    		while(i<=j){
+    			int mid=i+(j-i)/2;
+    			if(nums[pos[mid]]>=tar){
+    				j=mid-1;
+    			}else{
+    				i=mid+1;
+    			}
+    		}
+    		re[c]=j+1>=len? -1:pos[j+1];    		
+    	}
+    	return re;
+    }
+    
 	/**
 	 * 3、找最后一个符合条件的数
 	 */
@@ -530,11 +597,13 @@ public class BinarySearch {
         return false;
     }
     
+
     
-	public static void main(String[] args) {
-		//System.out.println(Arrays.toString(intersection(new int[]{1}, new int[]{1})));
-		int[] nums1={84, 84, 84, 84, 84};
-		int[] nums2={84, 84};
-		System.out.println(Arrays.toString(intersect(nums1, nums2)));
+	public static void main(String[] args) {		
+		Interval[] i=new Interval[]{new Interval(1,4), new Interval(2,3), new Interval(3,4)};
+		System.out.println(Arrays.toString(findRightInterval(i)));
+//		int[] nums1={84, 84, 84, 84, 84};
+//		int[] nums2={84, 84};
+//		System.out.println(Arrays.toString(intersect(nums1, nums2)));
 	}
 }
