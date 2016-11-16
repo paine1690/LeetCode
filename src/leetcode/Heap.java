@@ -53,6 +53,31 @@ public class Heap {
 		return heap[0];
 	}
     
+    //378. Kth Smallest Element in a Sorted Matrix
+    public int kthSmallest(int[][] matrix, int k) {
+        int[] heap=new int[k];
+        int n=matrix.length, len=n*n;
+        
+        int c=0;
+        int i, j;
+        while(c<k){
+        	i=c/n;
+        	j=c%n;
+        	heap[c]=matrix[i][j];
+        }
+        heapBuild(heap);
+        while(c<len){
+        	int num=matrix[c/n][c%n];
+        	if(num<heap[0]){
+        		heap[0]=num;
+        		heapAdjust(heap, 0);
+        	}       	
+        }
+        return heap[0];
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] nums={3,2,1,5,6,4};
