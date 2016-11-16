@@ -469,6 +469,7 @@ public class BinarySearch {
         }
     	return len==Integer.MAX_VALUE? 0: len;
     }
+    
 	/**
 	 * 4、数组由有序数组经过某种变换得到，不完全有序
 	 */	
