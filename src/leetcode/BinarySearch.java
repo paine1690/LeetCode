@@ -368,6 +368,31 @@ public class BinarySearch {
     	return re;
     }
     
+    //287. Find the Duplicate Number
+    private static int count(int[] nums, int tar){
+    	int re=0;
+    	for(int i=0; i<nums.length; i++){
+    		if(nums[i]<=tar){
+    			re++;
+    		}
+    	}
+    	return re;
+    }
+    
+    public static int findDuplicate(int[] nums) {
+       int i=0, j=nums.length-1;
+       while(i<=j){
+    	   int mid=i+(j-i)/2;
+    	   int cnt=count(nums, mid);
+    	   if(cnt>mid){
+    		   j=mid-1;
+    	   }else{
+    		   i=mid+1;
+    	   }
+       }
+       return j+1;
+    }
+    
 	/**
 	 * 3、找最后一个符合条件的数
 	 */
@@ -598,11 +623,11 @@ public class BinarySearch {
         return false;
     }
     
-
     
 	public static void main(String[] args) {		
-		Interval[] i=new Interval[]{new Interval(1,4), new Interval(2,3), new Interval(3,4)};
-		System.out.println(Arrays.toString(findRightInterval(i)));
+		System.out.println(findDuplicate(new int[]{1,2,2,3,4}));
+		//		Interval[] i=new Interval[]{new Interval(1,4), new Interval(2,3), new Interval(3,4)};
+//		System.out.println(Arrays.toString(findRightInterval(i)));
 //		int[] nums1={84, 84, 84, 84, 84};
 //		int[] nums2={84, 84};
 //		System.out.println(Arrays.toString(intersect(nums1, nums2)));

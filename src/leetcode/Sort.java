@@ -116,7 +116,17 @@ public class Sort {
     	return s.toString();
     }
     
-    
+    //287. Find the Duplicate Number
+    public static int findDuplicate(int[] nums) {
+        Arrays.sort(nums);
+        for(int i=0; i<nums.length-1; i++){
+        	if(nums[i]==nums[i+1]){
+        		return nums[i];
+        	}
+        }       
+        
+        return 0;
+    }
 	public static void main(String[] args) {
 		System.out.println(largestNumber(new int[]{1,2}));
 //		int[] nums={3, 0, 6, 1, 5};

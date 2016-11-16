@@ -298,6 +298,29 @@ public class TwoPointers {
     	return new int[]{i+1, j+1};
     	
     }
+    
+    //287. Find the Duplicate Number
+    public static int findDuplicate(int[] nums) {
+    	int i=0, j=0;
+    	while(true){
+    		i=nums[i];
+    		j=nums[nums[j]];
+    		if(i==j){
+    			break;
+    		}
+    	}
+    	j=0;
+    	while(true){
+    		i=nums[i];
+    		j=nums[j];
+    		if(i==j){
+    			return i;
+    		}
+    	}
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		int[] nums={1,2,3,4,5};
 		System.out.println(minSubArrayLen(11, nums));
