@@ -609,12 +609,17 @@ public class LinkedList_leetcode {
         	slow=slow.next;
         	fast=fast.next.next;
         	if(slow==fast){
-        		fast=slow.next;
-        		slow.next=null;
-        		slow=head;
-        		return getIntersectionNode(fast, slow);
+        		fast=head;
+        		while(true){
+        			if(fast==slow){
+        				return fast;
+        			}
+        			fast=fast.next;
+        			slow=slow.next;
+        			
+        		}
         	}
-        }
+        }       
     	return null;
     }
     
