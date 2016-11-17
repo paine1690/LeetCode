@@ -64,6 +64,7 @@ public class Heap {
         	i=c/n;
         	j=c%n;
         	heap[c]=matrix[i][j];
+        	c++;
         }
         heapBuild(heap);
         while(c<len){
@@ -71,12 +72,11 @@ public class Heap {
         	if(num<heap[0]){
         		heap[0]=num;
         		heapAdjust(heap, 0);
-        	}       	
+        	}     
+        	c++;
         }
         return heap[0];
     }
-    
-    
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

@@ -16,9 +16,16 @@ import java.util.Set;
  * 
  * 分为4类，
  * 查找符合条件的，不符合则返回-1
- * 找第一个符合条件的数
- * 找最后一个符合条件的数
  * 数组由有序数组经过某种变换得到，不完全有序
+ * 还有两种是最常用的
+ * 
+ * 数组范围0-n
+ * while(i<=j)
+ * 
+ * 		条件			返回		可能的范围k
+ * 1、第一个>=tar		i		0-n+1
+ * 2、最后一个<=tar	j		-1-n
+ * 
  * 
  * 注意：求mid时，如果直接mid=(keft+right)/2,有可能会导致溢出
  * 		所以，要用mid=left+(right-left)/2
@@ -267,7 +274,7 @@ public class BinarySearch {
         		i=mid+1;
         	}
         }
-        return j+1;
+        return i;
     }	
 	
     //35. Search Insert Position  第一个>=n
@@ -281,7 +288,7 @@ public class BinarySearch {
     			i=mid+1;
     		}
     	}
-    	return j+1;
+    	return i;
     }    
     
     //275. H-Index II       第一个 nums[i]>=len-i
@@ -297,7 +304,7 @@ public class BinarySearch {
     			i=mid+1;
     		}
     	}    	
-    	return len-(j+1);
+    	return len-i;
     }   
     
     //436. Find Right Interval    先排序，然后找第一个>=tar的
@@ -363,7 +370,7 @@ public class BinarySearch {
     				i=mid+1;
     			}
     		}
-    		re[c]=j+1>=len? -1:pos[j+1];    		
+    		re[c]=j+1>=len? -1:pos[i];    		
     	}
     	return re;
     }
@@ -390,7 +397,7 @@ public class BinarySearch {
     		   i=mid+1;
     	   }
        }
-       return j+1;
+       return i;
     }
     
 	/**
@@ -412,7 +419,7 @@ public class BinarySearch {
         		j=mid-1;
         	}
         }
-        return (int)i-1;    	
+        return (int)j;    	
     }
     
     //69. Sqrt(x) 最后一个 平方<=x的数
@@ -430,7 +437,7 @@ public class BinarySearch {
         		j=mid-1;
         	}
         }
-        return (int) (i-1);
+        return (int)j;
     }
     
     //74. Search a 2D Matrix
@@ -477,8 +484,7 @@ public class BinarySearch {
         	int num=nums[c];
         	if(num<s){
         		continue;
-        	}else{
-        		
+        	}else{        		
         		int i=0, j=c-1, tar=num-s;
         		while(i<=j){
         			int mid=i+(j-i)/2;
@@ -488,7 +494,7 @@ public class BinarySearch {
         				j=mid-1;
         			}
         		}		
-        		int index=i-1;
+        		int index=j;
         		len=Math.min(len, c-index);       		
         	}
         }

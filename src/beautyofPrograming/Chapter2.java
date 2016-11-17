@@ -409,7 +409,9 @@ public class Chapter2 {
 		for(int k=0; k<nums.length; k++){			
 			for(int i=Math.min(k+1, n); i>=1; i--){
 				for(int v=1; v<=sum; v++){		
-					dp[i][v]=v>=nums[k]&&dp[i-1][v-nums[k]]; 					
+					if(v>=nums[k]&&dp[i-1][v-nums[k]]){
+						dp[i][v]=true; 			
+					}							
 				}
 			}
 		}
@@ -490,33 +492,32 @@ public class Chapter2 {
 	}
 	 
 	/*
-	 * 2.21 只考加法的面试题
+	 * 2.21 只考加法的面试题  n*n+(2*k-1)*n=2x
 	 */
 	public static void getSum(long num){
 		List<String> re=new ArrayList<String>();
 		int len=(int) Math.sqrt(2*num);
-		for(int k=2; k<=len; k++){
-			long temp=num-(k*(k-1))/2;
-			if(temp%k==0){
-				int i=(int) (temp/k);
+		
+		for(int n=2; n<=len; n++){
+			long temp=2*num-n*n;
+			if(temp%n==0){
+				int k=(int) ((temp/n+1)/2);
 				StringBuilder s=new StringBuilder();
 				int j=0;
-				for(; j<k-1; j++){
-					s.append(i+j).append("+");
+				for(; j<n-1; j++){
+					s.append(k+j).append("+");
 				}
-				re.add(s.append(i+j).toString());
+				re.add(s.append(k+j).toString());
 			}
 		}
 		System.out.println(re);
 	}
 
-	
-
 	public static void main(String[] args) {
-		int[] nums={1,5,7,8,9,6,3,11,20,17};
-		System.out.println(div(nums));
+//		int[] nums={1,5,7,8,9,6,3,11,20,17};
+//		System.out.println(div(nums));
 		
-//		getSum(65341);	
+		getSum(65341);	
 //		System.out.println(Arrays.toString(nums));		
 
 
