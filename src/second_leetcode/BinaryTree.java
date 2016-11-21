@@ -541,7 +541,7 @@ public class BinaryTree {
     }
     
     /*
-     * 四、
+     * 四、DFS&&BFS
      */
     
     //112. Path Sum
@@ -649,6 +649,28 @@ public class BinaryTree {
         return re;
     }
     
+    //114. Flatten Binary Tree to Linked List	DFS
+    private TreeNode getLast(TreeNode root){
+    	while(root.right!=null){
+    		root=root.right;
+    	}
+    	return root;
+    }
+    
+    public void flatten(TreeNode root) {
+        if(root!=null){
+        	TreeNode last=root, right=root.right;
+        	if(root.left!=null){
+        		flatten(root.left);
+        		last=getLast(root.left);
+        		root.right=root.left;
+        		root.left=null;
+        	}
+        	last.right=right;
+        	flatten(right);
+        }
+    }
+    
     //199. Binary Tree Right Side View		DFS  BFS
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> re=new ArrayList<Integer>();
@@ -674,10 +696,52 @@ public class BinaryTree {
         return re;
     }
     
+    /*
+     * 五、
+     */
+    public class TreeLinkNode {
+    	int val;
+    	TreeLinkNode left, right, next;
+    	TreeLinkNode(int x) { val = x; }
+    }
     
     
+    //116. Populating Next Right Pointers in Each Node
+    public void connect(TreeLinkNode root) {
+        if(root!=null&&root.left!=null){
+        	root.left.next=root.right;
+        	if(root.next!=null){
+        		root.right.next=root.next.left;
+        	}
+        	connect(root.left);
+        	connect(root.right);
+        }
+    }
     
-    
+    //117. Populating Next Right Pointers in Each Node II
+    public void connect2(TreeLinkNode root) {
+        if(root!=null){
+        	List<TreeLinkNode> list=new LinkedList<TreeLinkNode>();
+        	list.add(root);
+        	int cur=0, last;
+        	while(cur<list.size()){
+        		last=list.size();
+        		for(int i=cur; i<last; i++){
+        			TreeLinkNode node=list.get(i);
+        			if(node.left!=null){
+        				list.add(node.left);
+        			}
+        			if(node.right!=null){
+        				list.add(node.right);
+        			}
+        			if(i<last-1){
+        				node.next=list.get(i+1);
+        			}
+        		}
+        		cur=last;
+        	}
+        }
+    }
     
     
 	public static void main(String[] args) {
