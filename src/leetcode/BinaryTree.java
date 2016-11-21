@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
+
 /**
  * 		树
  * 
@@ -732,6 +733,59 @@ public class BinaryTree {
     	
     	return root;
     }
+    
+    //297. Serialize and Deserialize Binary Tree
+    static class Codec {
+
+    	private void seria(StringBuilder s, TreeNode root){
+    		if(root==null){
+    			s.append("*,");
+    			return ;
+    		}else{
+    			s.append(root.val).append(',');
+    			seria(s, root.left);
+    			seria(s, root.right);
+    		}
+    	}
+    	
+        // Encodes a tree to a single string.
+        public String serialize(TreeNode root) {
+            StringBuilder s=new StringBuilder();
+            seria(s, root);
+            return s.toString();
+        }
+        
+        private int index;
+        
+        private TreeNode deseria(String s){
+        	if(index>=s.length()){
+        		return null;
+        	}
+        	TreeNode root;
+        	if(s.charAt(index)=='*'){
+        		root=null;
+        		index+=2;
+        	}else{
+        		int end=index+1;
+        		while(end<s.length()&&s.charAt(end)!=','){
+        			end++;
+        		}
+        		root=new TreeNode(Integer.valueOf(s.substring(index, end)));
+        		index=end+1;   
+        		root.left=deseria(s);
+        		root.right=deseria(s);
+        	}
+        	return root;
+        }
+        
+        // Decodes your encoded data to tree.
+        public TreeNode deserialize(String data) {
+            index=0;
+            return deseria(data);
+        }
+    }
+    
+    
     
 	public static void main(String[] args) {
 		TreeNode n1=new TreeNode(3);

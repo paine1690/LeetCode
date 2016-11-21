@@ -297,12 +297,6 @@ public class BinaryTree {
         }
     }
     
-    
-    
-    
-    
-    
-    
     /*
      * 三、二叉树的基本操作
      * 
@@ -545,6 +539,146 @@ public class BinaryTree {
     		return root;
     	}
     }
+    
+    /*
+     * 四、
+     */
+    
+    //112. Path Sum
+    public boolean hasPathSum(TreeNode root, int sum) {
+        if(root==null){
+        	return false;
+        }              
+        if(root.left==null&&root.right==null){
+        	return root.val==sum;
+        }        
+        sum-=root.val;
+        if(root.left!=null&&hasPathSum(root.left, sum)){
+        	return true;
+        }else{
+        	return root.right!=null&&hasPathSum(root.right, sum);
+        }        
+    }
+    
+    //113. Path Sum II		DFS 
+    private void path(List<List<Integer>> re, List<Integer> list, TreeNode root, int sum){
+    	if(root.left==null&&root.right==null){
+    		if(root.val==sum){
+    			re.add(new ArrayList<Integer>(list));
+        		return;
+    		}    		
+    	}    	
+    	sum-=root.val;
+    	if(root.left!=null){
+    		list.add(root.left.val);
+    		path(re, list, root.left, sum);
+    		list.remove(list.size()-1);
+    	}
+    	if(root.right!=null){
+    		list.add(root.right.val);
+    		path(re, list, root.right, sum);
+    		list.remove(list.size()-1);
+    	}
+    }
+    
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        List<Integer> list=new ArrayList<Integer>();
+        if(root!=null){
+        	list.add(root.val);
+        	path(re, list, root, sum);
+        }
+        return re;
+    }
+    
+    //257. Binary Tree Paths	DFS
+    private void backTracking(List<String> re, TreeNode root, List<Integer> list){
+    	if(root.left==null&&root.right==null){
+    		StringBuilder s=new StringBuilder();
+    		s.append(list.get(0));
+    		for(int i=1; i<list.size(); i++){
+    			s.append("->").append(list.get(i));
+    		}    		
+    		re.add(new String(s));
+    		return;
+    	}    	
+    	if(root.left!=null){
+    		list.add(root.left.val);
+    		backTracking(re, root.left, list);
+    		list.remove(list.size()-1);
+    	}
+    	if(root.right!=null){
+    		list.add(root.right.val);
+    		backTracking(re, root.right, list);
+    		list.remove(list.size()-1);
+    	}
+    }
+    
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> re=new ArrayList<String>();
+        if(root!=null){
+        	List<Integer> list=new ArrayList<Integer>();
+        	list.add(root.val);
+        	backTracking(re, root, list);
+        }
+        return re;
+    }
+    
+    //129. Sum Root to Leaf Numbers		DFS
+    private int re;
+    
+    private void sumNum(TreeNode root, int sum){    	
+    	if(root.left==null&&root.right==null){
+    		re+=sum;
+    		return;
+    	}    	
+    	sum*=10;
+    	if(root.left!=null){
+    		sumNum(root.left, sum+root.left.val);
+    	}
+    	if(root.right!=null){
+    		sumNum(root.right, sum+root.right.val);
+    	}    	
+    }
+    
+    public int sumNumbers(TreeNode root) {
+        re=0;
+        if(root!=null){
+        	sumNum(root, root.val);
+        }        
+        return re;
+    }
+    
+    //199. Binary Tree Right Side View		DFS  BFS
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> re=new ArrayList<Integer>();
+        if(root!=null){
+        	List<TreeNode> list=new ArrayList<TreeNode>();
+        	list.add(root);
+        	int cur=0, last;
+        	while(cur<list.size()){
+        		last=list.size();        		
+        		re.add(list.get(cur).val);
+        		for(int i=cur; i<last; i++){
+        			TreeNode node=list.get(i);
+        			if(node.right!=null){
+        				list.add(node.right);
+        			}
+        			if(node.left!=null){
+        				list.add(node.left);
+        			}
+        		}
+        		cur=last;
+        	}
+        }
+        return re;
+    }
+    
+    
+    
+    
+    
+    
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
