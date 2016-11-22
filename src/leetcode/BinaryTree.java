@@ -785,7 +785,26 @@ public class BinaryTree {
         }
     }
     
+    //404. Sum of Left Leaves
+    private int sum;
     
+    private int countSon(TreeNode root){
+    	if(root==null){
+    		return 0;
+    	}
+    	
+    	int left=countSon(root.left);
+    	if(left==1){
+    		sum+=root.left.val;
+    	}
+    	return left+1+countSon(root.right);
+    }
+    
+    public int sumOfLeftLeaves(TreeNode root) {
+    	sum=0;
+    	countSon(root);
+    	return sum;
+    }
     
 	public static void main(String[] args) {
 		TreeNode n1=new TreeNode(3);
