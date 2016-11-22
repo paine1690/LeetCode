@@ -1,5 +1,6 @@
 package second_leetcode;
 
+
 public class DP {
 
 	//121. Best Time to Buy and Sell Stock
@@ -68,6 +69,30 @@ public class DP {
     		nums2[i]=Math.max(nums2[i]+nums2[i-2], nums2[i-1]);
     	}
     	return Math.max(nums[nums.length-2], nums2[nums2.length-1]);
+    }
+    
+    //337. House Robber III
+	static class TreeNode {
+		int val;
+		TreeNode left;
+		TreeNode right;
+		TreeNode(int x) { val = x; }
+	}
+	
+	private int[] dpRob(TreeNode root){
+		int[] re=new int[]{0, 0};
+		if(root!=null){
+			int[] left=dpRob(root.left);
+			int[] right=dpRob(root.right);
+			re[0]=Math.max(left[0], left[1])+Math.max(right[0], right[1]);
+			re[1]=root.val+left[0]+right[0];
+		}		
+		return re;
+	}
+	
+    public int rob(TreeNode root) {
+        int[] dp=dpRob(root);
+        return Math.max(dp[0], dp[1]);
     }
     
     

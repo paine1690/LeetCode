@@ -1,6 +1,7 @@
 package second_leetcode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -26,6 +27,7 @@ public class BinaryTree {
 	 * 2、中序遍历,递归与非递归
 	 * 3、后序遍历,递归与非递归
 	 * 4、层序遍历,递归与非递归
+	 * 5、之字形
 	 */
 	
 	//1.1.1、先序遍历 递归
@@ -191,6 +193,37 @@ public class BinaryTree {
         	cur=last;
         	last=list.size();
         }           
+        return re;
+    }
+    
+    //1.5、之字形打印	103. Binary Tree Zigzag Level Order Traversal    
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        if(root!=null){
+        	List<TreeNode> list=new ArrayList<TreeNode>();
+        	list.add(root);
+        	int cur=0, flag=0, last;
+        	while(cur<list.size()){
+        		last=list.size();
+        		List<Integer> level=new ArrayList<Integer>();
+        		for(int i=cur; i<last; i++){
+        			TreeNode node=list.get(i);
+        			level.add(node.val);
+        			if(node.left!=null){
+        				list.add(node.left);
+        			}
+        			if(node.right!=null){
+        				list.add(node.right);
+        			}
+        		}
+        		cur=last;
+        		if(flag==1){
+        			Collections.reverse(level);
+        		}
+        		flag=1-flag;
+        		re.add(level);
+        	}
+        }
         return re;
     }
     
@@ -703,8 +736,7 @@ public class BinaryTree {
     	int val;
     	TreeLinkNode left, right, next;
     	TreeLinkNode(int x) { val = x; }
-    }
-    
+    }    
     
     //116. Populating Next Right Pointers in Each Node
     public void connect(TreeLinkNode root) {
@@ -742,6 +774,54 @@ public class BinaryTree {
         	}
         }
     }
+    
+    //222. Count Complete Tree Nodes	
+    public int countNodes(TreeNode root) {
+        if(root==null){
+        	return 0;
+        }
+        int pow=0;
+        TreeNode l=root, r=root;
+        while(l!=null&&r!=null){
+        	l=l.left;
+        	r=r.right;
+        	pow++;
+        }
+        if(l!=null||r!=null){
+        	return 1+countNodes(root.left)+countNodes(root.right);
+        }else{
+        	return (1<<pow)-1;
+        }
+    }
+    
+    //124. Binary Tree Maximum Path Sum    
+    public int maxPathSum(TreeNode root) {
+        if(root==null){
+        	return Integer.MIN_VALUE;
+        }
+        
+        int left=maxPathSum(root.left);
+        int right=maxPathSum(root.right);
+        int l=Integer.MIN_VALUE, r=Integer.MIN_VALUE, max=root.val;        
+        if(root.left!=null){
+        	l=root.left.val;
+        }
+        if(root.right!=null){
+        	r=root.right.val;
+        }
+        
+        if(l>0||r>0){
+        	root.val+=Math.max(l, r);
+        }
+        if(l>0){
+        	max+=l;
+        }
+        if(r>0){
+        	max+=r;
+        }
+        return Math.max(max, Math.max(left,  right));        
+    }
+    
     
     
 	public static void main(String[] args) {
