@@ -503,6 +503,28 @@ public class String_leetcode {
     	return match(s1, s2, 0, 0);
     }
     
+    //459. Repeated Substring Pattern
+    private boolean isOK(String s, int l){
+    	for(int i=0; i<l; i++){
+    		for(int j=i; j<s.length(); j+=l){
+    			if(s.charAt(j)!=s.charAt(i)){
+    				return false;
+    			}
+    		}
+    	}
+    	return true;
+    }
+    
+    public boolean repeatedSubstringPattern(String str) {
+        int len=str.length();
+        for(int l=1; l<len/2; l++){
+        	if(len%l==0&&isOK(str, l)){
+        		return true;
+        	}
+        }
+    	return false;
+    }
+    
 	public static void main(String[] args) {
 		System.out.println(isMatch("aa", "a*"));
 		//System.out.println(divide(-2147483648, 1));
