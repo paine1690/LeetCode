@@ -481,10 +481,29 @@ public class Math_leetcode {
     	return a;
     }
     
+    //372. Super Pow
+    public static int superPow(int a, int[] b) {
+        int re=1;
+        for(int i=0; i<b.length; i++){
+        	re=superP(re, 10)*superP(a, b[i])%1337;
+        }
+    	return re;
+    }
+    
+    private static int superP(int a, int b){
+    	if(b==0){
+    		return 1;
+    	}
+    	if(b==1){
+    		return a%1337;
+    	}
+    	a%=1337;
+    	return (superP(a*a, b/2)*superP(a, b%2))%1337;    	
+    }
     
     
 	public static void main(String[] args) {
-		//System.out.println(findNthDigit(1000));
+		System.out.println(superPow(2147483647, new int[]{2,0,0}));
 		//System.out.println(addStrings("95","16"));
 
 	}
