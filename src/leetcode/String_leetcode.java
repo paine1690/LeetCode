@@ -526,7 +526,7 @@ public class String_leetcode {
     }
     
 	public static void main(String[] args) {
-		System.out.println(isMatch("aa", "a*"));
+		System.out.println(isMatch("aadd2", "a*"));
 		//System.out.println(divide(-2147483648, 1));
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
