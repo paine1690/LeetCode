@@ -353,8 +353,26 @@ public class HashTable {
         return 0;
     }
 	
-	
-	
+    //383. Ransom Note
+    public boolean canConstruct(String ransomNote, String magazine) {
+        int[] c=new int[128];
+    	for(int i=0; i<magazine.length(); i++){
+    		int index=magazine.charAt(i);
+    		c[index]++;
+    	}
+    	for(int i=0; i<ransomNote.length(); i++){
+    		int index=ransomNote.charAt(i);
+    		if(c[index]<=0){
+    			return false;
+    		}else{
+    			c[index]--;
+    		}
+    	}
+    	return true;
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		int[] nums={5};
 		System.out.println(hIndex(nums));
