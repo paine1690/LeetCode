@@ -352,6 +352,10 @@ public class HashTable {
         }       
         return 0;
     }
+    
+    /*
+     * 数组来充当hash表
+     */
 	
     //383. Ransom Note
     public boolean canConstruct(String ransomNote, String magazine) {
@@ -371,7 +375,44 @@ public class HashTable {
     	return true;
     }
     
+    //387. First Unique Character in a String
+    public int firstUniqChar(String s) {
+        int[] isA=new int[128];
+    	for(int i=0; i<s.length(); i++){
+    		isA[s.charAt(i)]++;
+    	}
+    	
+    	for(int i=0; i<s.length(); i++){
+    		if(isA[s.charAt(i)]==1){
+    			return i;
+    		}
+    	}
+    	return -1;
+    }
     
+    //比上面快一点 上面是2n  这个是26+n
+    public int firstUniqChar2(String s) {
+    	int[] isA=new int[128];
+    	Arrays.fill(isA, -1);
+    	for(int i=0; i<s.length(); i++){
+    		int index=s.charAt(i);
+    		if(isA[index]==-2){
+    			continue;
+    		}
+    		if(isA[index]>=0){
+    			isA[index]=-2;
+    		}else{
+    			isA[index]=i;
+    		}
+    	}
+    	int first=Integer.MAX_VALUE;
+    	for(int i=0; i<isA.length; i++){
+    		if(isA[i]>=0&&isA[i]<first){
+    			first=isA[i];
+    		}
+    	}
+    	return first==Integer.MAX_VALUE? -1: first;
+    }
     
 	public static void main(String[] args) {
 		int[] nums={5};
