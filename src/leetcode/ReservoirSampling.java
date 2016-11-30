@@ -101,6 +101,39 @@ public class ReservoirSampling {
 	    }
 	}
     
+	//384. Shuffle an Array
+	static class Solution4 {
+		int[] nums;
+		Random r=new Random();
+	    public Solution4(int[] nums) {
+	    	this.nums=nums;
+	    }
+	    
+	    /** Resets the array to its original configuration and return it. */
+	    public int[] reset() {
+	        return nums;
+	    }
+	    
+	    /** Returns a random shuffling of the array. */
+	    public int[] shuffle() {
+	        int[] re=nums.clone();
+	        for(int i=re.length-1; i>=0; i--){
+	        	int j=r.nextInt(i+1);
+	        	swap(re, i, j);
+	        }
+	        return re;
+	    }
+	    
+	    private void swap(int[] nums, int i, int j){
+	    	if(i!=j){
+	    		int temp=nums[i];
+	    		nums[i]=nums[j];
+	    		nums[j]=temp;
+	    	}
+	    }
+	}
+	
+	
     
 	public static void main(String[] args) {		
 		Solution3 s=new Solution3(new int[]{1});
