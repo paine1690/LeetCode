@@ -525,8 +525,48 @@ public class String_leetcode {
     	return false;
     }
     
+    //394. Decode String
+    public static String decodeString(String s) {
+        StringBuilder re=new StringBuilder();
+        int i=0;
+        while(i<s.length()){
+        	char c=s.charAt(i);
+        	if(Character.isDigit(c)){ 
+        		int j=i+1, cnt=1;
+        		while(Character.isDigit(s.charAt(j))){
+        			j++;
+        		}
+        		int num=Integer.valueOf(s.substring(i, j));
+        		i=++j;
+        		while(j<s.length()){
+        			char charJ=s.charAt(j);        			
+        			if(charJ==']'){
+        				cnt--;
+        				if(cnt==0){
+        					break;
+        				}
+        			}
+        			if(charJ=='['){
+        				cnt++;
+        			}
+        			j++;
+        		}
+        		String str=decodeString(s.substring(i, j));
+        		for(int k=0; k<num; k++){
+        			re.append(str);
+        		}
+        		i=j+1;
+        	}else{
+        		i++;
+        		re.append(c);
+        	}
+        }
+        return re.toString();
+    }
+    
+    
 	public static void main(String[] args) {
-		System.out.println(isMatch("aadd2", "a*"));
+		System.out.println(decodeString("2[abc]3[cd]ef"));
 		//System.out.println(divide(-2147483648, 1));
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
