@@ -470,7 +470,19 @@ public class Math_leetcode {
         
         return sign==1? (int)re:-(int)re;
     }
-
+    
+    //371. Sum of Two Integers
+    public int getSum(int a, int b) {
+        while(b!=0){
+        	int temp=a&b;
+        	a^=b;
+        	b=(temp<<1);
+        }
+    	return a;
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		//System.out.println(findNthDigit(1000));
 		//System.out.println(addStrings("95","16"));
