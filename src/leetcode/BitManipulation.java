@@ -246,6 +246,21 @@ public class BitManipulation {
         }
     	return re;
     }
+    
+    //389. Find the Difference
+    public char findTheDifference(String s, String t) {
+        char re=0;
+        for(char c: s.toCharArray()){
+        	re^=c;
+        }
+        for(char c: t.toCharArray()){
+        	re^=c;
+        }        
+        return re;
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		System.out.println(isPowerOfFour(8));
 		
