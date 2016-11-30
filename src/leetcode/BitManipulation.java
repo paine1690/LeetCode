@@ -259,10 +259,51 @@ public class BitManipulation {
         return re;
     }
     
+    //393. UTF-8 Validation
+    private static int nBytes(int num){
+    	int judge=(1<<7);
+    	for(int i=0; i<=4; i++){
+    		//System.out.println(judge);
+    		if((num&judge)==0){
+    			System.out.println(i);
+    			return i;
+    		}
+    		judge>>=1;
+    	}
+    	return -1;    	
+    }
+    
+    
+    public static boolean validUtf8(int[] data) {
+        int i=0;
+        while(i<data.length){
+        	int n=nBytes(data[i]);
+        	if(n<0){
+        		return false;
+        	}
+        	if(n==0){
+        		i++;
+        		continue;
+        	}else if(n==1){
+        		return false;
+        	}else if(n<=4){
+        		for(int j=1; j<n; j++){
+        			if(++i>=data.length||nBytes(data[i])!=1){
+        				return false;
+        			}
+        		}
+        		i++;
+        	}else{
+        		return false;
+        	}
+        }
+        return true;
+    }
+    
     
     
 	public static void main(String[] args) {
-		System.out.println(isPowerOfFour(8));
+		System.out.println(validUtf8(new int[]{240,162,138,147}));
 		
 	}
 
