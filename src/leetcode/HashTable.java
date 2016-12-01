@@ -414,6 +414,30 @@ public class HashTable {
     	return first==Integer.MAX_VALUE? -1: first;
     }
     
+    //409. Longest Palindrome
+    public int longestPalindrome(String s) {
+        int[] hash=new int[128];
+    	for(int i=0; i<s.length(); i++){
+    		hash[s.charAt(i)]++;
+    	}
+    	int re=0;
+    	boolean flag=false;
+    	for(int i=0; i<hash.length; i++){
+    		re+=hash[i]/2*2;
+    		if(!flag&&hash[i]%2!=0){
+    			flag=true;
+    			re++;
+    		}
+    	}
+    	return re;
+    }
+    
+    
+    
+    
+    
+    
+    
 	public static void main(String[] args) {
 		int[] nums={5};
 		System.out.println(hIndex(nums));
