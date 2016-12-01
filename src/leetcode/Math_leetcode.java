@@ -501,9 +501,25 @@ public class Math_leetcode {
     	return (superP(a*a, b/2)*superP(a, b%2))%1337;    	
     }
     
+    //396. Rotate Function
+    public static int maxRotateFunction(int[] A) {
+    	int sum=0, re=0, temp=0, n=A.length;
+    	
+    	for(int i=0; i<A.length; i++){
+    		sum+=A[i];
+    		temp+=i*A[i];
+    	}
+    	re=temp;
+    	for(int i=A.length-1; i>=0; i--){
+    		temp=temp+sum-n*A[i];
+    		re=Math.max(re, temp);
+    	}
+    	return re;
+    }
+    
     
 	public static void main(String[] args) {
-		System.out.println(superPow(2147483647, new int[]{2,0,0}));
+		System.out.println(maxRotateFunction(new int[]{4, 3, 2, 6}));
 		//System.out.println(addStrings("95","16"));
 
 	}
