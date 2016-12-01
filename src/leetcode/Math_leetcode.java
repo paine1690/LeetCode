@@ -517,9 +517,28 @@ public class Math_leetcode {
     	return re;
     }
     
+    //405. Convert a Number to Hexadecimal
+    public static String toHex(int num) {
+    	if(num==0){
+    		return "0";
+    	}
+        StringBuilder re=new StringBuilder();
+        while(num!=0){
+        	int temp=num&15;
+        	if(temp<10){
+        		re.append(temp);
+        	}else{
+        		re.append((char)(temp-10+'a'));
+        	}
+        	num>>>=4;
+        }
+        return re.reverse().toString();
+    }
+    
     
 	public static void main(String[] args) {
-		System.out.println(maxRotateFunction(new int[]{4, 3, 2, 6}));
+		
+		System.out.println(toHex(26));
 		//System.out.println(addStrings("95","16"));
 
 	}
