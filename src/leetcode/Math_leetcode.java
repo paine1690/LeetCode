@@ -2,6 +2,7 @@ package leetcode;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 
 public class Math_leetcode {
 
@@ -535,10 +536,37 @@ public class Math_leetcode {
         return re.reverse().toString();
     }
     
+    //402. Remove K Digits
+    public static String removeKdigits(String num, int k) {
+    	if(k==num.length()){
+    		return "0";
+    	}
+    	int len=num.length()-k;    	
+    	Stack<Character> stack=new Stack<Character>();
+    	for(int i=0; i<num.length(); i++){
+    		char c=num.charAt(i);
+    		while(!stack.isEmpty()&&c<stack.peek()&&stack.size()+num.length()-i>len){
+    			stack.pop();
+    		}
+    		if(stack.isEmpty()||stack.size()<len){
+    			stack.push(c);
+    		}
+    	}
+    	StringBuilder s=new StringBuilder();
+    	while(!stack.isEmpty()){
+    		s.append(stack.pop());
+    	}
+    	s.reverse();
+    	while(s.length()>0&&s.charAt(0)=='0'){
+    		s.deleteCharAt(0);
+    	}
+    	return s.length()==0? "0": s.toString();
+    }
+    
     
 	public static void main(String[] args) {
 		
-		System.out.println(toHex(26));
+		System.out.println(removeKdigits("10200", 1));
 		//System.out.println(addStrings("95","16"));
 
 	}
