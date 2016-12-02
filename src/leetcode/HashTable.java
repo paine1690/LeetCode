@@ -432,16 +432,43 @@ public class HashTable {
     	return re;
     }
     
+    //438. Find All Anagrams in a String
+    private static boolean isEqual(int[] nums1, int[] nums2){
+    	for(int i=0; i<nums1.length; i++){
+    		if(nums1[i]!=nums2[i]){
+    			return false;
+    		}
+    	}
+    	return true;
+    }
     
-    
-    
-    
-    
+    public static List<Integer> findAnagrams(String s, String p) {
+        List<Integer> re=new ArrayList<Integer>();
+        if(s.length()<p.length()){
+        	return re;
+        }
+        int[] hash=new int[26], temp=new int[26];
+        for(char c: p.toCharArray()){
+        	hash[c-'a']++;
+        }
+        int len=p.length();
+       
+        
+        for(int i=0; i<s.length(); i++){        	
+        	temp[s.charAt(i)-'a']++;
+        	if(i>=len){
+        		temp[s.charAt(i-len)-'a']--;
+        	}
+        	if(isEqual(temp, hash)){
+        		re.add(i-len+1);
+        	}
+        }        
+        return re;
+    }
     
 	public static void main(String[] args) {
-		int[] nums={5};
-		System.out.println(hIndex(nums));
-		
+//		int[] nums={5};
+		System.out.println(findAnagrams("cbaebabacd", "abc"));
 	}
 
 }
