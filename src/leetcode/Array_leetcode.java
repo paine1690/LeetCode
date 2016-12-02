@@ -467,11 +467,37 @@ public class Array_leetcode {
         	}
         }
     }
+    
+    //414. Third Maximum Number
+    public static int thirdMax(int[] nums) {    	
+        Integer[] max=new Integer[3];
+        int num=0, temp=0;
+      
+        for(int i=0; i<nums.length; i++){
+        	num=nums[i];
+        	for(int j=0; j<max.length; j++){
+        		if(max[j]==null||max[j]==num){
+        			max[j]=num;
+        			break;
+        		}
+        		if(num>max[j]){
+        			temp=max[j];
+        			max[j]=num;
+        			num=temp;
+        		}
+        	}
+        }
+        System.out.println(Arrays.toString(max));
+        return max[2]!=null? max[2]: max[0];
+    }
+    
+    
+    
 	public static void main(String[] args) {		
 		
 		//rotate(new int[]{1,2}, 0);
-//		int[] nums={1, 0, -1, 0, -2, 2};
-//		System.out.println(fourSum2(nums, 0));
+		int[] nums={3,2,1};
+		System.out.println(thirdMax(nums));
 
 	}
 }
