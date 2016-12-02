@@ -806,6 +806,29 @@ public class BinaryTree {
     	return sum;
     }
     
+    //437. Path Sum III    
+    private int pathGet(TreeNode root, int tar){
+    	int re=0;
+    	if(root!=null){
+    		if(root.val==tar){
+    			re++;
+    		}
+    		re+=pathGet(root.left, tar-root.val);
+    		re+=pathGet(root.right, tar-root.val);
+    	}
+    	return re;
+    }
+    
+    public int pathSum3(TreeNode root, int sum) {
+    	if(root==null){
+    		return 0;
+    	}
+		return pathGet(root, sum)+pathSum3(root.left, sum)+pathSum3(root.right, sum);        
+    }
+    
+    
+    
+    
 	public static void main(String[] args) {
 		TreeNode n1=new TreeNode(3);
 		TreeNode n2=new TreeNode(5);
