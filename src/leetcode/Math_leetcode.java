@@ -563,6 +563,28 @@ public class Math_leetcode {
     	return s.length()==0? "0": s.toString();
     }
     
+    //365. Water and Jug Problem
+    private int gcd(int a, int b){
+    	if(a<b){
+    		return gcd(b, a);
+    	}
+    	
+    	while(b!=0){
+    		int temp=a%b;
+    		a=b;
+    		b=temp;
+    	}
+    	return a;
+    }
+    
+    public boolean canMeasureWater(int x, int y, int z) {
+    	if(z>x+y){
+    		return false;
+    	}
+        int gcd=gcd(x, y);        
+    	return gcd!=0? z%gcd==0: z==0;
+    }
+    
     
 	public static void main(String[] args) {
 		
