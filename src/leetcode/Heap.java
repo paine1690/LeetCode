@@ -1,6 +1,11 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Heap {
 
@@ -78,6 +83,40 @@ public class Heap {
         return heap[0];
     }
     
+    //373. Find K Pairs with Smallest Sums
+    public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        List<int[]> re=new ArrayList<int[]>();
+        if(nums1.length==0||nums2.length==0||k==0){
+        	return re;
+        }
+        int len1=nums1.length, len2=nums2.length;
+        Queue<int[]> q = new PriorityQueue<int[]>(k, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] i1, int[] i2) {
+                return i2[0]+i2[1] - i1[0]-i1[1];
+            }
+        });
+        
+        for(int i=0; i<Math.min(len1,  k); i++){
+        	for(int j=0; j<Math.min(len2,  k); j++){
+        		if(q.size()<k){
+        			q.add(new int[]{nums1[i], nums2[j]});
+        		}else{
+        			int[] peek=q.peek();
+            		int min=peek[0]+peek[1];
+            		if(nums1[i]+nums2[j]<min){
+            			q.poll();
+            			q.add(new int[]{nums1[i], nums2[j]});
+            		}
+        		}
+        	}
+        }
+        
+        while(!q.isEmpty()){
+        	re.add(q.poll());
+        }
+        return re;
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] nums={3,2,1,5,6,4};
