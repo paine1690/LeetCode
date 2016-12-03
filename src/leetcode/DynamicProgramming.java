@@ -729,15 +729,49 @@ public class DynamicProgramming {
     	return global[len-1][k];
     }
     
-
-    
-    
-    
-    
-    
+    //368. Largest Divisible Subset
+    public static List<Integer> largestDivisibleSubset(int[] nums) {
+        List<Integer> re=new ArrayList<Integer>();
+        Arrays.sort(nums);
+        int len=nums.length;
+        int[][] dp=new int[len][len+1];
+        for(int i=0; i<len; i++){
+        	for(int j=i+1; j<len; j++){
+        		dp[i][j]=nums[j]%nums[i]==0? 1: 0;
+        	}
+        }
+        int reMax=0, pos=0;
+        
+        for(int i=len-1; i>=0; i--){
+        	int max=0, maxPos=i;
+        	
+        	for(int j=len-1; j>i; j--){
+        		if(dp[i][j]==1&&dp[j][len]>max){
+        			max=dp[j][len];
+        			maxPos=j;
+        		}
+        	}
+        	dp[i][i]=maxPos;
+        	dp[i][len]=max+1;
+        	if(dp[i][len]>reMax){
+        		reMax=dp[i][len];
+        		pos=i;        		
+        	}
+        }
+        for(int[] a: dp){
+        	System.out.println(Arrays.toString(a));
+        }
+        System.out.println(reMax+" "+pos);
+        for(int i=0; i<reMax; i++){
+        	re.add(nums[pos]);
+        	pos=dp[pos][pos];
+        }
+        
+        return re;
+    }
     
 	public static void main(String[] args) {
-		//System.out.println(largestDivisibleSubset(new int[]{1,2,4,8,9,72}));
+		System.out.println(largestDivisibleSubset(new int[]{1,2,4,8,9,72}));
 		
 		//System.out.println(isMatch3("","*"));
 		//System.out.println(wiggleMaxLength(new int[]{1,2,3}));
