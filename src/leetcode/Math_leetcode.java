@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
@@ -584,6 +585,17 @@ public class Math_leetcode {
         int gcd=gcd(x, y);        
     	return gcd!=0? z%gcd==0: z==0;
     }
+    
+    //453. Minimum Moves to Equal Array Elements
+    public int minMoves(int[] nums) {
+        int re=0;
+        Arrays.sort(nums);
+        for(int i=nums.length-1; i>0; i--){
+        	re+=nums[i]-nums[0];
+        }
+        return re;
+    }
+    
     
     
 	public static void main(String[] args) {
