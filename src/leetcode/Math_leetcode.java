@@ -596,7 +596,15 @@ public class Math_leetcode {
         return re;
     }
     
-    
+    //453. Minimum Moves to Equal Array Elements
+    public int minMoves2(int[] nums) {
+        int min=Integer.MAX_VALUE, sum=0;
+        for(int num: nums){
+        	sum+=num;
+        	min=Math.min(min, num);
+        }
+        return sum-min*nums.length;
+    }
     
 	public static void main(String[] args) {
 		
