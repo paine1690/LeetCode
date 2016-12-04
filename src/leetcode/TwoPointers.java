@@ -319,8 +319,28 @@ public class TwoPointers {
     	}
     }
     
-    
-    
+    //373. Find K Pairs with Smallest Sums
+    public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        List<int[]> re=new ArrayList<int[]>();
+        if(nums1.length==0||nums2.length==0||k==0){
+        	return re;
+        }
+        int len1=nums1.length, len2=nums2.length;
+        int cnt=Math.min(k, len1*len2);
+        int[] index=new int[len1];
+        while(cnt-->0){
+        	int tempMin=Integer.MAX_VALUE, m=0;
+        	for(int i=0; i<index.length; i++){
+        		if(index[i]<len2&&nums1[i]+nums2[index[i]]<tempMin){
+        			tempMin=nums1[i]+nums2[index[i]];
+        			m=i;
+        		}
+        	}
+        	re.add(new int[]{nums1[m], nums2[index[m]++]});
+        }
+        return re;
+    }
+
 	public static void main(String[] args) {
 		int[] nums={1,2,3,4,5};
 		System.out.println(minSubArrayLen(11, nums));

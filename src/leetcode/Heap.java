@@ -117,6 +117,8 @@ public class Heap {
         }
         return re;
     }
+    
+    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] nums={3,2,1,5,6,4};
