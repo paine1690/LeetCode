@@ -466,6 +466,28 @@ public class HashTable {
         return re;
     }
     
+    //447. Number of Boomerangs
+    public int numberOfBoomerangs(int[][] points) {
+        int re=0;
+    	for(int i=0; i<points.length; i++){
+    		Map<Integer, Integer> map=new HashMap<Integer, Integer>();
+    		for(int j=0; j<points.length; j++){
+    			int x=points[i][0]-points[j][0];
+    			int y=points[i][1]-points[j][1];
+    			int dis=x*x+y*y;    			
+    			map.put(dis, map.getOrDefault(dis, 0)+1);
+    		}
+    		
+    		for(Integer cnt: map.values()){
+    			if(cnt>=2){
+    				re+=cnt*(cnt-1);
+    			}
+    		}
+    	}
+    	return re;
+    }
+    
+    
 	public static void main(String[] args) {
 //		int[] nums={5};
 		System.out.println(findAnagrams("cbaebabacd", "abc"));
