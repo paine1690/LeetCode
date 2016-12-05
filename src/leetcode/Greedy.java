@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.Arrays;
+
 public class Greedy {
 
 	
@@ -43,6 +45,26 @@ public class Greedy {
     	}
     	return re;
     }
+    
+    //455. Assign Cookies
+    public int findContentChildren(int[] g, int[] s) {
+    	int re=0;
+    	Arrays.sort(g);
+    	Arrays.sort(s);
+    	int i=0, j=0;
+    	while(i<g.length&&j<s.length){
+    		if(s[j]>=g[i]){
+    			re++;
+    			i++;
+    			j++;
+    		}else{
+    			j++;
+    		}
+    	}
+    	return re;    	
+    }
+    
+    
     
     
 	public static void main(String[] args) {
