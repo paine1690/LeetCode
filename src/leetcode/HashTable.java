@@ -487,10 +487,58 @@ public class HashTable {
     	return re;
     }
     
+    //451. Sort Characters By Frequency
+    private static void reverse(int[] nums, int[] pos, int start, int end){
+    	if(start>=end){
+    		return ;
+    	}
+    	int mid=start+(end-start)/2;
+    	reverse(nums, pos, start, mid);
+    	reverse(nums, pos, mid+1, end);
+    	int[] temp=new int[end-start+1];
+    	int i=start, j=mid+1, k=0;
+    	while(i<=mid||j<=end){
+    		if(i>mid){
+    			temp[k++]=pos[j++];
+    		}else if(j>end){    			
+    			temp[k++]=pos[i++];
+    		}else if(nums[pos[i]]<=nums[pos[j]]){    			
+    			temp[k++]=pos[i++];
+    		}else{
+    			temp[k++]=pos[j++];
+    		}    		
+    	}    	
+    	for(i=0; i<k; i++){
+    		pos[start+i]=temp[i];
+    	}    	
+    }
+    
+    public static String frequencySort(String s) {
+        StringBuilder re=new StringBuilder();
+    	int[] a=new int[128];
+    	for(char c: s.toCharArray()){
+    		a[c]++;
+    	}    	
+    	int[] pos=new int[128];
+    	for(int i=0; i<pos.length; i++){
+    		pos[i]=i;
+    	}
+    	reverse(a, pos, 0, pos.length-1);
+    	for(int i=pos.length-1; i>=0&&a[pos[i]]!=0; i--){
+    		int cnt=a[pos[i]];
+    		while(cnt-->0){
+    			re.append((char)(pos[i]));
+    		}
+    	}
+    	return re.toString();
+    }
+    
+    
     
 	public static void main(String[] args) {
 //		int[] nums={5};
-		System.out.println(findAnagrams("cbaebabacd", "abc"));
+		System.out.println(frequencySort("aaaaaAAA"));
+		
 	}
 
 }
