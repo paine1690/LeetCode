@@ -491,13 +491,28 @@ public class Array_leetcode {
         return max[2]!=null? max[2]: max[0];
     }
     
+    //448. Find All Numbers Disappeared in an Array
+    public static List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer> re=new ArrayList<Integer>();
+        int len=nums.length;
+        
+        for(int i=0; i<len; i++){
+        	nums[(nums[i]-1)%len]+=len;
+        }
+        for(int i=0; i<len; i++){
+        	if(nums[i]<=len){
+        		re.add(i+1);
+        	}
+        }
+        return re;
+    }
     
     
 	public static void main(String[] args) {		
 		
 		//rotate(new int[]{1,2}, 0);
-		int[] nums={3,2,1};
-		System.out.println(thirdMax(nums));
+		int[] nums={4,3,2,7,8,2,3,1};
+		System.out.println(findDisappearedNumbers(nums));
 
 	}
 }
