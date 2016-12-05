@@ -579,8 +579,8 @@ public class String_leetcode {
         	}
         }
         return re;
-    }
-    
+    }    
+
     //434. Number of Segments in a String
     public static int countSegments(String s) {
     	int re=0;
