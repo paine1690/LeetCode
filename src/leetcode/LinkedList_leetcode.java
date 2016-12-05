@@ -763,7 +763,71 @@ public class LinkedList_leetcode {
     	return toBST(nodes, 0, nodes.length);
     }
     
+    //445. Add Two Numbers II
+    public static String addStrings(String num1, String num2) {
+    	int len1=num1.length(), len2=num2.length();
+    	
+        StringBuilder s1=new StringBuilder(num1).reverse();
+        StringBuilder s2=new StringBuilder(num2).reverse();
+        int[] nums=new int[Math.max(len1, len2)+1];
+    	int flag=0;
+    	int i=0;
+    	for(i=0; i<len1&&i<len2; i++){
+    		int n1=s1.charAt(i)-'0';
+    		int n2=s2.charAt(i)-'0';
+    		int sum=n1+n2+flag;
+    		nums[i]=sum%10;
+    		flag=sum/10;
+    	}       
+    	
+    	while(i<len1){
+    		int sum=s1.charAt(i)-'0'+flag;
+    		nums[i++]=sum%10;
+    		flag=sum/10;
+    	}
+    	
+    	
+    	while(i<len2){
+    		int sum=s2.charAt(i)-'0'+flag;
+    		nums[i++]=sum%10;
+    		flag=sum/10;
+    	}
+        nums[i]=flag;
+        
+        StringBuilder re=new StringBuilder();
+        if(nums[nums.length-1]!=0){
+        	re.append(nums[nums.length-1]);
+        }
+        
+        for(i=nums.length-2; i>=0; i--){
+        	re.append(nums[i]);
+        }
+    	return re.toString();
+    }
     
+    private String listToString(ListNode list){
+    	StringBuilder s=new StringBuilder();
+    	while(list!=null){
+    		s.append(list.val);
+    		list=list.next;
+    	}
+    	return s.toString();
+    }
+    
+    public ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+        String s1=listToString(l1);
+        String s2=listToString(l2);
+        
+    	String s=addStrings(s1, s2);
+    	ListNode re=new ListNode(-1);
+    	ListNode pNode=re;
+    	for(int i=0; i<s.length(); i++){
+    		ListNode node=new ListNode(s.charAt(i)-'0');
+    		pNode.next=node;
+    		pNode=pNode.next;
+    	}
+    	return re.next;
+    }
     
 	public static void main(String[] args) {
 		int[] aa={1,2,3,4,5};
