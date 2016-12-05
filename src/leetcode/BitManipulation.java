@@ -300,7 +300,18 @@ public class BitManipulation {
         return true;
     }
     
-    
+    //458. Poor Pigs
+    public int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
+        int re=0;
+    	int base=minutesToTest/minutesToDie+1;
+    	int fac=1;
+    	
+    	while(fac<buckets){
+    		fac*=base;
+    		re++;
+    	}
+    	return re;
+    }
     
 	public static void main(String[] args) {
 		System.out.println(validUtf8(new int[]{240,162,138,147}));
