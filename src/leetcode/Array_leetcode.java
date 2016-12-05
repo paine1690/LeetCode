@@ -507,6 +507,23 @@ public class Array_leetcode {
         return re;
     }
     
+    //442. Find All Duplicates in an Array
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer> re=new ArrayList<Integer>();
+        int len=nums.length;
+        for(int i=0; i<len; i++){
+        	nums[(nums[i]-1)%len]+=len;
+        }
+        len*=2;
+        for(int i=0; i<nums.length; i++){
+        	if(nums[i]>len){
+        		re.add(i+1);
+        	}
+        }
+        return re;
+    }
+    
+    
     
 	public static void main(String[] args) {		
 		
