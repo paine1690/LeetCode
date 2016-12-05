@@ -581,9 +581,28 @@ public class String_leetcode {
         return re;
     }
     
+    //434. Number of Segments in a String
+    public static int countSegments(String s) {
+    	int re=0;
+    	int i=0;
+    	while(i<s.length()&&s.charAt(i)==' '){
+    		i++;
+    	}
+    	
+    	while(i<s.length()&&s.charAt(i)!=' '){
+    		re++;
+    		while(i<s.length()&&s.charAt(i)!=' '){
+    			i++;
+    		}
+    		while(i<s.length()&&s.charAt(i)==' '){
+    			i++;
+    		}
+    	}
+    	return re;
+    }
     
 	public static void main(String[] args) {
-		System.out.println(decodeString("2[abc]3[cd]ef"));
+		System.out.println(countSegments("   45g  45 f"));
 		//System.out.println(divide(-2147483648, 1));
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
