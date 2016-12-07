@@ -770,8 +770,28 @@ public class DynamicProgramming {
         return re;
     }
     
+    //467. Unique Substrings in Wraparound String
+    public static int findSubstringInWraproundString(String p) {
+        int[] a=new int[26];
+        int cnt=0;
+    	for(int i=0; i<p.length(); i++){    		
+    		if(i>0&&(p.charAt(i-1)==p.charAt(i)-1||p.charAt(i-1)==p.charAt(i)+25)){
+    			cnt++;
+    		}else{
+    			cnt=1;
+    		}
+    		a[p.charAt(i)-'a']=Math.max(a[p.charAt(i)-'a'], cnt);    		
+    	}
+    	int re=0;
+    	for(int num: a){
+    		re+=num;
+    	}
+    	return re;
+    }
+    
+    
 	public static void main(String[] args) {
-		System.out.println(largestDivisibleSubset(new int[]{1,2,4,8,9,72}));
+		System.out.println(findSubstringInWraproundString("abc"));
 		
 		//System.out.println(isMatch3("","*"));
 		//System.out.println(wiggleMaxLength(new int[]{1,2,3}));
