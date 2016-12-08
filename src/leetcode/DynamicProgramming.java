@@ -789,6 +789,30 @@ public class DynamicProgramming {
     	return re;
     }
     
+    //375. Guess Number Higher or Lower II
+    private int cost(int[][] max, int start, int end){
+    	if(start>=end){
+    		return 0;
+    	}
+    	if(max[start][end]!=0){
+    		return max[start][end];
+    	}
+    	int re=Integer.MAX_VALUE;
+    	for(int i=start; i<=end; i++){
+    		int cost=i+Math.max(cost(max, start, i-1), cost(max, i+1, end));
+    		re=Math.min(re, cost);
+    	}
+    	max[start][end]=re;
+    	return re;
+    }
+    
+    public int getMoneyAmount(int n) {
+    	int[][] max=new int[n+1][n+1];
+    	return cost(max, 1, n);
+    }
+    
+    
+    
     
 	public static void main(String[] args) {
 		System.out.println(findSubstringInWraproundString("abc"));
