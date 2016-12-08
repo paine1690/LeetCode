@@ -116,18 +116,47 @@ public class Sort {
     	return s.toString();
     }
     
-    //287. Find the Duplicate Number
-    public static int findDuplicate(int[] nums) {
-        Arrays.sort(nums);
-        for(int i=0; i<nums.length-1; i++){
-        	if(nums[i]==nums[i+1]){
-        		return nums[i];
-        	}
-        }       
-        
-        return 0;
-    }  
+    //435. Non-overlapping Intervals
+    static class Interval {
+    	int start;
+    	int end;
+    	Interval() { start = 0; end = 0; }
+    	Interval(int s, int e) { start = s; end = e; }
+    }
     
+    public int eraseOverlapIntervals(Interval[] intervals) {
+        if(intervals.length<2){
+        	return 0;
+        }
+        Arrays.sort(intervals, new Comparator<Interval>(){
+
+			@Override
+			public int compare(Interval i1, Interval i2) {
+				if(i1.start!=i2.start){
+					return i1.start>i2.start? 1: -1;
+				}else{
+					return i1.end==i2.end? 0: i1.end>i2.end? 1: -1;
+				}
+			}
+        	
+        });
+    	int re=0, max=intervals[0].end;
+    	for(int i=1; i<intervals.length; i++){
+    		if(intervals[i].start==intervals[i-1].start){
+    			re++;
+    		}else{
+    			if(intervals[i].start<max){
+    				re++;
+    				max=Math.min(max, intervals[i].end);
+    			}else{
+    				max=intervals[i].end;
+    			}
+    			
+    		}
+    	}
+    	
+    	return re;
+    }
     
     
 	public static void main(String[] args) {

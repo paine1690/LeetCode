@@ -283,7 +283,7 @@ public class Stack_leetcode {
     //456. 132 Pattern
     public boolean find132pattern(int[] nums) {
     	Stack<Integer> stack=new Stack<Integer>();
-    	int pre=Integer.MAX_VALUE;
+    	int pre=Integer.MIN_VALUE;
     	for(int i=nums.length-1; i>=0; i--){
     		if(nums[i]<pre){
     			return true;
