@@ -2,6 +2,7 @@ package leetcode;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
@@ -616,6 +617,29 @@ public class Math_leetcode {
         	j--;
         }
     	return re;
+    }
+    
+    //469. Convex Polygon
+    private int product(List<Integer> a, List<Integer> b, List<Integer> c){
+    	int re=(b.get(0)-a.get(0))*(c.get(1)-a.get(1))
+    			-(c.get(0)-a.get(0))*(b.get(1)-a.get(1));    	
+    	return re==0? 0: re>0? 1: -1;
+    }
+    
+    public boolean isConvex(List<List<Integer>> points) {        
+    	int size=points.size();
+    	int pre=0;
+    	for(int i=0; i<points.size(); i++){
+    		int product=product(points.get(i), points.get((i+1)%size), points.get((i+2)%size));
+    		if(product==0){
+    			continue;
+    		}
+    		if(pre!=0&&product!=pre){
+    			return false;
+    		}
+    		pre=product;
+    	}
+    	return true;
     }
     
 	public static void main(String[] args) {

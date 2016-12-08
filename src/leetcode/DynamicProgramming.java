@@ -790,25 +790,25 @@ public class DynamicProgramming {
     }
     
     //375. Guess Number Higher or Lower II
-    private int cost(int[][] max, int start, int end){
+    private int cost(int[][] acount, int start, int end){
     	if(start>=end){
     		return 0;
     	}
-    	if(max[start][end]!=0){
-    		return max[start][end];
+    	if(acount[start][end]!=0){
+    		return acount[start][end];
     	}
     	int re=Integer.MAX_VALUE;
     	for(int i=start; i<=end; i++){
-    		int cost=i+Math.max(cost(max, start, i-1), cost(max, i+1, end));
+    		int cost=i+Math.max(cost(acount, start, i-1), cost(acount, i+1, end));
     		re=Math.min(re, cost);
     	}
-    	max[start][end]=re;
+    	acount[start][end]=re;
     	return re;
     }
     
     public int getMoneyAmount(int n) {
-    	int[][] max=new int[n+1][n+1];
-    	return cost(max, 1, n);
+    	int[][] acount=new int[n+1][n+1];
+    	return cost(acount, 1, n);
     }
     
     
