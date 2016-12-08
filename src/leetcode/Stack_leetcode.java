@@ -280,6 +280,24 @@ public class Stack_leetcode {
         return re*2;
     }
     
+    //456. 132 Pattern
+    public boolean find132pattern(int[] nums) {
+    	Stack<Integer> stack=new Stack<Integer>();
+    	int pre=Integer.MAX_VALUE;
+    	for(int i=nums.length-1; i>=0; i--){
+    		if(nums[i]<pre){
+    			return true;
+    		}
+    		
+    		while(!stack.isEmpty()&&nums[i]>stack.peek()){
+    			pre=stack.pop();
+    		}
+    		stack.push(nums[i]);
+    	}
+    	return false;
+    }
+    
+    
     
 	public static void main(String[] args) {
 		List<Integer> list=Arrays.asList(1,-1,1,-1,1,1,-1,-1);
