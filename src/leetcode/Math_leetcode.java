@@ -642,9 +642,44 @@ public class Math_leetcode {
     	return true;
     }
     
+    //463. Island Perimeter
+    public static int islandPerimeter(int[][] grid) {        
+        if(grid.length==0||grid[0].length==0){
+        	return 0;
+        }
+        int re=0, m=grid.length, n=grid[0].length;
+        
+        for(int i=0; i<m; i++){
+        	for(int j=0; j<n; j++){
+        		if(grid[i][j]==1){
+        			re+=4;
+        			if(i>0&&grid[i-1][j]==1){
+            			re--;
+            		}
+            		if(j>0&&grid[i][j-1]==1){
+            			re--;
+            		}
+            		if(i<m-1&&grid[i+1][j]==1){
+            			re--;
+            		}
+            		if(j<n-1&&grid[i][j+1]==1){
+            			re--;
+            		}
+        		}        		
+        	}
+        }
+        
+        return re;
+    }
+
 	public static void main(String[] args) {
 		
-		System.out.println(removeKdigits("10200", 1));
+		System.out.println(islandPerimeter(new int[][]{
+			{0,1,0,0},
+			{1,1,1,0},
+			{0,1,0,0},
+			{1,1,0,0}
+		}));
 		//System.out.println(addStrings("95","16"));
 
 	}
