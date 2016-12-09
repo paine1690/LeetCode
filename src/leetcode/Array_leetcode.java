@@ -542,11 +542,11 @@ public class Array_leetcode {
         return re;
     }
     
+    
 	public static void main(String[] args) {		
 		
 		//rotate(new int[]{1,2}, 0);
-		int[] nums={4,3,2,7,8,2,3,1};
-		System.out.println(findDisappearedNumbers(nums));
+		
 
 	}
 }
