@@ -2,7 +2,9 @@ package leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DynamicProgramming {
 	
@@ -811,11 +813,50 @@ public class DynamicProgramming {
     	return cost(acount, 1, n);
     }
     
+    //464. Can I Win
+    private static int format(boolean[] state){
+    	int re=0;
+    	for(int i=0; i<state.length; i++){
+    		re<<=1;
+    		if(state[i]){
+    			re|=1;
+    		}
+    	}
+    	return re;
+    }
     
+    private static boolean isOK(boolean[] state, Map<Integer, Boolean> map, int tar){
+    	int key=format(state);
+    	if(map.containsKey(key)){
+    		return map.get(key);
+    	}
+    	for(int i=0; i<state.length; i++){
+    		if(!state[i]){
+    			state[i]=true;
+    			if(i+1>=tar||!isOK(state, map, tar-i-1)){
+    				map.put(key, true);
+    				state[i]=false;
+    				return true;
+    			}
+    			state[i]=false;
+    		}
+    	}
+    	map.put(key, false);
+    	return false;
+    }
+    
+    public static boolean canIWin(int maxChoosableInteger, int desiredTotal) {
+    	if((1+maxChoosableInteger)*maxChoosableInteger<desiredTotal*2){
+    		return false;
+    	}
+        boolean[] state=new boolean[maxChoosableInteger];
+    	Map<Integer, Boolean> map=new HashMap<Integer, Boolean>();       
+    	return isOK(state, map, desiredTotal);
+    }
     
     
 	public static void main(String[] args) {
-		System.out.println(findSubstringInWraproundString("abc"));
+		System.out.println(canIWin(3,4));
 		
 		//System.out.println(isMatch3("","*"));
 		//System.out.println(wiggleMaxLength(new int[]{1,2,3}));
