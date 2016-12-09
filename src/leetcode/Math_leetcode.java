@@ -672,6 +672,24 @@ public class Math_leetcode {
         return re;
     }
 
+    //413. Arithmetic Slices
+    public int numberOfArithmeticSlices(int[] A) {
+        if(A.length<3){
+        	return 0;
+        }
+    	int re=0, cnt=0;
+    	for(int i=2; i<A.length; i++){
+    		if(A[i]-A[i-1]==A[i-1]-A[i-2]){
+    			re+=++cnt;
+    		}else{
+    			cnt=0;
+    		}
+    	}
+    	return re;
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		
 		System.out.println(islandPerimeter(new int[][]{
