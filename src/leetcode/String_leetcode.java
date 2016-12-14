@@ -601,80 +601,79 @@ public class String_leetcode {
     	return re;
     }
     
-    //468. Validate IP Address
-    private static boolean isIPv4(String s){
-    	char start=s.charAt(0), end=s.charAt(s.length()-1);
-    	if(!Character.isDigit(start)||!Character.isDigit(end)){
-    		return false;
+
+    //306. Additive Number
+    private static String add(String s1, String s2){
+		StringBuilder num1=new StringBuilder(s1).reverse();
+		StringBuilder num2=new StringBuilder(s2).reverse();
+    	StringBuilder re=new StringBuilder();
+    	int flag=0;
+    	int i=0, j=0;
+    	while(i<num1.length()&&j<num2.length()){
+    		int sum=num1.charAt(i)-'0'+num2.charAt(j)-'0'+flag;
+    		flag=sum/10;
+    		re.append(sum%10);
+    		i++;
+    		j++;
     	}
-    	String[] ip=s.split("\\.");	
-    	if(ip.length!=4){    		
-    		return false;
+    	while(i<num1.length()){
+    		int sum=num1.charAt(i)-'0'+flag;
+    		flag=sum/10;
+    		re.append(sum%10);
+    		i++;
     	}
-    	
-    	for(String str: ip){
-    		if(str.length()>3){
-    			return false;
-    		}
-    		for(int i=0; i<str.length(); i++){
-    			if(!Character.isDigit(s.charAt(i))){
-    				return false;
-    			}
-    		}
-    		int num=Integer.valueOf(str);
-    		if(num<0||num>255){
-    			return false;
-    		}
+    	while(j<num2.length()){
+    		int sum=num2.charAt(j)-'0'+flag;
+    		flag=sum/10;
+    		re.append(sum%10);
+    		j++;
+    	}
+    	if(flag!=0){
+    		re.append(flag);
     	}    	
-    	return true;
-    }
-    private static boolean isIPv6(String s){
-    	char start=s.charAt(0), end=s.charAt(s.length()-1);    	
-    	if(!Character.isDigit(start)&&!Character.isLetter(start)){
-			return false;
-		}
-    	if(!Character.isDigit(end)&&!Character.isLetter(end)){
-			return false;
-		}
-    	String[] ip=s.split(":");
-    	System.out.println(ip.length);
-    	if(ip.length!=8){
-    		return false;
-    	}
-    	for(String str: ip){
-    		if(str.length()>4){
-    			return false;
-    		}
-    		for(int i=0; i<str.length(); i++){
-    			if(!Character.isDigit(s.charAt(i))&&!Character.isLetter(s.charAt(i))){
-    				return false;
-    			}
-    		}
-    	}    	
-    	return true;
+    	return re.reverse().toString();
     }
     
-    public static String validIPAddress(String IP) {
-    	if(IP.length()==0){
-    		return "Neither";
-    	}
-    	if(isIPv4(IP)){
-    		return "IPv4";
-    	}else if(isIPv6(IP)){
-    		return "IPv6";
+    private static boolean isAdd(String s1, String s2, String num){
+    	System.out.println(s1+" "+s2);
+    	String sum=add(s1, s2);
+    	if(sum.length()>num.length()){
+    		return false;
+    	}    	
+    	String s=num.substring(0, sum.length());
+    	if(sum.equals(s)){
+    		if(sum.length()==num.length()){
+    			return true;
+    		}else{
+    			return isAdd(s2, s, num.substring(s.length(), num.length()));
+    		}
     	}else{
-    		return "Neither";
+    		return false;
     	}
     }
-   
+    
+    public static boolean isAdditiveNumber(String num) {
+        int len=num.length();
+    	for(int i=0; i<len/3; i++){
+    		String s1=num.substring(0, i+1);
+    		int endJ=i+(num.length()-i+1)/2;
+    		for(int j=i+1; j<endJ; j++){    			
+    			String s2=num.substring(i+1, j+1);
+    			String s=num.substring(j+1, len);     			
+    			if(isAdd(s1, s2, s)){
+    				return true;
+    			}
+    		}
+    	}
+    	return false;
+    }
+    
     
 	public static void main(String[] args) {
-		System.out.println(validIPAddress("2001:0db8:85a3:0:0:8A2E:0370:7334"));
+		System.out.println(isAdditiveNumber("12012122436"));
 		//System.out.println(divide(-2147483648, 1));
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
 		//System.out.println(generateParenthesis(4));	
-		
 	}
-
 }
