@@ -542,6 +542,48 @@ public class Array_leetcode {
         return re;
     }
     
+    //289. Game of Life
+    private int countNei(int[][] board, int i, int j, int m, int n){
+    	int cnt=0;    	
+    	int startI=i>0? i-1: i;
+    	int startJ=j>0? j-1: j;
+    	int endI=i<m-1? i+1: i;
+    	int endJ=j<n-1? j+1: j;
+    	
+    	for(m=startI; m<=endI; m++){
+    		for(n=startJ; n<=endJ; n++){
+    			if((m!=i||n!=j)&&(board[m][n]&1)!=0){
+    				cnt++;
+    			}
+    		}
+    	}
+    	return cnt;
+    }
+    
+    public void gameOfLife(int[][] board) {
+        if(board.length==0||board[0].length==0){
+        	return;
+        }
+        int m=board.length, n=board[0].length;
+        for(int i=0; i<m; i++){
+        	for(int j=0; j<n; j++){
+        		int live=board[i][j];
+        		int cnt=countNei(board, i, j, m, n);
+        		if((live&1)==1&&(cnt==2||cnt==3)){
+        			board[i][j]|=2;
+        		} 
+        		if((live&1)==0&&cnt==3){
+        			board[i][j]|=2;
+        		}
+        	}
+        }
+        for(int i=0; i<m; i++){
+        	for(int j=0; j<n; j++){
+        		board[i][j]>>=1;
+        	}
+        }
+    }
+    
     
 	public static void main(String[] args) {		
 		

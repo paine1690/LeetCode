@@ -414,7 +414,7 @@ public class Design {
 
 		@Override
 		public boolean hasNext() {
-		    return next==null;
+		    return next!=null;
 		}
 	}
 	
