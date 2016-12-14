@@ -1,7 +1,10 @@
 package leetcode;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Design {
 	//208. Implement Trie (Prefix Tree)
@@ -379,6 +382,40 @@ public class Design {
 //		dic.addWord("a");
 //		dic.addWord("ab");
 		//System.out.println(dic.root.nexts.get('a').nexts.get('b').isWord);
+	}
+	
+	//284. Peeking Iterator
+	static class PeekingIterator implements Iterator<Integer> {
+		Iterator<Integer> iterator=null;
+		Integer next=null;		
+		
+		public PeekingIterator(Iterator<Integer> iterator) {
+			this.iterator=iterator;
+			if(iterator.hasNext()){
+		    	next=iterator.next();
+		    }
+		    
+		}
+	    
+		public Integer peek() {
+	        return next;
+		}
+		
+		@Override
+		public Integer next() {
+		    Integer re=next;
+		    if(iterator.hasNext()){
+		    	next=iterator.next();
+		    }else{
+		    	next=null;
+		    }
+		    return re;
+		}
+
+		@Override
+		public boolean hasNext() {
+		    return next==null;
+		}
 	}
 	
 	public static void main(String[] args) {
