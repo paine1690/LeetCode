@@ -668,9 +668,94 @@ public class String_leetcode {
     	return false;
     }
     
+    //468. Validate IP Address
+    private static boolean isIPv4(String s){
+        int i=0,pre=0, cnt=0;        
+    	while(i<s.length()){
+    		if(Character.isDigit(s.charAt(i))){
+    			i++;
+    		}else if(s.charAt(i)=='.'){
+    			if(i==pre){
+    				return false;
+    			}
+    			String num=s.substring(pre, i);
+    			if(num.length()>3||(num.length()>1&&num.charAt(0)=='0')){
+    				System.out.println(num);
+    				return false;
+    			}
+    			if(Integer.valueOf(num)<0||Integer.valueOf(num)>255){
+    				return false;
+    			}
+    			cnt++;    			
+    			i++;
+    			pre=i;
+    		}else{
+    			return false;
+    		}
+    	}
+    	if(cnt==3){
+    		if(s.length()==pre){
+				return false;
+			}
+    		String num=s.substring(pre, s.length());
+    		if(num.length()>3||(num.length()>0&&num.charAt(0)=='0')){
+				return false;
+			}
+			if(Integer.valueOf(num)<0||Integer.valueOf(num)>255){
+				return false;
+			}
+    		return true;
+    	}else{
+    		return false;
+    	}    	
+    }
+    
+    private static boolean isIPv6(String s){
+        int i=0, pre=0, cnt=0;
+        while(i<s.length()){
+        	char c=s.charAt(i);
+        	if(Character.isDigit(c)){
+        		i++;
+        	}else if(Character.isLetter(c)){
+        		char temp=Character.toLowerCase(c);
+        		if(temp>='a'&&temp<='f'){
+        			i++;
+        		}else{
+        			return false;
+        		}
+        	}else if(c==':'){
+        		if(i==pre||i-pre>4){
+        			return false;
+        		}
+        		cnt++;
+        		i++;
+        		pre=i;
+        	}else{
+        		return false;
+        	}
+        }
+        if(cnt==7){
+        	if(s.length()==pre||s.length()-pre>4){
+    			return false;
+    		}
+        	return true;
+        }else{
+        	return false;
+        }
+    }
+    
+    public static String validIPAddress(String IP) {
+    	if(isIPv4(IP)){
+    		return "IPv4";
+    	}else if(isIPv6(IP)){
+    		return "IPv6";
+    	}else{
+    		return "Neither";
+    	}
+    }
     
 	public static void main(String[] args) {
-		System.out.println(isAdditiveNumber("12012122436"));
+		System.out.println(validIPAddress("192.0.0.1"));
 		//System.out.println(divide(-2147483648, 1));
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
