@@ -19,6 +19,8 @@ public class DynamicProgramming {
     	}
         return re;
     }
+
+
 	
     //121. Best Time to Buy and Sell Stock
     public int maxProfit(int[] prices) {
@@ -854,16 +856,35 @@ public class DynamicProgramming {
     	return isOK(state, map, desiredTotal);
     }
     
+    //474. Ones and Zeroes      二维数组[m][n]
+    private int[] count(String s){
+    	int[] re=new int[2];
+    	for(int i=0; i<s.length(); i++){
+    		re[s.charAt(i)-'0']++;
+    	}
+    	return re;
+    }
+    
+    public int findMaxForm(String[] strs, int m, int n) {
+        int[][] dp=new int[m+1][n+1];
+        for(String s: strs){
+        	int[] cnt=count(s);
+        	
+        	for(int i=m; i>=cnt[0]; i--){
+        		for(int j=n; j>=cnt[1]; j--){
+        			dp[i][j]=Math.max(1+dp[i-cnt[0]][j-cnt[1]], dp[i][j]);
+        		}
+        	}
+        }
+        return dp[m][n];
+    }
+    
+    
+    
     
 	public static void main(String[] args) {
 		System.out.println(canIWin(3,4));
-		
-		//System.out.println(isMatch3("","*"));
-		//System.out.println(wiggleMaxLength(new int[]{1,2,3}));
-		//System.out.println(isSubsequence("ac", "ajibjic"));
-//		int nums[]={1,3,6,7,9,4,10,5,6};
-//		//String s="1";
-//		System.out.println(lengthOfLIS2(nums));
+
 	}
 
 }
