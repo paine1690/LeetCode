@@ -324,7 +324,24 @@ public class BitManipulation {
         return re;
     }
     
-    
+    //477. Total Hamming Distance
+    public static int totalHammingDistance(int[] nums) {
+        int re=0;
+        int[] bits=new int[32];
+        for(int i=0; i<bits.length; i++){
+        	for(int j=0; j<nums.length; j++){
+        		if((nums[j]&1)==1){
+        			bits[i]++;
+        		}
+        		nums[j]>>=1;
+        	}
+        }
+        int len=nums.length;
+        for(int i=0; i<bits.length; i++){
+        	re+=(bits[i])*(len-bits[i]);
+        }
+        return re;
+    }
     
 	public static void main(String[] args) {
 		System.out.println(validUtf8(new int[]{240,162,138,147}));

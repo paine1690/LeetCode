@@ -146,23 +146,7 @@ public class Solution {
     
 
     
-    public static int totalHammingDistance(int[] nums) {
-        int re=0;
-        int[] bits=new int[32];
-        for(int i=0; i<bits.length; i++){
-        	for(int j=0; j<nums.length; j++){
-        		if((nums[j]&1)==1){
-        			bits[i]++;
-        		}
-        		nums[j]>>=1;
-        	}
-        }
-        int len=nums.length;
-        for(int i=0; i<bits.length; i++){
-        	re+=(bits[i])*(len-bits[i]);
-        }
-        return re;
-    }
+
     
     public static boolean makesquare(int[] nums) {
     	if(nums.length<4){
