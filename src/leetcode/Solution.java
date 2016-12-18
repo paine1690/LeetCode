@@ -1,8 +1,6 @@
 package leetcode;
 
-
-
-
+import java.util.Arrays;
 
 public class Solution {	
 	
@@ -137,16 +135,72 @@ public class Solution {
     
    
     
+
+    
+
     
     
+    
+    
+    
+    
+
+    
+    public static int totalHammingDistance(int[] nums) {
+        int re=0;
+        int[] bits=new int[32];
+        for(int i=0; i<bits.length; i++){
+        	for(int j=0; j<nums.length; j++){
+        		if((nums[j]&1)==1){
+        			bits[i]++;
+        		}
+        		nums[j]>>=1;
+        	}
+        }
+        int len=nums.length;
+        for(int i=0; i<bits.length; i++){
+        	re+=(bits[i])*(len-bits[i]);
+        }
+        return re;
+    }
+    
+    public static boolean makesquare(int[] nums) {
+    	if(nums.length<4){
+    		return false;
+    	}
+        int sum=0;
+        for(int num: nums){
+        	sum+=num;
+        }
+    	if(sum%4!=0){
+    		return false;
+    	}
+    	sum/=4;
+    	System.out.println(sum);
+    	int[] d=new int[4];
+    	Arrays.sort(nums);
+    	int cnt=0;
+    	for(int i=nums.length-1; i>=0; i--){
+    		int num=nums[i];
+    		int j=0;
+    		for(; j<4; j++){
+    			int index=cnt++%4;
+    			if(d[index]+num<=sum){
+    				d[index]+=num;
+    				break;
+    			}
+    		}
+    		if(j==4){
+    			return false;
+    		}
+    	}
+    	
+    	return true;
+    }
     
     
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		
-		
-		
+		System.out.println(makesquare(new int[]{10,6,5,5,5,3,3,3,2,2,2,2}));
 		
 	}
 

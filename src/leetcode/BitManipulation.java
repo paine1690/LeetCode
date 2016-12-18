@@ -313,6 +313,19 @@ public class BitManipulation {
     	return re;
     }
     
+    //461. Hamming Distance
+    public static int hammingDistance(int x, int y) {
+        int re=0;
+        int num=x^y;
+        while(num!=0){
+        	num&=(num-1);
+        	re++;
+        }
+        return re;
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		System.out.println(validUtf8(new int[]{240,162,138,147}));
 		
