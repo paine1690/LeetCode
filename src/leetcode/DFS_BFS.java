@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DFS_BFS {
@@ -53,6 +54,50 @@ public class DFS_BFS {
         return re;
     }
     
+    //473. Matchsticks to Square
+    private static boolean dfsSquare(int[] nums, int index, int[] d, int sum){
+    	if(index==nums.length){
+    		boolean flag=true;
+    		for(int i=0; i<d.length; i++){
+    			if(d[i]!=sum){
+    				flag=false;
+    				break;
+    			}
+    		}
+    		return flag;
+    	}
+    	
+    	int num=nums[index];
+    	for(int i=0; i<d.length; i++){
+    		if(d[i]+num<=sum){
+    			d[i]+=num;
+    			if(dfsSquare(nums, index+1, d, sum)){
+    				return true;
+    			}
+    			d[i]-=num;
+    		}
+    	}
+    	return false;
+    }
+    
+    public static boolean makesquare(int[] nums) {
+    	if(nums.length<4){
+    		return false;
+    	}
+        int sum=0;
+        for(int num: nums){
+        	sum+=num;
+        }
+    	if(sum%4!=0){
+    		return false;
+    	}
+    	sum/=4;
+    	System.out.println(sum);
+    	int[] d=new int[4];
+    	return dfsSquare(nums, 0, d, sum);
+    }
+    
+    
     
 	public static void main(String[] args) {
 		int[][] nums={
@@ -62,7 +107,7 @@ public class DFS_BFS {
 				{6,7,1,4,5},
 				{5,1,1,2,4},
 		};
-		System.out.println(pacificAtlantic(nums));
+		System.out.println(makesquare(new int[]{5,5,5,5,4,4,4,4,3,3,3,3}));
 
 	}
 
