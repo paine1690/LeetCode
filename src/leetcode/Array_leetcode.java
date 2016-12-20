@@ -618,21 +618,52 @@ public class Array_leetcode {
         }
         int m=matrix.length, n=matrix[0].length;
         int len=Math.min(m, n);
-        System.out.println(len);
         for(int i=0; i*2<len; i++){
-        	System.out.println("vg");
         	printSpiral(i, m, n, matrix, re);
         }
         return re;
     }
     
+    //59. Spiral Matrix II
+    private static int fillMatrix(int[][] re, int index, int n, int k){
+    	int endI=n-index-1, endJ=n-index-1;
+    	
+    	for(int j=index; j<=endJ; j++){
+    		re[index][j]=k++;
+    	}
+    	if(endI>index+1){
+    		for(int i=index+1; i<endI; i++){
+    			re[i][endJ]=k++;
+    		}
+    	}
+    	if(endJ>index){
+    		for(int j=endJ; j>=index; j--){
+    			re[endI][j]=k++;
+    		}
+    	}
+    	if(endI>index+1){
+    		for(int i=endI-1; i>index; i--){
+    			re[i][index]=k++;
+    		}
+    	}
+    	return k;
+    }
+    
+    
+    public static int[][] generateMatrix(int n) {
+    	int[][] re=new int[n][n];
+    	int k=1;
+    	for(int i=0; i*2<n; i++){
+    		k=fillMatrix(re, i, n, k);
+    	}
+    	for(int[] nums: re){
+    		System.out.println(Arrays.toString(nums));
+    	}
+    	return re;
+    }
     
 	public static void main(String[] args) {		
-		System.out.println(spiralOrder(new int[][]{
-			{2,5},
-			{8,4},
-			{0,-1}
-		}));
+		System.out.println(generateMatrix(4));
 		
 
 	}
