@@ -297,6 +297,34 @@ public class Stack_leetcode {
     	return false;
     }
     
+    //150. Evaluate Reverse Polish Notation
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> stack=new Stack<Integer>();
+        for(int i=0; i<tokens.length; i++){
+        	String s=tokens[i];
+        	if(s.equals("+")){
+        		int num1=stack.pop();
+        		int num2=stack.pop();
+        		stack.push(num1+num2);
+        	}else if(s.equals("-")){
+        		int num1=stack.pop();
+        		int num2=stack.pop();
+        		stack.push(num2-num1);
+        	}else if(s.equals("*")){
+        		int num1=stack.pop();
+        		int num2=stack.pop();
+        		stack.push(num1*num2);
+        	}else if(s.equals("/")){
+        		int num1=stack.pop();
+        		int num2=stack.pop();
+        		stack.push(num2/num1);
+        	}else{
+        		stack.push(Integer.valueOf(s));
+        	}
+        }
+        return stack.pop();
+    }
+    
     
     
 	public static void main(String[] args) {
