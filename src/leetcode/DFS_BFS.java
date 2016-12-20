@@ -97,7 +97,42 @@ public class DFS_BFS {
     	return dfsSquare(nums, 0, d, sum);
     }
     
+    //200. Number of Islands
+    private void dfsCnt(char[][] grid, int i, int j, int m, int n){
+    	if(grid[i][j]=='1'){
+    		grid[i][j]='*';
+    		
+    		if(i>0){
+    			dfsCnt(grid, i-1, j, m, n);
+    		}
+    		if(j>0){
+    			dfsCnt(grid, i, j-1, m, n);
+    		}
+    		if(i<m-1){
+    			dfsCnt(grid, i+1, j, m, n);
+    		}
+    		if(j<n-1){
+    			dfsCnt(grid, i, j+1, m, n);
+    		}
+    	}
+    }
     
+    public int numIslands(char[][] grid) {
+    	if(grid.length==0||grid[0].length==0){
+    		return 0;
+    	}
+    	int m=grid.length, n=grid[0].length;
+        int re=0;
+        for(int i=0; i<m; i++){
+        	for(int j=0; j<n; j++){
+        		if(grid[i][j]=='1'){
+        			dfsCnt(grid, i, j, m, n);
+        			re++;
+        		}
+        	}
+        }
+        return re;
+    }
     
 	public static void main(String[] args) {
 		int[][] nums={
