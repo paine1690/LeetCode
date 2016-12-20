@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -688,16 +689,37 @@ public class Math_leetcode {
     	return re;
     }
     
-    
+    //60. Permutation Sequence
+    public static String getPermutation(int n, int k) {
+    	StringBuilder re=new StringBuilder();
+    	List<Integer> list=new ArrayList<Integer>(n);
+    	for(int i=1; i<=n; i++){
+    		list.add(i);
+    	}
+    	int factor=n, sum=1;
+    	while(factor!=0){
+    		sum*=factor--;
+    	}
+    	factor=n;
+    	sum/=factor;
+    	
+    	while(k>1){    
+    		int index=(k-1)/sum;  
+    		re.append(list.remove(index));
+    		k-=index*sum;
+    		sum/=--factor;
+    	}
+    	while(!list.isEmpty()){
+    		re.append(list.remove(0));
+    	}
+    	return re.toString();
+    }
     
 	public static void main(String[] args) {
+		for(int i=1; i<=24; i++){
+			System.out.println(getPermutation(4,i));
+		}
 		
-		System.out.println(islandPerimeter(new int[][]{
-			{0,1,0,0},
-			{1,1,1,0},
-			{0,1,0,0},
-			{1,1,0,0}
-		}));
 		//System.out.println(addStrings("95","16"));
 
 	}
