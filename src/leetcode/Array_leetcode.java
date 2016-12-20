@@ -584,10 +584,55 @@ public class Array_leetcode {
         }
     }
     
+    //54. Spiral Matrix
+    private static void printSpiral(int index, int m, int n, int[][] matrix, List<Integer> re){
+    	int endI=m-index-1, endJ=n-index-1;
+    	for(int j=index; j<=endJ; j++){
+    		re.add(matrix[index][j]);
+    	}
+    	
+    	if(index<endI){
+    		for(int i=index+1; i<=endI; i++){
+        		re.add(matrix[i][endJ]);
+        	}
+    	}
+    	
+    	if(index<endI&&index<endJ){
+    		for(int j=endJ-1; j>=index; j--){
+    			re.add(matrix[endI][j]);
+    		}
+    	}
+    	
+    	if(index<endI-1&&index<endJ){
+    		for(int i=endI-1; i>index; i--){
+    			re.add(matrix[i][index]);
+    		}
+    	}
+    }
+    
+    
+    public static List<Integer> spiralOrder(int[][] matrix) {
+    	List<Integer> re=new ArrayList<Integer>();
+        if(matrix.length==0||matrix[0].length==0){
+        	return re;
+        }
+        int m=matrix.length, n=matrix[0].length;
+        int len=Math.min(m, n);
+        System.out.println(len);
+        for(int i=0; i*2<len; i++){
+        	System.out.println("vg");
+        	printSpiral(i, m, n, matrix, re);
+        }
+        return re;
+    }
+    
     
 	public static void main(String[] args) {		
-		
-		//rotate(new int[]{1,2}, 0);
+		System.out.println(spiralOrder(new int[][]{
+			{2,5},
+			{8,4},
+			{0,-1}
+		}));
 		
 
 	}
