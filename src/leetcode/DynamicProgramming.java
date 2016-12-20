@@ -8,6 +8,13 @@ import java.util.Map;
 
 public class DynamicProgramming {
 	
+	static class TreeNode {
+	    int val;
+	    TreeNode left;
+	    TreeNode right;
+	    TreeNode(int x) { val = x; }
+	}
+	
 	//70. Climbing Stairs		斐波那契数列
     public static int climbStairs(int n) {
     	int a=0, b=1;
@@ -879,18 +886,46 @@ public class DynamicProgramming {
         return dp[m][n];
     }
     
+    //32. Palindrome Partitioning II    
+    public static int minCut(String s) {
+        if(s.length()==0){
+        	return 0;
+        }
+        int len=s.length();
+        
+        boolean[][]dp=new boolean[len][len];
+        for(int i=len-1; i>=0; i--){
+        	dp[i][i]=true;
+        	for(int j=i+1; j<len; j++){
+        		if(s.charAt(i)==s.charAt(j)){
+        			dp[i][j]=(i>j-2)||((i<=j-2)&&dp[i+1][j-1]);
+        		}
+        	}
+        }        
+        int[] re=new int[len+1];
+        re[len]=-1;
+        for(int i=len-1; i>=0; i--){
+        	re[i]=re[i+1]+1;
+        	dp[i][i]=true;
+        	for(int j=i+1; j<len; j++){
+        		if(s.charAt(i)==s.charAt(j)){
+        			if((i>j-2)||((i<=j-2)&&dp[i+1][j-1])){
+        				dp[i][j]=true;
+        				re[i]=Math.min(re[i], re[j+1]+1);
+        			}        			
+        		}        		
+        	} 
+        }
+        System.out.println(Arrays.toString(re));
+        return re[0];
+    }
     
     
     
 	public static void main(String[] args) {
-		System.out.println(canIWin(3,4));
+		System.out.println(minCut("abacc"));
 
 	}
 
 }
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
-}
+

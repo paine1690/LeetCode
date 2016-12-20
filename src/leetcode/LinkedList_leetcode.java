@@ -2,6 +2,7 @@ package leetcode;
 import java.util.Random;
 
 
+
 public class LinkedList_leetcode {
 	
 	public static class ListNode {
@@ -11,6 +12,16 @@ public class LinkedList_leetcode {
    	 	
 	}
 	
+	
+	static class TreeNode {
+	    int val = 0;
+	    TreeNode left = null;
+	    TreeNode right = null;
+
+	    public TreeNode(int val) {
+	        this.val = val;
+	    }
+	}
 	/*
      * 打印链表的方法
      */
