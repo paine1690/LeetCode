@@ -2,6 +2,7 @@ package leetcode;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
@@ -355,10 +356,51 @@ public class Stack_leetcode {
         return re;
     }  
     
-    
+    //227. Basic Calculator II
+    public static int calculate2(String s) {
+        LinkedList<Integer> l1=new LinkedList<Integer>();
+        LinkedList<Character> l2=new LinkedList<Character>();
+        for(int i=0; i<s.length(); i++){
+        	char c=s.charAt(i);
+        	if(Character.isDigit(c)){
+        		int pre=i;
+        		while(i+1<s.length()&&Character.isDigit(s.charAt(i+1))){
+        			i++;
+        		}
+        		int num=Integer.valueOf(s.substring(pre, i+1));
+        		l1.addLast(num);
+        		if(!l2.isEmpty()&&((l2.getLast()=='*')||l2.getLast()=='/')){
+        			char op=l2.removeLast();
+            		if(op=='*'||op=='/'){
+            			int num1=l1.removeLast();
+            			int num2=l1.removeLast();
+            			if(op=='*'){
+            				l1.addLast(num1*num2);
+            			}else{
+            				l1.addLast(num2/num1);
+            			}
+            		}
+        		}
+        	}else if(c=='+'||c=='-'||c=='*'||c=='/'){
+        		l2.addLast(c);
+        		
+        	}
+        }
+        while(!l2.isEmpty()){
+        	char c=l2.removeFirst();
+        	int num1=l1.removeFirst();
+        	int num2=l1.removeFirst();
+        	if(c=='+'){
+        		l1.addFirst(num1+num2);
+        	}else{
+        		l1.addFirst(num1-num2);
+        	}
+        }
+        return l1.getFirst();
+    }
     
 	public static void main(String[] args) {
-		System.out.println(calculate("2"));
+		System.out.println(calculate2("2+5*2"));
 		
 		
 //		char[][] matrix=new char[][]{
