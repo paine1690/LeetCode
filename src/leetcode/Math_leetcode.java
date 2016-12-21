@@ -715,12 +715,33 @@ public class Math_leetcode {
     	return re.toString();
     }
     
+    //233. Number of Digit One
+    public static int countDigitOne(int n) {
+    	long re=0, last=n, next=0,factor=1;
+    	long cur=0;
+    	while(n>0){
+    		last=n/10;
+    		next+=cur*factor/10;
+    		cur=n-last*10;
+    		n=(int) last;
+    		if(cur>1){
+    			re+=factor*(last+1);
+    		}else if(cur==1){
+    			re+=factor*last+next+1;
+    		}else{
+    			re+=factor*last;
+    		}
+    		System.out.println(re);
+    		factor*=10;
+    	}
+    	return (int) re;
+    }
+    
+    
 	public static void main(String[] args) {
-		for(int i=1; i<=24; i++){
-			System.out.println(getPermutation(4,i));
-		}
 		
-		//System.out.println(addStrings("95","16"));
+		
+		System.out.println(countDigitOne(110));
 
 	}
 
