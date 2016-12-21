@@ -325,11 +325,40 @@ public class Stack_leetcode {
         return stack.pop();
     }
     
+    //224. Basic Calculator
+    public static int calculate(String s) {
+        Stack<Integer> stack=new Stack<Integer>();
+        int re=0, flag=1;
+        for(int i=0; i<s.length(); i++){
+        	char c=s.charAt(i);
+        	if(Character.isDigit(c)){
+        		int pre=i;
+        		while(i+1<s.length()&&Character.isDigit(s.charAt(i+1))){
+        			i++;
+        		}
+        		int num=Integer.valueOf(s.substring(pre, i+1));
+        		re+=flag*num;
+        	}else if(c=='+'){
+        		flag=1;
+        	}else if(c=='-'){
+        		flag=-1;
+        	}else if(c=='('){
+        		stack.push(re);
+        		re=0;
+        		stack.push(flag);
+        		flag=1;
+        	}else if(c==')'){
+        		re=re*stack.pop()+stack.pop();
+        		flag=1;
+        	}
+        }
+        return re;
+    }  
+    
     
     
 	public static void main(String[] args) {
-		List<Integer> list=Arrays.asList(1,-1,1,-1,1,1,-1,-1);
-		System.out.println(getLongestLength(list));
+		System.out.println(calculate("2"));
 		
 		
 //		char[][] matrix=new char[][]{
