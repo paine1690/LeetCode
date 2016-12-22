@@ -920,10 +920,36 @@ public class DynamicProgramming {
         return re[0];
     }
     
+    //313. Super Ugly Number
+    public static int nthSuperUglyNumber(int n, int[] primes) {
+    	int[] re=new int[n];
+    	int[] nums=primes.clone();
+    	int[] cnt=new int[nums.length];
+    	re[0]=1;
+
+    	for(int i=1; i<n; i++){
+    		int min=Integer.MAX_VALUE;
+    		
+    		for(int j=0; j<nums.length; j++){
+    			min=Math.min(min, nums[j]);
+    		}
+    		re[i]=min;
+    		for(int j=0; j<nums.length; j++){
+    			if(nums[j]==min){
+    				nums[j]=primes[j]*re[++cnt[j]];
+    			}
+    		}
+    	}
+    	System.out.println(Arrays.toString(re));
+    	System.out.println("fcsaf ");
+    	return re[n-1];
+    }
+    
+    
     
     
 	public static void main(String[] args) {
-		System.out.println(minCut("abacc"));
+		System.out.println(nthSuperUglyNumber(1, new int[]{2,7,13,19}));
 
 	}
 
