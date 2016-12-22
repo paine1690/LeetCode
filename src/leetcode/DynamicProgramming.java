@@ -3,8 +3,10 @@ package leetcode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class DynamicProgramming {
 	
@@ -945,11 +947,32 @@ public class DynamicProgramming {
     	return re[n-1];
     }
     
-    
+    //139. Word Break
+    public static boolean wordBreak(String s, Set<String> wordDict) {
+    	if(s.length()==0){
+    		return false;
+    	}
+    	Set<String> set=new HashSet<String>(wordDict);
+    	boolean[] dp=new boolean[s.length()+1];
+    	dp[0]=true;
+    	for(int i=1; i<dp.length; i++){
+    		for(int j=0; j<i; j++){
+    			if(dp[j]&&set.contains(s.substring(j, i))){
+    				dp[i]=true;
+    				break;
+    			}
+    		}
+    	}
+    	System.out.println(Arrays.toString(dp));
+    	return dp[s.length()];
+    }
     
     
 	public static void main(String[] args) {
-		System.out.println(nthSuperUglyNumber(1, new int[]{2,7,13,19}));
+		Set<String> set=new HashSet<String>();
+		set.add("add");
+		set.add("qee");
+		System.out.println(wordBreak("", set));
 
 	}
 
