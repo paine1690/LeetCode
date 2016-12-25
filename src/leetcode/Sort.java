@@ -116,7 +116,20 @@ public class Sort {
     	return s.toString();
     }
     
-
+    //475. Heaters
+    public int findRadius(int[] houses, int[] heaters) {
+        int re=Integer.MIN_VALUE;
+        Arrays.sort(houses);
+        Arrays.sort(heaters);
+        int j=0;
+        for(int i=0; i<houses.length; i++){
+        	while(j<heaters.length-1&&Math.abs(houses[i]-heaters[j])>Math.abs(houses[i]-heaters[j+1])){
+        		j++;
+        	}
+        	re=Math.max(re, Math.abs(houses[i]-heaters[j]));
+        }        
+        return re;
+    }
     
     
 	public static void main(String[] args) {
