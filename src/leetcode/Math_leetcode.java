@@ -737,11 +737,29 @@ public class Math_leetcode {
     	return (int) re;
     }
     
+    //386. Lexicographical Numbers
+    private static void add(int n, int num, List<Integer> re){
+    	if(num>n){
+    		return;
+    	}
+    	re.add(num);
+    	add(n, num*10, re);
+    	if(num%10!=9){
+    		add(n, num+1, re);
+    	}
+    }
+    
+    public static List<Integer> lexicalOrder(int n) {
+        List<Integer> re=new ArrayList<Integer>(n);        
+        
+		add(n, 1, re);
+		
+        return re;
+    }
+    
     
 	public static void main(String[] args) {
-		
-		
-		System.out.println(countDigitOne(110));
+		System.out.println(lexicalOrder(13));
 
 	}
 
