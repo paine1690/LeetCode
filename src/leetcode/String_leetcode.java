@@ -754,8 +754,33 @@ public class String_leetcode {
     	}
     }
     
+    //482. License Key Formatting
+    public static String licenseKeyFormatting(String S, int K) {
+        StringBuilder re=new StringBuilder();
+        for(int i=S.length()-1, cnt=0; i>=0; i--){
+        	char c=S.charAt(i);
+        	if(c=='-'){
+        		continue;
+        	}
+        	if(Character.isLowerCase(c)){
+        		c-=32;
+        	}
+        	re.append(c);
+        	if(++cnt==K){
+        		cnt=0;
+        		re.append('-');
+        	}
+        }
+        re.reverse();
+        if(re.length()>0&&re.charAt(0)=='-'){
+        	re.deleteCharAt(0);
+        }
+        return re.toString();
+    }
+    
+    
 	public static void main(String[] args) {
-		System.out.println(validIPAddress("192.0.0.1"));
+		System.out.println(licenseKeyFormatting("2-4A0r7-4k", 10));
 		//System.out.println(divide(-2147483648, 1));
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
