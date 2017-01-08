@@ -343,8 +343,22 @@ public class BitManipulation {
         return re;
     }
     
+    //476. Number Complement
+    public static int findComplement(int num) {
+        int re=~num;
+        
+        for(int i=1<<31; i!=0; i>>>=1){        	
+        	if((i&re)==0){
+        		break;
+        	}else{
+        		re&=~i;
+        	}        	
+        }
+        return re;
+    }    
+    
 	public static void main(String[] args) {
-		System.out.println(validUtf8(new int[]{240,162,138,147}));
+		System.out.println(findComplement(1));
 		
 	}
 
