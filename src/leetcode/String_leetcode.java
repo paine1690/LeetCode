@@ -778,9 +778,35 @@ public class String_leetcode {
         return re.toString();
     }
     
+    //481. Magical String
+    public static int magicalString(int n) {
+    	if(n==0){
+    		return 0;
+    	}
+    	if(n<=3){
+    		return 1;
+    	}
+    	StringBuilder s=new StringBuilder("122");
+        int num=2, i=2;       
+        while(s.length()<n){
+        	int cnt=s.charAt(i++)-'0';
+        	num=3-num;
+        	while(cnt>0){
+        		s.append(num);
+        		cnt--;
+        	}
+        }
+        int re=0;
+        for(i=0; i<n; i++){
+        	if(s.charAt(i)=='1'){
+        		re++;
+        	}
+        }
+        return re;
+    }
     
 	public static void main(String[] args) {
-		System.out.println(licenseKeyFormatting("2-4A0r7-4k", 10));
+		System.out.println(magicalString(6));
 		//System.out.println(divide(-2147483648, 1));
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
