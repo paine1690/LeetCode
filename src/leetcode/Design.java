@@ -2,6 +2,7 @@ package leetcode;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -363,9 +364,6 @@ public class Design {
 	}
 	
 	
-	
-	
-	
 	public void run(){
 		LRUCache l=new LRUCache(1);
 		l.set(2, 1);
@@ -418,9 +416,127 @@ public class Design {
 		}
 	}
 	
+	//460. LFU Cache
+	static  class LFUCache {
+		static class Node{
+			Node pre, next;
+			LinkedHashSet<Integer> set=new LinkedHashSet<Integer>();
+			int cnt;
+			public Node(Node pre, Node next, int cnt, int key){
+				this.pre=pre;
+				this.next=next;
+				this.cnt=cnt;
+				set.add(key);
+			}
+		}
+		
+		Node head=null;
+		Map<Integer, Integer> valueMap;
+		Map<Integer, Node> nodeMap;
+		int capacity;
+		
+		
+	    public LFUCache(int capacity) {
+	    	this.capacity=capacity;
+	        valueMap=new HashMap<Integer, Integer>(capacity, 1f);
+	        nodeMap=new HashMap<Integer, Node>(capacity, 1f);
+	    }
+	    
+	    public int get(int key) {
+	        if(valueMap.containsKey(key)){
+	        	increase(key, valueMap.get(key));
+	        }
+	        return valueMap.getOrDefault(key, -1);
+	    }
+	    
+	    private void increase(int key, int value){
+	    	Node node=nodeMap.get(key);
+	    	node.set.remove(key);
+	    	
+	    	if(node.next==null){
+	    		node.next=new Node(node, null, 1+node.cnt, key);
+	    	}else if(node.next.cnt==node.cnt+1){
+	    		node.next.set.add(key);
+	    	}else{
+	    		Node nNode=new Node(node, node.next, node.cnt+1, key);
+	    		node.next.pre=nNode;
+	    		node.next=nNode;
+	    	}
+	    	
+	    	nodeMap.put(key, node.next);
+	    	valueMap.put(key, value);
+	    	if(node.set.isEmpty()){
+	    		remove(node);
+	    	}
+	    }
+	    
+	    private void remove(Node node){
+	    	if(node==head){
+	    		head=node.next;
+	    	}else{
+	    		node.pre.next=node.next;
+	    	}
+	    	if(node.next!=null){
+	    		node.next.pre=node.pre;
+	    	}
+	    }	    
+	    
+	    public void put(int key, int value) {
+	        if(this.capacity==0){
+	        	return;
+	        }
+	        if(valueMap.containsKey(key)){
+	        	increase(key, value);
+	        }else{
+	        	if(valueMap.size()==this.capacity){
+	        		remove();
+	        	}
+	        	valueMap.put(key, value);
+	        	addNode(key);
+	        }
+	        
+	    }
+	    
+	    private void remove(){
+	    	if(head==null){
+	    		return ;
+	    	}
+	    	int oldest=head.set.iterator().next();
+	    	head.set.remove(oldest);
+	    	if(head.set.isEmpty()){
+	    		remove(head);
+	    	}
+	    	valueMap.remove(oldest);
+	    	nodeMap.remove(oldest);
+	    }
+	    
+	    private void addNode(int key){
+	    	if(head==null){
+	    		head=new Node(null, null, 1, key);
+	    	}else if(head.cnt==1){
+	    		head.set.add(key);
+	    	}else{
+	    		Node nNode=new Node(null, head, 1, key);
+	    		head.pre=nNode;
+	    		head=nNode;
+	    	}
+	    	nodeMap.put(key, head);
+	    }
+	}
+	
 	public static void main(String[] args) {
-		Design s=new Design();
-		s.run();
+		LFUCache l=new LFUCache(2);
+		l.put(1, 1);
+		l.put(2, 2);
+		System.out.println(l.get(1));
+		l.put(3, 3);
+		System.out.println(l.get(2));
+		System.out.println(l.get(3));
+		
+		l.put(4, 4);
+		System.out.println(l.get(1));
+		System.out.println(l.get(3));
+		System.out.println(l.get(4));
 	}
 
 }
