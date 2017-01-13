@@ -489,64 +489,58 @@ public class BackTracking {
     }
     
     //37. Sudoku Solver
-    static boolean flag;
-    
-    private static boolean isValid(char[][] sodu, int m, int n){
-    	char val=sodu[m][n];
+	private static boolean isValid(char[][] board, int m, int n){
+		char c=board[m][n];		
+		for(int i=0; i<9; i++){
+			if(i!=m&&board[i][n]==c){
+				return false;
+			}
+		}
+		
+		for(int j=0; j<9; j++){
+			if(j!=n&&board[m][j]==c){
+				return false;
+			}
+		}
+		
+		for(int i=m/3*3; i<m/3*3+3; i++){
+			for(int j=n/3*3; j<n/3*3+3; j++){
+				if((i!=m&&j!=n)&&board[i][j]==c){
+					return false;
+				}
+			}
+		}
+		return true;
+	}	
+	
+	private static boolean dfs(List<Integer> list, int index, char[][] board){
+		if(index>=list.size()){
+			return true;
+		}
+		
+		int k=list.get(index);
+		int i=k/9, j=k%9;
+		
+		for(char c='1'; c<='9'; c++){
+			board[i][j]=c;
+			if(isValid(board, i, j)&&dfs(list, index+1, board)){
+				return true;
+			}
+			board[i][j]='.';
+		}
+		return false;
+	}
+	
+    public static boolean solveSudoku(char[][] board) {
+    	List<Integer> list=new ArrayList<Integer>();
     	for(int i=0; i<9; i++){
-    		if(i!=m&&sodu[i][n]==val){
-    			return false;
-    		}
-    	}
-    	for(int j=0; j<9; j++){
-    		if(j!=n&&sodu[m][j]==val){
-    			return false;
-    		}
-    	}
-    	for(int i=m/3*3; i<m/3*3+3; i++){
-    		for(int j=n/3*3; j<n/3*3+3; j++){
-    			if(i!=m&&j!=n&&sodu[i][j]==val){
-    				return false;
+    		for(int j=0; j<9; j++){
+    			if(board[i][j]=='.'){
+    				list.add(i*9+j);
     			}
     		}
-    	}    	
-    	return true;
-    }
-    
-    private static void dfsSudoku(List<Integer> list, char[][] board, int index){
-    	if(index>=list.size()){
-    		flag=false;
-    		return;
     	}
-    	
-    	int k=list.get(index);
-    	int i=k/9, j=k%9;
-    	
-    	for(char c='1'; c<='9'; c++){
-    		board[i][j]=c;
-    		if(isValid(board, i, j)){
-    			dfsSudoku(list, board, index+1);
-        		if(!flag){
-        			break;
-        		}
-    		}
-    		board[i][j]='.';
-    	}       	
-    }
-    
-    public static void solveSudoku(char[][] board) {
-    	List<Integer> list=new ArrayList<Integer>();
-        for(int k=0; k<81; k++){
-        	int i=k/9, j=k%9;
-        	if(board[i][j]=='.'){
-        		list.add(k);        		
-        	}
-        }
-        flag=true;
-        dfsSudoku(list, board, 0); 
-        for(int i=0; i<board.length; i++){
-        	System.out.println(Arrays.toString(board[i]));
-        }
+    	return dfs(list, 0, board);
     }
     
     //51. N-Queens   
