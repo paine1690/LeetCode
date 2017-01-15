@@ -705,9 +705,26 @@ public class Array_leetcode {
         return re;
     }
     
+    //487. Max Consecutive Ones II
+    public static int findMaxConsecutiveOnes2(int[] nums) {
+        int re=0, cnt=0, pre=-1;
+        for(int i=0; i<nums.length; i++){
+        	int num=nums[i];
+        	if(num==1){
+        		cnt++;
+        		re=Math.max(re, cnt);
+        	}else{
+        		cnt=i-pre;
+        		re=Math.max(re, cnt);
+        		pre=i;
+        	}
+        }        
+        return re;
+    }
+    
     
 	public static void main(String[] args) {		
-		System.out.println(findMaxConsecutiveOnes(new int[]{1,1,1,1,1,1}));
+		System.out.println(findMaxConsecutiveOnes2(new int[]{1,0,1,1,0}));
 		
 
 	}
