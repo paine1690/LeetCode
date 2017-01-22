@@ -617,8 +617,35 @@ public class BackTracking {
         return re;
     }
     
+    //494. Target Sum
+    private static int re1;
+    private static void dfsFind(int[] nums, int index, int sum, int S){
+    	if(index>=nums.length){
+    		if(sum==S){
+    			re1++;
+    		}    		
+    		return;
+    	}
+    	int num=nums[index];
+    	sum+=num;
+    	dfsFind(nums, index+1, sum, S);
+    	sum-=num;
+    	sum-=num;
+    	dfsFind(nums, index+1, sum, S);
+    	sum+=num;
+    }
+    
+    
+    public static int findTargetSumWays(int[] nums, int S) {
+    	re1=0;
+        dfsFind(nums, 0, 0, S);
+        return re1;
+    }
+    
+    
+    
 	public static void main(String[] args) {
-		System.out.println(generateParenthesis(3));
+		System.out.println(findTargetSumWays(new int[]{1, 1, 1, 1, 1}, 3));
 		
 		
 		//System.out.println(solveNQueens(9));
