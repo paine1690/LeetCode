@@ -2,7 +2,10 @@ package leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class DFS_BFS {
 	
@@ -134,15 +137,50 @@ public class DFS_BFS {
         return re;
     }
     
+    //491. Increasing Subsequences
+    private static void dfsFind(int[] nums, int index, int num, Set<List<Integer>> re, List<Integer> list){
+    	if(index>=nums.length){
+    		return;
+    	}
+    	for(int i=index; i<nums.length; i++){
+    		if(nums[i]>=num){
+    			List<Integer> temp=new LinkedList<Integer>(list);    						
+    			temp.add(nums[i]);
+    			if(re.contains(temp)){
+    				continue;
+    			}
+    			System.out.println(temp);
+    			re.add(temp);
+    			dfsFind(nums, i+1, nums[i], re, temp);
+    		}
+    	}
+    }    
+    
+    public static List<List<Integer>> findSubsequences(int[] nums) {
+        Set<List<Integer>> re=new HashSet<List<Integer>>();
+        if(nums.length>=2){
+        	List<Integer> list;
+            for(int i=0; i<nums.length; i++){
+            	list=new LinkedList<Integer>();
+            	list.add(nums[i]);
+            	dfsFind(nums, i+1, nums[i], re, list);        
+            }
+            
+        }
+        return new ArrayList<List<Integer>>(re);
+    }
+    
+    
 	public static void main(String[] args) {
-		int[][] nums={
-				{1,2,2,3,5},
-				{3,2,3,4,4},
-				{2,4,5,3,1},
-				{6,7,1,4,5},
-				{5,1,1,2,4},
-		};
-		System.out.println(makesquare(new int[]{5,5,5,5,4,4,4,4,3,3,3,3}));
+		System.out.print(findSubsequences(new int[]{1,2,3,1}));
+//		int[][] nums={
+//				{1,2,2,3,5},
+//				{3,2,3,4,4},
+//				{2,4,5,3,1},
+//				{6,7,1,4,5},
+//				{5,1,1,2,4},
+//		};
+//		System.out.println(makesquare(new int[]{5,5,5,5,4,4,4,4,3,3,3,3}));
 
 	}
 
