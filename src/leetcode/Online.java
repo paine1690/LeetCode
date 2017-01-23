@@ -1,6 +1,5 @@
 package leetcode;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Online {
@@ -30,17 +29,12 @@ public class Online {
     }
  
    
-    
-    
-    
-	public static void main(String[] args) {
-		List<String> list=new ArrayList<String>();
-		list.add("abcd");
-		list.add("bnrt");
-		list.add("crm");
-		list.add("dt");
-		System.out.println(validWordSquare(list));
 
-	}
+    
+    
 
+
+    public static void main(String[] args) {  
+    	
+    }
 }

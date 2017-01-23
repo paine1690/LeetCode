@@ -757,6 +757,20 @@ public class Math_leetcode {
         return re;
     }
     
+    //492. Construct the Rectangle
+    public int[] constructRectangle(int area) {
+		int sqrt=(int) Math.sqrt(area);
+		if(area%sqrt==0){
+			return new int[]{area/sqrt, sqrt};
+		}
+		while(sqrt>1){
+			sqrt--;
+			if(area%sqrt==0){
+				return new int[]{area/sqrt, sqrt};
+			}
+		}
+		return new int[]{area, 1};
+	}
     
 	public static void main(String[] args) {
 		System.out.println(lexicalOrder(13));
