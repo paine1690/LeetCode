@@ -150,20 +150,7 @@ public class Chapter2 {
     
     //变态跳台阶
     public int JumpFloorII(int target) {
-    	if(target<=2){
-    		return target;
-    	}
-        int[] d=new int[target+1];
-        d[1]=1;
-        d[2]=2;
-        for(int i=3; i<=target; i++){
-        	int temp=0;
-        	for(int j=1; j<i; j++){
-        		temp+=d[j];
-        	}
-        	d[i]=temp+1;
-        }
-        return d[target];
+    	return 1<<(target-1);
     }
     
     /*

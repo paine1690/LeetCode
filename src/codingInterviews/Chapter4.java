@@ -151,36 +151,34 @@ public class Chapter4 {
     /*
      * 25、二叉树中和为某一值的路径
      */
-    private static void find(ArrayList<ArrayList<Integer>> re, ArrayList<Integer> list, int target, TreeNode root, List<TreeNode> temp){
-    	temp.add(root);
-    	list.add(root.val);
-    	if(root.left==null&&root.right==null){
-    		if(target==root.val){
-    			re.add(new ArrayList<Integer>(list));
-    		}
-    		return;
-    	}    	
-    	if(root.left!=null){
-    		find(re, list, target-root.val, root.left, temp);
-    		temp.remove(temp.size()-1);
-    		list.remove(list.size()-1);
-    	}
-    	if(root.right!=null){
-    		find(re, list, target-root.val, root.right, temp);
-    		temp.remove(temp.size()-1);
-    		list.remove(list.size()-1);
-    	}
+    private void dfs(ArrayList<ArrayList<Integer>> re, ArrayList<Integer> list, TreeNode root, int target){
+        list.add(root.val);
+        target-=root.val;
+        if(root.left==null&&root.right==null){
+            if(target==0){
+                re.add(new ArrayList<Integer>(list));
+            }
+            return;
+        }
+        
+        if(root.left!=null){
+            dfs(re, list, root.left, target);
+            list.remove(list.size()-1);
+        }        
+        
+        if(root.right!=null){
+            dfs(re, list, root.right, target);
+            list.remove(list.size()-1);
+        }
     }
     
-    public static ArrayList<ArrayList<Integer>> findPath(TreeNode root,int target) {
-    	ArrayList<ArrayList<Integer>> re=new ArrayList<ArrayList<Integer>>();
-    	if(root==null){
-    		return re; 
-    	}
-    	ArrayList<Integer> list=new ArrayList<Integer>();
-    	List<TreeNode> temp=new ArrayList<TreeNode>();
-    	find(re, list, target, root, temp);
-    	return re;
+    public ArrayList<ArrayList<Integer>> FindPath(TreeNode root,int target) {
+        ArrayList<ArrayList<Integer>> re=new ArrayList<ArrayList<Integer>>();
+        if(root!=null){
+            ArrayList<Integer> list=new ArrayList<Integer>();    
+        	dfs(re, list, root, target);
+        }       
+        return re;
     }
     
     /*
@@ -188,33 +186,31 @@ public class Chapter4 {
      */
     public RandomListNode Clone(RandomListNode pHead){
         if(pHead==null){
-        	return null;
+            return null;
         }
-        RandomListNode pNode=pHead;
-        while(pNode!=null){
-        	RandomListNode next=pNode.next;
-        	RandomListNode copyNode=new RandomListNode(pNode.label);
-        	pNode.next=copyNode;
-        	copyNode.next=next;
-        	pNode=next;
-        }
-        
-        pNode =pHead;
-        RandomListNode copyNode;
-        while(pNode!=null){
-        	copyNode=pNode.next;
-        	if(pNode.random!=null){
-        		copyNode.random=pNode.random.next;
-        	}
-        	pNode=copyNode.next;
+        RandomListNode p=pHead;
+        while(p!=null){
+            RandomListNode next=p.next;
+            RandomListNode node=new RandomListNode(p.label);
+            p.next=node;
+            node.next=next;
+            p=next;
         }
         
+        p=pHead;
+        while(p!=null){
+            RandomListNode next=p.next;    
+            if(p.random!=null){
+                next.random=p.random.next;
+            }            
+            p=next.next;
+        }     
+        p=pHead;
         RandomListNode re=pHead.next;
-        pNode=pHead;
-        while(pNode.next!=null){
-        	copyNode=pNode.next;
-        	pNode.next=copyNode.next;
-        	pNode=copyNode;
+        while(p.next!=null){
+            RandomListNode next=p.next;
+            p.next=next.next;
+            p=next;
         }
         return re;
     }

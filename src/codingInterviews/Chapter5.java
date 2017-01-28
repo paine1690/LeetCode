@@ -205,87 +205,84 @@ public class Chapter5 {
     /*
      * 36、求数组中的逆序对
      */
-    static int re;
-    
-    private static void merge(int[] nums, int start, int mid, int end){
-    	int i=start, j=mid+1, k=0;
-    	int[] temp=new int[end-start+1];
-    	while(i<=mid&&j<=end){
-    		if(nums[i]<=nums[j]){
-    			temp[k++]=nums[i++];
-    		}else{
-    			temp[k++]=nums[j++];
-    			re+=(mid-i+1);
-    		}
-    	}
-    	while(i<=mid){
-    		temp[k++]=nums[i++];
-    	}
-    	while(j<=end){
-    		temp[k++]=nums[j++];
-    	}
-    	
-    	for(k=0; k<temp.length; k++){
-    		nums[start+k]=temp[k];
-    	}
+    int merge(int[] nums, int start, int mid, int end){
+        int i=start, j=mid+1, k=0;
+        int[] temp=new int[end-start+1];
+        int re=0;
+        while(i<=mid&&j<=end){
+            if(nums[i]<=nums[j]){
+                temp[k++]=nums[i++];
+            }else{
+                temp[k++]=nums[j++];
+                re+=mid-i+1;
+                re%=1000000007;
+            }
+        }        
+        while(i<=mid){
+            temp[k++]=nums[i++];
+        }
+        while(j<=end){
+            temp[k++]=nums[j++];
+        }     
+        for(k=0; k<temp.length; k++){
+            nums[start+k]=temp[k];
+        }
+        return re%1000000007;
     }
     
-    private static void mergeSort(int[] nums, int start, int end){
-    	if(start<end){
-    		int mid=start+(end-start)/2;
-    		mergeSort(nums, start, mid);
-    		mergeSort(nums, mid+1, end);
-    		merge(nums, start, mid, end);
-    	}
+    int sort(int[] nums, int start, int end){
+        int re=0;
+        if(start<end){
+            int mid=start+(end-start)/2;
+            re+=sort(nums, start, mid);
+            re+=sort(nums, mid+1, end);
+            re+=merge(nums, start, mid, end);            
+        }
+        return re%1000000007;
     }
     
-    public static int InversePairs(int [] array) {
-        re=0;
-        mergeSort(array, 0, array.length-1);
-    	return re;
+    
+    public int InversePairs(int [] array) {
+        int re=sort(array, 0, array.length-1);
+        return re%1000000007;
     }
     
     /*
      * 37、两个链表的第一个公共结点
      */
-    private int getLength(ListNode head){
-    	int re=0;
-    	ListNode pNode=head;
-    	while(pNode!=null){
-    		pNode=pNode.next;
-    		re++;
-    	}
-    	return re;
-    }    
-    
     public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) {
-    	int m=getLength(pHead1);
-    	int n=getLength(pHead2);
-    	int diff=0;
-    	ListNode lNode, sNode;
-    	if(m>=n){
-    		diff=m-n;
-    		lNode=pHead1;
-    		sNode=pHead2;
-    	}else{
-    		diff=n-m;
-    		lNode=pHead2;
-    		sNode=pHead1;
-    	}
-    	
-    	while(diff>0){
-    		lNode=lNode.next;
-    		diff--;
-    	}
-    	
-    	while(lNode!=null){
-    		if(lNode==sNode){
-    			return lNode;
-    		}
-    		lNode=lNode.next;
-    		sNode=sNode.next;
-    	}    	
-    	return null;
+ 		int m=0, n=0;
+        ListNode p=pHead1;
+        
+        while(p!=null){
+            p=p.next;
+            m++;
+        }
+        p=pHead2;
+        while(p!=null){
+           	p=p.next;
+            n++;
+        }
+        
+        ListNode f=pHead1, s=pHead2;
+        if(m<n){
+            f=pHead2;
+            s=pHead1;
+        }
+        int diff=Math.abs(m-n);
+        
+        while(diff>0){
+            f=f.next;
+            diff--;
+        }
+        while(f!=null&&s!=null){
+            if(f==s){
+                return f;
+            }
+            f=f.next;
+            s=s.next;
+        }
+        return null;
     }
     
 	public static void main(String[] args) {

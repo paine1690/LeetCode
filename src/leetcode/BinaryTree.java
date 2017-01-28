@@ -8,6 +8,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 
+
 /**
  * 		树
  * 
@@ -201,7 +202,7 @@ public class BinaryTree {
     }
     
     //110. Balanced Binary Tree		平衡二叉树
-    public boolean isBalanced(TreeNode root) {
+    public static boolean isBalanced(TreeNode root) {
         if(root==null){
         	return true;
         }
@@ -242,9 +243,29 @@ public class BinaryTree {
     	return dfs(root.left)&&dfs(root.right);
     	
     }
-    public boolean isBalanced2(TreeNode root) {
+    public static boolean isBalanced2(TreeNode root) {
        getDeep(root);
        return dfs(root);
+    }
+    
+    
+    
+    //110. Balanced Binary Tree		平衡二叉树
+   	private int balance(TreeNode root){
+        if(root==null){
+            return 0;
+        }        
+        int left=balance(root.left);
+        int right=balance(root.right);
+        if(left==-1||right==-1||Math.abs(left-right)>1){
+            return -1;
+        }else{
+            return 1+Math.max(left, right);
+        }        
+    }
+
+    public boolean isBalanced3(TreeNode root) {
+        return balance(root)!=-1;		
     }
     
     /**
@@ -826,25 +847,36 @@ public class BinaryTree {
 		return pathGet(root, sum)+pathSum3(root.left, sum)+pathSum3(root.right, sum);        
     }
     
-    
-    
-    
+
 	public static void main(String[] args) {
-		TreeNode n1=new TreeNode(3);
-		TreeNode n2=new TreeNode(5);
-		TreeNode n3=new TreeNode(6);
-		TreeNode n4=new TreeNode(2);
-		TreeNode n5=new TreeNode(7);
-		TreeNode n6=new TreeNode(4);
-		TreeNode n7=new TreeNode(1);
-		n1.left=n2;
-		n2.left=n3;
-		n2.right=n4;
-		n4.left=n5;
-		n4.right=n6;
-		n1.right=n7;
+		TreeNode n1=new TreeNode(1);
+		TreeNode n2=new TreeNode(2);
+		TreeNode n3=new TreeNode(3);
+		TreeNode n4=new TreeNode(4);
+		TreeNode n5=new TreeNode(5);
+		TreeNode n6=new TreeNode(6);
+		TreeNode n7=new TreeNode(7);
+		TreeNode n8=new TreeNode(8);
+		TreeNode n9=new TreeNode(9);
+		TreeNode n10=new TreeNode(10);
 		
-		lowestCommonAncestor2(n1, n5, n7);
+		TreeNode n11=new TreeNode(11);
+		TreeNode n12=new TreeNode(12);
+		
+		
+		n1.left=n2;
+		n1.right=n3;
+		n2.left=n4;
+		n3.left=n5;
+		n3.right=n6;
+		n4.left=n7;
+		n4.right=n8;
+		n5.left=n9;
+		n7.left=n10;
+		n2.right=n11;
+		n11.left=n12;
+		System.out.print(isBalanced(n1));
+		//lowestCommonAncestor2(n1, n5, n7);
 //		String[] strs={
 //			"1",
 //			"2",

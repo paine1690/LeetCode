@@ -771,10 +771,11 @@ public class Math_leetcode {
 		}
 		return new int[]{area, 1};
 	}
-    
+   
+
 	public static void main(String[] args) {
 		System.out.println(lexicalOrder(13));
-
+		
 	}
 
 }

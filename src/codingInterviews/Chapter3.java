@@ -216,9 +216,9 @@ public class Chapter3 {
 	
 	
 	public static void main(String[] args) {
-		
 //		reOrderArray(nums);
 //		System.out.println(Arrays.toString(nums));
+
 	}
 
 }
@@ -241,14 +241,3 @@ class TreeNode {
         this.val = val;
     }
 }
-
-
-
-
-
-
-
-
-
-
-

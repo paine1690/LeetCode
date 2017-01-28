@@ -48,29 +48,21 @@ public class Chapter6 {
     }
 	
 	//平衡二叉树
-	private int deepTh;
+   	private int balance(TreeNode root){
+        if(root==null){
+            return 0;
+        }        
+        int left=balance(root.left);
+        int right=balance(root.right);
+        if(left==-1||right==-1||Math.abs(left-right)>1){
+            return -1;
+        }else{
+            return 1+Math.max(left, right);
+        }        
+    }
+    
     public boolean IsBalanced_Solution(TreeNode root) {
-		if(root==null){
-			deepTh=0;
-			return true;
-		}
-		int left=0, right=0;
-		if(IsBalanced_Solution(root.left)){
-			left=deepTh;
-		}else{
-			return false;
-		}
-		if(IsBalanced_Solution(root.right)){
-			right=deepTh;
-		}else{
-			return false;
-		}
-		if(Math.abs(left-right)<=1){
-			deepTh=Math.max(left, right)+1;
-			return true;
-		}else{
-			return false;
-		}
+		return balance(root)!=-1;		
     }
 	
     /*
