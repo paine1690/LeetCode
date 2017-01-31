@@ -501,13 +501,15 @@ public class Chapter2 {
 		for(int n=2; n<=len; n++){
 			long temp=2*num-n*n;
 			if(temp%n==0){
-				int k=(int) ((temp/n+1)/2);
-				StringBuilder s=new StringBuilder();
-				int j=0;
-				for(; j<n-1; j++){
-					s.append(k+j).append("+");
+				if((temp/n&1)==1){
+					int k=(int) ((temp/n+1)/2);
+					StringBuilder s=new StringBuilder();
+					int j=0;
+					for(; j<n-1; j++){
+						s.append(k+j).append("+");
+					}
+					re.add(s.append(k+j).toString());
 				}
-				re.add(s.append(k+j).toString());
 			}
 		}
 		System.out.println(re);
@@ -517,7 +519,7 @@ public class Chapter2 {
 //		int[] nums={1,5,7,8,9,6,3,11,20,17};
 //		System.out.println(div(nums));
 		
-		getSum(65341);	
+		getSum(4);	
 //		System.out.println(Arrays.toString(nums));		
 
 

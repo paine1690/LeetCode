@@ -116,7 +116,7 @@ public class Chapter6 {
         return re;        
     }
     
-    public static ArrayList<ArrayList<Integer> > FindContinuousSequence(int sum) {
+    public static ArrayList<ArrayList<Integer>> FindContinuousSequence(int sum) {
         ArrayList<ArrayList<Integer>> re=new ArrayList<ArrayList<Integer>>();
         int end=(1+sum)/2;
         int i=1, j=2, s=3;
@@ -159,21 +159,18 @@ public class Chapter6 {
     
     public static String ReverseSentence(String str) {
         char[] chars=str.toCharArray();
-        int i=0,j=1;
-        while(j<chars.length){
-        	if(chars[j]==' '){
-        		reverse(chars, i, j-1);
-        		i=j+1;
-        		j=i+1;
-        	}else{
-        		j++;
-        	}
+        int i=0;
+        for(int j=1; j<chars.length; j++){
+            if(chars[j]==' '){
+                reverse(chars, i, j-1);
+                i=++j;               
+            }
         }
         if(i<chars.length){
-        	reverse(chars, i, j-1);
+            reverse(chars, i, chars.length-1);
         }
         reverse(chars, 0, chars.length-1);
-        return new String(chars);        
+        return new String(chars);    
     }
     
     public static String LeftRotateString(String str,int n) {
@@ -218,59 +215,29 @@ public class Chapter6 {
      * 44、扑克牌的顺子
      */
     public boolean isContinuous(int [] numbers) {
-    	if(numbers.length!=5){
-    		return false;
-    	}
-    	Arrays.sort(numbers);
-    	int cnt0=0;
-    	int i=0;
-    	while(numbers[i]==0){
-    		i++;
-    		cnt0++;
-    	}
-    	int diff=0;
-    	while(i<numbers.length-1){
-    		diff=numbers[i+1]-numbers[i];	
-    		if(diff==1){
-    			i++;
-    			continue;
-    		}else if(diff==0){
-    			return false;
-    		}else{
-    			i++;
-    			break;
-    		}   		
-    	}
-    	if(i>=numbers.length){
-    		return true;
-    	}
-    	
-    	cnt0-=(diff-1);
-    	if(cnt0<0){
-    		return false;
-    	}
-    	diff=0;
-    	while(i<numbers.length-1){
-    		diff=numbers[i+1]-numbers[i];	
-    		if(diff==1){
-    			i++;
-    			continue;
-    		}else if(diff==0){
-    			return false;
-    		}else{
-    			i++;
-    			break;
-    		}   		
-    	}
-    	if(i>numbers.length){
-    		return true;
-    	}
-    	
-    	cnt0-=(diff-1);
-    	if(cnt0<0){
-    		return false;
-    	}
-    	return true;
+        if(numbers.length<5){
+            return false;
+        }
+		Arrays.sort(numbers);
+        int cnt=0, i=0;
+        
+        while(i<numbers.length&&numbers[i]==0){
+            cnt++;
+            i++;
+        }
+        i++;
+        while(i<numbers.length){
+            if(numbers[i]==numbers[i-1]){
+                return false;
+            }
+            cnt-=numbers[i]-numbers[i-1]-1;
+            if(cnt<0){
+                return false;
+            }
+            i++;
+        }
+        return true;
+        
     }
     
     /*
