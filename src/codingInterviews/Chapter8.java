@@ -469,6 +469,42 @@ public class Chapter8 {
     }
     
     /*
+     * 64、数据流中的中位数
+     */     
+    private Queue<Integer> max;
+    private Queue<Integer> min;
+    
+    public void Solution(){//构造函数
+    	min=new PriorityQueue<Integer>();//小顶堆 
+    	max=new PriorityQueue<Integer>(new Comparator<Integer>(){//大顶堆
+			@Override
+			public int compare(Integer arg0, Integer arg1) {
+				return arg1.compareTo(arg0);
+			}
+    	});
+    }
+    
+    public void Insert(Integer num) {
+        if(max.size()==min.size()){
+        	min.add(num);
+        	num=min.poll();
+        	max.add(num);
+        }else{
+        	max.add(num);
+        	num=max.poll();
+        	min.add(num);
+        }
+    }
+
+    public Double GetMedian() {
+    	if(max.size()==min.size()){
+    		return (max.peek()+min.peek())/2.0;
+    	}else{
+    		return (double)max.peek();
+    	}
+    }
+    
+    /*
      * 65、滑动窗口的最大值
      */
     public static ArrayList<Integer> maxInWindows(int [] num, int size){
@@ -498,6 +534,46 @@ public class Chapter8 {
         	re.add(num[list.getFirst()]);
         }        
         return re;    	
+    }
+    
+    /*
+     * 66、矩阵中的路径
+     */
+    private boolean dfs(char[][] chars, int m, int n, char[] str, int index){        
+        if(chars[m][n]==str[index]){
+            if(index==str.length-1){
+                return true;
+            }
+            char temp=chars[m][n];
+            chars[m][n]=' ';
+            if((m>0&&dfs(chars, m-1, n, str, index+1))
+               ||(n>0&&dfs(chars, m, n-1, str, index+1))
+               ||(m<chars.length-1&&dfs(chars, m+1, n, str, index+1))
+               ||(n<chars[0].length-1&&dfs(chars, m, n+1, str, index+1))            
+            ){
+                return true;
+            }
+            chars[m][n]=temp;
+        }
+        return false;
+    }
+    
+    public boolean hasPath(char[] matrix, int rows, int cols, char[] str){
+    	char[][] chars=new char[rows][cols];
+        
+        for(int i=0, k=0; i<rows; i++){
+            for(int j=0; j<cols; j++){
+                chars[i][j]=matrix[k++];
+            }
+        }
+        for(int i=0; i<rows; i++){
+            for(int j=0; j<cols; j++){
+                if(dfs(chars, i, j, str, 0)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
     /*
@@ -550,41 +626,7 @@ public class Chapter8 {
     }
     
     
-    /*
-     * 64、数据流中的中位数
-     */     
-    private Queue<Integer> max;
-    private Queue<Integer> min;
-    
-    public void Solution(){//构造函数
-    	min=new PriorityQueue<Integer>();//小顶堆 
-    	max=new PriorityQueue<Integer>(new Comparator<Integer>(){//大顶堆
-			@Override
-			public int compare(Integer arg0, Integer arg1) {
-				return arg1.compareTo(arg0);
-			}
-    	});
-    }
-    
-    public void Insert(Integer num) {
-        if(max.size()==min.size()){
-        	min.add(num);
-        	num=min.poll();
-        	max.add(num);
-        }else{
-        	max.add(num);
-        	num=max.poll();
-        	min.add(num);
-        }
-    }
 
-    public Double GetMedian() {
-    	if(max.size()==min.size()){
-    		return (max.peek()+min.peek())/2.0;
-    	}else{
-    		return (double)max.peek();
-    	}
-    }
     
 	public static void main(String[] args) {
 		
