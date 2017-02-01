@@ -2,6 +2,7 @@ package codingInterviews;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -347,8 +348,44 @@ public class Chapter8 {
     			cur++;
     		}
     		re.add(temp);
-    	}    	
+    	}
+    	Collections.reverse(list);
     	return re;
+    	
+    }
+    
+    /*
+     * 61、按之字形顺序打印二叉树
+     */
+    public ArrayList<ArrayList<Integer> > Print2(TreeNode pRoot) {
+		ArrayList<ArrayList<Integer>> re=new ArrayList<ArrayList<Integer>>();
+        if(pRoot==null){
+            return re;
+        }
+        ArrayList<TreeNode> list=new ArrayList<TreeNode>();
+        list.add(pRoot);
+        int cnt=1;
+        int cur=0, size=1;
+        while(cur<list.size()){
+            size=list.size();
+            ArrayList<Integer> temp=new ArrayList<Integer>();
+            for(int i=cur; i<size; i++){
+                TreeNode root=list.get(i);
+                temp.add(root.val);
+                if(root.left!=null){
+                    list.add(root.left);
+                }
+                if(root.right!=null){
+                    list.add(root.right);
+                }
+            }
+            if((cnt++&1)==0){
+                Collections.reverse(temp);
+            }
+            re.add(temp);
+            cur=size;
+        }        
+        return re;
     }
     
     /*
