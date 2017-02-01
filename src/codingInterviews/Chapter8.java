@@ -299,6 +299,26 @@ public class Chapter8 {
         return null;    
     } 
     
+    /*
+     * 59、对称二叉树
+     */
+    private boolean isMirror(TreeNode p, TreeNode q){
+        if(p==null&&q==null){
+            return true;
+        }
+        if(p==null||q==null){
+            return false;
+        }
+        if(p.val==q.val){
+            return isMirror(p.left, q.right)&&isMirror(p.right, q.left);
+        }else{
+            return false;
+        }        
+    }
+    
+    boolean isSymmetrical(TreeNode pRoot){
+        return pRoot==null||isMirror(pRoot.left, pRoot.right);
+    }
     
     /*
      * 60、把二叉树打印成多行
