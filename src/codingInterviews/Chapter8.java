@@ -9,33 +9,22 @@ public class Chapter8 {
     
     /*
      * 51、数组中重复的数字
-     */
-    private void swap(int[] nums, int i, int j){
-    	while(i<j){
-    		int temp=nums[i];
-    		nums[i]=nums[j];
-    		nums[j]=temp;
-    		i++;
-    		j--;
-    	}
-    }
-    
+     */    
     public boolean duplicate(int numbers[],int length,int [] duplication) {
-    	if(numbers==null||numbers.length==0){
+        if(numbers==null||numbers.length==0){
     		return false;
     	}
+    	int len=numbers.length;
         for(int i=0; i<numbers.length; i++){
-        	while(numbers[i]!=i){
-        		int num=numbers[numbers[i]];
-        		if(num==numbers[i]){
-        			duplication[0]=num;
-        			return true;
-        		}else{
-        			swap(numbers, i, numbers[i]);
-        		}
-        	}        	
-        }   	
-    	return false;
+            int num=numbers[i]%len;
+            if(numbers[num]>len){
+                duplication[0]=num;
+                return true;
+            }else{
+                numbers[num]+=len;
+            }
+        }
+        return false;
     }
     
     /*
@@ -74,7 +63,6 @@ public class Chapter8 {
     	if(p>=charP.length){
     		return false;
     	}
-    	
     	if(p<charP.length-1&&charP[p+1]=='*'){
     		if(s<charS.length&&(charS[s]==charP[p]||charP[p]=='.')){
     			return isMatch(charS, charP, s, p+2)
@@ -93,6 +81,96 @@ public class Chapter8 {
     
     public boolean match(char[] str, char[] pattern){
         return isMatch(str, pattern, 0, 0);
+    }
+    
+    public static boolean match2(char[] str, char[] pattern){
+        int m=pattern.length;
+        int n=str.length;  
+        boolean[][] dp=new boolean[m+1][n+1];
+        dp[0][0]=true;
+        
+        for(int i=2; i<=m; i++){
+            dp[i][0]=dp[i-2][0]&&(pattern[i-1]=='*');
+        }
+        for(int i=1; i<=m; i++){
+            for(int j=1; j<=n; j++){
+                char p=pattern[i-1], s=str[j-1];
+                //System.out.print(p+" "+s+" ");
+                if(p=='*'){
+                    dp[i][j]=(i>1&&dp[i-2][j])
+                        ||((i>1)&&(pattern[i-2]=='.'||pattern[i-2]==s)&&(dp[i-1][j]||dp[i][j-1]));
+                }else{
+                    dp[i][j]=dp[i-1][j-1]&&((p=='.')||(p==s));
+                }
+            }
+        }
+        return dp[m][n];
+    }
+    
+    /*
+     * 54、表示数值的字符串
+     */    
+    private static boolean isAllDigit(char[] chars, int index){
+        if(index>=chars.length){
+            return false;
+        }
+        while(index<chars.length){
+            char c=chars[index];
+            if(c<'0'||c>'9'){
+                return false;
+            }
+            index++;
+        }
+        
+        return true;
+    }
+    
+    private static boolean isAllDigitWithE(char[] chars, int i){
+        while(i<chars.length){
+            char c=chars[i];
+            if(c=='e'||c=='E'){
+                if(++i>=chars.length){
+                    return false;
+                }
+                if(chars[i]=='+'||chars[i]=='-'){
+                    i++;
+                }
+                return isAllDigit(chars, i);
+            }else if(c>='0'&&c<='9'){
+                i++;
+                continue;
+            }else{
+                return false;
+            }         	   
+        }
+        return true;
+    }
+    
+    public static boolean isNumeric(char[] str) {
+        int i=0;
+        if(str[0]=='+'||str[i]=='-'){
+            i++;
+        }
+        while(i<str.length){
+            char c=str[i];            
+            if(c>='0'&&c<='9'){
+                i++;
+                continue;
+            }else if(c=='.'){
+                return isAllDigitWithE(str, i+1);
+            }else if(c=='e'||c=='E'){
+                if(++i>=str.length){
+                    return false;
+                }
+                if(str[i]=='+'||str[i]=='-'){
+                    i++;
+                }
+                return isAllDigit(str, i);                
+            }else{
+                return false;
+            }            
+        }
+        return true;        
     }
     
     /*
@@ -333,8 +411,8 @@ public class Chapter8 {
     	return cnt; 
     }
     
-    
 	public static void main(String[] args) {
+		System.out.println(isNumeric("1234.86".toCharArray()));
 		//System.out.println(maxInWindows(new int[]{10,14,12,11}, 1));
 //		String s="1,2,$,5,6,$,$,7,$,$,3,$,$,";
 //		TreeNode root=Deserialize(s);
