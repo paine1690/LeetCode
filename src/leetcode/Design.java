@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 public class Design {
 	//208. Implement Trie (Prefix Tree)

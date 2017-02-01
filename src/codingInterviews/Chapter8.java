@@ -3,8 +3,11 @@ package codingInterviews;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Chapter8 { 
     
@@ -546,7 +549,45 @@ public class Chapter8 {
     	return cnt; 
     }
     
+    
+    /*
+     * 64、数据流中的中位数
+     */     
+    private Queue<Integer> max;
+    private Queue<Integer> min;
+    
+    public void Solution(){//构造函数
+    	min=new PriorityQueue<Integer>();//小顶堆 
+    	max=new PriorityQueue<Integer>(new Comparator<Integer>(){//大顶堆
+			@Override
+			public int compare(Integer arg0, Integer arg1) {
+				return arg1.compareTo(arg0);
+			}
+    	});
+    }
+    
+    public void Insert(Integer num) {
+        if(max.size()==min.size()){
+        	min.add(num);
+        	num=min.poll();
+        	max.add(num);
+        }else{
+        	max.add(num);
+        	num=max.poll();
+        	min.add(num);
+        }
+    }
+
+    public Double GetMedian() {
+    	if(max.size()==min.size()){
+    		return (max.peek()+min.peek())/2.0;
+    	}else{
+    		return (double)max.peek();
+    	}
+    }
+    
 	public static void main(String[] args) {
+		
 		System.out.println(isNumeric("1234.86".toCharArray()));
 		//System.out.println(maxInWindows(new int[]{10,14,12,11}, 1));
 //		String s="1,2,$,5,6,$,$,7,$,$,3,$,$,";
