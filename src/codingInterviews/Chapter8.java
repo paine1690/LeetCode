@@ -267,6 +267,40 @@ public class Chapter8 {
     }
     
     /*
+     * 58、二叉树的下一个结点
+     */
+    static class TreeLinkNode {
+        int val;
+        TreeLinkNode left = null;
+        TreeLinkNode right = null;
+        TreeLinkNode next = null;
+
+        TreeLinkNode(int val) {
+            this.val = val;
+        }
+    }
+    
+    public TreeLinkNode GetNext(TreeLinkNode pNode){
+        if(pNode.right!=null){
+            TreeLinkNode root=pNode.right;
+            while(root.left!=null){
+                root=root.left;
+            }
+            return root;
+        }
+        if(pNode.next!=null){
+            TreeLinkNode p=pNode, root=pNode.next;
+            while(root!=null&&p==root.right){
+                p=root;
+                root=root.next;
+            }
+            return root;
+        }
+        return null;    
+    } 
+    
+    
+    /*
      * 60、把二叉树打印成多行
      */
     ArrayList<ArrayList<Integer> > Print(TreeNode pRoot) {
