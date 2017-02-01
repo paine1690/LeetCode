@@ -214,6 +214,24 @@ public class Chapter8 {
     /*
      * 56、链表中环的入口结点
      */
+    public ListNode EntryNodeOfLoop(ListNode pHead){
+        ListNode fast=pHead, slow=pHead;
+       	while(fast!=null&&fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+            if(fast==slow){
+                fast=pHead;
+                while(true){
+                    if(fast==slow){
+                        return fast;
+                    }
+                    fast=fast.next;
+                    slow=slow.next;
+                }
+            }
+        }
+        return null;
+    }
     
     /*
      * 57、删除链表中重复的结点
