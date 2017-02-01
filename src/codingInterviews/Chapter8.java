@@ -440,6 +440,32 @@ public class Chapter8 {
     }
     
     /*
+     * 63、二叉搜索树的第k个结点
+     */
+    int n;
+    TreeNode KthNode(TreeNode pRoot, int k){
+        n=k;
+        return getN(pRoot);
+    }
+
+    TreeNode getN(TreeNode root){
+        if(root==null){
+            return null;
+        }
+        
+        TreeNode re=getN(root.left);
+        if(re==null){
+            if(n==1){
+                re=root;
+            }else{
+                n--;
+                re=getN(root.right);
+            }
+        }
+        return re;
+    }
+    
+    /*
      * 65、滑动窗口的最大值
      */
     public static ArrayList<Integer> maxInWindows(int [] num, int size){
