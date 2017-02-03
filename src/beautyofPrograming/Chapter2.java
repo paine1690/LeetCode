@@ -16,10 +16,19 @@ public class Chapter2 {
 	 * 2.1 求二进制中1的个数 
 	 */
 	//leetcode 191. Number of 1 Bits
-	
+    public int hammingWeight(int n) {
+        int re=0;
+        while(n!=0){
+            re++;
+            n=n&(n-1);
+        }
+        return re;
+    }
+    
 	/*
-	 * 2.2 求n的阶乘中二进制最后一位1的位置
+	 * 2.2 不要被阶乘吓倒
 	 */
+    //求n的阶乘中二进制最后一位1的位置   因子2的个数
 	public static int jiechentg(int n){
 		int re=0;
 		while(n>0){
@@ -28,13 +37,73 @@ public class Chapter2 {
 		}		
 		return re;
 	}
+	//求n的阶乘中末尾有多少个0		因子5的个数
+	public int zeroCount(int n){
+		int re=0;
+		while(n<5){
+			n/=5;
+			re+=n;
+		}
+		return re;
+	}
 	
 	/*
 	 * 2.3 频率最高的元素 
 	 */
 	//leetcode 169. Majority Element
-	//leetcode 229. Majority Element II
+    public int majorityElement(int[] nums) {
+        int re=0, cnt=0;
+        for(int num: nums){
+            if(num==re){
+                cnt++;
+            }else if(cnt==0){
+                cnt++;
+                re=num;
+            }else{
+                cnt--;
+            }
+        }
+        return re;
+    }	
 	
+	//leetcode 229. Majority Element II
+    public List<Integer> majorityElement2(int[] nums) {
+        int num1=0, num2=0, c1=0, c2=0;
+        for(int num: nums){
+            if(num==num1){
+                c1++;
+            }else if(num==num2){
+                c2++;
+            }else if(c1==0){
+                c1++;
+                num1=num;
+            }else if(c2==0){
+                c2++;
+                num2=num;
+            }else{
+                c1--;
+                c2--;
+            }
+        }
+        List<Integer> re=new ArrayList<Integer>();
+        c1=0;
+        c2=0;
+        for(int num: nums){
+            if(num==num1){
+                c1++;
+            }else if(num==num2){
+                c2++;
+            }
+        }
+        if(c1>nums.length/3){
+            re.add(num1);
+        }
+        if(c2>nums.length/3){
+            re.add(num2);
+        }
+        return re;
+    }
+    
 	/*
 	 * 2.4 1到n中1出现的次数
 	 */
