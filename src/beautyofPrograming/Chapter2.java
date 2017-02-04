@@ -3,7 +3,13 @@ package beautyofPrograming;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Set;
 
 /**
  * 		第二章 数字之魅 -数字中的技巧
@@ -134,7 +140,33 @@ public class Chapter2 {
 	/*
 	 * 2.5 寻找最大的k个数
 	 */
-
+	//最小的k个数
+    public ArrayList<Integer> GetLeastNumbers_Solution(int [] input, int k) {
+        ArrayList<Integer> re=new ArrayList<Integer>();
+        if(k==0||k>input.length){
+        	return re;
+        }
+        Queue<Integer> queue=new PriorityQueue<Integer>(1, new Comparator<Integer>(){
+        	public int compare(Integer i1, Integer i2){
+        		return i2.compareTo(i1);
+        	}
+        });
+        int i=0;
+        for(i=0; i<k; i++){
+        	queue.offer(input[i]);
+        }
+        while(i<input.length){
+        	int num=input[i];
+        	if(num<queue.peek()){
+        		queue.poll();
+        		queue.offer(num);
+        	}
+        	i++;
+        }
+        re=new ArrayList<Integer>(queue);
+        return re;
+    }
+	
 	/*
 	 * 2.7 寻找最大公约数
 	 */
@@ -258,7 +290,18 @@ public class Chapter2 {
 	 * 2.12 快速寻找满足条件的两个数
 	 */
 	//leetcode 1
-	
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map=new HashMap<Integer, Integer>();
+     	for(int i=0; i<nums.length; i++){
+     		if(map.containsKey(target-nums[i])){
+     			return new int[]{i, map.get(target-nums[i])};
+     		}else{
+     			map.put(nums[i], i);
+     		}
+     	}
+    	return null;
+    }
+    
 	/*
 	 * 2.13 子数组最大乘积
 	 */
@@ -348,7 +391,15 @@ public class Chapter2 {
 	 * 2.14 数组子数组之和最大值
 	 */
 	//leetcode 53. Maximum Subarray
-	
+    public int maxSubArray(int[] nums) {
+        int re=nums[0];        
+        for(int i=1; i<nums.length; i++){
+        	nums[i]=nums[i-1]>0? nums[i-1]+nums[i]: nums[i];
+        	re=Math.max(re, nums[i]);        	       	
+        }
+        return re;
+    }
+    
 	/*
 	 * 2.15 数组子数组之和最大值(二维)
 	 */

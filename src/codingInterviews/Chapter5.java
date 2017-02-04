@@ -3,6 +3,8 @@ package codingInterviews;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Chapter5 {
 
@@ -85,6 +87,32 @@ public class Chapter5 {
     	}
     	return re;
     } 
+    
+    public ArrayList<Integer> GetLeastNumbers_Solution2(int [] input, int k) {
+        ArrayList<Integer> re=new ArrayList<Integer>();
+        if(k==0||k>input.length){
+        	return re;
+        }
+        Queue<Integer> queue=new PriorityQueue<Integer>(1, new Comparator<Integer>(){
+        	public int compare(Integer i1, Integer i2){
+        		return i2.compareTo(i1);
+        	}
+        });
+        int i=0;
+        for(i=0; i<k; i++){
+        	queue.offer(input[i]);
+        }
+        while(i<input.length){
+        	int num=input[i];
+        	if(num<queue.peek()){
+        		queue.poll();
+        		queue.offer(num);
+        	}
+        	i++;
+        }
+        re=new ArrayList<Integer>(queue);
+        return re;
+    }
     
     /*
      * 31、连续子数组的最大和
