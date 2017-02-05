@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Array_leetcode {
     
@@ -284,7 +282,7 @@ public class Array_leetcode {
     		for(int j=nums.length-1; j>i+2; j--){
     			if(j<nums.length-1&&nums[j]==nums[j+1]){
     				continue;
-    			}    			
+    			} 
     			int start=i+1;
     			int end=j-1;
     			
@@ -308,45 +306,6 @@ public class Array_leetcode {
     			}
     		}
     	}    	
-    	return re;
-    }
-    
-    public static List<List<Integer>> fourSum2(int[] nums, int target) {//没通过 0000怎么办
-    	List<List<Integer>> re=new ArrayList<List<Integer>>();
-		if(nums==null||nums.length<4){
-			return re;
-		}
-		Arrays.sort(nums);
-		Map<Integer, List<List<Integer>>> map=new HashMap<Integer, List<List<Integer>>>(); 
-		List<Integer> temp;
-		for(int i=0; i<nums.length; i++){
-			if(i>0&&nums[i]==nums[i-1]){
-				continue;
-			}
-			for(int j=i+1; j<nums.length; j++){
-				if(j>i+1&&nums[j]==nums[j-1]){
-					continue;
-				}
-				int sum=nums[i]+nums[j];
-				temp=new ArrayList<Integer>(Arrays.asList(nums[i], nums[j]));	
-				if(map.containsKey(target-sum)){						
-					List<List<Integer>> diff=map.get(target-sum);
-					for(List<Integer> list: diff){
-						if(list.get(1)>nums[i]){
-							continue;
-						}
-						List<Integer> r=new ArrayList<Integer>(list);
-						r.addAll(temp);
-						re.add(r);
-					}
-				}			
-				if(map.containsKey(sum)){
-					map.get(sum).add(temp);
-				}else{											
-					map.put(sum, new ArrayList<List<Integer>>(Arrays.asList(temp)));
-				}				
-			}
-		}    	    	
     	return re;
     }
     

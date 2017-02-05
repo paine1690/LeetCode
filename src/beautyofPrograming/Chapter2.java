@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.Set;
 
 /**
  * 		第二章 数字之魅 -数字中的技巧
@@ -301,6 +299,120 @@ public class Chapter2 {
      	}
     	return null;
     }
+    //leetcode 15. 3Sum
+    private static void getSum(int[] nums, int i, int j, int target, int num, List<List<Integer>> re){
+    	while(i<j){
+    		int sum=nums[i]+nums[j];
+    		if(sum==target){
+    			re.add(new ArrayList<Integer>(Arrays.asList(nums[i++], nums[j--], num)));
+    			while(i<j&&nums[i]==nums[i-1]){
+    				i++;
+    			}
+    			while(i<j&&nums[j]==nums[j+1]){
+    				j--;
+    			}
+    		}else if(sum<target){
+    			i++;
+    		}else{
+    			j--;
+    		}
+    	}
+    }    
+    
+    public static List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        Arrays.sort(nums);
+        for(int i=0; i<nums.length-1; i++){
+        	if(i>0&&nums[i]==nums[i-1]){
+        		continue;
+        	}
+        	getSum(nums, i+1, nums.length-1, -nums[i], nums[i], re);
+        }
+        return re;
+    }
+    
+    //leetcode 16. 3Sum Closest
+    public static int threeSumClosest(int[] nums, int target) {
+        int close=Integer.MAX_VALUE, re=0;
+        Arrays.sort(nums);        
+        for(int i=0; i<nums.length-1; i++){
+        	if(i>0&&nums[i]==nums[i-1]){
+        		continue;
+        	}
+        	int start=i+1, end=nums.length-1;        	
+        	while(start<end){
+        		int sum=nums[i]+nums[start]+nums[end];
+        		if(sum==target){
+        			return sum;
+        		}else if(sum<target){
+        			start++;
+        			if(target-sum<close){
+        				close=target-sum;
+        				re=sum;
+        			}
+        		}else{
+        			end--;
+        			if(sum-target<close){
+        				close=sum-target;
+        				re=sum;
+        			}
+        		}
+        	}
+        }
+        return re;
+    }
+    
+    //leetcode 18. 4Sum
+    private static void fourSum2(int[] nums, int target, int i, int j, List<List<Integer>> re, int num1, int num2){
+    	while(i<j){
+    		int sum=nums[i]+nums[j];
+    		if(sum==target){
+    			re.add(new ArrayList<Integer>(Arrays.asList(num1, num2, nums[i], nums[j])));
+    			i++;
+    			j--;
+    			while(i<j&&nums[i]==nums[i-1]){
+    				i++;
+    			}
+    			while(i<j&&nums[j]==nums[j+1]){
+    				j--;
+    			}
+    		}else if(sum<target){
+    			i++;
+    		}else{
+    			j--;
+    		}
+    	}
+    }
+    
+    private static void fourSum3(int[] nums, int target, int start, int end, List<List<Integer>> re, int num1){
+    	for(int i=start; i<end-1; i++){
+    		if(i>start&&nums[i]==nums[i-1]){
+    			continue;
+    		}
+    		int num=nums[i];
+    		if(num*3>target){
+    			break;
+    		}
+    		fourSum2(nums, target-num, i+1, end, re, num1, num);
+    	}
+    }
+    
+    public static List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> re=new ArrayList<List<Integer>>();
+        Arrays.sort(nums);
+
+        for(int i=0; i<nums.length; i++){
+        	if(i>0&&nums[i]==nums[i-1]){
+        		continue;
+        	}
+        	int num=nums[i];
+        	if(num*4>target){
+        		break;
+        	}
+        	fourSum3(nums, target-num, i+1, nums.length-1, re, num);
+        }
+        return re;
+    }    
     
 	/*
 	 * 2.13 子数组最大乘积
@@ -636,10 +748,10 @@ public class Chapter2 {
 	}
 
 	public static void main(String[] args) {
-//		int[] nums={1,5,7,8,9,6,3,11,20,17};
-//		System.out.println(div(nums));
+		int[] nums={1, 0, -1, 0, -2, 2};
+		System.out.println(fourSum(nums, 0));
 		
-		getSum(4);	
+		//getSum(4);	
 //		System.out.println(Arrays.toString(nums));		
 
 
