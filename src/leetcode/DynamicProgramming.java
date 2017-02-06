@@ -551,9 +551,6 @@ public class DynamicProgramming {
         return dp[target+1];
     }
     
-    //416. Partition Equal Subset Sum
-
-    
     //376. Wiggle Subsequence
     public static int wiggleMaxLength(int[] nums) {
         if(nums.length==0){
@@ -688,6 +685,25 @@ public class DynamicProgramming {
         }
         
         return dp[n-1][sum]==sum;
+    }
+    
+    public static boolean canPartition2(int[] nums) {
+        int sum=0;
+        for(int num: nums){
+        	sum+=num;
+        }
+        if((sum&1)==1){
+        	return false;
+        }
+    	sum/=2;
+    	boolean[] dp=new boolean[sum+1];//数组中和是否可以为dp[i]
+    	dp[0]=true;
+    	for(int i=0; i<nums.length; i++){
+    		for(int s=sum; s>=nums[i]; s--){
+    			dp[s]|=dp[s-nums[i]];
+    		}
+    	}
+    	return dp[sum];
     }
     
     //123. Best Time to Buy and Sell Stock III
@@ -972,7 +988,7 @@ public class DynamicProgramming {
 		Set<String> set=new HashSet<String>();
 		set.add("add");
 		set.add("qee");
-		System.out.println(wordBreak("", set));
+		System.out.println(canPartition2(new int[]{1, 5, 11, 5}));
 
 	}
 

@@ -279,10 +279,16 @@ public class Array_leetcode {
     		if(i>0&&nums[i]==nums[i-1]){
     			continue;
     		}
+    		if(nums[i]*4>target){
+    			break;
+    		}
     		for(int j=nums.length-1; j>i+2; j--){
     			if(j<nums.length-1&&nums[j]==nums[j+1]){
     				continue;
     			} 
+    			if(nums[j]*3>target-nums[i]){
+    				break;
+    			}
     			int start=i+1;
     			int end=j-1;
     			

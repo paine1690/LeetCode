@@ -603,6 +603,7 @@ public class Chapter2 {
     	}
     	return len;
     }
+    
 	/*
 	 * 2.17 数组循环移位
 	 */
