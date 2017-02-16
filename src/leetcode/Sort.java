@@ -131,6 +131,40 @@ public class Sort {
         return re;
     }
     
+    //148. Sort List 链表排序
+    private void swap(ListNode i, ListNode j){
+    	int temp=i.val;
+    	i.val=j.val;
+    	j.val=temp;
+    }    
+    
+    private ListNode partition(ListNode start, ListNode end){
+    	int x=start.val;
+    	ListNode i=start, j=start.next;
+    	
+    	while(j!=end){
+    		if(j.val<x){
+    			i=i.next;
+    			swap(i, j);
+    		}
+    		j=j.next;
+    	}
+    	swap(start, i);
+    	return i;
+    }
+    
+    ListNode quickSort(ListNode start, ListNode end){
+    	if(start!=end){
+    		ListNode mid=partition(start, end);
+    		quickSort(start, mid);
+    		quickSort(mid.next, end);
+    	}
+    	return start;
+    }
+    
+    public ListNode sortList(ListNode head) {
+        return quickSort(head, null);
+    }
     
 	public static void main(String[] args) {
 		System.out.println(largestNumber(new int[]{1,2}));
