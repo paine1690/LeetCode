@@ -461,8 +461,45 @@ public class Stack_leetcode {
     	return re;
     }
     
+    //503. Next Greater Element II 双向链表，滑动窗口
+    public static int[] nextGreaterElements(int[] nums) {
+        if(nums.length==0){
+        	return new int[]{};
+        }
+        int len=nums.length;
+        int[] temp=new int[len*2-1];
+        for(int i=0; i<len; i++){
+        	temp[i]=nums[i];
+        }
+        for(int i=0; i<len-1; i++){
+        	temp[len+i]=nums[i];
+        }
+        
+    	LinkedList<Integer> list=new LinkedList<Integer>();
+    	for(int i=temp.length-1; i>=len; i--){
+    		while(!list.isEmpty()&&temp[i]>temp[list.getFirst()]){
+    			list.removeFirst();
+    		}
+    		list.addFirst(i);    		
+    	}
+    	int[] re=new int[nums.length];
+    	for(int i=len-1; i>=0; i--){
+    		if(!list.isEmpty()&&list.getLast()-i==len){
+    			list.removeLast();
+    		}
+    		while(!list.isEmpty()&&temp[i]>=temp[list.getFirst()]){
+    			list.removeFirst();
+    		}
+    		re[i]=list.isEmpty()? -1: temp[list.getFirst()];
+    		list.addFirst(i);
+    	}    	
+    	return re;
+    }
+    
+    
+    
 	public static void main(String[] args) {
-		System.out.println(Arrays.toString(nextGreaterElement2(new int[]{1,2,3,4,5}, new int[]{4,2,3,5,1})));
+		System.out.println(Arrays.toString(nextGreaterElements(new int[]{1,1,1,1})));
 		System.out.println(calculate2("2+5*2"));
 		
 //		char[][] matrix=new char[][]{
