@@ -1,9 +1,11 @@
 package leetcode;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
@@ -399,9 +401,48 @@ public class Stack_leetcode {
         return l1.getFirst();
     }
     
+    //496. Next Greater Element I
+    public static int[] nextGreaterElement(int[] findNums, int[] nums) {
+    	if(findNums.length==0||nums.length==0){
+    		return new int[]{};
+    	}
+        int len=nums.length;        
+        int[] temp=new int[len];
+        temp[len-1]=-1;
+        for(int i=len-2; i>=0; i--){
+        	if(nums[i]<nums[i+1]){
+        		temp[i]=i+1;
+        	}else{
+        		int j=temp[i+1];
+        		while(true){
+        			if(j==-1){
+        				temp[i]=-1;
+        				break;
+        			}
+        			if(nums[i]<nums[j]){
+        				temp[i]=j;
+        				break;
+        			}else{
+        				j=temp[j];
+        			}
+        		}
+        	}
+        }
+        Map<Integer, Integer> map=new HashMap<Integer, Integer>();
+        for(int i=0; i<temp.length; i++){
+        	map.put(nums[i], temp[i]==-1? -1: nums[temp[i]]);
+        }
+        len=findNums.length;
+        int[] re=new int[len];
+        for(int i=0; i<len; i++){
+        	re[i]=map.get(findNums[i]);
+        }
+        return re;
+    }
+    
 	public static void main(String[] args) {
+		System.out.println(Arrays.toString(nextGreaterElement(new int[]{1,2,3,4,5}, new int[]{4,2,3,5,1})));
 		System.out.println(calculate2("2+5*2"));
-		
 		
 //		char[][] matrix=new char[][]{
 //			{'1','0','1','0','0'},

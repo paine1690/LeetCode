@@ -28,8 +28,6 @@ public class DynamicProgramming {
     	}
         return re;
     }
-
-
 	
     //121. Best Time to Buy and Sell Stock
     public int maxProfit(int[] prices) {
@@ -982,14 +980,8 @@ public class DynamicProgramming {
     	System.out.println(Arrays.toString(dp));
     	return dp[s.length()];
     }
-    
-    
+   
 	public static void main(String[] args) {
-		Set<String> set=new HashSet<String>();
-		set.add("add");
-		set.add("qee");
-		System.out.println(canPartition2(new int[]{1, 5, 11, 5}));
-
 	}
 
 }

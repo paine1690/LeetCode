@@ -171,16 +171,5 @@ public class Sort {
 //		int[] nums={3, 0, 6, 1, 5};
 //		System.out.println(hIndex2(nums));
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
