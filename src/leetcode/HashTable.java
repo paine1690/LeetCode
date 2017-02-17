@@ -533,11 +533,41 @@ public class HashTable {
     	return re.toString();
     }
     
+    //500. Keyboard Row
+    public static String[] findWords(String[] words) {
+        String[] strs=new String[]{"qwertyuiop", "asdfghjkl", "zxcvbnm"};
+        int[] pos=new int[128];
+        
+        for(int i=0; i<strs.length; i++){
+        	String s=strs[i];
+        	for(int j=0; j<s.length(); j++){
+        		pos[s.charAt(j)]=i+1;
+        	}
+        }        
+        List<String> list=new LinkedList<String>();
+        for(String s: words){
+        	int index=pos[Character.toLowerCase(s.charAt(0))], i=1;
+        	while(i<s.length()){
+        		if(pos[Character.toLowerCase(s.charAt(i))]!=index){
+        			break;
+        		}
+        		i++;
+        	}
+        	if(i==s.length()){
+        		list.add(s);
+        	}
+        }
+    	String[] re=new String[list.size()];
+    	for(int i=0; i<re.length; i++){
+    		re[i]=list.get(i);
+    	}
+    	return re;
+    }
     
     
 	public static void main(String[] args) {
 //		int[] nums={5};
-		System.out.println(frequencySort("aaaaaAAA"));
+		System.out.println(Arrays.toString(findWords(new String[]{"asd", "fgjh"})));
 		
 	}
 
