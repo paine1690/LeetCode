@@ -166,8 +166,66 @@ public class Sort {
         return quickSort(head, null);
     }
     
+    //506. Relative Ranks    
+    private static void merge(int[] nums, int[] pos, int start, int mid, int end){
+    	int[] temp=new int[end-start+1];
+    	int i=start, j=mid+1, k=0;
+    	
+    	while(i<=mid&&j<=end){
+    		if(nums[pos[i]]<=nums[pos[j]]){
+    			temp[k++]=pos[i++];
+    		}else{
+    			temp[k++]=pos[j++];
+    		}
+    	}
+    	while(i<=mid){
+    		temp[k++]=pos[i++];
+    	}
+    	while(j<=end){
+    		temp[k++]=pos[j++];
+    	}
+    	for(k=0; k<temp.length; k++){
+    		pos[start+k]=temp[k];
+    	}
+    }
+    
+    private static void sort(int[] nums, int[] pos, int start, int end){
+    	if(start<end){
+    		int mid=start+(end-start)/2;
+    		sort(nums, pos, start, mid);
+    		sort(nums, pos, mid+1, end);
+    		merge(nums, pos, start, mid, end);
+    	}
+    }
+    
+    public static String[] findRelativeRanks(int[] nums) {
+    	int len=nums.length;
+        String[] re=new String[len];
+        int[] pos=new int[len];
+        for(int i=0; i<pos.length; i++){
+        	pos[i]=i;
+        }
+    	sort(nums, pos, 0, nums.length-1);   
+    	int i=0, j=pos.length-1;
+    	while(i<j){
+    		int tmep=pos[i];
+    		pos[i]=pos[j];
+    		pos[j]=tmep;
+    		i++;
+    		j--;
+    	}
+    	String[] an=new String[]{"Gold Medal", "Silver Medal", "Bronze Medal"};
+    	for(i=0; i<3&&i<pos.length; i++){
+    		re[pos[i]]=an[i];
+    	}
+    	for(i=3; i<pos.length; i++){
+    		re[pos[i]]=String.valueOf(i+1);
+    	}
+    	return re;
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(largestNumber(new int[]{1,2}));
+		System.out.println(Arrays.toString(findRelativeRanks(new int[]{4,6,5,3,9})));
 //		int[] nums={3, 0, 6, 1, 5};
 //		System.out.println(hIndex2(nums));
 	}
