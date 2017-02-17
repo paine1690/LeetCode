@@ -440,8 +440,29 @@ public class Stack_leetcode {
         return re;
     }
     
+    //496. Next Greater Element I
+    public static int[] nextGreaterElement2(int[] findNums, int[] nums) {
+    	if(findNums.length==0||nums.length==0){
+    		return new int[]{};
+    	}
+    	Stack<Integer> stack=new Stack<Integer>();
+    	Map<Integer, Integer> map=new HashMap<Integer, Integer>();
+    	for(int i=nums.length-1; i>=0; i--){
+    		while(!stack.isEmpty()&&nums[i]>stack.peek()){
+    			stack.pop();
+    		}
+    		map.put(nums[i], stack.isEmpty()? -1: stack.peek());
+    		stack.push(nums[i]);
+    	}
+    	int[] re=new int[findNums.length];
+    	for(int i=0; i<re.length; i++){
+    		re[i]=map.get(findNums[i]);
+    	}
+    	return re;
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(Arrays.toString(nextGreaterElement(new int[]{1,2,3,4,5}, new int[]{4,2,3,5,1})));
+		System.out.println(Arrays.toString(nextGreaterElement2(new int[]{1,2,3,4,5}, new int[]{4,2,3,5,1})));
 		System.out.println(calculate2("2+5*2"));
 		
 //		char[][] matrix=new char[][]{
