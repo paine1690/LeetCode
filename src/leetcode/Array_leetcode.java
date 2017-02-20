@@ -687,9 +687,26 @@ public class Array_leetcode {
         return re;
     }
     
+    //495. Teemo Attacking
+    public static int findPoisonedDuration(int[] timeSeries, int duration) {
+    	if(timeSeries.length==0){
+    		return 0;
+    	}
+        int len=timeSeries.length, re=0, pre=Integer.MAX_VALUE;
+        for(int i=len-1; i>=0; i--){
+        	if(timeSeries[i]+duration<=pre){
+        		re+=duration;
+        		     		
+        	}else{
+        		re+=pre-timeSeries[i];
+        	}
+        	pre=timeSeries[i];   
+        }
+        return re;
+    }
     
 	public static void main(String[] args) {		
-		System.out.println(findMaxConsecutiveOnes2(new int[]{1,0,1,1,0}));
+		System.out.println(findPoisonedDuration(new int[]{1,3}, 9));
 		
 
 	}
