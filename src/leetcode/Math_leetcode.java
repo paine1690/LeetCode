@@ -759,11 +759,31 @@ public class Math_leetcode {
 		return new int[]{area, 1};
 	}
    
+    //504. Base 7
+    public static String convertToBase7(int num) {
+        StringBuilder s=new StringBuilder();
+        if(num==0){
+        	return "0";
+        }
+        boolean flag=false;
+    	if(num<0){
+    		num=-num;    	
+    		flag=true;
+    	}
+    	
+    	while(num!=0){
+    		s.append(num%7);
+    		num/=7;
+    	}
+    	if(flag){
+    		s.append('-');
+    	}
+    	return s.reverse().toString();
+    }
 
 	public static void main(String[] args) {
-		System.out.println(lexicalOrder(13));
+		System.out.println(convertToBase7(100));
 		
 	}
-
 }
 
