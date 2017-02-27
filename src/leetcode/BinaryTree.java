@@ -2,8 +2,12 @@ package leetcode;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -899,7 +903,41 @@ public class BinaryTree {
     	return 0;
     }
     
+    //508. Most Frequent Subtree Sum
+    private int dfsFind(TreeNode root, Map<Integer, Integer> map){
+    	if(root==null){
+    		return 0;
+    	}
+    	int re=root.val+dfsFind(root.left, map)+dfsFind(root.right, map);
+    	if(map.containsKey(re)){
+    		map.put(re, map.get(re)+1);
+    	}else{
+    		map.put(re, 1);
+    	}
+    	return re;
+    }
     
+    
+    public int[] findFrequentTreeSum(TreeNode root) {
+        Map<Integer, Integer> map=new HashMap<Integer, Integer>();
+    	dfsFind(root, map);
+    	int max=Integer.MIN_VALUE;
+    	Iterator<Integer> i=map.values().iterator();
+    	while(i.hasNext()){
+    		max=Math.max(max, i.next());
+    	}
+    	List<Integer> list=new ArrayList<Integer>();
+    	for(Entry<Integer, Integer> entry: map.entrySet()){
+    		if(entry.getValue()==max){
+    			list.add(entry.getKey());
+    		}
+    	}
+    	int[] re=new int[list.size()];
+    	for(int j=0; j<re.length; j++){
+    		re[j]=list.get(j);
+    	}
+    	return re;
+    }
     
     
 	public static void main(String[] args) {
