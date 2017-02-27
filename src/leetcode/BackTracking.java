@@ -633,8 +633,7 @@ public class BackTracking {
     	sum-=num;
     	dfsFind(nums, index+1, sum, S);
     	sum+=num;
-    }
-    
+    }    
     
     public static int findTargetSumWays(int[] nums, int S) {
     	re1=0;
@@ -642,10 +641,34 @@ public class BackTracking {
         return re1;
     }
     
+    //526. Beautiful Arrangement
+    private static int re526;
     
+    private static void dfsCount(boolean[] nums, int index){
+    	if(index>=nums.length){
+    		re526++;
+    		return;
+    	}    	
+    	for(int i=1; i<nums.length; i++){
+    		if(!nums[i]){
+    			if(i%index==0||index%i==0){
+    				nums[i]=true;
+    				dfsCount(nums, index+1);
+    				nums[i]=false;
+    			}
+    		}
+    	}
+    }
+    
+    public static int countArrangement(int N) {
+    	re526=0;
+    	boolean nums[]=new boolean[N+1];
+    	dfsCount(nums, 1);
+    	return re526;
+    }    
     
 	public static void main(String[] args) {
-		System.out.println(findTargetSumWays(new int[]{1, 1, 1, 1, 1}, 3));
+		System.out.println(countArrangement(2));
 		
 		
 		//System.out.println(solveNQueens(9));

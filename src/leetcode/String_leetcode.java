@@ -805,8 +805,30 @@ public class String_leetcode {
         return re;
     }
     
+    //520. Detect Capital
+    public static boolean detectCapitalUse(String word) {
+        char c=word.charAt(0);
+        boolean small=c>='a'&&c<='z';
+        boolean big=false;
+        for(int i=1; i<word.length(); i++){
+        	c=word.charAt(i);
+        	if(c>='A'&&c<='Z'){
+        		big=true;
+        		if(small){
+        			return false;
+        		}
+        	}else{
+        		small=true;
+        		if(big){
+        			return false;
+        		}
+        	}
+        }
+    	return true;
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(magicalString(6));
+		System.out.println(detectCapitalUse("USA"));
 		//System.out.println(divide(-2147483648, 1));
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
