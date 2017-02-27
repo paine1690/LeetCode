@@ -993,14 +993,31 @@ public class DynamicProgramming {
     	int re=Math.max(nums[start]-getMax(dp, nums, start+1, end), nums[end]-getMax(dp, nums, start, end-1));
     	dp[start][end]=re;
     	return re;
-    }
-    
+    }    
     
     public static boolean PredictTheWinner(int[] nums) {
     	int[][] dp=new int[nums.length][nums.length];
     	return getMax(dp, nums, 0, nums.length-1)>=0;
     }
    
+    //516. Longest Palindromic Subsequence
+    public int longestPalindromeSubseq(String s) {
+        int[][] dp=new int[s.length()][s.length()];
+    	
+        for(int i=0; i<s.length(); i++){
+        	dp[i][i]=1;
+        	for(int j=i-1; j>=0; j--){
+        		if(s.charAt(i)==s.charAt(j)){
+        			dp[i][j]=dp[i-1][j+1]+2;
+        		}else{
+        			dp[i][j]=Math.max(dp[i-1][j], dp[i][j+1]);
+        		}
+        	}
+        }    	
+    	return dp[s.length()-1][0];
+    }
+    
+    
 	public static void main(String[] args) {
 		System.out.println(PredictTheWinner(new int[]{10,17,11,16,17,9,14,17,18,13,11,4,17,18,15,3,13,10,6,10}));
 	}
