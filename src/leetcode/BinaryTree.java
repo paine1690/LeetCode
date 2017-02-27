@@ -875,6 +875,33 @@ public class BinaryTree {
         return re;
     }
 
+    //513. Find Bottom Left Tree Value
+    public int findBottomLeftValue(TreeNode root) {
+    	List<TreeNode> list=new ArrayList<TreeNode>();
+        list.add(root);
+        int cur=0, size=1;
+        while(cur<list.size()){
+        	size=list.size();
+        	for(int i=cur; i<size; i++){
+        		TreeNode node=list.get(i);
+        		if(node.left!=null){
+        			list.add(node.left);
+        		}
+        		if(node.right!=null){
+        			list.add(node.right);
+        		}
+        	}
+        	if(size==list.size()){
+        		return list.get(cur).val;
+        	}
+        	cur=size;
+        }
+    	return 0;
+    }
+    
+    
+    
+    
 	public static void main(String[] args) {
 		TreeNode n1=new TreeNode(1);
 		TreeNode n2=new TreeNode(2);
