@@ -847,6 +847,33 @@ public class BinaryTree {
 		return pathGet(root, sum)+pathSum3(root.left, sum)+pathSum3(root.right, sum);        
     }
     
+    //515. Find Largest Value in Each Tree Row
+    public List<Integer> largestValues(TreeNode root) {
+        List<Integer> re=new ArrayList<Integer>();
+        if(root==null){
+        	return re;
+        }
+        List<TreeNode> list=new ArrayList<TreeNode>();
+        list.add(root);
+        int cur=0, size=1;
+        while(cur<list.size()){
+        	size=list.size();
+        	int max=Integer.MIN_VALUE;
+        	for(int i=cur; i<size; i++){
+        		TreeNode node=list.get(i);
+        		max=Math.max(max, node.val);
+        		if(node.left!=null){
+        			list.add(node.left);
+        		}
+        		if(node.right!=null){
+        			list.add(node.right);
+        		}
+        	}
+        	re.add(max);
+        	cur=size;
+        }
+        return re;
+    }
 
 	public static void main(String[] args) {
 		TreeNode n1=new TreeNode(1);
