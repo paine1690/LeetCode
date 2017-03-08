@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -169,9 +170,68 @@ public class DFS_BFS {
         return new ArrayList<List<Integer>>(re);
     }
     
+    //529. Minesweeper
+    private static int cnt(char[][] board, int i, int j, int m, int n){
+    	if(i<0||j<0||i>=m||j>=n){
+    		return 0;
+    	}
+    	char c=board[i][j];
+    	if(c=='M'){
+    		return 1;
+    	}
+    	return 0;
+    }    
+    
+    private static void click(char[][] board, int i, int j, int m, int n){
+    	if(i<0||j<0||i>=m||j>=n){
+    		return;
+    	}
+    	
+    	char c=board[i][j];    	
+    	if(c=='E'){
+    		int cnt=0;
+        	for(int x=i-1; x<=i+1; x++){
+        		for(int y=j-1; y<=j+1; y++){
+        			cnt+=cnt(board, x, y, m, n);
+        		}
+        	}
+        	if(cnt==0){
+        		board[i][j]='B';
+        		for(int x=i-1; x<=i+1; x++){
+            		for(int y=j-1; y<=j+1; y++){
+            			click(board, x, y, m, n);
+            		}
+            	}
+        	}else{
+        		board[i][j]=(char)('0'+cnt);
+        	}
+    	}    	  
+    }
+    
+    public static char[][] updateBoard(char[][] board, int[] click) {
+        if(board.length==0||board[0].length==0){
+        	return board;
+        }
+    	int m=board.length, n=board[0].length;
+    	int i=click[0], j=click[1];
+    	if(board[i][j]=='M'){
+    		board[i][j]='X';
+    	}else{
+    		click(board, i, j, m, n);
+    	}    	
+    	for(char[] chars: board){
+    		System.out.println(Arrays.toString(chars));
+    	}
+    	
+    	return board;
+    }
     
 	public static void main(String[] args) {
-		System.out.print(findSubsequences(new int[]{1,2,3,1}));
+		System.out.print(updateBoard(new char[][]{
+			"EEEEE".toCharArray(),
+			"EEMEE".toCharArray(),
+			"EEEEE".toCharArray(),
+			"EEEEE".toCharArray()}, new int[]{3, 0}));
 //		int[][] nums={
 //				{1,2,2,3,5},
 //				{3,2,3,4,4},
