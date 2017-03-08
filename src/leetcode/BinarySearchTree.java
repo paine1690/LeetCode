@@ -192,6 +192,7 @@ public class BinarySearchTree {
     	}
     	return re;
     }
+    
     private static List<TreeNode> generate(int start, int end){
     	if(start>end){
     		return null;
@@ -204,11 +205,34 @@ public class BinarySearchTree {
 
     	return re;
     }
+    
     public static List<TreeNode> generateTrees(int n) {
     	if(n==0){
     		return new ArrayList<TreeNode>();
     	}
         return generate(1, n);
+    }
+    
+    //530. Minimum Absolute Difference in BST
+    int re;
+    
+    private void dfs(TreeNode root){
+    	if(root==null){
+    		return ;
+    	}
+    	dfs(root.left);
+    	if(preNode!=null){
+    		re=Math.min(re, root.val-preNode.val);
+    	}
+    	pre=root;
+    	dfs(root.right);
+    }
+    
+    public int getMinimumDifference(TreeNode root) {
+        re=Integer.MAX_VALUE;
+    	preNode=null;
+    	dfs(root);
+        return re;
     }
     
     

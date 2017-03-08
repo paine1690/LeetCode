@@ -24,7 +24,7 @@ import java.util.Set;
  * 
  * 		条件			返回		可能的范围k
  * 1、第一个>=tar		i		0-n+1
- * 2、最后一个<=tar		j		-1-n
+ * 2、最后一个<=tar	j		-1-n
  * 
  * 
  * 注意：求mid时，如果直接mid=(keft+right)/2,有可能会导致溢出
@@ -631,7 +631,8 @@ public class BinarySearch {
     
     
 	public static void main(String[] args) {		
-		System.out.println(findDuplicate(new int[]{1,2,2,3,4}));
+		System.out.println(Integer.MAX_VALUE);
+		//System.out.println(findDuplicate(new int[]{1,2,2,3,4}));
 		//		Interval[] i=new Interval[]{new Interval(1,4), new Interval(2,3), new Interval(3,4)};
 //		System.out.println(Arrays.toString(findRightInterval(i)));
 //		int[] nums1={84, 84, 84, 84, 84};
