@@ -564,11 +564,38 @@ public class HashTable {
     	return re;
     }
     
+    //532. K-diff Pairs in an Array
+    public static int findPairs(int[] nums, int k) {
+    	if(k<0){
+    		return 0;
+    	}
+    	
+        int re=0;
+        Map<Integer, Integer> map=new HashMap<Integer, Integer>();
+        for(int num: nums){
+        	if(map.containsKey(num)){
+        		if(k==0&&map.get(num)==1){
+        			re++;
+        			map.put(num,  0);
+        		}
+        		continue;
+        	}
+        	if(map.containsKey(num+k)){
+        		System.out.println(num);
+        		
+        		re++;
+        	}
+        	if(map.containsKey(num-k)){
+        		re++;
+        	}
+        	map.put(num, 1);
+        }
+        return re;
+    }
     
 	public static void main(String[] args) {
 //		int[] nums={5};
-		System.out.println(Arrays.toString(findWords(new String[]{"asd", "fgjh"})));
-		
+		System.out.println(findPairs(new int[]{3,1,4,1,5}, 2));		
 	}
 
 }
