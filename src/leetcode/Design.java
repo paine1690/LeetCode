@@ -522,19 +522,61 @@ public class Design {
 	    }
 	}
 	
-	public static void main(String[] args) {
-		LFUCache l=new LFUCache(2);
-		l.put(1, 1);
-		l.put(2, 2);
-		System.out.println(l.get(1));
-		l.put(3, 3);
-		System.out.println(l.get(2));
-		System.out.println(l.get(3));
+	//535. Encode and Decode TinyURL
+	static class Codec {
+		Map<String, String> lToS=new HashMap<String, String>();
+		Map<String, String> sToL=new HashMap<String, String>();
+		char[] chars="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+		private String to62(int num){
+			StringBuilder s=new StringBuilder();
+			while(num>0){
+				s.append(chars[num%62]);
+				num/=62;
+			}
+			while(s.length()<6){
+				s.append(0);
+			}
+			return s.reverse().toString();
+		}
 		
-		l.put(4, 4);
-		System.out.println(l.get(1));
-		System.out.println(l.get(3));
-		System.out.println(l.get(4));
+	    // Encodes a URL to a shortened URL.
+	    public String encode(String longUrl) {
+	    	
+	        if(lToS.containsKey(longUrl)){
+	        	return lToS.get(longUrl);
+	        }else{
+	        	String shortUrl=to62(lToS.size());
+	        	lToS.put(longUrl, shortUrl);
+	        	sToL.put(shortUrl, longUrl);
+	        	return shortUrl;
+	        }
+	    }
+
+	    // Decodes a shortened URL to its original URL.
+	    public String decode(String shortUrl) {
+	        return sToL.get(shortUrl);
+	    }
+	}
+	
+	
+	
+	public static void main(String[] args) {
+		Codec c=new Codec();
+		System.out.println(c.encode("https://leetcode.com/problems/design-tinyurl"));
+		System.out.println(c.encode("https://leetcode.com/problems/design-tinydurl"));
+		
+//		LFUCache l=new LFUCache(2);
+//		l.put(1, 1);
+//		l.put(2, 2);
+//		System.out.println(l.get(1));
+//		l.put(3, 3);
+//		System.out.println(l.get(2));
+//		System.out.println(l.get(3));
+//		
+//		l.put(4, 4);
+//		System.out.println(l.get(1));
+//		System.out.println(l.get(3));
+//		System.out.println(l.get(4));
 	}
 
 }

@@ -581,8 +581,6 @@ public class HashTable {
         		continue;
         	}
         	if(map.containsKey(num+k)){
-        		System.out.println(num);
-        		
         		re++;
         	}
         	if(map.containsKey(num-k)){
