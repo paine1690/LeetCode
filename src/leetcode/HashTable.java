@@ -591,9 +591,33 @@ public class HashTable {
         return re;
     }
     
+    //525. Contiguous Array
+    public static int findMaxLength(int[] nums) {
+        Map<Integer, Integer> map=new HashMap<Integer, Integer>();
+        int re=0, sum=0;
+        map.put(0, -1);
+        for(int i=0; i<nums.length; i++){
+        	if(nums[i]==0){
+        		nums[i]=-1;
+        	}
+        }
+        
+        for(int i=0; i<nums.length; i++){
+        	sum+=nums[i];
+        	if(map.containsKey(sum)){
+        		re=Math.max(re, i-map.get(sum));
+        	}else{
+        		map.put(sum, i);
+        	}
+        }
+    	return re;
+    }
+    
+    
+    
 	public static void main(String[] args) {
 //		int[] nums={5};
-		System.out.println(findPairs(new int[]{3,1,4,1,5}, 2));		
+		System.out.println(findMaxLength(new int[]{0,0,1,0,0,0,1,1}));		
 	}
 
 }
