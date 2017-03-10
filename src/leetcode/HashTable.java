@@ -600,8 +600,7 @@ public class HashTable {
         	if(nums[i]==0){
         		nums[i]=-1;
         	}
-        }
-        
+        }        
         for(int i=0; i<nums.length; i++){
         	sum+=nums[i];
         	if(map.containsKey(sum)){
@@ -613,6 +612,30 @@ public class HashTable {
     	return re;
     }
     
+    //523. Continuous Subarray Sum  和上面的题很像
+    public boolean checkSubarraySum(int[] nums, int k) {
+        if(nums.length<2){
+        	return false;
+        }
+        Map<Integer, Integer> map=new HashMap<Integer, Integer>();
+        map.put(0, -1);
+        int sum=0;
+        for(int i=0; i<nums.length; i++){
+        	sum+=nums[i];
+        	if(k!=0){
+        		sum%=k;
+        	}
+        	if(map.containsKey(sum)){
+        		int pos=map.get(sum);
+        		if(i-pos>1){
+        			return true;
+        		}
+        	}else{
+        		map.put(sum, i);
+        	}
+        }
+    	return false;
+    }
     
     
 	public static void main(String[] args) {
