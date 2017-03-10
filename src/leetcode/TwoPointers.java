@@ -341,9 +341,33 @@ public class TwoPointers {
         return re;
     }
 
-	public static void main(String[] args) {
-		int[] nums={1,2,3,4,5};
-		System.out.println(minSubArrayLen(11, nums));
+    //524. Longest Word in Dictionary through Deleting
+    public static String findLongestWord(String s, List<String> d) {
+    	String re="";
+        for(String p: d){
+        	int i=0, j=0;
+        	while(i<s.length()&&j<p.length()){
+        		if(s.charAt(i)==p.charAt(j)){
+        			i++;
+        			j++;
+        		}else{
+        			i++;
+        		}
+        	}
+        	if(j>=p.length()){
+        		if(p.length()>re.length()){
+        			re=p;
+        		}else if(p.length()==re.length()&&p.compareTo(re)<1){
+        			re=p;
+        		}
+        	}        	
+        }
+    	return re; 
+    }
+    
+    
+	public static void main(String[] args) {		
+		System.out.println(findLongestWord("wordgoodgoodgoodbestword", Arrays.asList("word","good","best","good")));
 	}
 
 }
