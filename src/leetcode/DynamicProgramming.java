@@ -505,29 +505,6 @@ public class DynamicProgramming {
     	return dfs(root)[1];
     }
     
-    //322. Coin Change
-    public static int coinChange(int[] coins, int amount) {
-    	if(coins==null||coins.length==0){
-    		return -1;
-    	}
-        int[] dp=new int[amount+1];
-        Arrays.sort(coins);
-        Arrays.fill(dp, Integer.MAX_VALUE);
-        dp[0]=0;
-        
-        for(int am=1; am<=amount; am+=coins[0]){
-        	for(int j=0; j<coins.length; j++){
-        		int diff=am-coins[j];
-        		if(diff>=0){
-        			if(dp[diff]!=Integer.MAX_VALUE){
-        				dp[am]=Math.min(dp[diff]+1, dp[am]);
-        			}
-        		}
-        	}
-        }
-    	return dp[amount]==Integer.MAX_VALUE? -1:dp[amount]; 
-    }
-    
     //377. Combination Sum IV
     public int combinationSum4(int[] nums, int target) {
         if(nums.length==0){
@@ -1017,6 +994,22 @@ public class DynamicProgramming {
     	return dp[s.length()-1][0];
     }
     
+    //322. Coin Change
+    public static int coinChange2(int[] coins, int amount) {
+        int[] dp=new int[amount+1];
+    	Arrays.fill(dp, Integer.MAX_VALUE);
+    	Arrays.sort(coins);
+    	dp[0]=0;
+        for(int i=coins[0]; i<=amount; i++){        	
+        	for(int j=0; j<coins.length; j++){
+        		int diff=i-coins[j];
+        		if(diff>=0&&dp[diff]!=Integer.MAX_VALUE){
+        			dp[i]=Math.min(dp[i], dp[diff]+1);
+        		}
+        	}
+        }
+    	return dp[amount]==Integer.MAX_VALUE? -1: dp[amount];
+    }
     
 	public static void main(String[] args) {
 		System.out.println(PredictTheWinner(new int[]{10,17,11,16,17,9,14,17,18,13,11,4,17,18,15,3,13,10,6,10}));
