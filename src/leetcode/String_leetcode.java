@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
@@ -843,8 +844,41 @@ public class String_leetcode {
         return re.toString();
     }
     
+    //539. Minimum Time Difference
+    public static int findMinDifference(List<String> timePoints) {
+        int[] nums=new int[24*60];
+    	int cnt=0;
+        for(String s: timePoints){
+        	int num=Integer.valueOf(s.substring(0, 2))*60+Integer.valueOf(s.substring(3, 5));
+        	if(nums[num]==0){
+        		cnt++;
+        		nums[num]=1;
+        	}else{
+        		return 0;
+        	}
+        	
+        }
+    	List<Integer> list=new ArrayList<Integer>(cnt*2);
+    	for(int i=0; i<nums.length; i++){
+    		if(nums[i]>0){
+    			list.add(i);
+    		}
+    	}
+    	for(int i=0; i<nums.length/2; i++){
+    		if(nums[i]>0){
+    			list.add(i+1440);
+    		}
+    	}
+    	System.out.println(list);
+    	int re=Integer.MAX_VALUE;
+    	for(int i=1; i<list.size(); i++){
+    		re=Math.min(re, list.get(i)-list.get(i-1));
+    	}
+    	return re;
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(reverseStr("abcd", 4));
+		System.out.println(findMinDifference(Arrays.asList("23:59", "00:00")));
 		//System.out.println(divide(-2147483648, 1));
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};
