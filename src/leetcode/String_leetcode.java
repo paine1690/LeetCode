@@ -827,8 +827,24 @@ public class String_leetcode {
     	return true;
     }
     
+    //541. Reverse String II
+    public static String reverseStr(String s, int k) {
+    	int len=s.length();
+        StringBuilder re=new StringBuilder();
+        for(int i=0; i<s.length(); i+=2*k){
+        	int j=Math.min(i+k, len);
+        	for(int index=j-1; index>=i; index--){
+        		re.append(s.charAt(index));
+        	}
+        	for(int index=0; index<k&&j+index<s.length(); index++){
+        		re.append(s.charAt(j+index));
+        	}
+        }   
+        return re.toString();
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(detectCapitalUse("USA"));
+		System.out.println(reverseStr("abcd", 4));
 		//System.out.println(divide(-2147483648, 1));
 		//String[] strs={"qweqwe","qwe","qwe","qwe"};
 		//int[] nums={1,1};

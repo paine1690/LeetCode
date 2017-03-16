@@ -998,9 +998,8 @@ public class DynamicProgramming {
     public static int coinChange2(int[] coins, int amount) {
         int[] dp=new int[amount+1];
     	Arrays.fill(dp, Integer.MAX_VALUE);
-    	Arrays.sort(coins);
     	dp[0]=0;
-        for(int i=coins[0]; i<=amount; i++){        	
+        for(int i=1; i<=amount; i++){        	
         	for(int j=0; j<coins.length; j++){
         		int diff=i-coins[j];
         		if(diff>=0&&dp[diff]!=Integer.MAX_VALUE){
@@ -1010,7 +1009,7 @@ public class DynamicProgramming {
         }
     	return dp[amount]==Integer.MAX_VALUE? -1: dp[amount];
     }
-    
+        
 	public static void main(String[] args) {
 		System.out.println(PredictTheWinner(new int[]{10,17,11,16,17,9,14,17,18,13,11,4,17,18,15,3,13,10,6,10}));
 	}
