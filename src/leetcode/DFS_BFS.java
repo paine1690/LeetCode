@@ -226,12 +226,79 @@ public class DFS_BFS {
     	return board;
     }
     
+    //542. 01 Matrix    
+    public static List<List<Integer>> updateMatrix(List<List<Integer>> matrix) {
+    	int m=matrix.size(), n=matrix.get(0).size();
+    	Integer[][] matrix2=new Integer[m][n];
+    	
+    	for(int i=0; i<m; i++){
+    		Integer[] temp=new Integer[]{};
+    		matrix2[i]=matrix.get(i).toArray(temp);
+    	}
+    	for(Integer[] nums: matrix2){
+    		System.out.println(Arrays.toString(nums));
+    	}
+    	
+    	Integer[][] re=new Integer[m][n];
+    	for(int i=0; i<m; i++){
+    		for(int j=0; j<n; j++){
+    			if(matrix2[i][j]==0){
+    				re[i][j]=0;
+    			}else{
+    				int min=10001;
+    				if(i>0){
+    					min=Math.min(min, re[i-1][j]);
+    				}
+    				if(j>0){
+    					min=Math.min(min, re[i][j-1]);
+    				}
+    				re[i][j]=min+1;
+    			}
+    		}
+    	}
+    	
+    	for(int i=m-1; i>=0; i--){
+    		for(int j=n-1; j>=0; j--){
+    			if(re[i][j]!=0&&re[i][j]!=1){
+    				if(i<m-1){
+    					re[i][j]=Math.min(re[i][j], re[i+1][j]+1);
+    				}
+    				if(j<n-1){
+    					re[i][j]=Math.min(re[i][j], re[i][j+1]+1);
+    				}
+    			}
+    		}
+    	}
+    	
+    	
+    	
+    	for(Integer[] nums: re){
+    		System.out.println(Arrays.toString(nums));
+    	}
+    	List<List<Integer>> result=new ArrayList<List<Integer>>();
+    	for(Integer[] nums: re){
+    		result.add(new ArrayList<Integer>(Arrays.asList(nums)));
+    	}
+    	
+        return result;
+    }
+    
+    
+    
+    
+    
 	public static void main(String[] args) {
-		System.out.print(updateBoard(new char[][]{
-			"EEEEE".toCharArray(),
-			"EEMEE".toCharArray(),
-			"EEEEE".toCharArray(),
-			"EEEEE".toCharArray()}, new int[]{3, 0}));
+		List<Integer> l1=new ArrayList<Integer>(Arrays.asList(0,0,0));
+		List<Integer> l2=new ArrayList<Integer>(Arrays.asList(0,1,0));
+		List<Integer> l3=new ArrayList<Integer>(Arrays.asList(1,1,1));
+		List<Integer> l4=new ArrayList<Integer>(Arrays.asList(1,1,1));
+		List<Integer> l5=new ArrayList<Integer>(Arrays.asList(0,0,0));
+		updateMatrix(new ArrayList<List<Integer>>(Arrays.asList(l1, l2, l3, l4, l5)));
+//		System.out.print(updateBoard(new char[][]{
+//			"EEEEE".toCharArray(),
+//			"EEMEE".toCharArray(),
+//			"EEEEE".toCharArray(),
+//			"EEEEE".toCharArray()}, new int[]{3, 0}));
 //		int[][] nums={
 //				{1,2,2,3,5},
 //				{3,2,3,4,4},
