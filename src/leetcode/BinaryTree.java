@@ -939,6 +939,24 @@ public class BinaryTree {
     	return re;
     }
     
+    //543. Diameter of Binary Tree
+    private int diameter;
+    private int getDeeps(TreeNode root){
+    	if(root==null){
+    		return 0;
+    	}
+    	int left=getDeeps(root.left);
+    	int right=getDeeps(root.right);
+    	
+    	diameter=Math.max(left+right, diameter);    	
+    	return Math.max(left,  right)+1;
+    }
+    
+    public int diameterOfBinaryTree(TreeNode root) {
+    	diameter=0;
+        getDeeps(root);
+    	return diameter;
+    }
     
 	public static void main(String[] args) {
 		TreeNode n1=new TreeNode(1);
