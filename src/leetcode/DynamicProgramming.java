@@ -976,6 +976,22 @@ public class DynamicProgramming {
     	int[][] dp=new int[nums.length][nums.length];
     	return getMax(dp, nums, 0, nums.length-1)>=0;
     }
+    
+    //322. Coin Change
+    public static int coinChange2(int[] coins, int amount) {
+        int[] dp=new int[amount+1];
+    	Arrays.fill(dp, Integer.MAX_VALUE);
+    	dp[0]=0;
+        for(int i=1; i<=amount; i++){        	
+        	for(int j=0; j<coins.length; j++){
+        		int diff=i-coins[j];
+        		if(diff>=0&&dp[diff]!=Integer.MAX_VALUE){
+        			dp[i]=Math.min(dp[i], dp[diff]+1);
+        		}
+        	}
+        }
+    	return dp[amount]==Integer.MAX_VALUE? -1: dp[amount];
+    }
    
     //516. Longest Palindromic Subsequence
     public int longestPalindromeSubseq(String s) {
@@ -994,24 +1010,33 @@ public class DynamicProgramming {
     	return dp[s.length()-1][0];
     }
     
-    //322. Coin Change
-    public static int coinChange2(int[] coins, int amount) {
-        int[] dp=new int[amount+1];
-    	Arrays.fill(dp, Integer.MAX_VALUE);
-    	dp[0]=0;
-        for(int i=1; i<=amount; i++){        	
-        	for(int j=0; j<coins.length; j++){
-        		int diff=i-coins[j];
-        		if(diff>=0&&dp[diff]!=Integer.MAX_VALUE){
-        			dp[i]=Math.min(dp[i], dp[diff]+1);
+    //5. Longest Palindromic Substring
+    public static String longestPalindrome(String s) {
+        int len=s.length();
+        
+        boolean[][] dp=new boolean[len][len];
+    	int max=1, reI=0, reJ=0;
+    	
+        for(int i=0; i<len; i++){
+        	dp[i][i]=true;
+        	for(int j=i-1; j>=0; j--){
+        		System.out.println(i+" "+j);
+        		dp[i][j]=(s.charAt(i)==s.charAt(j)&&(dp[i-1][j+1]||i==j+1));
+        		if(dp[i][j]&&i-j+1>max){
+        			max=i-j+1;
+        			reI=i;
+        			reJ=j;
         		}
         	}
         }
-    	return dp[amount]==Integer.MAX_VALUE? -1: dp[amount];
+        System.out.println(reI+" "+reJ);
+    	return s.substring(reJ, reI+1);
     }
+    
         
 	public static void main(String[] args) {
-		System.out.println(PredictTheWinner(new int[]{10,17,11,16,17,9,14,17,18,13,11,4,17,18,15,3,13,10,6,10}));
+		System.out.println(longestPalindrome("abadd"));
+		//System.out.println(PredictTheWinner(new int[]{10,17,11,16,17,9,14,17,18,13,11,4,17,18,15,3,13,10,6,10}));
 	}
 
 }
