@@ -283,17 +283,61 @@ public class DFS_BFS {
         return result;
     }
     
+    //547. Friend Circles
+    static int re;
     
+    static private void dfs(int[][] m, int i, int len){
+    	for(int j=0; j<len; j++){
+    		if(m[i][j]==-1){
+    			return;
+    		}else if(m[i][j]==1){
+    			m[i][j]=-1;
+    			dfs(m, j, len);
+    		}else{
+    			m[i][j]=-1;
+    		}
+    	}
+    }
     
-    
+    static public int findCircleNum(int[][] M) {
+    	if(M.length==0||M[0].length==0){
+    		return 0;
+    	}
+    	int len=M.length;
+        re=0;
+        
+        for(int i=0; i<len; i++){
+        	int j=0;
+        	for(j=0; j<len; j++){
+        		if(M[i][j]==-1){
+        			break;
+        		}else if(M[i][j]==1){    
+        			M[i][j]=-1;
+        			if(i!=j){
+        				dfs(M, j, len);
+        			}        			
+        		}
+        	}
+        	if(j==len){
+        		re++;
+        	}
+        }        
+        return re;
+    }
     
 	public static void main(String[] args) {
-		List<Integer> l1=new ArrayList<Integer>(Arrays.asList(0,0,0));
-		List<Integer> l2=new ArrayList<Integer>(Arrays.asList(0,1,0));
-		List<Integer> l3=new ArrayList<Integer>(Arrays.asList(1,1,1));
-		List<Integer> l4=new ArrayList<Integer>(Arrays.asList(1,1,1));
-		List<Integer> l5=new ArrayList<Integer>(Arrays.asList(0,0,0));
-		updateMatrix(new ArrayList<List<Integer>>(Arrays.asList(l1, l2, l3, l4, l5)));
+		int[][] M=new int[][]{
+			{1,1,0},
+			{1,1,0},
+			{0,0,1},
+		};
+		System.out.println(findCircleNum(M));
+//		List<Integer> l1=new ArrayList<Integer>(Arrays.asList(0,0,0));
+//		List<Integer> l2=new ArrayList<Integer>(Arrays.asList(0,1,0));
+//		List<Integer> l3=new ArrayList<Integer>(Arrays.asList(1,1,1));
+//		List<Integer> l4=new ArrayList<Integer>(Arrays.asList(1,1,1));
+//		List<Integer> l5=new ArrayList<Integer>(Arrays.asList(0,0,0));
+//		updateMatrix(new ArrayList<List<Integer>>(Arrays.asList(l1, l2, l3, l4, l5)));
 //		System.out.print(updateBoard(new char[][]{
 //			"EEEEE".toCharArray(),
 //			"EEMEE".toCharArray(),

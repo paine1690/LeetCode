@@ -52,14 +52,6 @@ public class BinarySearch {
     	return false;
     }
     
-
-    
-
-    
-
-    
-
-    
     //268. Missing Number
     public static int missingNumber(int[] nums) {
         if(nums.length==1){
@@ -86,11 +78,6 @@ public class BinarySearch {
         }
     	return right+1;
     }
-    
-
-    
-
-    
 
 	/**
 	 * 1、查找符合条件的，不符合则返回-1
