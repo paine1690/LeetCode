@@ -877,6 +877,21 @@ public class String_leetcode {
     	return re;
     }
     
+    //551. Student Attendance Record I
+    public boolean checkRecord(String s) {
+        int cntA=0;
+        for(int i=0; i<s.length(); i++){
+        	if(s.charAt(i)=='A'){
+        		if(++cntA>1){
+        			return false;
+        		}
+        	}else if(s.charAt(i)=='L'&&i>1&&s.charAt(i-1)=='L'&&s.charAt(i-2)=='L'){
+        		return false;
+        	}
+        }
+        return true;
+    }
+    
 	public static void main(String[] args) {
 		System.out.println(findMinDifference(Arrays.asList("23:59", "00:00")));
 		//System.out.println(divide(-2147483648, 1));
