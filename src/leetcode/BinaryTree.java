@@ -958,6 +958,29 @@ public class BinaryTree {
     	return diameter;
     }
     
+    //563. Binary Tree Tilt
+    
+    static int re;
+    
+    private int getSum(TreeNode root){
+    	if(root==null){
+    		return 0;
+    	}
+    	int left=getSum(root.left);
+    	int right=getSum(root.right);
+    	re+=Math.abs(left-right);
+    	return left+right+root.val;
+    }
+    
+    public int findTilt(TreeNode root) {
+        re=0;
+        getSum(root);
+        return re;
+    }
+    
+    
+    
+    
 	public static void main(String[] args) {
 		TreeNode n1=new TreeNode(1);
 		TreeNode n2=new TreeNode(2);
