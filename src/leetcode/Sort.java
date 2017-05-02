@@ -224,6 +224,16 @@ public class Sort {
     	return re;
     }
     
+    //561. Array Partition I
+    public int arrayPairSum(int[] nums) {
+        int re=0;
+    	Arrays.sort(nums);
+        for(int i=0; i<nums.length; i+=2){
+        	re+=nums[i];
+        }    	
+    	return re;
+    }
+    
 	public static void main(String[] args) {
 		System.out.println(Arrays.toString(findRelativeRanks(new int[]{4,6,5,3,9})));
 //		int[] nums={3, 0, 6, 1, 5};
