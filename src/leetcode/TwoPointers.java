@@ -2,7 +2,9 @@ package leetcode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TwoPointers {
 	
@@ -365,9 +367,48 @@ public class TwoPointers {
     	return re; 
     }
     
+    //567. Permutation in String
+    private static boolean isZero(int[] nums){
+    	for(int i=0; i<nums.length; i++){
+    		if(nums[i]!=0){
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    
+    
+    public static boolean checkInclusion(String s1, String s2) {
+    	int len=s1.length();
+    	if(s2.length()<len){
+    		return false;
+    	}
+    	int[] a=new int[26];
+    	for(int i=0; i<len; i++){
+    		a[s1.charAt(i)-'a']++;
+    	}
+    	
+    	for(int i=0; i<len; i++){
+    		a[s2.charAt(i)-'a']--;
+    	}
+    	if(isZero(a)){
+    		return true;
+    	}
+    	for(int i=0, j=len; j<s2.length(); i++, j++){
+    		a[s2.charAt(i)-'a']++;
+    		a[s2.charAt(j)-'a']--;
+    		if(isZero(a)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    
     
 	public static void main(String[] args) {		
-		System.out.println(findLongestWord("wordgoodgoodgoodbestword", Arrays.asList("word","good","best","good")));
+		System.out.println(checkInclusion("abc", "bbbca"));
+		//System.out.println(findLongestWord("wordgoodgoodgoodbestword", Arrays.asList("word","good","best","good")));
 	}
 
 }
