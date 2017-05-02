@@ -375,8 +375,7 @@ public class TwoPointers {
     		}
     	}
     	return true;
-    }
-    
+    }    
     
     public static boolean checkInclusion(String s1, String s2) {
     	int len=s1.length();

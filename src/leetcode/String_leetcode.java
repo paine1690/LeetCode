@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
@@ -915,7 +916,45 @@ public class String_leetcode {
         return new String(chars);
     }
     
+    //556. Next Greater Element III
+    private static void swap(char[] chars, int i, int j){
+    	char temp=chars[i];
+    	chars[i]=chars[j];
+    	chars[j]=temp;
+    }
+    
+    public static int nextGreaterElement(int n) {
+        char[] chars=String.valueOf(n).toCharArray();        
+        int i=chars.length-2, j=chars.length-1;        
+        while(i>=0){
+        	if(chars[i]>=chars[i+1]){
+        		i--;
+        	}else{
+        		break;
+        	}
+        }
+        if(i==-1){
+        	return -1;
+        }
+        while(j>i){
+        	if(chars[j]<=chars[i]){
+        		j--;
+        	}else{
+        		break;
+        	}
+        }
+        swap(chars, i, j);
+        revers(chars, i+1, chars.length-1);  
+        long re=0;
+        for(i=0; i<chars.length; i++){
+        	re=re*10+chars[i]-'0';
+        }        
+        return re>Integer.MAX_VALUE? -1: (int)re;
+    }
+    
+    
+    
 	public static void main(String[] args) {
-		System.out.println(reverseWords3("Let's take LeetCode contest"));
+		System.out.println(nextGreaterElement(1214616814));
 	}
 }
