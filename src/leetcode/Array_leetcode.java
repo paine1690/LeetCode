@@ -705,6 +705,28 @@ public class Array_leetcode {
         return re;
     }
     
+    //566. Reshape the Matrix
+    public int[][] matrixReshape(int[][] nums, int r, int c) {
+        if(nums.length==0||nums[0].length==0){
+        	return nums;
+        }
+    	int m=nums.length, n=nums[0].length;
+    	if(m*n!=r*c){
+    		return nums;
+    	}
+    	int[][] re=new int[r][c];
+    	int cnt=0, x=0, y=0;
+    	for(int i=0; i<m; i++){
+    		for(int j=0; j<n; j++){
+    			x=cnt/c;
+    			y=cnt%c;
+    			re[x][y]=nums[i][j];
+    			cnt++;
+    		}
+    	}    	
+    	return re;
+    }
+    
 	public static void main(String[] args) {		
 		System.out.println(findPoisonedDuration(new int[]{1,3}, 9));
 		
