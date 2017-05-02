@@ -892,11 +892,31 @@ public class String_leetcode {
         return true;
     }
     
+    //557. Reverse Words in a String III
+    private static void revers(char[] chars, int i, int j){
+    	while(i<j){
+    		char temp=chars[i];
+    		chars[i]=chars[j];
+    		chars[j]=temp;
+    		i++;
+    		j--;
+    	}
+    }
+    
+    public static String reverseWords3(String s) {
+        char[] chars=s.toCharArray();
+        int i=0;
+        for(int j=0; j<chars.length; j++){
+        	if(chars[j]==' '){
+        		revers(chars, i, j-1);
+        		i=j+1;
+        	}
+        } 
+        revers(chars, i, chars.length-1);
+        return new String(chars);
+    }
+    
 	public static void main(String[] args) {
-		System.out.println(findMinDifference(Arrays.asList("23:59", "00:00")));
-		//System.out.println(divide(-2147483648, 1));
-		//String[] strs={"qweqwe","qwe","qwe","qwe"};
-		//int[] nums={1,1};
-		//System.out.println(generateParenthesis(4));	
+		System.out.println(reverseWords3("Let's take LeetCode contest"));
 	}
 }
