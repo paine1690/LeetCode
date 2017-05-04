@@ -952,9 +952,30 @@ public class String_leetcode {
         return re>Integer.MAX_VALUE? -1: (int)re;
     }
     
-    
+    //537. Complex Number Multiplication
+    public static String complexNumberMultiply(String a, String b) {
+        int i=0;        
+        while(i<a.length()){
+        	if(a.charAt(i)=='+'){
+        		break;
+        	}
+        	i++;
+        }
+        int a1=Integer.valueOf((a.substring(0, i)));
+        int a2=Integer.valueOf(a.substring(i+1, a.length()-1));
+    	i=0;
+    	while(i<b.length()){
+    		if(b.charAt(i)=='+'){
+    			break;
+    		}
+    		i++;
+    	}
+    	int b1=Integer.valueOf(b.substring(0, i));
+    	int b2=Integer.valueOf(b.substring(i+1, b.length()-1));    	
+    	return (a1*b1-a2*b2)+"+"+(a1*b2+a2*b1)+"i";    	
+    }    
     
 	public static void main(String[] args) {
-		System.out.println(nextGreaterElement(1214616814));
+		System.out.println(complexNumberMultiply("1+1i", "1+1i"));
 	}
 }
