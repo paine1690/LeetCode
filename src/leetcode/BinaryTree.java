@@ -958,8 +958,7 @@ public class BinaryTree {
     	return diameter;
     }
     
-    //563. Binary Tree Tilt
-    
+    //563. Binary Tree Tilt    
     static int re;
     
     private int getSum(TreeNode root){
@@ -978,7 +977,27 @@ public class BinaryTree {
         return re;
     }
     
+    //572. Subtree of Another Tree
+    boolean isSame(TreeNode root, TreeNode sub){
+    	if(root==null&&sub==null){
+    		return true;
+    	}
+    	if(root==null||sub==null||root.val!=sub.val){
+    		return false;
+    	}
+    	return isSame(root.left, sub.left)&&isSame(root.right, sub.right);
+    }
+  
     
+    public boolean isSubtree(TreeNode s, TreeNode t) {
+    	if(s==null){
+    		return false;
+    	}
+    	if(isSame(s, t)){
+    		return true;
+    	}
+    	return isSubtree(s.left, t)||isSubtree(s.right, t);
+    }
     
     
 	public static void main(String[] args) {
