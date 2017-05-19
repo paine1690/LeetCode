@@ -999,6 +999,30 @@ public class BinaryTree {
     	return isSubtree(s.left, t)||isSubtree(s.right, t);
     }
     
+    //572. Subtree of Another Tree
+    void serialize(TreeNode root, StringBuilder s){
+    	if(root==null){
+    		s.append(",#");
+    		return;
+    	}
+    	s.append(","+root.val);
+    	serialize(root.left, s);    	
+    	serialize(root.right, s);
+    }
+    
+    String serialize(TreeNode root){
+    	StringBuilder s=new StringBuilder();
+    	serialize(root, s);    	
+    	return s.toString();
+    }
+    
+    public boolean isSubtree2(TreeNode s, TreeNode t) {
+    	String root=serialize(s);
+    	String sub=serialize(t);
+    	return root.contains(sub);
+    }
+    
+    
     
 	public static void main(String[] args) {
 		TreeNode n1=new TreeNode(1);
