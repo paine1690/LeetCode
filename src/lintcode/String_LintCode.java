@@ -60,8 +60,29 @@ public class String_LintCode {
         return true;
     }
 
+    //Strings Homomorphism
+    private static boolean isIsomorphic2(String s, String t) {
+        int[] a = new int[128];
+        for (int i = 0; i < s.length(); i++) {
+            char c1 = s.charAt(i);
+            char c2 = t.charAt(i);
+            if (a[c1] == 0) {
+                System.out.println(c1); 
+                a[c1] = c2;
+            } else if (a[c1] != c2) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public static boolean isIsomorphic(String s, String t) {
+        return isIsomorphic2(s, t)&&isIsomorphic2(t, s);
+    }
+    
     public static void main(String[] args) {
-        System.out.println(anagrams(new String[]{"lint","intl","inlt","code"}));
+        System.out.println(isIsomorphic("a`%ii,VEZQc_BSU%ObO5<sX81B/bOw+CNUd#Uav*P!Ax!#>hh,k#b/|>4ixFQZl+l!?bJjakbQbGglEb<g>Hf81m@A9GIvbd]qh?y__t+E(Iyv7zUEfZF{81VaM-0u?]tG=_fFR/XJ=X{-,oRpxE9u*VNYlM", 
+                                        "b`%ii-WE[Qc_BSV%OcO5<sX82B/cOw+CNVd#Vbv*P!Bx!#?hh-k#c/|?4ixFQ[l+l!?cJkbkcQcGhlEc<h?Hf82m@B9GIvcd]rh?y__t+E(Iyv7{VEf[F{82WbN/0u?]tG=_fFR/XJ=X{/-oRpxE9u*WNYlN"));
 
     }
 
