@@ -24,7 +24,7 @@ public class String_LintCode {
     }
 
     public static List<String> anagrams(String[] strs) {
-        List<String> re=new ArrayList<String>();
+        List<String> re = new ArrayList<String>();
         Map<String, List<String>> map = new HashMap<String, List<String>>();
         for (String str : strs) {
             String s = getHash(str);
@@ -41,6 +41,23 @@ public class String_LintCode {
             }
         }
         return re;
+    }
+    
+    //两个字符串是变位词
+    public boolean anagram2(String s, String t) {
+        int[] a = new int[128];
+        for (char c : s.toCharArray()) {
+            a[c]++;
+        }
+        for (char c : t.toCharArray()) {
+            a[c]--;
+        }
+        for (char c = 'a'; c <= 'z'; c++){
+            if (a[c] != 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {
