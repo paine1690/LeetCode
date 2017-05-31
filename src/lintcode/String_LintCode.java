@@ -1,6 +1,7 @@
 package lintcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,9 +81,35 @@ public class String_LintCode {
         return isIsomorphic2(s, t)&&isIsomorphic2(t, s);
     }
     
+    //Substring Anagrams
+    public static List<Integer> findAnagrams(String s, String p) {
+        List<Integer> re = new ArrayList<Integer>();
+        int[] a = new int[26];
+        int len = p.length();
+        for (int i = 0; i < p.length(); i++) {
+            a[p.charAt(i) - 'a']++;
+        }
+        
+        for (int i = 0; i < s.length(); i++) {
+            if (i >= len) {
+                a[s.charAt(i - len) - 'a']++;
+            }
+            a[s.charAt(i) - 'a']--;
+            int j = 0;
+            for (; j < a.length; j++) {
+                if (a[j] != 0) {
+                    break;
+                }
+            }
+            if (j == a.length) {
+                re.add(i - len + 1);
+            }
+        }        
+        return re;
+    }
+    
     public static void main(String[] args) {
-        System.out.println(isIsomorphic("a`%ii,VEZQc_BSU%ObO5<sX81B/bOw+CNUd#Uav*P!Ax!#>hh,k#b/|>4ixFQZl+l!?bJjakbQbGglEb<g>Hf81m@A9GIvbd]qh?y__t+E(Iyv7zUEfZF{81VaM-0u?]tG=_fFR/XJ=X{-,oRpxE9u*VNYlM", 
-                                        "b`%ii-WE[Qc_BSV%OcO5<sX82B/cOw+CNVd#Vbv*P!Bx!#?hh-k#c/|?4ixFQ[l+l!?cJkbkcQcGhlEc<h?Hf82m@B9GIvcd]rh?y__t+E(Iyv7{VEf[F{82WbN/0u?]tG=_fFR/XJ=X{/-oRpxE9u*WNYlN"));
+        System.out.println(findAnagrams("cbaebabacd", "abc"));
 
     }
 
