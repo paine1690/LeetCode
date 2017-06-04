@@ -727,8 +727,31 @@ public class Array_leetcode {
     	return re;
     }
     
+    
+    //605. Can Place Flowers    
+    public static boolean canPlaceFlowers(int[] flowerbed, int n) {
+        if (n ==0 ) {
+            return true;
+        }
+        boolean flag = true;
+        for(int i = 0; i < flowerbed.length; i++) {
+            if (flowerbed[i] == 1) {
+                if (!flag) {
+                    n++;
+                }
+                flag = false;
+            } else if (!flag) {
+                flag = true;
+            } else {
+                n--;
+                flag = false;
+            }
+        }
+        return n <= 0;
+    }
+    
 	public static void main(String[] args) {		
-		System.out.println(findPoisonedDuration(new int[]{1,3}, 9));
+		System.out.println(canPlaceFlowers(new int[]{0,1,0,0}, 2));
 		
 
 	}
