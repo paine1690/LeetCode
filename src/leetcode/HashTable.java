@@ -637,10 +637,52 @@ public class HashTable {
     	return false;
     }
     
+    //609. Find Duplicate File in System
+    private static List<String[]> process(String[] files) {
+        String path = files[0];
+        List<String[]> list = new ArrayList<String[]>();
+        for (int i = 1, j = 0; i < files.length; i++) {
+            String name = files[i];
+            for (j = 0; j < name.length(); j++) {
+                if (name.charAt(j) == '('){
+                    break;
+                }
+            }
+            list.add(new String[]{path+"/"+name.substring(0, j), name.substring(j+1, name.length() - 1)});
+        }
+        
+        return list;
+    }
     
+    
+    public static List<List<String>> findDuplicate(String[] paths) {
+        Map<String, List<String>> map = new HashMap<String, List<String>>();        
+        for (String str : paths) {
+            String[] strs = str.split(" ");            
+            List<String[]> list = process(strs);
+            for (String[] s : list) {
+                List<String> val = map.get(s[1]);
+                if (val == null) {
+                    val = new ArrayList<String>();
+                }
+                val.add(s[0]);
+                map.put(s[1], val);
+            }
+        }        
+        List<List<String>> re=new ArrayList<List<String>>();
+        
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            if (entry.getValue().size() > 1) {
+                re.add(new ArrayList<String>(entry.getValue()));
+            }
+        }
+        
+
+        return re;        
+    }
 	public static void main(String[] args) {
 //		int[] nums={5};
-		System.out.println(findMaxLength(new int[]{0,0,1,0,0,0,1,1}));		
+		System.out.println(findDuplicate(new String[]{"root/a 1.txt(abcd) 2.txt(efgh)", "root/c 3.txt(abcd)", "root/c/d 4.txt(efgh)", "root 4.txt(efgh)"}));		
 	}
 
 }
