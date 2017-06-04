@@ -1022,7 +1022,32 @@ public class BinaryTree {
     	return root.contains(sub);
     }
     
+    //606. Construct String from Binary Tree
+    private void pre(StringBuilder re, TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        re.append(root.val);
+        re.append('(');
+        pre(re, root.left);
+        re.append(')');
+      
+        if (root.right == null) {
+            if (root.left == null) {
+                re.delete(re.length()-2, re.length());
+            }
+            return;
+        }
+        re.append('(');
+        pre(re, root.right);
+        re.append(')');
+    }
     
+    public String tree2str(TreeNode t) {
+        StringBuilder re = new StringBuilder();
+        pre(re, t);
+        return re.toString();
+    }
     
 	public static void main(String[] args) {
 		TreeNode n1=new TreeNode(1);
