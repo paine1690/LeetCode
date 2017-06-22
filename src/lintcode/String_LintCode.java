@@ -109,7 +109,7 @@ public class String_LintCode {
     }
     
     public static void main(String[] args) {
-        System.out.println(findAnagrams("cbaebbacd", "abc"));
+        System.out.println(findAnagrams("cbaeb bacd", "abc"));
 
     }
 
