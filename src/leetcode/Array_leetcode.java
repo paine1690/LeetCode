@@ -750,9 +750,26 @@ public class Array_leetcode {
         return n <= 0;
     }
     
+    //645. Set Mismatch
+    public static int[] findErrorNums(int[] nums) {
+      int[] re = new int[2];  
+      int n = nums.length, sum = 0;
+      
+      for (int i = 0; i < nums.length; i++) {
+        int num = nums[i] > n? nums[i] - n : nums[i];
+        sum += num;
+        if (nums[num - 1] > n) {
+          re[0] = num;
+        } else {
+          nums[num - 1] += n;
+        }
+      }
+      int diff = (1 + n) * n / 2 - sum;
+      re[1] = re[0] + diff;      
+      return re;
+    }
+    
 	public static void main(String[] args) {		
-		System.out.println(canPlaceFlowers(new int[]{0,1,0,0}, 2));
-		
-
+		System.out.println(Arrays.toString(findErrorNums(new int[]{2,2})));
 	}
 }
