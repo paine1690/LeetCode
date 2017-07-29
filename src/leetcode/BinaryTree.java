@@ -1049,6 +1049,33 @@ public class BinaryTree {
         return re.toString();
     }
     
+    //637. Average of Levels in Binary Tree
+    public List<Double> averageOfLevels(TreeNode root) {
+      List<Double> re = new ArrayList<Double>();
+      List<TreeNode> list = new ArrayList<TreeNode>();
+      list.add(root);
+      int cur = 0, size = list.size();
+      
+      while (cur < size) {
+        double sum = 0;
+        for (int i = cur; i < size; i++) {
+          TreeNode node = list.get(i);
+          sum += node.val;
+          if (node.left != null) {
+            list.add(node.left);
+          }
+          if (node.right != null) {
+            list.add(node.right);
+          }
+        }
+        re.add(sum / (size - cur));
+        cur = size;
+        size = list.size();
+      } 
+      return re;
+    }
+    
+    
 	public static void main(String[] args) {
 		TreeNode n1=new TreeNode(1);
 		TreeNode n2=new TreeNode(2);
