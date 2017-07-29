@@ -769,7 +769,21 @@ public class Array_leetcode {
       return re;
     }
     
+    //643. Maximum Average Subarray I
+    public static double findMaxAverage(int[] nums, int k) {
+      int sum = 0;
+      for(int i = 0; i < k; i ++) {
+        sum += nums[i];
+      }
+      double re = sum;      
+      for (int i = k, j = 0; i < nums.length; i++, j++) {
+        sum += nums[i] - nums[j];
+        re = Math.max(sum, re);
+      }
+      return re / k;
+    }
+    
 	public static void main(String[] args) {		
-		System.out.println(Arrays.toString(findErrorNums(new int[]{2,2})));
+		System.out.println(findMaxAverage(new int[]{1,12,-5,-6,50,3}, 4));
 	}
 }
