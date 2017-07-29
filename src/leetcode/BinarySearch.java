@@ -616,6 +616,18 @@ public class BinarySearch {
         return false;
     }
     
+    //633. Sum of Square Numbers
+    public boolean judgeSquareSum(int c) {
+      for (long a = 0; a * a <= c; a++) {
+        int b = (int)(c - a * a);
+        double x = Math.sqrt(b);
+        if (Double.compare(x, Math.floor(x)) == 0) {
+          return true;
+        }
+      }
+      return false;
+    }
+    
     
 	public static void main(String[] args) {		
 		System.out.println(Integer.MAX_VALUE);
