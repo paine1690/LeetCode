@@ -1075,7 +1075,30 @@ public class BinaryTree {
       return re;
     }
     
+    //617. Merge Two Binary Trees
+    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
+      if (t1 == null && t2 == null) {
+        return null;
+      }
+      int sum = 0;
+      TreeNode t1l = null, t1r = null, t2l = null, t2r = null;
+      if (t1 != null) {
+        t1l = t1.left;
+        t1r = t1.right;
+        sum += t1.val;
+      }
+      if (t2 != null) {
+        t2l = t2.left;
+        t2r = t2.right;
+        sum += t2.val;
+      }
+      TreeNode root = new TreeNode(sum);
+      root.left = mergeTrees(t1l, t2l);
+      root.right = mergeTrees(t1r, t2r);     
+      return root;
+    }
     
+      
 	public static void main(String[] args) {
 		TreeNode n1=new TreeNode(1);
 		TreeNode n2=new TreeNode(2);
