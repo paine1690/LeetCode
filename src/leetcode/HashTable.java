@@ -680,6 +680,31 @@ public class HashTable {
 
         return re;        
     }
+    
+    //599. Minimum Index Sum of Two Lists
+    public String[] findRestaurant(String[] list1, String[] list2) {
+      Map<String, Integer> map = new HashMap<String, Integer>();
+      for (int i = 0; i < list1.length; i++) {
+        map.put(list1[i],  i);
+      }
+      int min = Integer.MAX_VALUE;
+      for (int i = 0; i < list2.length; i++) {
+        Integer j = map.get(list2[i]);
+        if (j != null) {
+          min = Math.min(min, i + j);
+        }
+      }
+      List<String> list = new LinkedList<String>();
+      for (int i = 0; i < list2.length; i++) {
+        Integer j = map.get(list2[i]);
+        if (j != null && (i + j) == min) {
+          list.add(list2[i]);
+        }
+      }      
+      String[] re = new String[]{};
+      return list.toArray(re);
+    }
+    
 	public static void main(String[] args) {
 //		int[] nums={5};
 		System.out.println(findDuplicate(new String[]{"root/a 1.txt(abcd) 2.txt(efgh)", "root/c 3.txt(abcd)", "root/c/d 4.txt(efgh)", "root 4.txt(efgh)"}));		
