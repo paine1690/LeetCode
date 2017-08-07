@@ -992,5 +992,60 @@ public class String_leetcode {
       return m + n - dp[m][n] * 2;
     }
     
-
+    //592. Fraction Addition and Subtraction
+    private static int gcd(int a, int b) {
+      if (a < b) {
+        return gcd(b, a);
+      }
+      while (b != 0) {
+        int temp = a % b;
+        a = b;
+        b = temp;
+      }
+      return a;
+    }
+    
+    private static void caculate(int[] num1, int[] num2) {
+      int a2 = num1[1] * num2[1];
+      int a1 = num1[0] * num2[1] + num1[1] * num2[0]; 
+      int gcd = gcd(Math.abs(a1), a2);
+      if (gcd != 0) {
+        num1[0] = a1 / gcd;
+        num1[1] = a2 / gcd;
+      }      
+      num2[0] = 0;
+      num2[1] = 0;
+    }
+    
+    public static String fractionAddition(String expression) {
+      int[] result = new int[]{0, 1};
+      int[] num = new int[]{0, 0};
+      int flag = 1, index = 0;
+      for (int i = 0; i < expression.length(); i++) {
+        char c = expression.charAt(i);
+        if (c == '+') {
+          num[0] *= flag;
+          caculate(result, num);
+          index = 0;
+          flag = 1;
+        } else if (c == '-') {
+          num[0] *= flag;
+          caculate(result, num);
+          index = 0;
+          flag = -1;
+        } else if (c == '/') {
+          index = 1;
+        } else {
+          int cur = c - '0';
+          num[index] = num[index] * 10 + cur;
+        }        
+      }
+      num[0] *= flag;
+      caculate(result, num);
+      return result[0] + "/" + result[1];
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(fractionAddition("-1/2+1/2"));
+    }
 }
